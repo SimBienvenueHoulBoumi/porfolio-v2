@@ -1,19 +1,18 @@
 # Bienvenue sur mon Portfolio 
 
-### ✨ Hello! Je suis [Votre Nom], un développeur passionné par la création d'applications web modernes et fonctionnelles.
+### ✨ Hello! Je suis Sim Bienvenue HOULBOUMI , un développeur passionné par la création d'applications web modernes et fonctionnelles.
 
 ---
 
 ## 🔧 Mes Compétences
 
 ### Backend
-- **Java & Spring Boot** : Développement d'API robustes et sécurisées
-- **Kafka** : Gestion des événements et pipelines de données
+- **Java & Spring Boot, Nestjs, Nodejs** : Développement d'API robustes et sécurisées
 - **Authentification** : JWT, encodage des mots de passe
 
 ### Frontend
 - **Next.js** : Interfaces dynamiques et performantes
-- **React & Redux** : Composants modulaires et état centralisé
+- **React** : Composants modulaires et état centralisé
 - **TailwindCSS** : Style rapide et flexible
 
 ---
@@ -44,9 +43,9 @@ Un projet passionnant réalisé avec **Next.js**, **TailwindCSS** et une bibliot
 ---
 
 ## 🖌️ Contactez-moi
-- **Email :** [votre_email@example.com](mailto:votre_email@example.com)
-- **LinkedIn :** [linkedin.com/in/votreprofil](https://linkedin.com/in/votreprofil)
-- **GitHub :** [github.com/votreprofil](https://github.com/votreprofil)
+- **Email :** [brhulla@gmail.com.com](mailto:brhulla@gmail.com@example.com)
+- **LinkedIn :** [linkedin.com/in/sim-bienvenue-houl-boumi](https://linkedin.com/in/sim-bienvenue-houl-boumi)
+
 
 ---
 
