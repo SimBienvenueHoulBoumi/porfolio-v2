@@ -6,7 +6,6 @@ import {
   FaSuitcase,
   FaEnvelope,
 } from "react-icons/fa";
-import { RiAccountCircleLine } from "react-icons/ri";
 
 interface AccueilProps {
   setActiveSection: (name: string) => void;
@@ -24,7 +23,6 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
     { name: "Éducation", icon: <FaGraduationCap /> },
     { name: "Expériences", icon: <FaSuitcase /> },
     { name: "À propos", icon: <FaEnvelope /> },
-    { name: "Contact", icon: <RiAccountCircleLine /> },
   ];
 
   return (

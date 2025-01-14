@@ -14,9 +14,7 @@ import {
   FaSuitcase,
   FaEnvelope,
 } from "react-icons/fa";
-import { RiAccountCircleLine } from "react-icons/ri";
 import CustomHeader from "@/components/CustomHeader";
-import Contact from "@/components/Contact";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState("Accueil");
@@ -33,7 +31,6 @@ const App: React.FC = () => {
     { name: "Éducation", component: <Education />, icon: <FaGraduationCap /> },
     { name: "Expériences", component: <Experiences />, icon: <FaSuitcase /> },
     { name: "À propos", component: <AboutMe />, icon: <FaEnvelope /> },
-    { name: "Contact", component: <Contact />, icon: <RiAccountCircleLine /> },
   ];
 
   return (

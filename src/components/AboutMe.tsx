@@ -1,10 +1,11 @@
 import React from "react";
+import Contact from "./Contact";
 
 function AboutMe() {
   return (
     <div className="flex flex-col items-center justify-center text-center text-white py-12 ">
       {/* Container principal */}
-      <div className="flex flex-col md:flex-row items-center justify-center w-full px-6 mb-12 ">
+      <div className="flex flex-col space-y-2 items-center justify-center w-full px-6 mb-12 ">
         {/* Bio et centres d'intérêt à droite */}
         <div className="max-w-4xl w-full text-center md:text-left bg-gray-800 p-8 rounded-md">
           <h1 className="text-xl font-bold mb-8 text-blue-400 text-left w-full">
@@ -42,6 +43,7 @@ function AboutMe() {
             </li>
           </ul>
         </div>
+      <Contact />
       </div>
     </div>
   );
