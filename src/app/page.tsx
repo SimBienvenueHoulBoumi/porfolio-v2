@@ -5,7 +5,6 @@ import { Accueil } from "@/components/Accueil";
 import { Competences } from "@/components/Competences";
 import { Education } from "@/components/Education";
 import { Experiences } from "@/components/Experiences";
-import { Contact } from "@/components/Contact";
 import AboutMe from "@/components/AboutMe";
 
 import {
@@ -17,6 +16,7 @@ import {
 } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
 import CustomHeader from "@/components/CustomHeader";
+import Contact from "@/components/Contact";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState("Accueil");

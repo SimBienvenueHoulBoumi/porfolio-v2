@@ -102,16 +102,20 @@ export const Education: React.FC = () => {
             className="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow duration-300"
           >
             {/* Icône */}
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 flex justify-center items-center bg-blue-500 text-white rounded-full shadow-md">
-                {item.icon}
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-blue-500">
-                  {item.title}
-                </h3>
-                <p className="text-md text-gray-600">{item.institution}</p>
-                <p className="text-sm text-gray-500">{item.year}</p>
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="flex flex-col w-full">
+                <div className="flex items-center space-x-2 space-y-2 mb-4">
+                  <div className="w-10 h-10 flex justify-center items-center bg-blue-500 text-white rounded-full shadow-md">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-md font-semibold text-blue-500">
+                    {item.title}
+                  </h3>
+                </div>
+                <div>
+                  <p className="text-md text-gray-600">{item.institution}</p>
+                  <p className="text-sm text-gray-500">{item.year}</p>
+                </div>
               </div>
             </div>
 

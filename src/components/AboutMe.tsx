@@ -7,10 +7,10 @@ function AboutMe() {
       <div className="flex flex-col md:flex-row items-center justify-center w-full px-6 mb-12 ">
         {/* Bio et centres d'intérêt à droite */}
         <div className="max-w-4xl w-full text-center md:text-left bg-gray-800 p-8 rounded-md">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-blue-400 text-left w-full">
+          <h1 className="text-xl font-bold mb-8 text-blue-400 text-left w-full">
             Brève présentation
           </h1>
-          <p className="text-lg md:text-xl font-light text-gray-300 mb-6">
+          <p className="text-sm font-light text-gray-300 mb-6">
             Je suis un développeur web passionné par les technologies modernes.
             Titulaire d&apos;un mastère en développement web, je cherche
             toujours à me perfectionner et à découvrir de nouvelles façons
@@ -20,10 +20,10 @@ function AboutMe() {
           </p>
 
           {/* Centres d'intérêt */}
-          <h2 className="text-2xl font-semibold text-blue-400 mb-4">
+          <h2 className="text-xl font-semibold text-blue-400 mb-4">
             Centres d&apos;intérêt
           </h2>
-          <ul className="space-y-1 text-lg font-light text-gray-300">
+          <ul className="space-y-1 text-sm font-light text-gray-300">
             <li>
               💻 Passionné par le développement web et l&apos;évolution des
               technologies modernes.

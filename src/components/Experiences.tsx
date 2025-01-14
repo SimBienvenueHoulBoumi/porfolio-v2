@@ -24,7 +24,7 @@ export const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold text-left mb-4 text-green-500">
         Mes Expériences Professionnelles
       </h1>
