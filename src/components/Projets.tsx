@@ -9,7 +9,6 @@ import {
   SiSpringboot,
 } from "react-icons/si";
 
-
 function Projets() {
   const projets = [
     {
@@ -47,7 +46,7 @@ function Projets() {
       pointsFort: [
         "Gestion complète des projets",
         "Interface utilisateur moderne et réactive",
-        "Intégration transparente entre le frontend et le backend",
+        "Intégration transparente frontend - backend",
       ],
     },
     {
