@@ -1,52 +1,64 @@
-# Bienvenue sur mon Portfolio 
+# 🌟 Bienvenue sur mon Portfolio GitHub !
 
-### ✨ Hello! Je suis Sim Bienvenue HOULBOUMI , un développeur passionné par la création d'applications web modernes et fonctionnelles.
+<div align="center">
+  <a href="https://github.com/SimBienvenueHoulBoumi">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=SimBienvenueHoulBoumi&show_icons=true&hide_border=true&theme=radical" alt="Statistiques GitHub de SimBienvenueHoulBoumi" />
+  </a>
+  <a href="https://github.com/SimBienvenueHoulBoumi">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs?username=SimBienvenueHoulBoumi&layout=compact&langs_count=6&hide_border=true&theme=radical" alt="Langages les plus utilisés par SimBienvenueHoulBoumi" />
+  </a>
+</div>
 
 ---
 
 ## 🔧 Mes Compétences
 
 ### Backend
-- **Java & Spring Boot, Nestjs, Nodejs** : Développement d'API robustes et sécurisées
-- **Authentification** : JWT, encodage des mots de passe
+- 🛠️ **Java, Spring Boot, NestJS, Node.js** : Développement d'API performantes et sécurisées
+- 🔑 **Authentification** : Gestion avancée avec JWT et encodage des mots de passe
+- ⚙️ **Kafka & Docker** : Messagerie asynchrone et conteneurisation
+- 🗃️ **Bases de données** : MySQL, PostgreSQL
 
 ### Frontend
-- **Next.js** : Interfaces dynamiques et performantes
-- **React** : Composants modulaires et état centralisé
-- **TailwindCSS** : Style rapide et flexible
+- 🎨 **Next.js** : Framework pour des applications web modernes
+- ⚛️ **React** : Développement de composants modulaires
+- 🖌️ **TailwindCSS** : Design rapide et flexible
+- 📜 **TypeScript** : Typage pour un développement robuste
 
 ---
 
 ## 🚀 Mes Projets
 
-### **Wish Maker**  
-[Visitez l'application](https://wish-maker.vercel.app/)  
-Un projet passionnant réalisé avec **Next.js**, **TailwindCSS** et une bibliothèque React pour un effet de neige magique !
+### **[Wish Maker](https://wish-maker.vercel.app/)**
+Une application web inspirante réalisée avec **Next.js**, **TailwindCSS** et une bibliothèque React pour un **effet de neige** magique !
 
 #### ⚡ Points Forts :
-- Interface utilisateur intuitive
-- Design moderne et accueillant
-- Fonctionnalités dynamiques
+- ✅ Interface utilisateur moderne et intuitive
+- ❄️ Expérience immersive avec effets interactifs
+- 🚀 Fonctionnalités dynamiques
 
-### Autres Projets :
-- **Application de Todo List** : Gestion efficace des tâches avec des interfaces fluides.
-- **Système de Supervision des Données** : Paramétrisation et suivi en temps réel.
+---
+
+### **Autres Projets**
+- 📝 **Application Todo List** : Gestion efficace des tâches avec une interface utilisateur fluide.
+- 📊 **Système de supervision des données** : Paramétrisation et suivi en temps réel.
 
 ---
 
 ## 🌿 À Propos de Moi
-- **Formation :** Master en informatique 🎓
-- **Expérience Professionnelle :**
-  - 2 ans d'alternance à la SNCF, React & Node.
-- **Philosophie de Développement :** Modularité, propreté du code et accessibilité.
+
+- 🎓 **Formation :** Master en Informatique
+- 💻 **Expérience Professionnelle :**
+  - 2 ans d'alternance chez **SNCF** : Développement avec **React** et **Node.js**.
+- 🌟 **Philosophie de Développement :** Modularité, propreté du code, et accessibilité.
 
 ---
 
-## 🖌️ Contactez-moi
-- **Email :** [brhulla@gmail.com.com](mailto:brhulla@gmail.com@example.com)
-- **LinkedIn :** [linkedin.com/in/sim-bienvenue-houl-boumi](https://linkedin.com/in/sim-bienvenue-houl-boumi)
+## 🖌️ Contactez-moi !
 
+- **Email :** [brhulla@gmail.com](mailto:brhulla@gmail.com)
+- **LinkedIn :** [SimBienvenueHoulBoumi](https://linkedin.com/in/sim-bienvenue-houl-boumi)
 
 ---
 
-Merci d’avoir visité mon portfolio ! J’ai hâte de collaborer avec vous. 🌟
+✨ **Merci d'avoir visité mon portfolio !** J'espère avoir l'opportunité de collaborer avec vous. 🌟
