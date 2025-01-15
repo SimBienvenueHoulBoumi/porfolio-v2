@@ -24,16 +24,8 @@ export const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold text-left mb-4 text-green-500">
-        Mes Expériences Professionnelles
-      </h1>
-      <p className="text-left text-lg mb-6 text-gray-600">
-        Découvrez les projets et missions qui ont forgé mes compétences en tant
-        que développeur.
-      </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="container mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {experiences.map((experience, index) => (
           <div
             key={index}

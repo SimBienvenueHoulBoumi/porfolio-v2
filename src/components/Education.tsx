@@ -45,7 +45,7 @@ export const Education: React.FC = () => {
           </p>
           <ul className="list-disc pl-5 mt-2 text-gray-600">
             <li>
-              Maîtrise des frameworks : React, Next.js, Angular, Node.js,
+              Maîtrise des frameworks : React, Next.js, Angular,
               NestJS, Spring Boot
             </li>
             <li>Compétence en conteneurisation et CI/CD (Docker)</li>
@@ -91,10 +91,7 @@ export const Education: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-semibold text-left mb-8 ">
-        Diplômes et Formations
-      </h2>
+    <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {educationData.map((item, index) => (
           <div

@@ -23,7 +23,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
     <nav className="fixed top-0 left-0 w-full bg-gray-800 text-white py-4 shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center text-md w-full">
         {/* Logo ou Nom */}
-        <div className="text-lg sm:text-xl md:text-2xl font-semibold uppercase mx-6">
+        <div className="text-lg sm:text-xl md:text-2xl font-semibold uppercase">
           SimDev
         </div>
 
