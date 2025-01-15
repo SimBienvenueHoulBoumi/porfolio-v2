@@ -13,8 +13,10 @@ import {
   FaGraduationCap,
   FaSuitcase,
   FaEnvelope,
+  FaSatellite,
 } from "react-icons/fa";
 import CustomHeader from "@/components/CustomHeader";
+import Projets from "@/components/Projets";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState("Accueil");
@@ -30,6 +32,7 @@ const App: React.FC = () => {
     { name: "Compétences", component: <Competences />, icon: <FaCogs /> },
     { name: "Éducation", component: <Education />, icon: <FaGraduationCap /> },
     { name: "Expériences", component: <Experiences />, icon: <FaSuitcase /> },
+    { name: "Projets", component: <Projets />, icon: <FaSatellite /> },
     { name: "À propos", component: <AboutMe />, icon: <FaEnvelope /> },
   ];
 

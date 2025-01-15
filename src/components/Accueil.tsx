@@ -5,6 +5,7 @@ import {
   FaGraduationCap,
   FaSuitcase,
   FaEnvelope,
+  FaSatellite
 } from "react-icons/fa";
 
 interface AccueilProps {
@@ -23,6 +24,7 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
     { name: "Éducation", icon: <FaGraduationCap /> },
     { name: "Expériences", icon: <FaSuitcase /> },
     { name: "À propos", icon: <FaEnvelope /> },
+    { name: "Projets", icon: <FaSatellite /> },
   ];
 
   return (
