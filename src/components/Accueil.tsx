@@ -1,7 +1,6 @@
 import React from "react";
 import TypewriterEffect from "./TypewriterEffect";
 import {
-  FaCogs,
   FaGraduationCap,
   FaSuitcase,
   FaEnvelope,
@@ -20,7 +19,6 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
   ];
 
   const sections = [
-    { name: "Compétences", icon: <FaCogs /> },
     { name: "Éducation", icon: <FaGraduationCap /> },
     { name: "Expériences", icon: <FaSuitcase /> },
     { name: "À propos", icon: <FaEnvelope /> },
@@ -36,7 +34,7 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
       </div>
 
       {/* Corps centré */}
-      <div className="flex m-4 flex-col items-center text-center bg-opacity-80 bg-gradient-to-tr from-gray-800 via-gray-900 to-black p-8 rounded-2xl shadow-2xl border border-gray-700">
+      <div className="flex flex-col items-center text-center bg-opacity-80 bg-gradient-to-tr from-gray-800 via-gray-900 to-black p-8 rounded-2xl shadow-2xl border border-gray-700">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-[2rem] md:text-[3rem] font-bold mb-4 text-white glow-text">
             Sim B.H.B.
@@ -51,11 +49,10 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
           {sections.map((section) => (
             <button
               key={section.name}
-              className="flex items-center gap-1 p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white hover:scale-105 transform transition-all shadow-md hover:shadow-lg hover:shadow-purple-500/50"
+              className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white hover:scale-105 transform transition-all shadow-md hover:shadow-lg hover:shadow-purple-500/50"
               onClick={() => setActiveSection(section.name)}
             >
-              <div className="text-xl">{section.icon}</div>
-              <span>{section.name}</span>
+              {section.icon} {section.name}
             </button>
           ))}
         </div>

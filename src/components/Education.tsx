@@ -96,7 +96,7 @@ export const Education: React.FC = () => {
         {educationData.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+            className="bg-white rounded-lg shadow-lg p-6 border max-[480px]-min border-gray-200 hover:shadow-xl transition-shadow duration-300"
           >
             {/* Icône */}
             <div className="flex items-center space-x-3 mb-2">

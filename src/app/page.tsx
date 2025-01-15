@@ -5,6 +5,7 @@ import { Accueil } from "@/components/Accueil";
 import { Education } from "@/components/Education";
 import { Experiences } from "@/components/Experiences";
 import AboutMe from "@/components/AboutMe";
+import Projets from "@/components/Projets";
 
 import {
   FaHome,
@@ -13,8 +14,8 @@ import {
   FaEnvelope,
   FaSatellite,
 } from "react-icons/fa";
+
 import CustomHeader from "@/components/CustomHeader";
-import Projets from "@/components/Projets";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState("Accueil");
@@ -27,14 +28,30 @@ const App: React.FC = () => {
       component: <Accueil setActiveSection={setActiveSection} />,
       icon: <FaHome />,
     },
-    { name: "Éducation", component: <Education />, icon: <FaGraduationCap /> },
-    { name: "Expériences", component: <Experiences />, icon: <FaSuitcase /> },
-    { name: "Projets", component: <Projets />, icon: <FaSatellite /> },
-    { name: "À propos", component: <AboutMe />, icon: <FaEnvelope /> },
+    {
+      name: "Éducation",
+      component: <Education />,
+      icon: <FaGraduationCap />,
+    },
+    {
+      name: "Expériences",
+      component: <Experiences />,
+      icon: <FaSuitcase />,
+    },
+    {
+      name: "Projets",
+      component: <Projets />,
+      icon: <FaSatellite />,
+    },
+    {
+      name: "À propos",
+      component: <AboutMe />,
+      icon: <FaEnvelope />,
+    },
   ];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       {/* Barre de navigation */}
       {!isAccueil && (
         <CustomHeader
@@ -47,7 +64,9 @@ const App: React.FC = () => {
       {/* Section active */}
       <div
         className={`${
-          isAccueil ? "h-screen w-auto flex items-center justify-center" : "pt-24"
+          isAccueil
+            ? "h-screen flex items-center justify-center"
+            : "pt-20"
         } w-full flex-1`}
       >
         {sections.find((section) => section.name === activeSection)?.component}

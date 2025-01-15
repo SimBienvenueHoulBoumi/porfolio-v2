@@ -29,7 +29,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
 
         {/* Bouton hamburger */}
         <button
-          className="md:hidden text-white z-20 mx-6"
+          className="md:hidden text-white z-20"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -48,14 +48,22 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
                 activeSection === section.name
                   ? "text-blue-400"
                   : "hover:text-blue-400 transition-colors"
-              } text-left w-full md:w-auto md:flex items-center py-2`}
+              } flex items-center justify-center py-2 px-4`}
               onClick={() => {
                 setActiveSection(section.name);
                 setIsMenuOpen(false);
               }}
             >
-              <div className="flex items-center space-x-2">
-                <div>{section.icon}</div>
+              {/* Affiche le contenu en fonction de la taille de l'écran */}
+              <div className="flex items-center gap-2 md:hidden">
+                <div className="text-xl">{section.icon}</div>
+                <span>{section.name}</span>
+              </div>
+              <div className="hidden md:block lg:hidden">
+                <span>{section.name}</span>
+              </div>
+              <div className="hidden lg:flex items-center gap-2">
+                <div className="text-xl">{section.icon}</div>
                 <span>{section.name}</span>
               </div>
             </button>

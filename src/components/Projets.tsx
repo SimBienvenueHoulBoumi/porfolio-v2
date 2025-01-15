@@ -75,12 +75,12 @@ function Projets() {
 
   return (
     <>
-      <div className="grid px-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid px-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projets.map((projet, index) => (
           <div
             key={index}
             className="bg-white shadow-md rounded-lg p-6"
-            style={{ animation: "swipeIn 0.5s ease-out" }} // Add animation for each project card
+            style={{ animation: "swipeIn 0.5s ease-out" }}
           >
             <h3 className="text-xl uppercase font-semibold text-blue-500 mb-2">
               {projet.titre}
