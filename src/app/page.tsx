@@ -2,14 +2,12 @@
 
 import React, { useState } from "react";
 import { Accueil } from "@/components/Accueil";
-import { Competences } from "@/components/Competences";
 import { Education } from "@/components/Education";
 import { Experiences } from "@/components/Experiences";
 import AboutMe from "@/components/AboutMe";
 
 import {
   FaHome,
-  FaCogs,
   FaGraduationCap,
   FaSuitcase,
   FaEnvelope,
@@ -29,7 +27,6 @@ const App: React.FC = () => {
       component: <Accueil setActiveSection={setActiveSection} />,
       icon: <FaHome />,
     },
-    { name: "Compétences", component: <Competences />, icon: <FaCogs /> },
     { name: "Éducation", component: <Education />, icon: <FaGraduationCap /> },
     { name: "Expériences", component: <Experiences />, icon: <FaSuitcase /> },
     { name: "Projets", component: <Projets />, icon: <FaSatellite /> },
