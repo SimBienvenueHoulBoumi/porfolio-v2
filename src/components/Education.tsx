@@ -4,34 +4,34 @@ import { FaGraduationCap, FaLaptopCode } from "react-icons/fa";
 export const Education: React.FC = () => {
   const educationData = [
     {
-      title: "ETNA Paris",
-      institution: "Piscine Intensive",
+      title: "Piscine Intensive",
+      institution: "ETNA Campus Paris",
       year: "2023 - 2024",
       description: (
         <>
-          <p>
+          <p className="text-gray-600 text-xs">
             Formation axée sur le développement technique en{" "}
-            <strong>Java</strong>, <strong>Python</strong> et{" "}
-            <strong>Javascript/TypeScript</strong>.
+            <strong>Java</strong>, <strong>Python</strong>, et{" "}
+            <strong>JavaScript/TypeScript</strong>.
           </p>
-          <ul className="list-disc pl-5 mt-2 text-gray-600">
+          <ul className="list-disc pl-5 mt-3 space-y-1 text-gray-600 text-xs">
             <li>Conception d&apos;API avec Node.js, NestJS et Spring Boot</li>
             <li>Frameworks : Django, React, Vue.js, Flutter</li>
             <li>
               Gestion de projets sous pression et approche pluridisciplinaire
             </li>
           </ul>
-          <p className="mt-4 text-gray-700">
-            <strong>Cours pertinents :</strong>
+          <p className="mt-4 text-gray-700 font-semibold">
+            Cours pertinents :
           </p>
-          <ul className="list-disc pl-5 mt-2 text-gray-600">
+          <ul className="list-disc pl-5 mt-2 space-y-1 text-gray-600 text-xs">
             <li>Algorithmique avancée et optimisation</li>
             <li>Systèmes distribués</li>
             <li>Conception et intégration d&apos;API RESTful</li>
           </ul>
         </>
       ),
-      icon: <FaLaptopCode />,
+      icon: <FaLaptopCode className="text-white text-lg md:text-xl" />,
     },
     {
       title: "Mastère Développement Web",
@@ -39,30 +39,30 @@ export const Education: React.FC = () => {
       year: "2021 - 2024",
       description: (
         <>
-          <p>
+          <p className="text-gray-600 text-xs">
             Formation axée sur le travail d&apos;équipe et la gestion de projets
             avec :
           </p>
-          <ul className="list-disc pl-5 mt-2 text-gray-600">
+          <ul className="list-disc pl-5 mt-3 space-y-2 text-gray-600 text-xs">
             <li>
-              Maîtrise des frameworks : React, Next.js, Angular,
-              NestJS, Spring Boot
+              Maîtrise des frameworks : React, Next.js, Angular, NestJS, Spring
+              Boot
             </li>
             <li>Compétence en conteneurisation et CI/CD (Docker)</li>
             <li>Apprentissage rapide de nouvelles technologies</li>
             <li>Coordination Back/Front</li>
           </ul>
-          <p className="mt-4 text-gray-700">
-            <strong>Cours pertinents :</strong>
+          <p className="mt-4 text-gray-700 font-semibold">
+            Cours pertinents :
           </p>
-          <ul className="list-disc pl-5 mt-2 text-gray-600">
+          <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-600 text-xs">
             <li>DevOps : Docker, Kubernetes et CI/CD</li>
             <li>Gestion et architecture des bases de données avancées</li>
             <li>Sécurité des applications web</li>
           </ul>
         </>
       ),
-      icon: <FaGraduationCap />,
+      icon: <FaGraduationCap className="text-white text-lg md:text-xl" />,
     },
     {
       title: "Licence ASR (Systèmes et Réseaux)",
@@ -70,54 +70,47 @@ export const Education: React.FC = () => {
       year: "2015 - 2018",
       description: (
         <>
-          <p>Formation orientée pratique, centrée sur :</p>
-          <ul className="list-disc pl-5 mt-2 text-gray-600">
+          <p className="text-gray-600 text-xs">
+            Formation orientée pratique, centrée sur :
+          </p>
+          <ul className="list-disc pl-5 mt-3 space-y-2 text-gray-600 text-xs">
             <li>Langages : C, C++, Java</li>
             <li>Virtualisation des systèmes et administration réseau</li>
             <li>Configuration des équipements (routeurs/switchs)</li>
           </ul>
-          <p className="mt-4 text-gray-700">
-            <strong>Cours pertinents :</strong>
+          <p className="mt-4 text-gray-700 font-semibold">
+            Cours pertinents :
           </p>
-          <ul className="list-disc pl-5 mt-2 text-gray-600">
+          <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-600 text-xs">
             <li>Principes d&apos;administration réseau et protocoles</li>
             <li>Conception des réseaux locaux et étendus</li>
             <li>Sécurité des réseaux : Firewall et VPN</li>
           </ul>
         </>
       ),
-      icon: <FaGraduationCap />,
+      icon: <FaGraduationCap className="text-white text-lg md:text-xl" />,
     },
   ];
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="container mx-auto py-10 px-4 lg:px-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {educationData.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-lg p-6 border max-[480px]-min border-gray-200 hover:shadow-xl transition-shadow duration-300"
+            className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl hover:border-teal-400 transition-all duration-300 max-w-xs mx-auto"
           >
-            {/* Icône */}
-            <div className="flex items-center space-x-3 mb-2">
-              <div className="flex flex-col w-full">
-                <div className="flex items-center space-x-2 space-y-2 mb-4">
-                  <div className="w-10 h-10 flex justify-center items-center bg-blue-500 text-white rounded-full shadow-md">
-                    {item.icon}
-                  </div>
-                  <h3 className="text-md font-semibold text-blue-500">
-                    {item.title}
-                  </h3>
-                </div>
-                <div>
-                  <p className="text-md text-gray-600">{item.institution}</p>
-                  <p className="text-sm text-gray-500">{item.year}</p>
-                </div>
-              </div>
+            <div className="w-12 h-12 flex justify-center items-center bg-blue-500 rounded-full mb-4">
+              {item.icon}
             </div>
-
-            {/* Description */}
-            <div className="text-sm text-gray-700">{item.description}</div>
+            <h3 className="text-center font-bold text-gray-800 hover:text-teal-500 transition duration-200">
+              {item.title}
+            </h3>
+            <p className="text-center text-xs text-gray-600">
+              {item.institution}
+            </p>
+            <p className="text-center text-gray-500 mb-4">{item.year}</p>
+            <div className="text-gray-700">{item.description}</div>
           </div>
         ))}
       </div>

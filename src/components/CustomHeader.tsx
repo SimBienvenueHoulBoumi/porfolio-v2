@@ -55,15 +55,15 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
               }}
             >
               {/* Affiche le contenu en fonction de la taille de l'écran */}
-              <div className="flex items-center gap-2 md:hidden">
-                <div className="text-xl">{section.icon}</div>
+              <div className="flex items-center gap-2 md:hidden text-xs">
+                <div>{section.icon}</div>
                 <span>{section.name}</span>
               </div>
               <div className="hidden md:block lg:hidden">
                 <span>{section.name}</span>
               </div>
               <div className="hidden lg:flex items-center gap-2">
-                <div className="text-xl">{section.icon}</div>
+                <div>{section.icon}</div>
                 <span>{section.name}</span>
               </div>
             </button>

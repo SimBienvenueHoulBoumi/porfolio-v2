@@ -66,7 +66,7 @@ const App: React.FC = () => {
         className={`${
           isAccueil
             ? "h-screen flex items-center justify-center"
-            : "pt-20"
+            : "pt-16"
         } w-full flex-1`}
       >
         {sections.find((section) => section.name === activeSection)?.component}

@@ -8,8 +8,8 @@ export const Experiences: React.FC = () => {
       company: "SNCF VOYAGEURS - DSI",
       year: "2021 - 2023",
       description:
-        "Contribué à la création et à la maintenance d'applications Nextjs pour la gestion interne et suivi des infrastructures. Collaboration avec des équipes pluridisciplinaires dans un environnement agile.",
-      technologies: ["Nextjs", "Node.js", "Git"],
+        "Contribué à la création et à la maintenance d'applications Next.js pour la gestion interne et suivi des infrastructures. Collaboration avec des équipes pluridisciplinaires dans un environnement agile.",
+      technologies: ["Next.js", "Node.js", "Git"],
       icon: <SiNextdotjs />,
     },
     {
@@ -24,25 +24,25 @@ export const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+    <div className="container mx-auto py-10 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {experiences.map((experience, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-lg shadow-md"
+            className="flex flex-col items-center bg-gradient-to-br from-gray-50 to-gray-100 p-6 max-w-sm mx-auto rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
-            <div
-              className={`text-5xl mb-4 text-green-500 transition-transform duration-300 ease-in-out`}
-            >
+            <div className="text-5xl mb-4 text-green-500 transition-transform duration-300 ease-in-out">
               {experience.icon}
             </div>
-            <h3 className="text-xl text-center font-semibold mb-2 text-gray-800">
+            <h3 className="text-xs text-center font-semibold mb-2 text-gray-800">
               {experience.title}
             </h3>
-            <p className="text-sm text-center font-medium text-gray-600 w-full italic">
+            <p className="text-xs text-center font-medium text-gray-600 italic">
               {experience.company} • {experience.year}
             </p>
-            <p className="text-sm text-center text-gray-600 mt-4">{experience.description}</p>
+            <p className="text-xs text-center text-gray-600 mt-4">
+              {experience.description}
+            </p>
             <div className="flex w-full flex-wrap justify-center gap-2 mt-4">
               {experience.technologies.map((tech, i) => (
                 <span
