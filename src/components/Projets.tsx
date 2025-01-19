@@ -7,6 +7,7 @@ import {
   SiReact,
   SiJsonwebtokens,
   SiSpringboot,
+  SiChartdotjs,
 } from "react-icons/si";
 
 function Projets() {
@@ -68,6 +69,28 @@ function Projets() {
         "Gestion des utilisateurs",
         "Mise en place de middleware",
         "Gestion des interactions entre les models",
+      ],
+    },
+    {
+      titre: "ChartJS User Stats",
+      description:
+        "Un tableau de bord interactif avec des graphiques dynamiques et des données personnalisées, basé sur Chart.js.",
+      technologies: [
+        { name: "Next.js", icon: <SiNextdotjs className="text-gray-800" /> },
+        {
+          name: "TailwindCSS",
+          icon: <SiTailwindcss className="text-teal-400" />,
+        },
+        {
+          name: "Chart.js",
+          icon: <SiChartdotjs className="text-orange-400" />,
+        },
+      ],
+      url: "https://chartjs-use.vercel.app/",
+      pointsFort: [
+        "Graphiques dynamiques interactifs",
+        "Flexibilité dans la visualisation des données",
+        "Interface moderne et épurée",
       ],
     },
   ];

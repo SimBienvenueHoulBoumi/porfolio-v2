@@ -4,7 +4,7 @@ import {
   FaGraduationCap,
   FaSuitcase,
   FaEnvelope,
-  FaSatellite
+  FaSatellite,
 } from "react-icons/fa";
 
 interface AccueilProps {
@@ -36,7 +36,9 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
       {/* Corps centré */}
       <div className="flex flex-col items-center text-center bg-opacity-80 bg-gradient-to-tr from-gray-800 via-gray-900 to-black p-8 rounded-2xl shadow-2xl border border-gray-700">
         <div className="flex flex-col items-center mb-8">
-          <h1 className="text-[2rem] md:text-[3rem] font-bold mb-4 text-white glow-text">
+          <h1
+            className={`text-[2rem] md:text-[3rem] font-bold mb-4 text-white glow-text`}
+          >
             Sim B.H.B.
           </h1>
           <div className="w-full text-lg text-gray-300">
