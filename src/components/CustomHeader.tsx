@@ -24,15 +24,17 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
     <nav className="fixed top-0 left-0 w-full bg-gray-500 text-white py-2 shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center px-4">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
           <Image
-            src="/pictures/logo.png"
+            src="/pictures/simdev-logo.png"
             alt="Logo"
             width={40}
             height={40}
             priority
           />
-          <div className="text-lg sm:text-xl font-semibold uppercase">
+          <div
+            className={`text-lg text-black sm:text-xl font-semibold uppercase`}
+          >
             SimDev
           </div>
         </div>

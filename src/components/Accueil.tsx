@@ -1,11 +1,15 @@
 import React from "react";
 import TypewriterEffect from "./TypewriterEffect";
+import Image from "next/image";
 import {
   FaGraduationCap,
   FaSuitcase,
   FaEnvelope,
   FaSatellite,
 } from "react-icons/fa";
+import localFont from "next/font/local";
+
+const myFont = localFont({ src: "../app/fonts/LInternationale.ttf" });
 
 interface AccueilProps {
   setActiveSection: (name: string) => void;
@@ -34,11 +38,21 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
       </div>
 
       {/* Corps centré */}
-      <div className="flex flex-col items-center text-center bg-opacity-80 bg-gradient-to-tr from-gray-800 via-gray-900 to-black p-8 rounded-2xl shadow-2xl border border-gray-700">
-        <div className="flex flex-col items-center mb-8">
-          <h1
-            className={`text-[2rem] md:text-[3rem] font-bold mb-4 text-white glow-text`}
-          >
+      <div className="flex flex-col items-center text-center bg-opacity-80 bg-gradient-to-tr from-gray-800 via-gray-900 to-black p-8 rounded-2xl shadow-2xl border border-gray-700 relative">
+        {/* Image en haut qui coupe le cadre */}
+        <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 -translate-y-12 mb-6">
+          <Image
+            src="/pictures/simdev-logo.png"
+            alt="Logo"
+            width={200}  // Adjust width and height as needed
+            height={200}
+            className="rounded-sm" // Added border for better visibility, optional
+          />
+        </div>
+
+        {/* Titre et effet Typewriter */}
+        <div className="flex flex-col items-center mb-8 mt-10"> {/* Adjusted margin-top to compensate for image */}
+          <h1 className={`${myFont.className} text-[2rem] md:text-[3rem] font-bold mb-4 text-white glow-text`}>
             Sim B.H.B.
           </h1>
           <div className="w-full text-lg text-gray-300">
