@@ -28,6 +28,7 @@ const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
   const [index, setIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isBlinking, setIsBlinking] = useState(true);
 
   useEffect(() => {
     if (isDeleting) {
@@ -64,9 +65,24 @@ const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
     }
   }, [charIndex, isDeleting, index, texts, typeSpeed, deleteSpeed, pauseSpeed]);
 
+  // Gérer le clignotement du curseur
+  useEffect(() => {
+    const cursorBlinkInterval = setInterval(() => {
+      setIsBlinking((prev) => !prev);
+    }, 500); // Le curseur clignote toutes les 500ms
+
+    return () => clearInterval(cursorBlinkInterval);
+  }, []);
+
   return (
     <span className="text-blue-500">
       <span className="border-b-2 pb-1 border-blue-500">{text}</span>
+      <span
+        className={`inline-block ${isBlinking ? "opacity-100" : "opacity-0"} border-r-2 border-blue-500`}
+        style={{ transition: "opacity 0.3s ease-in-out" }}
+      >
+        {/* Curseur clignotant */}
+      </span>
     </span>
   );
 };
