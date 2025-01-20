@@ -101,129 +101,97 @@ function Projets() {
       : projets.filter((projet) => projet.type === filter);
 
   return (
-    <div className="flex min-h-screen flex-col space-y-2">
-      {/* Barre de filtres avec boutons radio stylisés */}
-      <div className="flex justify-start items-center space-x-8 pt-4">
-        <div className="flex items-center space-x-4">
-          <label
-            className={`cursor-pointer transition duration-200 ease-in-out ${
-              filter === "all" ? "text-teal-400" : "text-gray-500"
-            }`}
-          >
-            <input
-              type="radio"
-              name="filter"
-              value="all"
-              checked={filter === "all"}
-              onChange={() => setFilter("all")}
-              className="hidden"
-            />
-            <span className="relative inline-block pl-8">
-              <span className="absolute left-0 top-0 transform scale-0 transition-all duration-300 ease-in-out group-hover:scale-100">
-                <span className="w-3 h-3 bg-teal-400 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-              </span>
-              Tous les projets
-            </span>
-          </label>
-
-          <label
-            className={`cursor-pointer transition duration-200 ease-in-out ${
-              filter === "frontend" ? "text-teal-400" : "text-gray-500"
-            }`}
-          >
-            <input
-              type="radio"
-              name="filter"
-              value="frontend"
-              checked={filter === "frontend"}
-              onChange={() => setFilter("frontend")}
-              className="hidden"
-            />
-            <span className="relative inline-block pl-8">
-              <span className="absolute left-0 top-0 transform scale-0 transition-all duration-300 ease-in-out group-hover:scale-100">
-                <span className="w-3 h-3 bg-teal-400 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-              </span>
-              Frontend
-            </span>
-          </label>
-
-          <label
-            className={`cursor-pointer transition duration-200 ease-in-out ${
-              filter === "backend" ? "text-teal-400" : "text-gray-500"
-            }`}
-          >
-            <input
-              type="radio"
-              name="filter"
-              value="backend"
-              checked={filter === "backend"}
-              onChange={() => setFilter("backend")}
-              className="hidden"
-            />
-            <span className="relative inline-block pl-8">
-              <span className="absolute left-0 top-0 transform scale-0 transition-all duration-300 ease-in-out group-hover:scale-100">
-                <span className="w-3 h-3 bg-teal-400 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-              </span>
-              Backend
-            </span>
-          </label>
-        </div>
+    <div className="flex flex-col items-center space-y-2 p-6 min-h-screen">
+      {/* Barre de filtres */}
+      <div className="flex justify-start items-center max-w-screen-xl w-full space-x-4 mb-6 px-3">
+        <label
+          className={`cursor-pointer ${
+            filter === "all" ? "text-teal-500" : "text-gray-600"
+          }`}
+        >
+          <input
+            type="radio"
+            value="all"
+            checked={filter === "all"}
+            onChange={() => setFilter("all")}
+            className="hidden"
+          />
+          Tous les projets
+        </label>
+        <label
+          className={`cursor-pointer ${
+            filter === "frontend" ? "text-teal-500" : "text-gray-600"
+          }`}
+        >
+          <input
+            type="radio"
+            value="frontend"
+            checked={filter === "frontend"}
+            onChange={() => setFilter("frontend")}
+            className="hidden"
+          />
+          Frontend
+        </label>
+        <label
+          className={`cursor-pointer ${
+            filter === "backend" ? "text-teal-500" : "text-gray-600"
+          }`}
+        >
+          <input
+            type="radio"
+            value="backend"
+            checked={filter === "backend"}
+            onChange={() => setFilter("backend")}
+            className="hidden"
+          />
+          Backend
+        </label>
       </div>
 
-      {/* Liste des projets filtrée */}
-      <div className="flex-1 px-8 bg-gray-100">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-          {filteredProjets.map((projet, index) => (
-            <div
-              key={index}
-              className="group relative bg-white rounded-xl shadow-xl overflow-hidden hover:shadow-2xl"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-200 to-blue-100 opacity-30 z-0 transition-all group-hover:opacity-50"></div>
-
-              <div className="p-6 relative z-10">
-                <h3 className="text-xl sm:text-lg font-bold text-gray-800 mb-4 hover:text-teal-500 transition duration-200 ease-in-out">
-                  {projet.titre}
-                </h3>
-                <p className="text-gray-700 text-xs mb-6">
-                  {projet.description}
-                </p>
-
-                <div className="flex flex-wrap gap-4 mb-6 text-sm sm:text-xs">
-                  {projet.technologies.map((tech, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center space-x-2 font-medium text-gray-700"
-                    >
-                      {tech.icon}
-                      <span>{tech.name}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {projet.pointsFort && (
-                  <ul className="list-none space-y-2 mb-6 text-sm sm:text-xs">
-                    {projet.pointsFort.map((point, idx) => (
-                      <li key={idx} className="flex items-center text-gray-700">
-                        <FiCheckCircle className="text-teal-500 mr-2" />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {projet.url && (
-                  <Link
-                    href={projet.url}
-                    className="inline-flex items-center text-teal-600 font-semibold group-hover:text-teal-800 transition-colors duration-300 ease-in-out"
+      {/* Liste des projets */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-start max-w-screen-xl w-full px-0">
+        {filteredProjets.map((projet, index) => (
+          <div
+            key={index}
+            className="group bg-white rounded-lg shadow-md max-w-sm mx-auto w-full hover:shadow-lg transition-transform transform hover:scale-105"
+          >
+            {/* Carte projet */}
+            <div className="p-4">
+              <h3 className="text-lg font-bold text-gray-800">
+                {projet.titre}
+              </h3>
+              <p className="text-sm text-gray-600 my-2">{projet.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {projet.technologies.map((tech, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center text-sm space-x-2"
                   >
-                    Voir le projet
-                    <FaExternalLinkAlt className="ml-2" />
-                  </Link>
-                )}
+                    {tech.icon}
+                    <span>{tech.name}</span>
+                  </div>
+                ))}
               </div>
+              <ul className="list-disc list-inside mt-4 text-gray-600 space-y-1">
+                {projet.pointsFort.map((point, idx) => (
+                  <li key={idx} className="text-xs flex items-center space-x-2">
+                    <FiCheckCircle className="text-teal-500" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              {projet.url && (
+                <Link
+                  href={projet.url}
+                  className="mt-4 inline-flex items-center text-teal-600 text-sm hover:underline"
+                >
+                  Voir le projet
+                  <FaExternalLinkAlt className="ml-2" />
+                </Link>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

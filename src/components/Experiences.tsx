@@ -24,26 +24,35 @@ export const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto py-10 px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex flex-col items-center space-y-2 p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-start max-w-screen-xl w-full px-0 py-4">
         {experiences.map((experience, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-gradient-to-br from-gray-50 to-gray-100 p-6 max-w-sm mx-auto rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            className="flex flex-col items-start bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
+            {/* Icône */}
             <div className="text-5xl mb-4 text-green-500 transition-transform duration-300 ease-in-out">
               {experience.icon}
             </div>
-            <h3 className="text-xs text-center font-semibold mb-2 text-gray-800">
+
+            {/* Titre */}
+            <h3 className="text-sm font-semibold mb-2 text-gray-800">
               {experience.title}
             </h3>
-            <p className="text-xs text-center font-medium text-gray-600 italic">
+
+            {/* Informations de l'entreprise */}
+            <p className="text-xs font-medium text-gray-600 italic">
               {experience.company} • {experience.year}
             </p>
-            <p className="text-xs text-center text-gray-600 mt-4">
+
+            {/* Description */}
+            <p className="text-xs text-gray-600 mt-4">
               {experience.description}
             </p>
-            <div className="flex w-full flex-wrap justify-center gap-2 mt-4">
+
+            {/* Technologies */}
+            <div className="flex w-full flex-wrap gap-2 mt-4">
               {experience.technologies.map((tech, i) => (
                 <span
                   key={i}

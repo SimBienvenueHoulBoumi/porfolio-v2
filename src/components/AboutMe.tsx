@@ -3,15 +3,15 @@ import Contact from "./Contact";
 
 function AboutMe() {
   return (
-    <div className="flex flex-col items-center justify-center text-center text-white py-8 px-4">
+    <div className="flex flex-col items-center justify-center text-center py-8 px-4">
       {/* Container principal */}
       <div className="flex flex-col items-center w-full space-y-8">
         {/* Section Bio */}
-        <div className="max-w-4xl w-full bg-gray-800 p-6 sm:p-8 rounded-md shadow-lg">
-          <h1 className="text-xl sm:text-2xl text-center font-bold mb-6 text-blue-400">
+        <div className="max-w-4xl w-full bg-white p-6 sm:p-8 rounded-md shadow-lg">
+          <h1 className="text-md sm:text-xl text-center font-bold text-blue-400">
             Brève présentation
           </h1>
-          <p className="text-xs sm:text-sm font-light text-gray-300 mb-3 leading-relaxed">
+          <p className="text-xs sm:text-sm font-light mb-3 leading-relaxed text-gray-800">
             Je suis un développeur web passionné par les technologies modernes.
             Titulaire d&apos;un mastère en développement web, je cherche
             toujours à me perfectionner et à découvrir de nouvelles façons
@@ -21,10 +21,10 @@ function AboutMe() {
           </p>
 
           {/* Centres d'intérêt */}
-          <h2 className="text-lg sm:text-xl font-semibold text-blue-400 mb-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-blue-400">
             Centres d&apos;intérêt
           </h2>
-          <ul className="text-sm font-light text-gray-300">
+          <ul className="text-sm font-light text-gray-800">
             <li>
               💻 Passionné par le développement web et l&apos;évolution des technologies
               modernes.

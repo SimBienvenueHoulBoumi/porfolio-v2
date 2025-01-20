@@ -21,7 +21,7 @@ export const Education: React.FC = () => {
               Gestion de projets sous pression et approche pluridisciplinaire
             </li>
           </ul>
-          <p className="mt-4 text-gray-700 font-semibold">
+          <p className="mt-4 text-xs text-gray-700 font-semibold">
             Cours pertinents :
           </p>
           <ul className="list-disc pl-5 mt-2 space-y-1 text-gray-600 text-xs">
@@ -52,7 +52,7 @@ export const Education: React.FC = () => {
             <li>Apprentissage rapide de nouvelles technologies</li>
             <li>Coordination Back/Front</li>
           </ul>
-          <p className="mt-4 text-gray-700 font-semibold">
+          <p className="mt-4 text-xs text-gray-700 font-semibold">
             Cours pertinents :
           </p>
           <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-600 text-xs">
@@ -78,7 +78,7 @@ export const Education: React.FC = () => {
             <li>Virtualisation des systèmes et administration réseau</li>
             <li>Configuration des équipements (routeurs/switchs)</li>
           </ul>
-          <p className="mt-4 text-gray-700 font-semibold">
+          <p className="mt-4 text-xs text-gray-700 font-semibold">
             Cours pertinents :
           </p>
           <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-600 text-xs">
@@ -93,8 +93,8 @@ export const Education: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto py-10 px-4 lg:px-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="container mx-auto py-10 px-4 lg:px-8 w-2/3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {educationData.map((item, index) => (
           <div
             key={index}
@@ -109,7 +109,7 @@ export const Education: React.FC = () => {
             <p className="text-center text-xs text-gray-600">
               {item.institution}
             </p>
-            <p className="text-center text-gray-500 mb-4">{item.year}</p>
+            <p className="text-center text-gray-500 mb-4 text-xs italic">{item.year}</p>
             <div className="text-gray-700">{item.description}</div>
           </div>
         ))}

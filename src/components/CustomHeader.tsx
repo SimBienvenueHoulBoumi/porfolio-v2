@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -20,17 +21,27 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gray-800 text-white py-4 shadow-md z-50">
-      <div className="container mx-auto flex justify-between items-center text-md w-full">
-        {/* Logo ou Nom */}
-        <div className="text-lg sm:text-xl md:text-2xl font-semibold uppercase">
-          SimDev
+    <nav className="fixed top-0 left-0 w-full bg-gray-500 text-white py-2 shadow-md z-50">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <Image
+            src="/pictures/logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            priority
+          />
+          <div className="text-lg sm:text-xl font-semibold uppercase">
+            SimDev
+          </div>
         </div>
 
-        {/* Bouton hamburger */}
+        {/* Bouton hamburger pour les petits écrans */}
         <button
           className="md:hidden text-white z-20"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Menu"
         >
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
@@ -39,7 +50,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
         <div
           className={`${
             isMenuOpen ? "flex" : "hidden"
-          } absolute top-14 left-0 w-full bg-gray-800 text-white flex-col items-start px-6 py-8 md:flex md:flex-row md:relative md:top-auto md:left-auto md:w-auto md:px-0 md:py-0 space-y-4 md:space-y-0 md:space-x-6 transition-all duration-300`}
+          } fixed inset-0 bg-gray-900 bg-opacity-90 text-white flex-col items-center justify-center px-8 space-y-4 md:space-y-0 md:relative md:flex md:flex-row md:bg-transparent md:inset-auto md:px-0 md:space-x-6`}
         >
           {sections.map((section) => (
             <button
@@ -48,22 +59,15 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
                 activeSection === section.name
                   ? "text-blue-400"
                   : "hover:text-blue-400 transition-colors"
-              } flex items-center justify-center py-2 px-4`}
+              } flex items-center py-2 px-4 text-lg`}
               onClick={() => {
                 setActiveSection(section.name);
-                setIsMenuOpen(false);
+                setIsMenuOpen(false); // Ferme le menu
               }}
             >
-              {/* Affiche le contenu en fonction de la taille de l'écran */}
-              <div className="flex items-center gap-2 md:hidden text-xs">
-                <div>{section.icon}</div>
-                <span>{section.name}</span>
-              </div>
-              <div className="hidden md:block lg:hidden">
-                <span>{section.name}</span>
-              </div>
-              <div className="hidden lg:flex items-center gap-2">
-                <div>{section.icon}</div>
+              {/* Icône et texte */}
+              <div className="flex items-center gap-2">
+                {section.icon}
                 <span>{section.name}</span>
               </div>
             </button>
