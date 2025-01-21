@@ -101,7 +101,7 @@ function Projets() {
       : projets.filter((projet) => projet.type === filter);
 
   return (
-    <div className="flex flex-col items-center space-y-2 p-6 min-h-screen">
+    <div className="flex flex-col items-center space-y-2 p-6">
       {/* Barre de filtres */}
       <div className="flex justify-start items-center max-w-screen-xl w-full space-x-4 mb-6 px-3">
         <label

@@ -21,12 +21,12 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gray-500 text-white py-2 shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full bg-[#78c4d3] text-white py-2 shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center px-4">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2">
           <Image
-            src="/pictures/simdev-logo.png"
+            src="/pictures/logo.png"
             alt="Logo"
             width={40}
             height={40}
@@ -59,9 +59,9 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
               key={section.name}
               className={`${
                 activeSection === section.name
-                  ? "text-blue-400"
-                  : "hover:text-blue-400 transition-colors"
-              } flex items-center py-2 px-4 text-lg`}
+                  ? "text-black"
+                  : "hover:text-black transition-colors"
+              } flex items-center py-2 px-4 text-sm`}
               onClick={() => {
                 setActiveSection(section.name);
                 setIsMenuOpen(false); // Ferme le menu

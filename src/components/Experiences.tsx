@@ -24,7 +24,7 @@ export const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center space-y-2 p-6">
+    <div className="flex flex-col items-center space-y-2 pt-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-start max-w-screen-xl w-full px-0 py-4">
         {experiences.map((experience, index) => (
           <div

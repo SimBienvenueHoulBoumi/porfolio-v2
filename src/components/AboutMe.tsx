@@ -3,7 +3,7 @@ import Contact from "./Contact";
 
 function AboutMe() {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-8 px-4">
+    <div className="flex flex-col items-center justify-center text-center pt-20 px-4">
       {/* Container principal */}
       <div className="flex flex-col items-center w-full space-y-8">
         {/* Section Bio */}

@@ -25,8 +25,8 @@ export const Accueil: React.FC<AccueilProps> = ({ setActiveSection }) => {
     <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 relative overflow-hidden">
       {/* Fond subtil avec animations douces */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-[280px] h-[280px] bg-gradient-to-br from-blue-500 to-teal-400 opacity-15 rounded-full filter blur-xl animate-pulse" />
-        <div className="absolute bottom-12 right-12 w-[220px] h-[220px] bg-gradient-to-br from-teal-500 to-blue-500 opacity-12 rounded-full filter blur-xl animate-ping" />
+        <div className="absolute top-0 left-0 w-[280px] h-[280px] bg-gradient-to-br from-fuchsia-50 to-green-400 opacity-15 rounded-full filter blur-xl animate-pulse" />
+        <div className="absolute bottom-12 right-12 w-[220px] h-[220px] bg-gradient-to-br from-green-500 to-blue-500 opacity-12 rounded-full filter blur-xl animate-ping" />
       </div>
 
       {/* Conteneur principal centré */}
