@@ -1,5 +1,4 @@
 import React from "react";
-import Contact from "./Contact";
 
 function AboutMe() {
   return (
@@ -43,9 +42,6 @@ function AboutMe() {
             </li>
           </ul>
         </div>
-
-        {/* Contact Section */}
-        <Contact />
       </div>
     </div>
   );

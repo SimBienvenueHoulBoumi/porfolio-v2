@@ -7,7 +7,14 @@ import { Experiences } from "@/components/Experiences";
 import AboutMe from "@/components/AboutMe";
 import Projets from "@/components/Projets";
 
-import { FaHome, FaGraduationCap, FaSuitcase, FaEnvelope, FaSatellite } from "react-icons/fa";
+
+import {
+  FaHome,
+  FaGraduationCap,
+  FaSuitcase,
+  FaEnvelope,
+  FaSatellite,
+} from "react-icons/fa";
 import CustomHeader from "@/components/CustomHeader";
 
 import { motion } from "framer-motion";
@@ -18,7 +25,7 @@ const App: React.FC = () => {
   const sections = [
     {
       name: "Accueil",
-      component: <Accueil setActiveSection={setActiveSection} />,
+      component: <Accueil />,
       icon: <FaHome />,
     },
     {
@@ -70,7 +77,10 @@ const App: React.FC = () => {
           transition={{ duration: 0.5, ease: "easeInOut" }}
           className="flex items-center justify-center h-full"
         >
-          {sections.find((section) => section.name === activeSection)?.component}
+          {
+            sections.find((section) => section.name === activeSection)
+              ?.component
+          }
         </motion.div>
       </div>
     </div>
