@@ -17,7 +17,7 @@ export const Accueil: React.FC<{}> = () => {
       </div>
 
       {/* Conteneur principal centré */}
-      <div className="flex flex-col space-y-4 items-center text-center bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 p-8 rounded-xl shadow-xl border border-transparent relative overflow-hidden">
+      <div className="flex flex-col space-y-4 items-center text-center p-8 bg-gray-600 rounded-xl shadow-xl border border-transparent relative overflow-hidden">
         {/* Titre et effet Typewriter */}
         <div className="text-center text-gray-300 space-y-4">
           <p className="text-xl font-semibold">

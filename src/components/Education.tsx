@@ -96,7 +96,8 @@ export const Education: React.FC = () => {
     <div className="container mx-auto pt-20 px-4 lg:px-8 w-2/3">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {educationData.map((item, index) => (
-          <div
+          <>
+            <div
             key={index}
             className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl hover:border-teal-400 transition-all duration-300 max-w-xs mx-auto"
           >
@@ -112,6 +113,7 @@ export const Education: React.FC = () => {
             <p className="text-center text-gray-500 mb-4 text-xs italic">{item.year}</p>
             <div className="text-gray-700">{item.description}</div>
           </div>
+          </>
         ))}
       </div>
     </div>

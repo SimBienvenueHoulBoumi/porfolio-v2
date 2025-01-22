@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 const Contact: React.FC = () => {
   return (
-      <div className="max-w-4xl w-full justify-center text-center text-white rounded-lg shadow-md">
+      <div className="max-w-4xl w-full justify-center">
         <div className="flex justify-center space-x-4">
           <a
             href="https://github.com/SimBienvenueHoulBoumi"
