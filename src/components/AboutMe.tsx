@@ -2,7 +2,7 @@ import React from "react";
 
 function AboutMe() {
   return (
-    <div className="flex flex-col items-center justify-center text-center pt-20 px-4">
+    <div className="container pt-24 px-4 sm:px-6 lg:px-8 w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
       {/* Container principal */}
       <div className="flex flex-col items-center w-full space-y-8">
         {/* Section Bio */}

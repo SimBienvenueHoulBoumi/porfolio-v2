@@ -93,7 +93,7 @@ export const Education: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto py-24 lg:px-8 px-0 w-full md:w-3/4 lg:w-3/5">
+    <div className="container pt-24 pb-10 px-4 sm:px-6 lg:px-8 w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 px-3">
         {educationData.map((item, index) => (
           <div
