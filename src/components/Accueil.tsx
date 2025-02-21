@@ -35,10 +35,7 @@ export const Accueil: React.FC<{}> = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="flex flex-col space-y-6 items-center text-center p-10 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 relative overflow-hidden z-10"
         >
-          {/* Halo lumineux */}
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-10 blur-3xl" />
 
-          {/* Titre animé avec effet Typewriter */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}

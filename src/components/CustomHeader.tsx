@@ -21,7 +21,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-[#151334] text-white py-2 shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full bg-[#151334] shadow-cyan-100/50 text-white py-2 shadow-md z-50">
       <div className="container mx-auto text-white flex justify-between items-center px-4">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2">
