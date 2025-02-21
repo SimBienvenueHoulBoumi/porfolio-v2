@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   description: "porfolio v2",
 };
 
+import localFont from "next/font/local";
+
+const orbitron = localFont({
+  src: "./fonts/Orbitron/Orbitron-VariableFont_wght.ttf", // Chemin relatif
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`antialiased text-black`}
+        className={`antialiased text-black ${orbitron.className}`}
       >
         {children}
       </body>

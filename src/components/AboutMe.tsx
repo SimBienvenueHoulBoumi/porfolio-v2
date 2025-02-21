@@ -1,4 +1,5 @@
 import React from "react";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 function AboutMe() {
   return (
@@ -14,9 +15,9 @@ function AboutMe() {
             Je suis un développeur web passionné par les technologies modernes.
             Titulaire d&apos;un mastère en développement web, je cherche
             toujours à me perfectionner et à découvrir de nouvelles façons
-            d&apos;apprendre et de créer. À travers mes projets, j&apos;ai acquis des
-            compétences en développement frontend et backend, avec une forte
-            expertise en React, JavaScript et Spring Boot.
+            d&apos;apprendre et de créer. À travers mes projets, j&apos;ai
+            acquis des compétences en développement frontend et backend, avec
+            une forte expertise en React, JavaScript et Spring Boot.
           </p>
 
           {/* Centres d'intérêt */}
@@ -25,16 +26,16 @@ function AboutMe() {
           </h2>
           <ul className="text-sm font-light text-gray-800">
             <li>
-              💻 Passionné par le développement web et l&apos;évolution des technologies
-              modernes.
+              💻 Passionné par le développement web et l&apos;évolution des
+              technologies modernes.
             </li>
             <li>
               📚 Toujours en quête de nouveaux défis techniques, avec une forte
               envie d&apos;apprendre.
             </li>
             <li>
-              🌍 Très intéressé par les sujets sociaux, notamment les enjeux autour de
-              l&apos;égalité et de l&apos;inclusion.
+              🌍 Très intéressé par les sujets sociaux, notamment les enjeux
+              autour de l&apos;égalité et de l&apos;inclusion.
             </li>
             <li>
               🎮 Amoureux des jeux vidéo et curieux de voir comment les
