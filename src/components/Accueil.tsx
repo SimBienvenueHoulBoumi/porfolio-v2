@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TypewriterEffect from "./TypewriterEffect"; // Assurez-vous d'importer votre composant TypewriterEffect
-import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const Accueil: React.FC<{}> = () => {
