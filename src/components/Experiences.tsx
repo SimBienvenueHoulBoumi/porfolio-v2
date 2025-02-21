@@ -24,8 +24,8 @@ export const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center space-y-2 pt-16">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-start max-w-screen-xl w-full px-0 py-4">
+    <div className="container mx-auto py-24 lg:px-8 px-0 w-full md:w-3/4 lg:w-3/5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-start max-w-screen-xl w-full py-4 px-3">
         {experiences.map((experience, index) => (
           <div
             key={index}

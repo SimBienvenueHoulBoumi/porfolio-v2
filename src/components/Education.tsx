@@ -93,12 +93,12 @@ export const Education: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto pt-20 px-4 lg:px-8 w-2/3">
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div className="container mx-auto py-24 lg:px-8 px-0 w-full md:w-3/4 lg:w-3/5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 px-3">
         {educationData.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl hover:border-teal-400 transition-all duration-300 max-w-xs mx-auto"
+            className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl hover:border-teal-400 transition-all duration-300 min-w-full px-4"
           >
             <div className="w-12 h-12 flex justify-center items-center bg-blue-500 rounded-full mb-4">
               {item.icon}
