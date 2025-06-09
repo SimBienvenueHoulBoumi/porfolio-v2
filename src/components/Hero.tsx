@@ -53,7 +53,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
           {/* Aura */}
           <div className="absolute -inset-2 sm:-inset-3 rounded-full bg-gradient-to-tr from-blue-500 via-pink-400 to-cyan-400 blur-2xl opacity-40 group-hover:scale-110 transition-transform duration-500"></div>
           <Image
-            src="https://api.dicebear.com/8.x/identicon/svg?seed=dev"
+            src="/profile.jpg"
             alt="Avatar dev"
             width={160}
             height={160}
