@@ -180,7 +180,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
         >
           {/* LinkedIn */}
           <a
-            href="https://www.linkedin.com/in/TON_ID/"
+            href="https://www.linkedin.com/in/sim-bienvenue-houl-boumi/"
             target="_blank"
             rel="noopener noreferrer"
             className="
