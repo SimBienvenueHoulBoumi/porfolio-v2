@@ -1,7 +1,9 @@
 "use client";
-import { ForwardedRef, forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { FaRegLightbulb } from "react-icons/fa";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+
+import Image from "next/image";
 
 // Typing effect hook
 function useTypewriter(words: string[], speed = 70, pause = 1200) {
@@ -50,11 +52,14 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
         <div className="relative mb-10 group w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40">
           {/* Aura */}
           <div className="absolute -inset-2 sm:-inset-3 rounded-full bg-gradient-to-tr from-blue-500 via-pink-400 to-cyan-400 blur-2xl opacity-40 group-hover:scale-110 transition-transform duration-500"></div>
-          <img
+          <Image
             src="https://api.dicebear.com/8.x/identicon/svg?seed=dev"
-            className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-2xl group-hover:rotate-12 group-hover:scale-105 transition-transform duration-500"
             alt="Avatar dev"
+            width={160}
+            height={160}
+            className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-2xl group-hover:rotate-12 group-hover:scale-105 transition-transform duration-500"
           />
+
           {/* Badge ultra propre, centré et responsive */}
           <span
             className="

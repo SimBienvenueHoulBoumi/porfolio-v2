@@ -1,9 +1,9 @@
 "use client";
-import { ForwardedRef, forwardRef } from "react";
+import { forwardRef } from "react";
 
-const Footer = forwardRef<HTMLDivElement, {}>((_props, ref: ForwardedRef<HTMLDivElement>) => (
+const Footer = forwardRef<HTMLDivElement>((_props, ref) => (
   <footer ref={ref} className="py-4 text-center text-gray-600 text-sm bg-black">
-    &copy; 2025 Alex Martin – Dev Fullstack Java/React. Fait avec ❤️ et TailwindCSS.
+    &copy; 2025 Sim Bienvenue HOULBOUMI – Dev Fullstack Java/React. Fait avec ❤️ et TailwindCSS.
   </footer>
 ));
 Footer.displayName = "Footer";
