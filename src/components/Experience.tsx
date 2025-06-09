@@ -116,7 +116,7 @@ const Experience: FC = () => (
             </li>
             <li>
               <Tooltip text="Stack front AngularJS, consommation d’API REST, modals, data-table, sécurité.">
-                <span className="text-orange-200 font-semibold cursor-help">API via AngularJS</span>
+                <span className="text-orange-200 font-semibold cursor-help">IHM AngularJS</span>
               </Tooltip>.
             </li>
             <li>
