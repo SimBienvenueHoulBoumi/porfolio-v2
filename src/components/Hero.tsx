@@ -25,7 +25,7 @@ function useTypewriter(words: string[], speed = 70, pause = 1200) {
   return displayed;
 }
 
-const Hero = forwardRef<HTMLDivElement, {}>((_props, ref: ForwardedRef<HTMLDivElement>) => {
+const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
   const subtitle = useTypewriter([
     "Développeur Fullstack Java & React",
     "Automatisation DevOps (Ansible, Docker, CI/CD)",
