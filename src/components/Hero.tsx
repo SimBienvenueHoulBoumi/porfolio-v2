@@ -5,7 +5,6 @@ import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
 import Image from "next/image";
 
-// Typing effect hook
 function useTypewriter(words: string[], speed = 70, pause = 1200) {
   const [index, setIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
