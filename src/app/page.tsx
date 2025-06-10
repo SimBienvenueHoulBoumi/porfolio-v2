@@ -5,7 +5,6 @@ import { useRef } from "react";
 import useFadeIn from "../hooks/useFadeIn";
 import Hero from "../components/Hero";
 import Skills from "../components/Skills";
-import Projects from "../components/Projects";
 import Experience from "../components/Experience";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
@@ -28,7 +27,6 @@ export default function Page() {
         <ScrollToBottomButton onClick={handleScrollToFooter} />
       </div>
       <Skills />
-      <Projects />
       <Experience />
       <Contact />
       <Footer ref={footerRef} />
