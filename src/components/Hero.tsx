@@ -1,9 +1,9 @@
 "use client";
 import { forwardRef, useEffect, useState } from "react";
 import { FaRegLightbulb } from "react-icons/fa";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
-import Image from "next/image";
+import SocialBanger from "./SocialBanger";
+import Banner from "./Banner";
 
 function useTypewriter(words: string[], speed = 70, pause = 1200) {
   const [index, setIndex] = useState(0);
@@ -48,33 +48,10 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
 
       <div className="relative z-10 flex flex-col items-center fade-in w-full">
         {/* Avatar with animated aura */}
-        <div className="relative mb-10 group w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40">
-          {/* Aura */}
-          <div className="absolute -inset-2 sm:-inset-3 rounded-full bg-gradient-to-tr from-blue-500 via-pink-400 to-cyan-400 blur-2xl opacity-40 group-hover:scale-110 transition-transform duration-500"></div>
-          <Image
-            src="/profile.jpg"
-            alt="Avatar dev"
-            width={160}
-            height={160}
-            className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-2xl group-hover:rotate-12 group-hover:scale-105 transition-transform duration-500"
-          />
-
-          {/* Badge ultra propre, centré et responsive */}
-          <span
-            className="
-              absolute left-1/2 bottom-[-18px] sm:bottom-[-22px] -translate-x-1/2
-              px-3 py-[2px] sm:px-4 sm:py-1 text-xs sm:text-sm font-semibold
-              rounded-full bg-gradient-to-r from-blue-600 via-fuchsia-500 to-cyan-400
-              text-white shadow-lg ring-2 ring-white/30 backdrop-blur-sm border border-white/20
-              z-20 animate-bounce whitespace-nowrap select-none
-              "
-          >
-            OPEN TO WORK
-          </span>
-        </div>
+      <SocialBanger />
 
         {/* Name with reveal effect */}
-        <h1
+        <div
           className="
             text-2xl sm:text-3xl md:text-5xl font-extrabold mb-2 mt-1 sm:mt-4 text-center relative select-none group
             animate-fadeInName
@@ -113,7 +90,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
               "
             ></span>
           </span>
-        </h1>
+        </div>
 
         {/* Dynamic subtitle with typewriter effect */}
         <h2 className="text-base sm:text-lg md:text-xl font-medium text-blue-300  my-4 tracking-wider min-h-[28px] sm:min-h-[32px] md:min-h-[36px] text-center">
@@ -159,98 +136,11 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
             </span>
             <span className="font-semibold text-cyan-200">»</span>
           </span>
-        </div>
-        </div>
+      </div>
+      </div>
 
       {/* Réseaux sociaux “banger” */}
-      <div className="relative flex justify-center z-20 mt-2">
-        <div
-          className="
-            flex gap-6 sm:gap-8 px-4 sm:px-8 py-3
-            rounded-2xl
-            transition-all duration-300
-            fade-in
-            animate-[fadeInUp_1s_ease]
-          "
-          style={{
-            animationDelay: "1.2s",
-            animationFillMode: "both",
-          }}
-        >
-          {/* LinkedIn */}
-          <a
-            href="https://www.linkedin.com/in/sim-bienvenue-houl-boumi/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              group relative
-              flex items-center justify-center
-              text-blue-400 hover:text-blue-600
-              bg-gradient-to-tr from-blue-500/10 via-white/0 to-fuchsia-400/10
-              rounded-full
-              shadow-xl
-              p-3 sm:p-4
-              transition-all duration-200
-              focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400/40
-            "
-            aria-label="LinkedIn"
-          >
-            <FiLinkedin size={34} />
-            {/* Glow ring on hover */}
-            <span className="absolute -inset-2 rounded-full border-2 border-blue-400 opacity-0 group-hover:opacity-40 group-hover:scale-110 transition-all duration-300 pointer-events-none"></span>
-            {/* Tooltip */}
-            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-blue-700 text-white text-xs px-2 py-1 rounded-lg pointer-events-none transition-all duration-200 whitespace-nowrap shadow-lg z-30">
-              LinkedIn
-            </span>
-          </a>
-          {/* GitHub */}
-          <a
-            href="https://github.com/SimBienvenueHoulBoumi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              group relative
-              flex items-center justify-center
-              text-gray-300 hover:text-white
-              bg-gradient-to-tr from-gray-500/10 via-white/0 to-blue-400/10
-              rounded-full
-              shadow-xl
-              p-3 sm:p-4
-              transition-all duration-200
-              focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200/40
-            "
-            aria-label="GitHub"
-          >
-            <FiGithub size={34} />
-            <span className="absolute -inset-2 rounded-full border-2 border-gray-400 opacity-0 group-hover:opacity-30 group-hover:scale-110 transition-all duration-300 pointer-events-none"></span>
-            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-gray-800 text-white text-xs px-2 py-1 rounded-lg pointer-events-none transition-all duration-200 whitespace-nowrap shadow-lg z-30">
-              GitHub
-            </span>
-          </a>
-          {/* Email */}
-          <a
-            href="mailto:houlboumi.sim.bienevenue@gmail.com"
-            className="
-              group relative
-              flex items-center justify-center
-              text-pink-400 hover:text-white
-              bg-gradient-to-tr from-pink-400/10 via-white/0 to-blue-400/10
-              rounded-full
-              shadow-xl
-              p-3 sm:p-4
-              transition-all duration-200
-              focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/40
-            "
-            aria-label="E-mail"
-          >
-            <FiMail size={34} />
-            <span className="absolute -inset-2 rounded-full border-2 border-pink-400 opacity-0 group-hover:opacity-30 group-hover:scale-110 transition-all duration-300 pointer-events-none"></span>
-            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-pink-600 text-white text-xs px-2 py-1 rounded-lg pointer-events-none transition-all duration-200 whitespace-nowrap shadow-lg z-30">
-              Email
-            </span>
-          </a>
-        </div>
-      </div>
+      <Banner/>
 
 
       {/* Decorative lines / bottom accent */}

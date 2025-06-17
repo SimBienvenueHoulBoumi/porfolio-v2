@@ -22,7 +22,6 @@ const Tooltip: FC<{ text: string; children: React.ReactNode }> = ({ text, childr
   </span>
 );
 
-// Tableau de données d'expérience
 const EXPERIENCES = [
   {
     company: {
@@ -34,13 +33,13 @@ const EXPERIENCES = [
     team: {
       label: "Équipe Agile",
       color: "bg-green-900/80 text-green-200",
-      tooltip: "Équipe Agile Scrum : sprints, daily meetings, planning poker."
+      tooltip: "Travail en mode Agile, avec rituels Scrum hebdomadaires."
     },
-    title: "Développeur Front",
+    title: "Développeur Front ReactJS",
     tech: {
-      label: "ReactJS",
+      label: "Next.js",
       color: "text-blue-400",
-      tooltip: "Stack JS moderne côté client et serveur."
+      tooltip: "Framework React avec SSR, utilisé pour des interfaces modernes et performantes."
     },
     contract: "(Alternance)",
     contractColor: "text-blue-300",
@@ -49,41 +48,35 @@ const EXPERIENCES = [
       {
         content: (
           <>
-            <Tooltip text="Interface Homme-Machine : application de gestion pour les métiers.">
-              <span className="underline decoration-dotted underline-offset-2 cursor-help">IHM d’administration</span>
-            </Tooltip> et paramétrage de données (<Tooltip text="Framework React avec SSR, UI dynamique, composants réutilisables."><span className="text-sky-400 font-semibold cursor-help">Next.js / React</span></Tooltip>).
+            Conception d’une interface d'administration des données avec <span className="text-sky-400 font-semibold">React / Next.js</span>, centrée sur l’ergonomie et la performance.
           </>
         )
       },
       {
         content: (
           <>
-            Vérification des règles métier par tests <Tooltip text="Requêtes SQL, validation des traitements côté base."><span className="text-yellow-200 font-semibold cursor-help">SQL</span></Tooltip>.
+            Vérification des règles métiers directement en base avec des requêtes <span className="text-yellow-200 font-semibold">SQL</span> ciblées, en environnement de production.
           </>
         )
       },
       {
         content: (
           <>
-            Consommation d’API REST sécurisées (<Tooltip text="Framework backend Node.js TypeScript (REST, Auth, sécurité)."><span className="text-pink-300 font-semibold cursor-help">NestJS</span></Tooltip>), optimisation échanges de données.
+            Consommation d’API sécurisées (<span className="text-pink-300 font-semibold">NestJS</span>) avec authentification et gestion fine des erreurs, assurant une intégration fluide front/backend.
           </>
         )
       },
       {
         content: (
           <>
-            <Tooltip text="Docker facilite la conteneurisation : chaque app s’exécute dans son propre conteneur (build, déploiement, test, CI/CD).">
-              <span className="text-cyan-300 font-semibold cursor-help">Conteneurisation</span>
-            </Tooltip> des applications pour déploiement & scalabilité.
+            Déploiement automatisé d’environnements de test avec <span className="text-cyan-300 font-semibold">Docker Compose</span>, facilitant la reproduction des bugs et les validations techniques.
           </>
         )
       },
       {
         content: (
           <>
-            <Tooltip text="Socle technique : Next.js, React, SQL, Docker, CI/CD, Auth, REST">
-              <span className="bg-blue-700/20 text-blue-100 rounded px-2 ml-1 text-xs font-semibold cursor-help">Socle technique</span>
-            </Tooltip>
+            Participation à l’automatisation des tests et du déploiement continu <Tooltip text="Exécution automatique des jobs, validation, déploiement."><span className="text-gray-100 font-semibold cursor-help">CI/CD</span></Tooltip>, avec contribution aux scripts Jenkins et à la documentation technique.
           </>
         )
       }
@@ -93,19 +86,19 @@ const EXPERIENCES = [
     company: {
       label: "INFO 2R",
       color: "bg-indigo-900/70 text-indigo-200",
-      tooltip: "ESN / société de services en informatique.",
+      tooltip: "ESN spécialisée dans les services IT et le développement logiciel.",
       border: "border-indigo-500"
     },
     team: {
       label: "Équipe DevOps",
       color: "bg-orange-900/80 text-orange-200",
-      tooltip: "Équipe DevOps, organisation collaborative, pair programming, standups."
+      tooltip: "Travail collaboratif sur les pipelines, les environnements et la supervision."
     },
-    title: "Développeur Backend",
+    title: "Développeur BACKEND JAVA-SPRINGBOOT",
     tech: {
-      label: "Java-Spring Boot",
+      label: "Spring Boot",
       color: "text-indigo-400",
-      tooltip: "Stack backend Java 17+, Spring Boot : API REST, microservices, sécurité, tests."
+      tooltip: "Framework Java moderne pour développer des API REST sécurisées et modulaires."
     },
     contract: "(Stage)",
     contractColor: "text-indigo-300",
@@ -114,50 +107,35 @@ const EXPERIENCES = [
       {
         content: (
           <>
-            API REST testées, sécurisées (<Tooltip text="Spring Security avec JWT, Auth, scopes, CORS."><span className="text-indigo-300 font-semibold cursor-help">JWT</span></Tooltip>), architecture modulaire maintenable.
+            Développement d’<span className="text-indigo-300 font-semibold">API REST</span> sécurisées avec <span className="text-indigo-300 font-semibold">Spring Boot</span> et authentification JWT, dans une architecture modulaire robuste.
           </>
         )
       },
       {
         content: (
           <>
-            <Tooltip text="Microservices déployés dans des conteneurs pour l’isolation et la portabilité (Docker Compose, Dockerfile, images custom).">
-              <span className="text-cyan-300 font-semibold cursor-help">Conteneurisation microservices Docker</span>
-            </Tooltip>, déploiement simplifié.
+            Intégration de <span className="text-pink-300 font-semibold">Kafka</span> pour la communication asynchrone entre microservices.
           </>
         )
       },
       {
         content: (
           <>
-            Intégration de <Tooltip text="Kafka : message broker asynchrone pour microservices, scalable, performant."><span className="text-pink-300 font-semibold cursor-help">Kafka</span></Tooltip> pour communication entre services.
+            Écriture de pipelines <span className="text-gray-100 font-semibold">Jenkins CI/CD</span> pour automatiser le build, les tests et les déploiements, avec notifications intégrées.
           </>
         )
       },
       {
         content: (
           <>
-            <Tooltip text="Automatisation de l’intégration continue et du déploiement continu. Jenkins pipeline YAML, jobs Docker, notifications.">
-              <span className="text-gray-100 font-semibold cursor-help">Jobs Jenkins CI/CD</span>
-            </Tooltip>.
+            <span className="text-cyan-300 font-semibold">Conteneurisation Docker</span> des services pour des environnements reproductibles en développement, test et production.
           </>
         )
       },
       {
         content: (
           <>
-            <Tooltip text="Stack front AngularJS, consommation d’API REST, modals, data-table, sécurité.">
-              <span className="text-orange-200 font-semibold cursor-help">IHM AngularJS</span>
-            </Tooltip>.
-          </>
-        )
-      },
-      {
-        content: (
-          <>
-            <Tooltip text="Socle technique : Java, Spring Boot, Docker, Kafka, Jenkins, AngularJS, REST">
-              <span className="bg-indigo-700/20 text-indigo-100 rounded px-2 ml-1 text-xs font-semibold cursor-help">Socle technique</span>
-            </Tooltip>
+            Contribution à la supervision et à la fiabilisation des flux via <span className="text-green-200 font-semibold">Datadog</span> : gestion des erreurs, suivi des métriques critiques, documentation technique.
           </>
         )
       }
@@ -165,7 +143,6 @@ const EXPERIENCES = [
   }
 ];
 
-// Affichage des expériences
 const Experience: FC = () => (
   <section id="experience" className="py-16 px-4 bg-gray-950">
     <div className="max-w-5xl mx-auto fade-in">
@@ -176,7 +153,6 @@ const Experience: FC = () => (
             key={exp.company.label + idx}
             className={`border-l-4 pl-6 pb-2 ${exp.company.border}`}
           >
-            {/* Nom de l'entreprise sur une ligne, centré et mis en évidence */}
             <div className="flex justify-start mb-4">
               <Tooltip text={exp.company.tooltip}>
                 <span className={`text-sm ${exp.company.color} px-6 py-1 rounded-md font-extrabold shadow cursor-help border-2 border-blue-600/40`}>
@@ -184,7 +160,6 @@ const Experience: FC = () => (
                 </span>
               </Tooltip>
             </div>
-            {/* Reste des informations */}
             <div className="flex flex-wrap items-center gap-4 mb-1">
               <h4 className="text-xl font-bold text-white">
                 {exp.title}
