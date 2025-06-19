@@ -29,7 +29,7 @@ function useTypewriter(words: string[], speed = 70, pause = 1200) {
 const Hero = forwardRef<HTMLDivElement, object>((_props, ref)=> {
   const subtitle = useTypewriter([
     "Développeur Fullstack Java & React",
-    "Automatisation DevOps (Ansible, Docker, CI/CD)",
+    "Automatisation DevOps (Ansible, Jenkins, Docker, CI/CD)",
     "Web API | Microservices | Cloud Enthusiast"
   ], 55, 1450);
 
