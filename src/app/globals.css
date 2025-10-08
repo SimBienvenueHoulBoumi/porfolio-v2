@@ -119,3 +119,284 @@ body {
 .delay-1000 {
   animation-delay: 1000ms;
 }
+
+/* Aurora theme palette overrides */
+.theme-aurora {
+  --aurora-text-primary: #0d2a50;
+  --aurora-text-secondary: #1d4ed8;
+  --aurora-muted: #2563eb;
+  --aurora-border: rgba(37, 99, 235, 0.35);
+  --aurora-border-soft: rgba(14, 165, 233, 0.35);
+  --aurora-card: rgba(255, 255, 255, 0.92);
+  --aurora-card-strong: rgba(255, 255, 255, 0.96);
+  --aurora-accent-one: #2563eb;
+  --aurora-accent-two: #0ea5e9;
+  --aurora-accent-three: #1e40af;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.16), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(14, 165, 233, 0.12), transparent 52%),
+    radial-gradient(circle at 10% 80%, rgba(2, 132, 199, 0.14), transparent 55%),
+    #e1effe;
+  color: var(--aurora-text-primary);
+}
+
+.theme-aurora .hero-section {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 45%, #e0f2fe 85%);
+  color: inherit;
+}
+
+.theme-aurora .skills-section {
+  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 45%, #eff6ff 100%);
+}
+
+.theme-aurora .experience-section {
+  background: linear-gradient(180deg, #e2e8f0 0%, #dbeafe 55%, #eff6ff 100%);
+}
+
+.theme-aurora .contact-section {
+  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 60%, #f1f5ff 100%);
+}
+
+.theme-aurora .footer-section {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.16), rgba(37, 99, 235, 0.14));
+  color: var(--aurora-text-secondary);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.theme-aurora .footer-section .text-gray-500 {
+  color: var(--aurora-muted) !important;
+}
+
+.theme-aurora .footer-section .text-cyan-400,
+.theme-aurora .footer-section .text-blue-400,
+.theme-aurora .footer-section .text-purple-400 {
+  color: var(--aurora-accent-one) !important;
+}
+
+.theme-aurora .footer-section .border-cyan-500\/20,
+.theme-aurora .footer-section .border-blue-500\/20,
+.theme-aurora .footer-section .border-purple-500\/20 {
+  border-color: var(--aurora-border) !important;
+}
+
+.theme-aurora .hero-section [class*="bg-gray-9"],
+.theme-aurora .skills-section [class*="bg-gray-9"],
+.theme-aurora .experience-section [class*="bg-gray-9"],
+.theme-aurora .contact-section [class*="bg-gray-9"] {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  color: inherit;
+  backdrop-filter: blur(12px);
+}
+
+.theme-aurora [class*="bg-white\/5"],
+.theme-aurora [class*="bg-white\/10"] {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+.theme-aurora [class*="bg-black"] {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  color: var(--aurora-text-primary) !important;
+}
+
+.theme-aurora [class*="bg-gray-8"] {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.theme-aurora [class*="border-white\/10"],
+.theme-aurora [class*="border-white\/20"] {
+  border-color: var(--aurora-border) !important;
+}
+
+.theme-aurora [class*="border-cyan-500"],
+.theme-aurora [class*="border-blue-500"] {
+  border-color: var(--aurora-border-soft) !important;
+}
+
+.theme-aurora [class*="text-white"],
+.theme-aurora [class*="text-white\/90"] {
+  color: var(--aurora-text-primary) !important;
+}
+
+.theme-aurora .text-gray-300 {
+  color: #2563eb !important;
+}
+
+.theme-aurora .text-gray-400,
+.theme-aurora .text-gray-500,
+.theme-aurora .text-gray-100 {
+  color: #3b82f6 !important;
+}
+
+.theme-aurora .text-cyan-400,
+.theme-aurora .text-cyan-300,
+.theme-aurora .text-cyan-200 {
+  color: var(--aurora-accent-two) !important;
+}
+
+.theme-aurora .text-blue-400,
+.theme-aurora .text-blue-500,
+.theme-aurora .text-blue-600 {
+  color: var(--aurora-accent-one) !important;
+}
+
+.theme-aurora .text-purple-400,
+.theme-aurora .text-purple-500,
+.theme-aurora .text-fuchsia-400 {
+  color: #1e40af !important;
+}
+
+.theme-aurora .text-green-400,
+.theme-aurora .text-green-200,
+.theme-aurora .text-green-500 {
+  color: #0284c7 !important;
+}
+
+.theme-aurora .text-orange-500,
+.theme-aurora .text-orange-400,
+.theme-aurora .text-yellow-200 {
+  color: var(--aurora-accent-two) !important;
+}
+
+.theme-aurora .bg-cyan-500,
+.theme-aurora .bg-blue-600,
+.theme-aurora .bg-purple-500,
+.theme-aurora .bg-blue-500 {
+  background-color: var(--aurora-accent-one) !important;
+}
+
+.theme-aurora [class*="bg-cyan-500\/"],
+.theme-aurora .bg-cyan-500\/90,
+.theme-aurora .bg-cyan-500\/20,
+.theme-aurora .bg-blue-500\/20 {
+  background-color: rgba(37, 99, 235, 0.22) !important;
+}
+
+.theme-aurora .shadow-cyan-500\/40,
+.theme-aurora .shadow-cyan-500\/10,
+.theme-aurora .shadow-blue-500\/10,
+.theme-aurora .shadow-green-500\/10 {
+  --tw-shadow-color: rgba(59, 130, 246, 0.22) !important;
+  box-shadow: 0 25px 45px -20px var(--tw-shadow-color);
+}
+
+.theme-aurora .focus\:ring-cyan-500\/50:focus {
+  --tw-ring-color: rgba(37, 99, 235, 0.35) !important;
+}
+
+.theme-aurora .focus\:ring-cyan-500\/30:focus {
+  --tw-ring-color: rgba(14, 165, 233, 0.35) !important;
+}
+
+.theme-aurora .bg-gradient-to-br,
+.theme-aurora .bg-gradient-to-r,
+.theme-aurora .bg-gradient-to-b,
+.theme-aurora .bg-gradient-to-tr {
+  --tw-gradient-from: rgba(255, 255, 255, 0.94) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(37, 99, 235, 0.22), rgba(14, 165, 233, 0.24);
+  --tw-gradient-to: rgba(255, 255, 255, 0.82) !important;
+}
+
+.theme-aurora .skills-section .bg-gradient-to-br,
+.theme-aurora .experience-section .bg-gradient-to-br {
+  --tw-gradient-from: rgba(255, 255, 255, 0.98) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(96, 165, 250, 0.24), rgba(14, 165, 233, 0.24);
+  --tw-gradient-to: rgba(191, 219, 254, 0.94) !important;
+}
+
+.theme-aurora .skills-section .group.relative {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(191, 219, 254, 0.52)) !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  box-shadow: 0 20px 42px -24px rgba(30, 64, 175, 0.4) !important;
+}
+
+.theme-aurora .skills-section .group.relative > .absolute {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.28), rgba(14, 165, 233, 0.18)) !important;
+}
+
+.theme-aurora .skills-section .text-white,
+.theme-aurora .skills-section .text-white\/90 {
+  color: var(--aurora-text-primary) !important;
+}
+
+.theme-aurora .skills-section .text-gray-200 {
+  color: var(--aurora-text-secondary) !important;
+}
+
+.theme-aurora .skills-section .border-white\/10,
+.theme-aurora .skills-section .border-white\/20 {
+  border-color: rgba(37, 99, 235, 0.3) !important;
+}
+
+.theme-aurora .skills-section .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-aurora .cv-download-primary {
+  background-image: linear-gradient(135deg, #38bdf8, #2563eb) !important;
+  box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.4) !important;
+}
+
+.theme-aurora .cv-download-secondary {
+  color: var(--aurora-accent-two) !important;
+  border-color: rgba(14, 165, 233, 0.45) !important;
+}
+
+.theme-aurora .cv-download-secondary:hover {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.theme-aurora .contact-section .bg-gray-900\/90 {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: var(--aurora-border-soft) !important;
+  color: var(--aurora-text-primary) !important;
+}
+
+.theme-aurora .contact-section .bg-blue-600 {
+  background-color: #2563eb !important;
+}
+
+.theme-aurora .contact-section .bg-gray-800 {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.theme-aurora .contact-section .text-gray-200 {
+  color: var(--aurora-text-secondary) !important;
+}
+
+.theme-aurora .banner-section a,
+.theme-aurora .banner-section span {
+  color: inherit;
+}
+
+.theme-aurora .scroll-button {
+  background-image: linear-gradient(135deg, #38bdf8, #2563eb) !important;
+  box-shadow: 0 18px 40px -20px rgba(59, 130, 246, 0.55) !important;
+}
+
+.theme-aurora .scroll-button .animate-ping {
+  background-color: rgba(56, 189, 248, 0.4) !important;
+}
+
+.theme-aurora .scroll-button .group-hover\:translate-y-1 {
+  color: var(--aurora-text-primary) !important;
+}
+
+.theme-aurora .border-gray-700,
+.theme-aurora .border-gray-900 {
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+.availability-badge {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #f8fafc;
+  border: 1px solid rgba(14, 165, 233, 0.45);
+  box-shadow: 0 16px 32px -20px rgba(14, 165, 233, 0.8);
+}
+
+.theme-aurora .availability-badge {
+  background: linear-gradient(135deg, #38bdf8, #2563eb) !important;
+  color: #f8fafc !important;
+  border-color: rgba(37, 99, 235, 0.35) !important;
+  box-shadow: 0 16px 28px -18px rgba(37, 99, 235, 0.4) !important;
+}

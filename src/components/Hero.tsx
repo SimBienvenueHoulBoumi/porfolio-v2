@@ -6,6 +6,53 @@ import { FiTerminal } from "react-icons/fi";
 
 import SocialBanger from "./SocialBanger";
 import Banner from "./Banner";
+import LanguageToggle from "./LanguageToggle";
+import ThemeToggle from "./ThemeToggle";
+import DownLoadCV from "./DownLoadCV";
+import { useLanguage } from "@/context/LanguageContext";
+
+const HERO_COPY = {
+  fr: {
+    typewriter: [
+      "Créer des microservices évolutifs...",
+      "Automatiser l’infrastructure comme du code...",
+      "Déployer avec des pipelines CI/CD..."
+    ],
+    introduction: "Ingénieur DevOps & développeur full stack, j’aide les équipes produit à livrer vite et bien : pipelines fiables, architectures cloud résilientes et code orienté business.",
+    badges: [
+      { icon: FaCode, text: "Développeur Full Stack" },
+      { icon: FaServer, text: "Ingénieur DevOps" },
+      { icon: FaCloud, text: "Architecte Cloud" }
+    ],
+    projectTitle: "Faire décoller vos projets",
+    projectDescription: "De la conception à la production : automatisation CI/CD, observabilité, microservices, infrastructure cloud. Mon objectif est simple : des livraisons fréquentes, stables et faciles à maintenir.",
+    availability: "Disponible pour de nouveaux défis",
+    trustedStack: "Stack de confiance",
+    keyNumbers: "Chiffres clés",
+    yearsExperience: "Années d'expérience",
+    masteredTechs: "Technologies maîtrisées"
+  },
+  en: {
+    typewriter: [
+      "Building scalable microservices...",
+      "Automating infrastructure as code...",
+      "Shipping with resilient CI/CD pipelines..."
+    ],
+    introduction: "DevOps engineer & full stack developer helping product teams deliver fast and safe: reliable pipelines, resilient cloud architectures, and business-focused code.",
+    badges: [
+      { icon: FaCode, text: "Full Stack Developer" },
+      { icon: FaServer, text: "DevOps Engineer" },
+      { icon: FaCloud, text: "Cloud Architect" }
+    ],
+    projectTitle: "Launch your projects",
+    projectDescription: "From design to production: CI/CD automation, observability, microservices, cloud infrastructure. My goal is simple: frequent releases that stay stable and easy to maintain.",
+    availability: "Available for new challenges",
+    trustedStack: "Trusted stack",
+    keyNumbers: "Key figures",
+    yearsExperience: "Years of experience",
+    masteredTechs: "Technologies mastered"
+  }
+} as const satisfies Record<"fr" | "en", { typewriter: string[]; introduction: string; badges: { icon: typeof FaCode; text: string }[]; projectTitle: string; projectDescription: string; availability: string; trustedStack: string; keyNumbers: string; yearsExperience: string; masteredTechs: string }>;
 
 function useTypewriter(words: string[], speed = 70, pause = 1200) {
   const [index, setIndex] = useState(0);
@@ -32,15 +79,9 @@ function useTypewriter(words: string[], speed = 70, pause = 1200) {
 }
 
 const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
-  const subtitle = useTypewriter(
-    [
-      "Building scalable microservices...",
-      "Automating infrastructure as code...",
-      "Deploying with CI/CD pipelines...",
-    ],
-    60,
-    1800
-  );
+  const { language } = useLanguage();
+  const copy = HERO_COPY[language];
+  const subtitle = useTypewriter(copy.typewriter, 60, 1800);
 
   const techIcons = [
     { Icon: FaDocker, color: "text-blue-400", label: "Docker" },
@@ -56,8 +97,12 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
   return (
     <header
       ref={ref}
-      className="relative py-12 sm:py-16 flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black px-4 sm:px-6"
+      className="hero-section relative py-12 sm:py-16 flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black px-4 sm:px-6"
     >
+      <div className="absolute right-4 top-4 sm:right-6 sm:top-6 z-30 flex flex-col items-end gap-2">
+        <LanguageToggle />
+        <ThemeToggle />
+      </div>
       {/* Fond quadrillé */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -121,18 +166,13 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
                   Sim bienvenue HOULBOUMI
                 </h1>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  Ingénieur DevOps & développeur full stack, j’aide les équipes produit à livrer vite et bien : pipelines fiables,
-                  architectures cloud résilientes et code orienté business.
+                  {copy.introduction}
                 </p>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {[
-                { icon: FaCode, text: "Full Stack Developer" },
-                { icon: FaServer, text: "DevOps Engineer" },
-                { icon: FaCloud, text: "Cloud Architect" }
-              ].map((badge, idx) => (
+              {copy.badges.map((badge, idx) => (
                 <div
                   key={idx}
                   className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 text-white/90 px-4 py-2 text-xs sm:text-sm"
@@ -142,6 +182,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
                 </div>
               ))}
             </div>
+            <DownLoadCV />
 
             <div className="bg-gray-950/80 backdrop-blur-sm border border-green-500/25 rounded-2xl px-5 py-4 shadow-2xl shadow-green-500/10">
               <div className="flex items-center justify-between text-xs font-mono text-gray-400">
@@ -166,10 +207,9 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <h2 className="text-lg font-semibold text-white">Faire décoller vos projets</h2>
+                  <h2 className="text-lg font-semibold text-white">{copy.projectTitle}</h2>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    De la conception à la production : automatisation CI/CD, observabilité, microservices, infrastructure cloud.
-                    Mon objectif est simple : des livraisons fréquentes, stables et faciles à maintenir.
+                    {copy.projectDescription}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {focusTags.map((tag) => (
@@ -192,13 +232,13 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
           <div className="flex flex-col items-center gap-6">
             <div className="relative -pb-10">
               <SocialBanger />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-full bg-cyan-500/90 text-white text-xs font-semibold tracking-wide px-4 py-1 shadow-lg shadow-cyan-500/40 whitespace-nowrap">
-                Disponible pour de nouveaux défis
+              <div className="availability-badge absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-full text-xs font-semibold tracking-wide px-4 py-2 whitespace-nowrap">
+                {copy.availability}
               </div>
             </div>
 
             <div className="w-full bg-gray-900/70 border border-cyan-500/20 rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">Stack de confiance</h3>
+              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">{copy.trustedStack}</h3>
               <div className="grid grid-cols-3 gap-4 text-center">
                 {techIcons.map(({ Icon, color, label }) => (
                   <div key={label} className="flex flex-col items-center gap-2 text-xs text-gray-400">
@@ -212,15 +252,15 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
             </div>
 
             <div className="w-full bg-gray-900/70 border border-blue-500/20 rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">Chiffres clés</h3>
+              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">{copy.keyNumbers}</h3>
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
                   <div className="text-2xl font-bold text-cyan-400">2+</div>
-                  <p className="text-xs text-gray-400 mt-1 leading-tight">Années d&apos;expérience</p>
+                  <p className="text-xs text-gray-400 mt-1 leading-tight">{copy.yearsExperience}</p>
                 </div>
                 <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
                   <div className="text-2xl font-bold text-blue-400">5+</div>
-                  <p className="text-xs text-gray-400 mt-1 leading-tight">Technologies maîtrisées</p>
+                  <p className="text-xs text-gray-400 mt-1 leading-tight">{copy.masteredTechs}</p>
                 </div>
               </div>
             </div>
@@ -228,7 +268,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
         </div>
 
         {/* Bandeau social */}
-        <div className="mt-10 mb-6 opacity-0 animate-fadeInUp" style={{ animationDelay: "1.3s", animationFillMode: "both" }}>
+        <div className="mt-10 mb-6 opacity-1 animate-fadeInUp" style={{ animationDelay: "1.3s", animationFillMode: "both" }}>
           <Banner />
         </div>
       </div>

@@ -2,7 +2,7 @@ import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
 const Banner = () => {
   return (
-    <div className="relative flex flex-col items-center z-20 mt-2 mb-16">
+    <div className="banner-section relative flex flex-col items-center z-20 mt-2 mb-16">
       {/* Icônes sociales */}
       <div
         className="
