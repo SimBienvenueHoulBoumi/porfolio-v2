@@ -219,7 +219,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
                   <p className="text-xs text-gray-400 mt-1 leading-tight">Années d&apos;expérience</p>
                 </div>
                 <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
-                  <div className="text-2xl font-bold text-blue-400">10+</div>
+                  <div className="text-2xl font-bold text-blue-400">5+</div>
                   <p className="text-xs text-gray-400 mt-1 leading-tight">Technologies maîtrisées</p>
                 </div>
               </div>
