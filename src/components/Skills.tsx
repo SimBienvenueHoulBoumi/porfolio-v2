@@ -80,36 +80,36 @@ const Skills: FC = () => {
 
         {/* Secondary Skills Tags */}
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent blur-xl" />
-          <div className="relative bg-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-8">
-            <h4 className="text-center text-lg font-semibold text-cyan-400 mb-6">{copy.secondaryTitle}</h4>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/15 to-transparent blur-xl" />
+          <div className="relative bg-gradient-to-br from-gray-900/70 via-gray-900/60 to-gray-900/40 backdrop-blur-md border border-cyan-400/30 rounded-2xl p-8 shadow-xl shadow-cyan-500/15">
+            <h4 className="text-center text-lg font-semibold text-cyan-300 mb-6 drop-shadow-sm">{copy.secondaryTitle}</h4>
             <div className="flex flex-wrap justify-center gap-3">
-              <span className="group px-4 py-2 bg-gradient-to-r from-purple-800/50 to-purple-900/50 border border-purple-500/30 rounded-full text-sm text-purple-200 hover:border-purple-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <SiRedux className="text-purple-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-purple-700/70 to-purple-500/70 border border-purple-400/60 rounded-full text-sm text-purple-100 hover:border-purple-300 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-purple-500/20">
+                <SiRedux className="text-purple-200" />
                 Redux
               </span>
-              <span className="group px-4 py-2 bg-gradient-to-r from-cyan-800/50 to-cyan-900/50 border border-cyan-500/30 rounded-full text-sm text-cyan-200 hover:border-cyan-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <SiTailwindcss className="text-cyan-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-cyan-600/70 to-cyan-400/70 border border-cyan-300/60 rounded-full text-sm text-cyan-900 hover:border-cyan-200 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-cyan-500/20">
+                <SiTailwindcss className="text-cyan-950" />
                 TailwindCSS
               </span>
-              <span className="group px-4 py-2 bg-gradient-to-r from-blue-600/50 to-blue-700/50 border border-blue-500/30 rounded-full text-sm text-blue-200 hover:border-blue-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <SiTypescript className="text-blue-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-blue-600/70 to-indigo-600/70 border border-blue-400/60 rounded-full text-sm text-blue-50 hover:border-blue-300 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-blue-500/25">
+                <SiTypescript className="text-blue-200" />
                 TypeScript
               </span>
-              <span className="group px-4 py-2 bg-gradient-to-r from-gray-600/50 to-gray-700/50 border border-gray-500/30 rounded-full text-sm text-gray-200 hover:border-gray-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <FaLinux className="text-yellow-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-slate-700/70 to-slate-900/70 border border-slate-500/60 rounded-full text-sm text-slate-200 hover:border-slate-300 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-slate-900/30">
+                <FaLinux className="text-amber-300" />
                 Linux
               </span>
-              <span className="group px-4 py-2 bg-gradient-to-r from-orange-600/50 to-orange-700/50 border border-orange-500/30 rounded-full text-sm text-orange-200 hover:border-orange-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <SiAnsible className="text-red-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-amber-500/80 to-orange-500/80 border border-amber-300/70 rounded-full text-sm text-amber-950 hover:border-amber-200 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-amber-300/35">
+                <SiAnsible className="text-rose-200" />
                 Ansible
               </span>
-              <span className="group px-4 py-2 bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-gray-500/30 rounded-full text-sm text-gray-200 hover:border-gray-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <SiJenkins className="text-red-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-slate-800/70 to-slate-950/70 border border-slate-600/50 rounded-full text-sm text-slate-100 hover:border-slate-300 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-slate-900/30">
+                <SiJenkins className="text-rose-200" />
                 Jenkins
               </span>
-              <span className="group px-4 py-2 bg-gradient-to-r from-sky-800/50 to-sky-900/50 border border-sky-500/30 rounded-full text-sm text-sky-200 hover:border-sky-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-                <SiKubernetes className="text-blue-400" />
+              <span className="group px-4 py-2 bg-gradient-to-r from-sky-500/70 to-blue-500/70 border border-sky-300/60 rounded-full text-sm text-sky-50 hover:border-sky-200 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2 shadow-md shadow-sky-500/25">
+                <SiKubernetes className="text-blue-100" />
                 Kubernetes
               </span>
             </div>
