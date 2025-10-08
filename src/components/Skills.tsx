@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { FaJava, FaReact, FaDatabase, FaDocker, FaGitAlt, FaLinux } from "react-icons/fa";
-import { SiSpringboot, SiJenkins, SiAnsible, SiKubernetes, SiPostgresql, SiMysql, SiTypescript, SiTailwindcss, SiRedux } from "react-icons/si";
+import { SiJenkins, SiAnsible, SiKubernetes, SiTypescript, SiTailwindcss, SiRedux } from "react-icons/si";
 
 const Skills: FC = () => (
   <section id="skills" className="py-20 px-4 bg-gradient-to-b from-gray-900 via-slate-900 to-gray-950 relative overflow-hidden">

@@ -1,5 +1,4 @@
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
-import { FiChevronDown } from "react-icons/fi"; // flèche animée
 
 const Banner = () => {
   return (

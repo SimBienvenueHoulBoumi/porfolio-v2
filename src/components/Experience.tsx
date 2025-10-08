@@ -48,7 +48,7 @@ const EXPERIENCES = [
       {
         content: (
           <>
-            Conception d'une interface d'administration des données avec <span className="text-sky-400 font-semibold">React / Next.js</span>, centrée sur l'ergonomie et la performance.
+            Conception d&apos;une interface d&apos;administration des données avec <span className="text-sky-400 font-semibold">React / Next.js</span>, centrée sur l&apos;ergonomie et la performance.
           </>
         )
       },
@@ -62,21 +62,21 @@ const EXPERIENCES = [
       {
         content: (
           <>
-            Consommation d'API sécurisées (<span className="text-pink-300 font-semibold">NestJS</span>) avec authentification et gestion fine des erreurs, assurant une intégration fluide front/backend.
+            Consommation d&apos;API sécurisées (<span className="text-pink-300 font-semibold">NestJS</span>) avec authentification et gestion fine des erreurs, assurant une intégration fluide front/backend.
           </>
         )
       },
       {
         content: (
           <>
-            Déploiement automatisé d'environnements de test avec <span className="text-cyan-300 font-semibold">Docker Compose</span>, facilitant la reproduction des bugs et les validations techniques.
+            Déploiement automatisé d&apos;environnements de test avec <span className="text-cyan-300 font-semibold">Docker Compose</span>, facilitant la reproduction des bugs et les validations techniques.
           </>
         )
       },
       {
         content: (
           <>
-            Participation à l'automatisation des tests et du déploiement continu <Tooltip text="Exécution automatique des jobs, validation, déploiement."><span className="text-gray-100 font-semibold cursor-help">CI/CD</span></Tooltip>, avec contribution aux scripts Jenkins et à la documentation technique.
+            Participation à l&apos;automatisation des tests et du déploiement continu <Tooltip text="Exécution automatique des jobs, validation, déploiement."><span className="text-gray-100 font-semibold cursor-help">CI/CD</span></Tooltip>, avec contribution aux scripts Jenkins et à la documentation technique.
           </>
         )
       }
@@ -105,7 +105,7 @@ const EXPERIENCES = [
       {
         content: (
           <>
-            Développement d'<span className="text-indigo-300 font-semibold">API REST</span> sécurisées avec <span className="text-indigo-300 font-semibold">Spring Boot</span> et authentification JWT, dans une architecture modulaire robuste.
+            Développement d&apos;<span className="text-indigo-300 font-semibold">API REST</span> sécurisées avec <span className="text-indigo-300 font-semibold">Spring Boot</span> et authentification JWT, dans une architecture modulaire robuste.
           </>
         )
       },

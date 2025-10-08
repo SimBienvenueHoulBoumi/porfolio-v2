@@ -216,7 +216,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
                   <div className="text-2xl font-bold text-cyan-400">2+</div>
-                  <p className="text-xs text-gray-400 mt-1 leading-tight">Années d'expérience</p>
+                  <p className="text-xs text-gray-400 mt-1 leading-tight">Années d&apos;expérience</p>
                 </div>
                 <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
                   <div className="text-2xl font-bold text-blue-400">10+</div>
