@@ -1,6 +1,6 @@
 "use client";
 import { FC } from "react";
-import { FaJava, FaReact, FaDatabase, FaDocker, FaGitAlt, FaLinux } from "react-icons/fa";
+import { FaJava, FaReact, FaDatabase, FaDocker, FaLinux } from "react-icons/fa";
 import { SiJenkins, SiAnsible, SiKubernetes, SiTypescript, SiTailwindcss, SiRedux } from "react-icons/si";
 
 const Skills: FC = () => (
