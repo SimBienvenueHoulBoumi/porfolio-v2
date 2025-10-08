@@ -7,7 +7,7 @@ import Hero from "../components/Hero";
 import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
-import ScrollToBottomButton from "../components/ScrollToBottomButton";
+import ScrollControls from "../components/ScrollControls";
 import Experience from "@/components/Experience";
 
 export default function Page() {
@@ -24,7 +24,7 @@ export default function Page() {
     <div className="bg-gray-900 text-white font-sans relative">
       <div className="relative">
         <Hero />
-        <ScrollToBottomButton onClick={handleScrollToFooter} />
+        <ScrollControls onScrollToFooter={handleScrollToFooter} />
       </div>
       <Skills />
       <Experience />

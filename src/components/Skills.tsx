@@ -60,33 +60,6 @@ const Skills: FC = () => (
             <p className="font-semibold text-lg text-white">Docker / CI/CD</p>
           </div>
         </div>
-
-        {/* Ansible */}
-        <div className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-red-500/20 rounded-xl p-6 hover:border-red-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="relative z-10 flex flex-col items-center text-center">
-            <SiAnsible className="text-5xl mb-3 text-red-500 group-hover:scale-110 transition-transform" />
-            <p className="font-semibold text-lg text-white">Ansible</p>
-          </div>
-        </div>
-
-        {/* Jenkins */}
-        <div className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-red-400/20 rounded-xl p-6 hover:border-red-400/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-400/20">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-400/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="relative z-10 flex flex-col items-center text-center">
-            <SiJenkins className="text-5xl mb-3 text-red-400 group-hover:scale-110 transition-transform" />
-            <p className="font-semibold text-lg text-white">Jenkins</p>
-          </div>
-        </div>
-
-        {/* Kubernetes */}
-        <div className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-blue-500/20 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 col-span-2 md:col-span-2">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="relative z-10 flex flex-col items-center text-center">
-            <SiKubernetes className="text-5xl mb-3 text-blue-500 group-hover:rotate-180 transition-transform duration-700" />
-            <p className="font-semibold text-lg text-white">Kubernetes</p>
-          </div>
-        </div>
       </div>
 
       {/* Secondary Skills Tags */}
@@ -95,10 +68,6 @@ const Skills: FC = () => (
         <div className="relative bg-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-8">
           <h4 className="text-center text-lg font-semibold text-cyan-400 mb-6">Technologies & Outils</h4>
           <div className="flex flex-wrap justify-center gap-3">
-            <span className="group px-4 py-2 bg-gradient-to-r from-blue-800/50 to-blue-900/50 border border-blue-500/30 rounded-full text-sm text-blue-200 hover:border-blue-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-              <FaDatabase className="text-blue-400" />
-              API REST
-            </span>
             <span className="group px-4 py-2 bg-gradient-to-r from-purple-800/50 to-purple-900/50 border border-purple-500/30 rounded-full text-sm text-purple-200 hover:border-purple-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
               <SiRedux className="text-purple-400" />
               Redux
@@ -106,13 +75,6 @@ const Skills: FC = () => (
             <span className="group px-4 py-2 bg-gradient-to-r from-cyan-800/50 to-cyan-900/50 border border-cyan-500/30 rounded-full text-sm text-cyan-200 hover:border-cyan-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
               <SiTailwindcss className="text-cyan-400" />
               TailwindCSS
-            </span>
-            <span className="group px-4 py-2 bg-gradient-to-r from-gray-700/50 to-gray-800/50 border border-gray-500/30 rounded-full text-sm text-gray-200 hover:border-gray-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
-              <FaGitAlt className="text-orange-400" />
-              Git / GitHub
-            </span>
-            <span className="group px-4 py-2 bg-gradient-to-r from-pink-800/50 to-pink-900/50 border border-pink-500/30 rounded-full text-sm text-pink-200 hover:border-pink-400 hover:scale-105 transition-all duration-200 cursor-default">
-              Test Unitaire
             </span>
             <span className="group px-4 py-2 bg-gradient-to-r from-blue-600/50 to-blue-700/50 border border-blue-500/30 rounded-full text-sm text-blue-200 hover:border-blue-400 hover:scale-105 transition-all duration-200 cursor-default flex items-center gap-2">
               <SiTypescript className="text-blue-400" />

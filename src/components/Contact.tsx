@@ -46,13 +46,11 @@ const Contact: FC = () => (
           
           {/* Email */}
           <div className="mb-8">
-            <p className="text-gray-400 mb-3">Email :</p>
             <a 
               href="mailto:houlboumi.sim.bienvenue@gmail.com" 
               className="group inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/50"
             >
               <FiMail className="text-xl" />
-              <span>houlboumi.sim.bienvenue@gmail.com</span>
             </a>
           </div>
 
@@ -95,6 +93,8 @@ const Contact: FC = () => (
                 LinkedIn
               </span>
             </a>
+
+            
           </div>
         </div>
       </div>
