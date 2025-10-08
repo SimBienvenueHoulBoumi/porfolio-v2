@@ -22,7 +22,6 @@ const HERO_COPY = {
     badges: [
       { icon: FaCode, text: "Développeur Full Stack" },
       { icon: FaServer, text: "Ingénieur DevOps" },
-      { icon: FaCloud, text: "Architecte Cloud" }
     ],
     projectTitle: "Faire décoller vos projets",
     projectDescription: "De la conception à la production : automatisation CI/CD, observabilité, microservices, infrastructure cloud. Mon objectif est simple : des livraisons fréquentes, stables et faciles à maintenir.",

@@ -26,7 +26,7 @@ const Contact: FC = () => {
   const copy = CONTACT_COPY[language];
 
   return (
-    <section id="contact" className="contact-section bg-gradient-to-b from-gray-900 via-slate-900 to-black relative overflow-hidden py-4">
+    <section id="contact" className="contact-section relative overflow-hidden py-20 px-4">
       {/* Background effects */}
       <div className="absolute inset-0 opacity-5">
         <div
