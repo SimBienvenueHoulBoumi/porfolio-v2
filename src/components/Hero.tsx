@@ -29,7 +29,8 @@ const HERO_COPY = {
     trustedStack: "Stack de confiance",
     keyNumbers: "Chiffres clés",
     yearsExperience: "Années d'expérience",
-    masteredTechs: "Technologies maîtrisées"
+    masteredTechs: "Technologies maîtrisées",
+    ctaSecondary: "Organiser un échange"
   },
   en: {
     typewriter: [
@@ -49,9 +50,25 @@ const HERO_COPY = {
     trustedStack: "Trusted stack",
     keyNumbers: "Key figures",
     yearsExperience: "Years of experience",
-    masteredTechs: "Technologies mastered"
+    masteredTechs: "Technologies mastered",
+    ctaSecondary: "Book a discovery call"
   }
-} as const satisfies Record<"fr" | "en", { typewriter: string[]; introduction: string; badges: { icon: typeof FaCode; text: string }[]; projectTitle: string; projectDescription: string; availability: string; trustedStack: string; keyNumbers: string; yearsExperience: string; masteredTechs: string }>;
+} as const satisfies Record<
+  "fr" | "en",
+  {
+    typewriter: string[];
+    introduction: string;
+    badges: { icon: typeof FaCode; text: string }[];
+    projectTitle: string;
+    projectDescription: string;
+    availability: string;
+    trustedStack: string;
+    keyNumbers: string;
+    yearsExperience: string;
+    masteredTechs: string;
+    ctaSecondary: string;
+  }
+>;
 
 function useTypewriter(words: string[], speed = 70, pause = 1200) {
   const [index, setIndex] = useState(0);
@@ -180,6 +197,16 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
                   {badge.text}
                 </div>
               ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-5 py-2.5 text-sm font-semibold text-cyan-100 transition-all duration-300 hover:border-cyan-300/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+              >
+                <FiTerminal className="text-base" />
+                {copy.ctaSecondary}
+              </a>
             </div>
             <DownLoadCV />
 
