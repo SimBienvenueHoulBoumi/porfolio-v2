@@ -10,7 +10,7 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Icon() {
-  const candidates = ["profile.webp", "profile.jpg", "DSC_0066.JPG"];
+  const candidates = ["profile.png", "profile.webp", "profile.jpg"];
   let photoSrc: string | null = null;
 
   for (const filename of candidates) {
@@ -45,14 +45,15 @@ export default async function Icon() {
           justifyContent: "center",
           backgroundColor: "#020617",
           borderRadius: "9999px",
-          overflow: "hidden",
-          padding: "4px"
+          overflow: "hidden"
         }}
       >
         {photoSrc ? (
           <img
             src={photoSrc}
             alt="Portrait de Sim Bienvenue Houlboumi"
+            width={size.width}
+            height={size.height}
             style={{
               width: "100%",
               height: "100%",

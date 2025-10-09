@@ -256,9 +256,9 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
 
           {/* Colonne visuelle */}
           <div className="flex flex-col items-center gap-6">
-            <div className="relative -pb-10">
+            <div className="flex flex-col items-center gap-3">
               <SocialBanger />
-              <div className="availability-badge absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-full text-xs font-semibold tracking-wide px-4 py-2 whitespace-nowrap">
+              <div className="availability-badge relative inline-flex items-center justify-center rounded-full text-xs font-semibold tracking-wide px-5 py-2 whitespace-nowrap shadow-lg shadow-cyan-500/20 mt-6 sm:mt-7">
                 {copy.availability}
               </div>
             </div>

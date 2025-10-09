@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Simfolio",
     images: [
       {
-        url: "/profile.webp",
+        url: "/profile.png",
         width: 1200,
         height: 630,
         alt: "Portrait de Sim Bienvenue Houlboumi"
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Simfolio",
     description:
       "CI/CD, microservices et cloud résilient : découvrez le portfolio de Sim Bienvenue Houlboumi.",
-    images: ["/profile.webp"]
+    images: ["/profile.png"]
   }
 };
 
