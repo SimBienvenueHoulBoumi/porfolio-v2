@@ -13,16 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Simfolio · DevOps & Full Stack Engineer",
+  title: "Simfolio",
   description:
     "Sim Bienvenue Houlboumi – DevOps engineer & full stack developer delivering resilient cloud architectures, reliable CI/CD and business-focused code.",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico"
-  },
   openGraph: {
-    title: "Simfolio · DevOps & Full Stack Engineer",
+    title: "Simfolio",
     description:
       "Découvrez les études de cas CI/CD, microservices et cloud portées par Sim Bienvenue Houlboumi.",
     url: "https://simfolio.com",
@@ -40,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Simfolio · DevOps & Full Stack Engineer",
+    title: "Simfolio",
     description:
       "CI/CD, microservices et cloud résilient : découvrez le portfolio de Sim Bienvenue Houlboumi.",
     images: ["/DSC_0066.JPG"]
