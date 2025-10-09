@@ -11,7 +11,7 @@ const LanguageToggle = () => {
     <button
       type="button"
       onClick={toggleLanguage}
-      className="group relative flex items-center gap-1 rounded-full border border-cyan-500/30 bg-black/60 px-3 py-1 text-xs font-medium text-gray-300 shadow-lg shadow-cyan-500/20 transition-all hover:border-cyan-400 hover:text-white hover:shadow-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/60"
+      className="relative inline-flex items-center gap-1 rounded-full border border-cyan-500/30 bg-black/60 px-3 py-1 text-xs font-medium text-gray-300 shadow-lg shadow-cyan-500/20 cursor-pointer transition-colors duration-200 hover:border-cyan-400 hover:text-white hover:shadow-cyan-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       aria-label={isFrench ? "Passer le site en anglais" : "Switch the site to French"}
       title={isFrench ? "English version" : "Version française"}
     >

@@ -31,7 +31,7 @@ const Banner = () => {
             shadow-xl
             p-3 sm:p-4
             transition-all duration-200
-            focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400/40
+            focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400/40 cursor-pointer
           "
           aria-label="LinkedIn"
         >
@@ -56,7 +56,7 @@ const Banner = () => {
             shadow-xl
             p-3 sm:p-4
             transition-all duration-200
-            focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200/40
+            focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200/40 cursor-pointer
           "
           aria-label="GitHub"
         >
@@ -79,7 +79,7 @@ const Banner = () => {
             shadow-xl
             p-3 sm:p-4
             transition-all duration-200
-            focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/40
+            focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/40 cursor-pointer
           "
           aria-label="E-mail"
         >

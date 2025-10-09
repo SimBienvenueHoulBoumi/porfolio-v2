@@ -27,7 +27,7 @@ const ThemeToggle = () => {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`group relative flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium transition-all focus:outline-none focus:ring-2 ${baseClasses}`}
+      className={`group relative flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium transition-all hover:cursor-pointer focus:outline-none focus:ring-2 ${baseClasses}`}
       aria-label={label}
       title={tooltip}
     >
