@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://simfolio.com"),
   title: "Simfolio",
   description:
     "Sim Bienvenue Houlboumi – DevOps engineer & full stack developer delivering resilient cloud architectures, reliable CI/CD and business-focused code.",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Simfolio",
     images: [
       {
-        url: "/DSC_0066.JPG",
+        url: "/profile.webp",
         width: 1200,
         height: 630,
         alt: "Portrait de Sim Bienvenue Houlboumi"
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     title: "Simfolio",
     description:
       "CI/CD, microservices et cloud résilient : découvrez le portfolio de Sim Bienvenue Houlboumi.",
-    images: ["/DSC_0066.JPG"]
+    images: ["/profile.webp"]
   }
 };
 

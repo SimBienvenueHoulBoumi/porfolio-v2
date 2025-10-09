@@ -10,10 +10,29 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Icon() {
-  const photoPath = path.join(process.cwd(), "public/DSC_0066.JPG");
-  const photoBuffer = await fs.promises.readFile(photoPath);
-  const base64Photo = photoBuffer.toString("base64");
-  const photoSrc = `data:image/jpeg;base64,${base64Photo}`;
+  const candidates = ["profile.webp", "profile.jpg", "DSC_0066.JPG"];
+  let photoSrc: string | null = null;
+
+  for (const filename of candidates) {
+    const photoPath = path.join(process.cwd(), "public", filename);
+    try {
+      const buffer = await fs.promises.readFile(photoPath);
+      const base64 = buffer.toString("base64");
+      const ext = path.extname(filename).toLowerCase();
+      const mime =
+        ext === ".png"
+          ? "png"
+          : ext === ".webp"
+            ? "webp"
+            : ext === ".gif"
+              ? "gif"
+              : "jpeg";
+      photoSrc = `data:image/${mime};base64,${base64}`;
+      break;
+    } catch {
+      // ignore and try next candidate
+    }
+  }
 
   return new ImageResponse(
     (
@@ -30,17 +49,29 @@ export default async function Icon() {
           padding: "4px"
         }}
       >
-        <img
-          src={photoSrc}
-          alt="Portrait de Sim Bienvenue Houlboumi"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            borderRadius: "9999px",
-            transform: "rotate(-90deg)"
-          }}
-        />
+        {photoSrc ? (
+          <img
+            src={photoSrc}
+            alt="Portrait de Sim Bienvenue Houlboumi"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "9999px"
+            }}
+          />
+        ) : (
+          <span
+            style={{
+              fontSize: "20px",
+              fontWeight: 700,
+              color: "#38bdf8",
+              letterSpacing: "0.1em"
+            }}
+          >
+            SB
+          </span>
+        )}
       </div>
     ),
     {
