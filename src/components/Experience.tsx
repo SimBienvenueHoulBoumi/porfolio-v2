@@ -67,7 +67,7 @@ const EXPERIENCE_COPY = {
           {
             content: (
               <>
-                Consommation d&apos;API sécurisées (<span className="text-pink-300 font-semibold">NestJS</span>) avec authentification et gestion fine des erreurs, assurant une intégration fluide front/backend.
+                Consommation d&apos;API sécurisées (<span className="text-pink-300 font-semibold">Springboot</span>) avec authentification et gestion fine des erreurs, assurant une intégration fluide front/backend.
               </>
             )
           },
@@ -191,7 +191,7 @@ const EXPERIENCE_COPY = {
           {
             content: (
               <>
-                Consumed secured APIs (<span className="text-pink-300 font-semibold">NestJS</span>) with authentication and robust error handling for seamless front/back integration.
+                Consumed secured APIs (<span className="text-pink-300 font-semibold">Springboot</span>) with authentication and robust error handling for seamless front/back integration.
               </>
             )
           },
