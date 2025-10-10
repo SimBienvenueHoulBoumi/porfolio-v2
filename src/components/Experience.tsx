@@ -306,6 +306,9 @@ const Experience: FC = () => {
   const headingTextClass = isAurora ? "text-slate-900" : "text-white";
   const bulletTextClass = isAurora ? "text-slate-700" : "text-gray-300";
   const bulletDotClass = isAurora ? "bg-sky-400/70" : "bg-cyan-400/70";
+  const sectionTitleClass = isAurora
+    ? "text-4xl font-bold mb-3 text-gray-700"
+    : "text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent";
 
   return (
     <section id="experience" className={sectionClasses}>
@@ -322,7 +325,7 @@ const Experience: FC = () => {
 
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <h3 className="text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h3 className={sectionTitleClass}>
             {copy.title}
           </h3>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
@@ -347,6 +350,10 @@ const Experience: FC = () => {
                 ? "inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-sky-50 border border-sky-200 text-sm text-sky-700"
                 : "inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-gray-800/60 border border-cyan-500/20 text-sm text-cyan-100";
 
+              const companyBadgeClasses = isAurora
+                ? "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-50 text-sky-700 font-bold shadow-md border border-sky-200 cursor-help hover:-translate-y-0.5 transition-transform"
+                : `inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${exp.company.color} text-white font-bold shadow-lg border border-white/20 cursor-help hover:scale-105 transition-transform`;
+
               return (
                 <li
                   key={exp.company.label + idx}
@@ -365,8 +372,8 @@ const Experience: FC = () => {
                       >
                         <div className={`flex ${isLeftAligned ? "justify-start" : "md:justify-end justify-start"} mb-4`}>
                           <Tooltip text={exp.company.tooltip}>
-                            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${exp.company.color} text-white font-bold shadow-lg border border-white/20 cursor-help hover:scale-105 transition-transform`}>
-                              <FaBuilding className="text-sm" />
+                            <div className={companyBadgeClasses}>
+                              <FaBuilding className={`text-sm ${isAurora ? "text-sky-600" : "text-white"}`} />
                               {exp.company.label}
                             </div>
                           </Tooltip>

@@ -50,6 +50,9 @@ const Contact: FC = () => {
     : "absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs px-3 py-1 rounded-lg pointer-events-none transition-all duration-200 whitespace-nowrap shadow-lg bg-gray-800 text-white";
 
   const infoTextClass = isAurora ? "text-slate-600" : "text-gray-400";
+  const sectionTitleClass = isAurora
+    ? "text-4xl font-bold mb-3 text-gray-700"
+    : "text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent";
 
   return (
     <section id="contact" className={sectionClasses}>
@@ -69,7 +72,7 @@ const Contact: FC = () => {
 
       <div className="max-w-3xl mx-auto text-center relative z-10">
         <div className="mb-12">
-          <h3 className="text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h3 className={sectionTitleClass}>
             {copy.title}
           </h3>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
