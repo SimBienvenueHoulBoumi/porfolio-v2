@@ -3,28 +3,28 @@
 import { FC, ReactNode } from "react";
 import { FaBuilding, FaUsers, FaCalendar, FaCode } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
-const Tooltip: FC<{ text: string; children: ReactNode }> = ({ text, children }) => (
-  <span className="relative group cursor-help">
-    {children}
-    <span
-      className="
-        absolute left-1/2 -translate-x-1/2 bottom-full mb-2
-        opacity-0 group-hover:opacity-100
-        pointer-events-none
-        bg-gray-900 text-white text-xs px-3 py-1 rounded-lg shadow-lg
-        whitespace-pre-line z-30
-        transition-opacity duration-300
-        w-max max-w-xs
-        font-normal
-        border border-cyan-500/30
-      "
-      style={{ minWidth: "140px" }}
-    >
-      {text}
+const Tooltip: FC<{ text: string; children: ReactNode }> = ({ text, children }) => {
+  const { theme } = useTheme();
+  const isAurora = theme === "aurora";
+
+  const bubbleClasses = isAurora
+    ? "bg-white text-slate-700 border border-sky-200 shadow-lg shadow-sky-200/40"
+    : "bg-gray-900 text-white border border-cyan-500/30 shadow-lg";
+
+  return (
+    <span className="relative group cursor-help">
+      {children}
+      <span
+        className={`absolute left-1/2 -translate-x-1/2 bottom-full mb-2 opacity-0 group-hover:opacity-100 pointer-events-none text-xs px-3 py-1 rounded-lg whitespace-pre-line z-30 transition-opacity duration-300 w-max max-w-xs font-normal ${bubbleClasses}`}
+        style={{ minWidth: "140px" }}
+      >
+        {text}
+      </span>
     </span>
-  </span>
-);
+  );
+};
 
 const EXPERIENCE_COPY = {
   fr: {
@@ -279,24 +279,48 @@ const EXPERIENCE_COPY = {
 
 const Experience: FC = () => {
   const { language } = useLanguage();
+  const { theme } = useTheme();
+  const isAurora = theme === "aurora";
   const copy = EXPERIENCE_COPY[language];
 
+  const sectionClasses = isAurora
+    ? "experience-section py-10 px-4 bg-gradient-to-b from-white via-slate-100 to-sky-50 relative overflow-hidden"
+    : "experience-section py-10 px-4 bg-gradient-to-b from-gray-950 via-slate-900 to-gray-900 relative overflow-hidden";
+
+  const gridColor = isAurora ? "rgba(37, 99, 235, 0.06)" : "rgba(34, 211, 238, 0.1)";
+
+  const timelineLineClasses = isAurora
+    ? "absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-400 via-blue-400 to-purple-400 transform md:-translate-x-1/2"
+    : "absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2";
+
+  const cardBaseClasses = isAurora
+    ? "group/experience relative bg-white/90 backdrop-blur-md border border-sky-200 rounded-2xl p-6 transition-all duration-300 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-200/70"
+    : "group/experience relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10";
+
+  const glowClasses = isAurora
+    ? "absolute inset-0 bg-gradient-to-br from-sky-200/40 to-transparent rounded-2xl opacity-0 group-hover/experience:opacity-100 transition-opacity"
+    : "absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-2xl opacity-0 group-hover/experience:opacity-100 transition-opacity";
+
+  const metaTextClass = isAurora ? "text-slate-500" : "text-gray-400";
+  const iconAccentClass = isAurora ? "text-sky-500" : "text-cyan-400";
+  const headingTextClass = isAurora ? "text-slate-900" : "text-white";
+  const bulletTextClass = isAurora ? "text-slate-700" : "text-gray-300";
+  const bulletDotClass = isAurora ? "bg-sky-400/70" : "bg-cyan-400/70";
+
   return (
-    <section id="experience" className="experience-section py-10 px-4 bg-gradient-to-b from-gray-950 via-slate-900 to-gray-900 relative overflow-hidden">
-      {/* Background effects */}
+    <section id="experience" className={sectionClasses}>
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
-                         linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(${gridColor} 1px, transparent 1px),
+                         linear-gradient(90deg, ${gridColor} 1px, transparent 1px)`,
             backgroundSize: "40px 40px"
           }}
         />
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Title */}
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
             {copy.title}
@@ -304,35 +328,41 @@ const Experience: FC = () => {
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
         </div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2" />
+          <div className={timelineLineClasses} />
 
           <ul className="space-y-12">
             {copy.experiences.map((exp, idx) => {
               const isLeftAligned = idx % 2 === 0;
+
+              const timelineDotClasses = isAurora
+                ? "absolute left-0 md:left-1/2 top-8 w-4 h-4 bg-gradient-to-br from-sky-400 to-blue-500 rounded-full transform md:-translate-x-1/2 border-4 border-white z-10 shadow-lg shadow-sky-300/60"
+                : "absolute left-0 md:left-1/2 top-8 w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full transform md:-translate-x-1/2 border-4 border-gray-900 z-10 shadow-lg shadow-cyan-500/50";
+
+              const teamBadgeClasses = isAurora
+                ? "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 cursor-help"
+                : "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-gray-800/80 to-gray-900/80 border border-cyan-500/30 text-cyan-100 cursor-help";
+
+              const techBadgeClasses = isAurora
+                ? "inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-sky-50 border border-sky-200 text-sm text-sky-700"
+                : "inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-gray-800/60 border border-cyan-500/20 text-sm text-cyan-100";
 
               return (
                 <li
                   key={exp.company.label + idx}
                   className={`relative ${isLeftAligned ? "md:pr-1/2" : "md:pl-1/2 md:text-right"}`}
                 >
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 md:left-1/2 top-8 w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full transform md:-translate-x-1/2 border-4 border-gray-900 z-10 shadow-lg shadow-cyan-500/50" />
+                  <div className={timelineDotClasses} />
 
-                  {/* Content card */}
                   <div className={`ml-8 md:ml-0 ${isLeftAligned ? "md:mr-8" : "md:ml-8"}`}>
-                    <div className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10">
-                      {/* Glow effect */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className={cardBaseClasses}>
+                      <div className={`${glowClasses} pointer-events-none`} />
 
                       <div
                         className={`relative z-10 md:flex md:flex-col ${
                           isLeftAligned ? "md:items-start md:text-left" : "md:items-end md:text-right"
                         }`}
                       >
-                        {/* Company badge */}
                         <div className={`flex ${isLeftAligned ? "justify-start" : "md:justify-end justify-start"} mb-4`}>
                           <Tooltip text={exp.company.tooltip}>
                             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${exp.company.color} text-white font-bold shadow-lg border border-white/20 cursor-help hover:scale-105 transition-transform`}>
@@ -342,43 +372,38 @@ const Experience: FC = () => {
                           </Tooltip>
                         </div>
 
-                        {/* Title and meta */}
                         <div className={`flex flex-wrap items-center gap-3 mb-4 ${isLeftAligned ? "" : "md:flex-row-reverse md:justify-end"}`}>
-                          <h4 className="text-xl font-bold text-white flex items-center gap-2">
-                            <FaCode className="text-cyan-400" />
+                          <h4 className={`text-xl font-bold flex items-center gap-2 ${headingTextClass}`}>
+                            <FaCode className={iconAccentClass} />
                             {exp.title}
                           </h4>
 
-                          <div className={`flex items-center gap-2 text-xs text-gray-400 ${isLeftAligned ? "" : "md:ml-auto md:justify-end"}`}>
-                            <FaUsers className="text-cyan-400" />
+                          <div className={`flex items-center gap-2 text-xs ${metaTextClass} ${isLeftAligned ? "" : "md:ml-auto md:justify-end"}`}>
+                            <FaUsers className={iconAccentClass} />
                             <Tooltip text={exp.team.tooltip}>
-                              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-gray-800/80 to-gray-900/80 border border-cyan-500/30 text-cyan-100 cursor-help">
-                                {exp.team.label}
-                              </span>
+                              <span className={teamBadgeClasses}>{exp.team.label}</span>
                             </Tooltip>
                           </div>
 
-                          <div className={`flex items-center gap-2 text-xs text-gray-400 ${isLeftAligned ? "" : "md:ml-auto md:justify-end"}`}>
-                            <FaCalendar className="text-cyan-400" />
+                          <div className={`flex items-center gap-2 text-xs ${metaTextClass} ${isLeftAligned ? "" : "md:ml-auto md:justify-end"}`}>
+                            <FaCalendar className={iconAccentClass} />
                             <span>{exp.date}</span>
                           </div>
                         </div>
 
-                        {/* Tech badge */}
                         <div
-                          className={`inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-gray-800/60 border border-cyan-500/20 text-sm text-cyan-100 ${
+                          className={`${techBadgeClasses} ${
                             isLeftAligned ? "" : "md:self-end md:justify-end md:text-right"
                           }`}
                         >
-                          <span className="font-semibold text-white">{exp.tech.label}</span>
+                          <span className={`font-semibold ${headingTextClass}`}>{exp.tech.label}</span>
                           <Tooltip text={exp.tech.tooltip}>
                             <span className={`${exp.tech.color} cursor-help`}>•</span>
                           </Tooltip>
                         </div>
 
-                        {/* Bullet points */}
                         <ul
-                          className={`space-y-3 text-sm text-gray-300 leading-relaxed ${
+                          className={`space-y-3 text-sm leading-relaxed ${bulletTextClass} ${
                             isLeftAligned ? "" : "md:text-right"
                           }`}
                         >
@@ -390,7 +415,7 @@ const Experience: FC = () => {
                               }`}
                             >
                               <span
-                                className={`absolute top-2 w-2 h-2 rounded-full bg-cyan-400/70 ${
+                                className={`absolute top-2 w-2 h-2 rounded-full ${bulletDotClass} ${
                                   isLeftAligned ? "left-0" : "left-0 md:left-auto md:right-0"
                                 }`}
                               />

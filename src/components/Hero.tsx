@@ -6,8 +6,6 @@ import { FiTerminal } from "react-icons/fi";
 
 import SocialBanger from "./SocialBanger";
 import Banner from "./Banner";
-import LanguageToggle from "./LanguageToggle";
-import ThemeToggle from "./ThemeToggle";
 import DownLoadCV from "./DownLoadCV";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -23,6 +21,7 @@ const HERO_COPY = {
     badges: [
       { icon: FaCode, text: "Développeur Full Stack" },
       { icon: FaServer, text: "Ingénieur DevOps" },
+      { icon: FaCloud, text: "Architecte Cloud" },
     ],
     projectTitle: "Faire décoller vos projets",
     projectDescription: "De la conception à la production : automatisation CI/CD, observabilité, microservices, infrastructure cloud. Mon objectif est simple : des livraisons fréquentes, stables et faciles à maintenir.",
@@ -118,10 +117,6 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
       ref={ref}
       className="hero-section relative py-12 sm:py-16 flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black px-4 sm:px-6"
     >
-      <div className="absolute right-4 top-4 sm:right-6 sm:top-6 z-30 flex flex-col items-end gap-2">
-        <LanguageToggle />
-        <ThemeToggle />
-      </div>
       {/* Fond quadrillé */}
       <div className="absolute inset-0 opacity-10">
         <div

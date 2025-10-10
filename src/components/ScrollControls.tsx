@@ -55,10 +55,6 @@ const ScrollControls: FC<ScrollControlsProps> = ({ onScrollToFooter }) => {
         <FiArrowDown className="text-white text-xl sm:text-2xl group-hover:translate-y-1 transition-transform" />
       )}
 
-      <span className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs px-3 py-2 rounded-lg pointer-events-none transition-all duration-200 whitespace-nowrap shadow-lg border border-cyan-500/30">
-        {atBottom ? copy.ariaUp : copy.ariaDown}
-      </span>
-
       <span className="absolute inset-0 rounded-full bg-cyan-500/30 animate-ping opacity-75" />
     </button>
   );

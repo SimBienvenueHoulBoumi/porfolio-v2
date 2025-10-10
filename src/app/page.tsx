@@ -8,6 +8,8 @@ import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import ScrollControls from "../components/ScrollControls";
+import LanguageToggle from "../components/LanguageToggle";
+import ThemeToggle from "../components/ThemeToggle";
 import Experience from "@/components/Experience";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
@@ -32,6 +34,10 @@ const PageContent = () => {
     <div className={`${themeContainerClass} font-sans relative transition-colors duration-500`}>
       <div className="relative">
         <Hero />
+        <div className="fixed bottom-24 right-4 sm:bottom-28 sm:right-8 z-50 flex flex-col items-end gap-3">
+          <ThemeToggle />
+          <LanguageToggle />
+        </div>
         <ScrollControls onScrollToFooter={handleScrollToFooter} />
       </div>
       <Skills />

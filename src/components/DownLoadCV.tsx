@@ -21,7 +21,7 @@ const COPY = {
 const PDF_PATH = "/developpeur_java_react_cv.pdf";
 
 const buttonBase =
-  "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 focus:outline-none focus:ring-2 cursor-pointer";
+  "inline-flex items-center justify-center rounded-full p-3 text-base transition-all duration-300 focus:outline-none focus:ring-2 cursor-pointer";
 
 const DownLoadCV = () => {
   const { language } = useLanguage();
@@ -39,17 +39,17 @@ const DownLoadCV = () => {
           target="_blank"
           rel="noopener noreferrer"
           className={`${buttonBase} cv-download-primary bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 focus:ring-cyan-400/60`}
+          aria-label={copy.view}
         >
           <FiEye className="text-base" />
-          {copy.view}
         </a>
         <a
           href={PDF_PATH}
           download
           className={`${buttonBase} cv-download-secondary border border-cyan-400/40 text-cyan-200 hover:text-white hover:border-cyan-300/80 focus:ring-cyan-400/40`}
+          aria-label={copy.download}
         >
           <FiDownload className="text-base" />
-          {copy.download}
         </a>
       </div>
     </div>
