@@ -53,39 +53,39 @@ const EXPERIENCE_COPY = {
           {
             content: (
               <>
-                Conception d&apos;une interface d&apos;administration des données avec <span className="text-sky-400 font-semibold">React / Next.js</span>, centrée sur l&apos;ergonomie et la performance.
+                Conception d&apos;une interface data en <span className="text-sky-400 font-semibold">React / Next.js</span> orientée UX et performance.
               </>
             )
           },
           {
             content: (
               <>
-                Vérification des règles métiers directement en base avec des requêtes <span className="text-yellow-200 font-semibold">SQL</span> ciblées, en environnement de production.
+                Contrôle des règles métiers via requêtes <span className="text-yellow-200 font-semibold">SQL</span> ciblées en production.
               </>
             )
           },
           {
             content: (
               <>
-                Consommation d&apos;API sécurisées (<span className="text-pink-300 font-semibold">Springboot</span>) avec authentification et gestion fine des erreurs, assurant une intégration fluide front/backend.
+                Intégration d&apos;API <span className="text-pink-300 font-semibold">Spring Boot</span> sécurisées avec authentification et gestion d&apos;erreurs.
               </>
             )
           },
           {
             content: (
               <>
-                Déploiement automatisé d&apos;environnements de test avec <span className="text-cyan-300 font-semibold">Docker Compose</span>, facilitant la reproduction des bugs et les validations techniques.
+                Automatisation des environnements de test avec <span className="text-cyan-300 font-semibold">Docker Compose</span> pour reproduire les bugs.
               </>
             )
           },
           {
             content: (
               <>
-                Participation à l&apos;automatisation des tests et du déploiement continu{" "}
+                Participation aux pipelines{" "}
                 <Tooltip text="Exécution automatique des jobs, validation, déploiement.">
                   <span className="text-gray-100 font-semibold cursor-help">CI/CD</span>
                 </Tooltip>
-                , avec contribution aux scripts Jenkins et à la documentation technique.
+                Jenkins et à la documentation technique.
               </>
             )
           }
@@ -103,7 +103,7 @@ const EXPERIENCE_COPY = {
           color: "from-orange-600 to-orange-800",
           tooltip: "Travail collaboratif sur les pipelines, les environnements et la supervision."
         },
-        title: "Développeur BACKEND JAVA-SPRINGBOOT",
+        title: "Développeur Backend Java / Spring Boot",
         tech: {
           label: "Spring Boot",
           color: "text-indigo-400",
@@ -114,36 +114,36 @@ const EXPERIENCE_COPY = {
           {
             content: (
               <>
-                Développement d&apos;<span className="text-indigo-300 font-semibold">API REST</span> sécurisées avec{" "}
-                <span className="text-indigo-300 font-semibold">Spring Boot</span> et authentification JWT, dans une architecture modulaire robuste.
+                Développement d&apos;<span className="text-indigo-300 font-semibold">API REST</span> sécurisées en{" "}
+                <span className="text-indigo-300 font-semibold">Spring Boot</span> avec authentification JWT.
               </>
             )
           },
           {
             content: (
               <>
-                Intégration de <span className="text-pink-300 font-semibold">Kafka</span> pour la communication asynchrone entre microservices.
+                Mise en place de <span className="text-pink-300 font-semibold">Kafka</span> pour les échanges asynchrones.
               </>
             )
           },
           {
             content: (
               <>
-                Écriture de pipelines <span className="text-gray-100 font-semibold">Jenkins CI/CD</span> pour automatiser le build, les tests et les déploiements, avec notifications intégrées.
+                Création de pipelines <span className="text-gray-100 font-semibold">Jenkins CI/CD</span> pour build, tests et déploiements automatisés.
               </>
             )
           },
           {
             content: (
               <>
-                Contribution à la supervision et à la fiabilisation des flux via <span className="text-green-200 font-semibold">Datadog</span>, gestion des erreurs, suivi des métriques critiques, documentation technique.
+                Pilotage de l&apos;observabilité avec <span className="text-green-200 font-semibold">Datadog</span> : métriques, alerting et documentation.
               </>
             )
           },
           {
             content: (
               <>
-                <span className="text-cyan-300 font-semibold">Conteneurisation Docker</span> des services pour des environnements reproductibles en développement, test et production.
+                <span className="text-cyan-300 font-semibold">Conteneurisation Docker</span> des services pour des environnements reproductibles.
               </>
             )
           }
@@ -294,8 +294,8 @@ const Experience: FC = () => {
     : "absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2";
 
   const cardBaseClasses = isAurora
-    ? "group/experience relative bg-white/90 backdrop-blur-md border border-sky-200 rounded-2xl p-6 transition-all duration-300 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-200/70"
-    : "group/experience relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10";
+    ? "group/experience relative w-full max-w-2xl bg-white/90 backdrop-blur-md border border-sky-200 rounded-2xl p-6 transition-all duration-300 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-200/70"
+    : "group/experience relative w-full max-w-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10";
 
   const glowClasses = isAurora
     ? "absolute inset-0 bg-gradient-to-br from-sky-200/40 to-transparent rounded-2xl opacity-0 group-hover/experience:opacity-100 transition-opacity"
@@ -343,16 +343,16 @@ const Experience: FC = () => {
                 : "absolute left-0 md:left-1/2 top-8 w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full transform md:-translate-x-1/2 border-4 border-gray-900 z-10 shadow-lg shadow-cyan-500/50";
 
               const teamBadgeClasses = isAurora
-                ? "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 cursor-help"
-                : "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-gray-800/80 to-gray-900/80 border border-cyan-500/30 text-cyan-100 cursor-help";
+                ? "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs sm:text-sm text-sky-700 font-medium cursor-help"
+                : "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-gray-800/80 to-gray-900/80 border border-cyan-500/30 text-xs sm:text-sm text-cyan-100 font-medium cursor-help";
 
               const techBadgeClasses = isAurora
-                ? "inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-sky-50 border border-sky-200 text-sm text-sky-700"
-                : "inline-flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-gray-800/60 border border-cyan-500/20 text-sm text-cyan-100";
+                ? "inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-sky-50 border border-sky-200 text-xs sm:text-sm text-sky-700 font-medium"
+                : "inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-gray-800/60 border border-cyan-500/20 text-xs sm:text-sm text-cyan-100 font-medium";
 
               const companyBadgeClasses = isAurora
-                ? "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-50 text-sky-700 font-bold shadow-md border border-sky-200 cursor-help hover:-translate-y-0.5 transition-transform"
-                : `inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${exp.company.color} text-white font-bold shadow-lg border border-white/20 cursor-help hover:scale-105 transition-transform`;
+                ? "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-50 text-sky-700 text-sm sm:text-base font-semibold shadow-md border border-sky-200 cursor-help hover:-translate-y-0.5 transition-transform"
+                : `inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${exp.company.color} text-white text-sm sm:text-base font-bold shadow-lg border border-white/20 cursor-help hover:scale-105 transition-transform`;
 
               return (
                 <li
@@ -361,7 +361,7 @@ const Experience: FC = () => {
                 >
                   <div className={timelineDotClasses} />
 
-                  <div className={`ml-8 md:ml-0 ${isLeftAligned ? "md:mr-8" : "md:ml-8"}`}>
+                  <div className={`ml-8 md:ml-0 w-full ${isLeftAligned ? "md:mr-8" : "md:ml-8"} flex justify-start md:justify-center`}>
                     <div className={cardBaseClasses}>
                       <div className={`${glowClasses} pointer-events-none`} />
 
@@ -380,7 +380,7 @@ const Experience: FC = () => {
                         </div>
 
                         <div className={`flex flex-wrap items-center gap-3 mb-4 ${isLeftAligned ? "" : "md:flex-row-reverse md:justify-end"}`}>
-                          <h4 className={`text-xl font-bold flex items-center gap-2 ${headingTextClass}`}>
+                          <h4 className={`text-lg sm:text-xl font-semibold sm:font-bold flex items-center gap-2 text-balance ${headingTextClass}`}>
                             <FaCode className={iconAccentClass} />
                             {exp.title}
                           </h4>
@@ -410,7 +410,7 @@ const Experience: FC = () => {
                         </div>
 
                         <ul
-                          className={`space-y-3 text-sm leading-relaxed ${bulletTextClass} ${
+                          className={`space-y-3 text-sm leading-snug sm:leading-relaxed text-pretty ${bulletTextClass} ${
                             isLeftAligned ? "" : "md:text-right"
                           }`}
                         >

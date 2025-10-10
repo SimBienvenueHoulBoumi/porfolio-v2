@@ -165,8 +165,18 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(260px,1fr)]">
           {/* Colonne contenu */}
           <div className="space-y-8">
-            <div className="bg-gray-900/75 backdrop-blur-sm border border-cyan-500/20 rounded-2xl px-6 py-6 shadow-2xl shadow-cyan-500/10">
-                  <div className="flex items-center gap-2 text-xs font-mono text-gray-500">
+            <div
+              className={`backdrop-blur-sm border rounded-2xl px-6 py-6 shadow-2xl transition-colors ${
+                isAurora
+                  ? "bg-white/90 border-sky-200 shadow-sky-200/50"
+                  : "bg-gray-900/75 border-cyan-500/20 shadow-cyan-500/10"
+              }`}
+            >
+              <div
+                className={`flex items-center gap-2 text-xs font-mono ${
+                  isAurora ? "text-slate-400" : "text-gray-500"
+                }`}
+              >
                 <div className="flex gap-1.5">
                   <span className="w-3 h-3 rounded-full bg-red-500" />
                   <span className="w-3 h-3 rounded-full bg-yellow-500" />
@@ -175,11 +185,17 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
                 <span>~/portfolio</span>
               </div>
               <div className="mt-4 space-y-3">
-                <p className="text-sm font-mono text-green-400">$ whoami</p>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <p className={`text-sm font-mono ${isAurora ? "text-sky-500" : "text-green-400"}`}>$ whoami</p>
+                <h1
+                  className={`text-2xl font-bold ${
+                    isAurora
+                      ? "text-slate-900"
+                      : "bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+                  }`}
+                >
                   Sim bienvenue HOULBOUMI
                 </h1>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className={`${isAurora ? "text-slate-600" : "text-gray-300"} text-sm leading-relaxed`}>
                   {copy.introduction}
                 </p>
               </div>
