@@ -97,14 +97,63 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
   const subtitle = useTypewriter(copy.typewriter);
   const heroBackground = isAurora ? "from-slate-50 via-sky-50 to-white" : "from-slate-950 via-slate-900 to-black";
   const taglineClasses = isAurora
-    ? "border-sky-300/40 bg-sky-200/40 text-sky-600"
+    ? "border-sky-400/40 bg-sky-100/80 text-sky-800"
     : "border-cyan-500/40 bg-cyan-500/10 text-cyan-200";
   const headlineGradient = isAurora
-    ? "from-slate-900 via-sky-700 to-purple-700"
+    ? "from-slate-950 via-indigo-800 to-sky-700"
     : "from-cyan-200 via-blue-200 to-purple-300";
-  const introTextClass = isAurora ? "text-slate-600" : "text-slate-300";
-  const typewriterText = isAurora ? "text-sky-600" : "text-cyan-300";
-  const typewriterAccent = isAurora ? "text-sky-500" : "text-cyan-500";
+  const introTextClass = isAurora ? "text-slate-700" : "text-slate-300";
+  const typewriterText = isAurora ? "text-sky-700" : "text-cyan-300";
+  const typewriterAccent = isAurora ? "text-sky-900" : "text-cyan-500";
+  const typewriterCursor = isAurora ? "text-sky-600" : "text-cyan-400";
+  const narrativeText = isAurora ? "text-slate-600" : "text-slate-300";
+  const highlightCardClasses = isAurora
+    ? "rounded-2xl border border-sky-200/70 bg-sky-100/80 px-4 py-3 text-left shadow-[0_18px_40px_rgba(59,130,246,0.15)] backdrop-blur-sm"
+    : "rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur";
+  const highlightLabelClass = isAurora ? "text-sky-500" : "text-cyan-300";
+  const highlightValueClass = isAurora ? "text-slate-900" : "text-cyan-200";
+  const stackPanelClasses = isAurora
+    ? "rounded-3xl border border-sky-200/70 bg-white/90 p-6 text-left shadow-[0_28px_60px_rgba(59,130,246,0.15)]"
+    : "rounded-3xl border border-cyan-400/30 bg-slate-950/80 p-6 text-left shadow-2xl shadow-cyan-500/20";
+  const stackPanelTitle = isAurora ? "text-sky-500" : "text-cyan-300";
+  const stackCellClasses = isAurora
+    ? "group rounded-2xl border border-sky-200/60 bg-white px-2 py-4 shadow-sky-200/30 transition-all duration-300 hover:border-sky-400/80 hover:bg-sky-50"
+    : "group rounded-2xl border border-white/10 bg-white/5 px-2 py-4 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/80 hover:bg-cyan-500/10";
+  const stackIconClass = isAurora ? "text-sky-500" : "text-cyan-300";
+  const stackLabelClass = isAurora
+    ? "mt-2 text-[8px] uppercase tracking-[0.08em] text-sky-600 leading-tight"
+    : "mt-2 text-[8px] uppercase tracking-[0.08em] text-cyan-200 leading-tight";
+  const stackTextClass = isAurora ? "text-slate-600" : "text-slate-300";
+  const introCardClasses = isAurora
+    ? "relative overflow-hidden rounded-3xl border border-sky-200/60 bg-white/85 px-8 py-10 shadow-[0_32px_70px_rgba(59,130,246,0.18)] backdrop-blur-md"
+    : "relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-white/5 px-8 py-10 backdrop-blur-xl";
+  const glowGradient = isAurora
+    ? "linear-gradient(120deg, rgba(59,130,246,0.16), rgba(236,233,254,0.55), rgba(14,165,233,0.12))"
+    : "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))";
+  const availabilityCardClasses = isAurora
+    ? "flex flex-col gap-4 rounded-3xl border border-sky-200/70 bg-white/85 p-6 text-slate-700 shadow-[0_24px_55px_rgba(59,130,246,0.18)] sm:flex-row sm:items-center sm:justify-between"
+    : "flex flex-col gap-4 rounded-3xl border border-cyan-400/25 bg-slate-950/70 p-6 text-slate-200 shadow-cyan-500/20 sm:flex-row sm:items-center sm:justify-between";
+  const availabilityTitleClass = isAurora ? "text-sky-600" : "text-cyan-200";
+  const availabilitySubtitleClass = isAurora ? "text-slate-500" : "text-slate-400";
+  const primaryCTAClasses = isAurora
+    ? "group inline-flex items-center gap-3 rounded-full border border-sky-300/50 bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:translate-x-1 hover:shadow-[0_20px_45px_rgba(99,102,241,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+    : "group inline-flex items-center gap-3 rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-all duration-300 hover:translate-x-1 hover:shadow-2xl hover:shadow-cyan-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900";
+  const pulseColor = isAurora ? "bg-sky-300/40" : "bg-cyan-500/40";
+  const summaryCardClasses = isAurora
+    ? "flex flex-col gap-3 rounded-3xl border border-sky-200/70 bg-white/90 p-6 shadow-[0_26px_60px_rgba(59,130,246,0.16)] backdrop-blur"
+    : "flex flex-col gap-3 rounded-3xl border border-cyan-400/20 bg-slate-950/80 p-6 backdrop-blur-xl";
+  const summaryTitleClass = isAurora
+    ? "text-xs uppercase tracking-[0.35em] text-sky-500"
+    : "text-xs uppercase tracking-[0.35em] text-cyan-300";
+  const summaryBodyClass = isAurora ? "space-y-3 text-sm text-slate-600" : "space-y-3 text-sm text-slate-300";
+  const objectiveCardClasses = isAurora
+    ? "rounded-3xl border border-sky-200/70 bg-gradient-to-br from-white via-sky-50 to-white p-6 shadow-[0_24px_65px_rgba(59,130,246,0.16)]"
+    : "rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-2xl shadow-cyan-500/15";
+  const objectiveIconWrapper = isAurora
+    ? "flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-400 text-white shadow-sky-200/40"
+    : "flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950";
+  const objectiveTextClass = isAurora ? "space-y-2 text-sm text-slate-600" : "space-y-2 text-sm text-slate-300";
+  const headlineStyle = isAurora ? { textShadow: "0 18px 45px rgba(59,130,246,0.28)" } : undefined;
 
   const techCapsules = [
     { Icon: FaDocker, label: "Docker" },
@@ -155,13 +204,14 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
           <div className="mt-6 space-y-3 sm:space-y-4">
             <h1
               className={`text-4xl font-bold text-transparent sm:text-5xl md:text-6xl bg-gradient-to-r ${headlineGradient} bg-clip-text`}
+              style={headlineStyle}
             >
               {copy.headline[0]} <span>{copy.headline[1]}</span> {copy.headline[2]}
             </h1>
             <p className={`text-sm font-mono uppercase tracking-[0.35em] ${typewriterText}`}>
               <span className={typewriterAccent}>$</span>{" "}
               <span>{subtitle}</span>
-              <span className="ml-2 animate-pulse text-cyan-400">▮</span>
+              <span className={`ml-2 animate-pulse ${typewriterCursor}`}>▮</span>
             </p>
             <p className={`max-w-2xl text-base sm:text-lg ${introTextClass}`}>{copy.introduction}</p>
           </div>
@@ -169,7 +219,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-3 rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-all duration-300 hover:translate-x-1 hover:shadow-2xl hover:shadow-cyan-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              className={primaryCTAClasses}
             >
               <FiTerminal className="text-base" />
               {copy.ctaPrimary}
@@ -181,43 +231,37 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,360px)]">
           <div className="space-y-8">
-            <div className="relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-white/5 px-8 py-10 backdrop-blur-xl">
+            <div className={introCardClasses}>
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 hover:opacity-100">
                 <div
                   className="absolute inset-0"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))"
+                    backgroundImage: glowGradient
                   }}
                 />
               </div>
               <div className="relative z-10 grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,280px)] sm:items-center">
                 <div className="space-y-4">
-                  <p className="text-sm leading-relaxed text-slate-300">{copy.narrative}</p>
+                  <p className={`text-sm leading-relaxed ${narrativeText}`}>{copy.narrative}</p>
                   <div className="flex flex-wrap gap-3">
                     {copy.highlights.map((highlight) => (
                       <div
                         key={highlight.label}
-                        className="rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur"
+                        className={highlightCardClasses}
                       >
-                        <p className="text-xs uppercase tracking-[0.3em] text-cyan-300">{highlight.label}</p>
-                        <p className="text-xl font-semibold text-cyan-200">{highlight.value}</p>
+                        <p className={`text-xs uppercase tracking-[0.3em] ${highlightLabelClass}`}>{highlight.label}</p>
+                        <p className={`text-xl font-semibold ${highlightValueClass}`}>{highlight.value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="rounded-3xl border border-cyan-400/30 bg-slate-950/80 p-6 text-left shadow-2xl shadow-cyan-500/20">
-                  <p className="text-xs uppercase tracking-[0.35em] text-cyan-300">{copy.trustedStack}</p>
-                  <div className="mt-4 grid grid-cols-3 gap-2 text-center text-slate-300">
+                <div className={stackPanelClasses}>
+                  <p className={`text-xs uppercase tracking-[0.35em] ${stackPanelTitle}`}>{copy.trustedStack}</p>
+                  <div className={`mt-4 grid grid-cols-3 gap-2 text-center ${stackTextClass}`}>
                     {techCapsules.map(({ Icon, label }) => (
-                      <div
-                        key={label}
-                        className="group rounded-2xl border border-white/10 bg-white/5 px-2 py-4 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/80 hover:bg-cyan-500/10"
-                      >
-                        <Icon className="mx-auto text-lg text-cyan-300 transition-transform duration-300 group-hover:-translate-y-0.5" />
-                        <p className="mt-2 text-[8px] uppercase tracking-[0.08em] text-cyan-200 leading-tight">
-                          {label}
-                        </p>
+                      <div key={label} className={stackCellClasses}>
+                        <Icon className={`mx-auto text-lg transition-transform duration-300 group-hover:-translate-y-0.5 ${stackIconClass}`} />
+                        <p className={stackLabelClass}>{label}</p>
                       </div>
                     ))}
                   </div>
@@ -225,17 +269,23 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 rounded-3xl border border-cyan-400/25 bg-slate-950/70 p-6 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+            <div className={availabilityCardClasses}>
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="absolute inset-0 animate-ping rounded-full bg-cyan-500/40" />
-                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950">
+                  <div className={`absolute inset-0 animate-ping rounded-full ${pulseColor}`} />
+                  <div
+                    className={`relative flex h-10 w-10 items-center justify-center rounded-full ${
+                      isAurora
+                        ? "bg-gradient-to-br from-sky-400 to-indigo-400 text-white shadow-sky-200/40"
+                        : "bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950"
+                    }`}
+                  >
                     <FaCodeBranch />
                   </div>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-cyan-200">{copy.availability}</p>
-                  <p className="text-xs text-slate-400">
+                  <p className={`text-sm font-semibold ${availabilityTitleClass}`}>{copy.availability}</p>
+                  <p className={`text-xs ${availabilitySubtitleClass}`}>
                     {language === "fr"
                       ? "On synchronise les objectifs, on déploie en continu."
                       : "We align the objectives, then keep shipping continuously."}
@@ -249,9 +299,9 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-3 rounded-3xl border border-cyan-400/20 bg-slate-950/80 p-6 backdrop-blur-xl">
-              <p className="text-xs uppercase tracking-[0.35em] text-cyan-300">{language === "fr" ? "Synthèse" : "Snapshot"}</p>
-              <div className="space-y-3 text-sm text-slate-300">
+            <div className={summaryCardClasses}>
+              <p className={summaryTitleClass}>{language === "fr" ? "Synthèse" : "Snapshot"}</p>
+              <div className={summaryBodyClass}>
                 <p>
                   {language === "fr"
                     ? "Architecture, pipelines, feature delivery : un triptyque aligné qui rend la roadmap prédictible."
@@ -265,12 +315,12 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-2xl shadow-cyan-500/15">
+            <div className={objectiveCardClasses}>
               <div className="flex items-start gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950">
+                <div className={objectiveIconWrapper}>
                   <FaRocket />
                 </div>
-                <div className="space-y-2 text-sm text-slate-300">
+                <div className={objectiveTextClass}>
                   <p>
                     {language === "fr"
                       ? "Objectif : livrer plus vite que le cycle logique, sans sacrifier la stabilité ni la maintenabilité."

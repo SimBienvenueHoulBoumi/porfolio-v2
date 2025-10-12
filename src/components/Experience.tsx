@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import {
   FaBuilding,
   FaUsers,
@@ -35,6 +35,11 @@ type ExperienceBullet = {
   content: ReactNode;
 };
 
+type ExperienceHighlight = {
+  label: string;
+  value: string;
+};
+
 type ExperienceItem = {
   company: { label: string; tooltip: string };
   team: { label: string; tooltip: string };
@@ -44,6 +49,7 @@ type ExperienceItem = {
   location?: string;
   impact: string;
   bullets: ExperienceBullet[];
+  highlights: ExperienceHighlight[];
 };
 
 type ExperienceCopy = {
@@ -75,6 +81,10 @@ const EXPERIENCE_COPY: Record<"fr" | "en", ExperienceCopy> = {
         date: "Octobre 2021 – Septembre 2023",
         impact:
           "Interface data pour piloter les flux voyageurs, livraisons hebdomadaires et visibilité en temps réel sur les indicateurs clés.",
+        highlights: [
+          { label: "Flux", value: "Voyageurs nationaux" },
+          { label: "Visibilité", value: "Temps réel" }
+        ],
         bullets: [
           {
             content: (
@@ -139,6 +149,10 @@ const EXPERIENCE_COPY: Record<"fr" | "en", ExperienceCopy> = {
         date: "Mars 2024 – Septembre 2024",
         impact:
           "Plateforme RH modulaire : gestion des onboarding, des congés et reporting légal, avec 30% de délais en moins.",
+        highlights: [
+          { label: "Processus", value: "Onboarding & congés" },
+          { label: "Automatisation", value: "CI/CD RH" }
+        ],
         bullets: [
           {
             content: (
@@ -205,6 +219,10 @@ const EXPERIENCE_COPY: Record<"fr" | "en", ExperienceCopy> = {
         date: "October 2021 – September 2023",
         impact:
           "Data interface to steer passenger flows, weekly releases, and real-time visibility into key service metrics.",
+        highlights: [
+          { label: "Coverage", value: "Nationwide passenger flows" },
+          { label: "Insight", value: "Real-time dashboards" }
+        ],
         bullets: [
           {
             content: (
@@ -268,6 +286,10 @@ const EXPERIENCE_COPY: Record<"fr" | "en", ExperienceCopy> = {
         date: "March 2024 – September 2024",
         impact:
           "Modular HR platform: onboarding, leave management, and legal reporting with 30% faster processing.",
+        highlights: [
+          { label: "Processes", value: "Onboarding & leave" },
+          { label: "Automation", value: "HR CI/CD" }
+        ],
         bullets: [
           {
             content: (
@@ -327,11 +349,63 @@ const Experience: FC = () => {
     ? "border-sky-200/70 bg-white/90 text-slate-700 hover:border-sky-300/80 hover:bg-white focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 hover:border-cyan-400/60 hover:bg-slate-950/90 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
+  const timelineBeam = isAurora
+    ? "bg-gradient-to-b from-sky-400/60 via-sky-300/10 to-transparent"
+    : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent";
+  const timelineGlow = isAurora
+    ? "bg-gradient-to-r from-sky-300/60 via-sky-400/15 to-transparent"
+    : "bg-gradient-to-r from-cyan-400/60 via-cyan-500/15 to-transparent";
+  const timelineDot = isAurora
+    ? "border border-sky-300 bg-sky-400/60"
+    : "border border-cyan-400 bg-cyan-500/50";
+  const timelineDotPulse = isAurora ? "bg-sky-300/40" : "bg-cyan-400/40";
+
+  const highlightBadge = isAurora
+    ? "inline-flex items-center gap-2 rounded-full border border-sky-200/80 bg-sky-100/80 px-3 py-1 text-[11px] font-semibold text-sky-700"
+    : "inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold text-cyan-200";
+
+  const metaPill = isAurora
+    ? "inline-flex items-center gap-2 rounded-full border border-sky-300/50 bg-sky-200/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-700"
+    : "inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200";
+
+  const accentMetaText = isAurora ? "text-sky-500" : "text-cyan-400";
+  const bulletText = isAurora ? "text-slate-600" : "text-slate-300";
+  const bulletIcon = isAurora ? "text-sky-400" : "text-cyan-300";
+
+  const structuredData = useMemo(() => {
+    const occupations = copy.experiences.map((experience) => {
+      const [startDateRaw, endDateRaw] = experience.date.split("–").map((part) => part.trim());
+
+      return {
+        "@type": "Occupation",
+        name: experience.role,
+        description: experience.impact,
+        occupationalLocation: experience.company.label,
+        skills: [experience.tech.label],
+        memberOf: experience.team.label,
+        startDate: startDateRaw || undefined,
+        endDate: endDateRaw || undefined
+      };
+    });
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Sim Bienvenue Houlboumi",
+      jobTitle:
+        language === "fr"
+          ? "Ingénieur DevOps & développeur full-stack"
+          : "DevOps engineer & full-stack developer",
+      hasOccupation: occupations
+    };
+  }, [copy.experiences, language]);
+
   return (
-    <section
-      id="experience"
-      className={`experience-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8`}
-    >
+    <>
+      <section
+        id="experience"
+        className={`experience-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8`}
+      >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
           <div
@@ -364,7 +438,7 @@ const Experience: FC = () => {
         </div>
 
         <div className="relative">
-          <div className="absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent blur-sm sm:block" />
+          <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${timelineBeam}`} />
           <div className="space-y-10 sm:pl-4">
             {copy.experiences.map((experience, index) => (
               <article
@@ -380,13 +454,13 @@ const Experience: FC = () => {
                     }}
                   />
                 </div>
-                <div className="absolute -left-6 top-10 hidden h-3 w-20 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-400/40 via-cyan-500/10 to-transparent blur-sm sm:block" />
-                <div className="absolute left-0 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full border border-cyan-400 bg-cyan-500/50 sm:block">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-cyan-400/40" />
+                <div className={`absolute -left-6 top-10 hidden h-3 w-20 -translate-x-1/2 rounded-full blur-sm sm:block ${timelineGlow}`} />
+                <div className={`absolute left-0 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full sm:block ${timelineDot}`}>
+                  <span className={`absolute inset-0 animate-ping rounded-full ${timelineDotPulse}`} />
                 </div>
                 <div className="relative z-10 flex flex-col gap-5">
                   <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-cyan-400">
+                    <div className={`flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] ${accentMetaText}`}>
                       <span className="inline-flex items-center gap-2">
                         <FaBuilding />
                         <Tooltip text={experience.company.tooltip}>
@@ -406,7 +480,7 @@ const Experience: FC = () => {
                         </Tooltip>
                       </span>
                     </div>
-                    <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200">
+                    <span className={metaPill}>
                       <FaCalendar />
                       {experience.date}
                     </span>
@@ -417,24 +491,42 @@ const Experience: FC = () => {
                     <p className="text-sm font-medium">{experience.impact}</p>
                   </div>
 
+                  {experience.highlights?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 text-xs" aria-label={language === "fr" ? "Faits marquants" : "Key highlights"}>
+                      {experience.highlights.map((highlight) => (
+                        <span key={`${experience.role}-${highlight.label}`} className={highlightBadge}>
+                          <span className="opacity-75">{highlight.label}</span>
+                          <span>|</span>
+                          <span className="font-semibold">{highlight.value}</span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
                   <ul className="space-y-3 text-sm leading-relaxed">
                     {experience.bullets.map((bullet, bulletIndex) => (
-                      <li key={bulletIndex} className="flex items-start gap-3 text-slate-300">
-                        <FaChevronRight className="mt-1 text-xs text-cyan-300" />
+                      <li key={bulletIndex} className={`flex items-start gap-3 ${bulletText}`}>
+                        <FaChevronRight className={`mt-1 text-xs ${bulletIcon}`} />
                         <span>{bullet.content}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 {index < copy.experiences.length - 1 && (
-                  <div className="absolute -bottom-5 left-0 hidden h-12 w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-cyan-400/30 to-transparent blur-[1px] sm:block" />
+                  <div className={`absolute -bottom-5 left-0 hidden h-12 w-[3px] -translate-x-1/2 rounded-full blur-[1px] sm:block ${timelineBeam}`} />
                 )}
               </article>
             ))}
           </div>
         </div>
       </div>
-    </section>
+      </section>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+    </>
   );
 };
 

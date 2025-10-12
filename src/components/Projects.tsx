@@ -116,12 +116,16 @@ const Projects: FC = () => {
     : "from-slate-950 via-slate-900 to-black";
 
   const projectBg = isAurora
-    ? "border-sky-200/70 bg-white/80 hover:border-sky-300/80 hover:bg-white/95 focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
+    ? "border-sky-200/70 bg-white/85 hover:border-sky-300/80 hover:bg-white focus-visible:ring-sky-400/50 focus-visible:ring-offset-white shadow-[0_24px_60px_rgba(59,130,246,0.15)]"
     : "border-cyan-500/25 bg-slate-950/75 hover:border-cyan-400/60 hover:bg-slate-950/90 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
   const statCard = isAurora
     ? "border-sky-200/70 bg-white/80 text-slate-700 shadow-sky-200/40"
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 shadow-cyan-500/20";
+  const projectGlow = isAurora
+    ? "linear-gradient(135deg, rgba(59,130,246,0.18), rgba(196,181,253,0.25))"
+    : "linear-gradient(135deg, rgba(56,189,248,0.18), rgba(129,140,248,0.22))";
+  const stackPillText = isAurora ? "text-sky-600" : "text-cyan-400";
 
   return (
     <section
@@ -179,8 +183,7 @@ const Projects: FC = () => {
                 <div
                   className="absolute inset-0"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, rgba(56,189,248,0.18), rgba(129,140,248,0.22))"
+                    backgroundImage: projectGlow
                   }}
                 />
               </div>
@@ -207,7 +210,7 @@ const Projects: FC = () => {
                   </p>
                 </div>
               </div>
-              <div className="relative z-10 mt-6 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-cyan-400">
+              <div className={`relative z-10 mt-6 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.25em] ${stackPillText}`}>
                 {project.stack.map((tech) => (
                   <span
                     key={tech}
