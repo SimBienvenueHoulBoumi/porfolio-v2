@@ -1,8 +1,16 @@
 "use client";
+
 import { forwardRef, useEffect, useState } from "react";
-import { FaDocker, FaGitAlt, FaServer, FaCode, FaRocket, FaCloud } from "react-icons/fa";
+import {
+  FaDocker,
+  FaGitAlt,
+  FaServer,
+  FaCloud,
+  FaCodeBranch,
+  FaRocket
+} from "react-icons/fa";
 import { SiKubernetes, SiJenkins, SiAnsible } from "react-icons/si";
-import { FiTerminal } from "react-icons/fi";
+import { FiZap, FiTerminal, FiArrowRight } from "react-icons/fi";
 
 import SocialBanger from "./SocialBanger";
 import Banner from "./Banner";
@@ -12,84 +20,71 @@ import { useTheme } from "@/context/ThemeContext";
 
 const HERO_COPY = {
   fr: {
+    tagline: "Pipeline haute performance",
     typewriter: [
       "Créer des microservices évolutifs...",
       "Automatiser l’infrastructure comme du code...",
       "Déployer avec des pipelines CI/CD..."
     ],
-    introduction: "Ingénieur DevOps & développeur full stack, j’aide les équipes produit à livrer vite et bien : pipelines fiables, architectures cloud résilientes et code orienté business.",
-    badges: [
-      { icon: FaCode, text: "Développeur Full Stack" },
-      { icon: FaServer, text: "Ingénieur DevOps" },
-      { icon: FaCloud, text: "Architecte Cloud" },
+    headline: ["DevOps Engineer", "&", "Full-stack Developer"],
+    introduction:
+      "J’accompagne les équipes produit vers un delivery continu : pipelines fiables, plateformes cloud résilientes et code taillé pour la valeur métier.",
+    highlights: [
+      { label: "Deploy frequency", value: "x8" },
+      { label: "Incidents réduits", value: "-45%" },
+      { label: "Cloud cost", value: "-18%" }
     ],
-    projectTitle: "Faire décoller vos projets",
-    projectDescription: "De la conception à la production : automatisation CI/CD, observabilité, microservices, infrastructure cloud. Mon objectif est simple : des livraisons fréquentes, stables et faciles à maintenir.",
-    availability: "Disponible pour de nouveaux défis",
-    trustedStack: "Stack de confiance",
-    keyNumbers: "Chiffres clés",
-    yearsExperience: "Années d'expérience",
-    masteredTechs: "Technologies maîtrisées",
-    ctaSecondary: "Organiser un échange"
+    narrative:
+      "Du cadrage à la MEP : IaC, observabilité, microservices et culture d’ingénierie pour shipper vite, bien et sans surprises.",
+    ctaPrimary: "Planifier un call",
+    ctaSecondary: "Découvrir les stacks",
+    availability: "Disponible pour de nouveaux challenges",
+    trustedStack: "Stack de confiance"
   },
   en: {
+    tagline: "High velocity pipeline",
     typewriter: [
       "Building scalable microservices...",
       "Automating infrastructure as code...",
       "Shipping with resilient CI/CD pipelines..."
     ],
-    introduction: "DevOps engineer & full stack developer helping product teams deliver fast and safe: reliable pipelines, resilient cloud architectures, and business-focused code.",
-    badges: [
-      { icon: FaCode, text: "Full Stack Developer" },
-      { icon: FaServer, text: "DevOps Engineer" },
-      { icon: FaCloud, text: "Cloud Architect" }
+    headline: ["DevOps Engineer", "&", "Full-stack Developer"],
+    introduction:
+      "I help product teams unlock continuous delivery: reliable pipelines, resilient cloud platforms, and business-first code.",
+    highlights: [
+      { label: "Deployment frequency", value: "x8" },
+      { label: "Incidents reduced", value: "-45%" },
+      { label: "Cloud cost", value: "-18%" }
     ],
-    projectTitle: "Launch your projects",
-    projectDescription: "From design to production: CI/CD automation, observability, microservices, cloud infrastructure. My goal is simple: frequent releases that stay stable and easy to maintain.",
-    availability: "Available for new challenges",
-    trustedStack: "Trusted stack",
-    keyNumbers: "Key figures",
-    yearsExperience: "Years of experience",
-    masteredTechs: "Technologies mastered",
-    ctaSecondary: "Book a discovery call"
+    narrative:
+      "From scoping to production: IaC, observability, microservices, and engineering culture to ship fast, safe, and sustainably.",
+    ctaPrimary: "Book a call",
+    ctaSecondary: "Explore the stack",
+    availability: "Open to new missions",
+    trustedStack: "Trusted stack"
   }
-} as const satisfies Record<
-  "fr" | "en",
-  {
-    typewriter: string[];
-    introduction: string;
-    badges: { icon: typeof FaCode; text: string }[];
-    projectTitle: string;
-    projectDescription: string;
-    availability: string;
-    trustedStack: string;
-    keyNumbers: string;
-    yearsExperience: string;
-    masteredTechs: string;
-    ctaSecondary: string;
-  }
->;
+} as const;
 
-function useTypewriter(words: string[], speed = 70, pause = 1200) {
+function useTypewriter(words: readonly string[], speed = 65, pause = 1600) {
   const [index, setIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
+
     if (displayed.length < words[index].length) {
-      timeout = setTimeout(
-        () => setDisplayed(words[index].slice(0, displayed.length + 1)),
-        speed
-      );
+      timeout = setTimeout(() => {
+        setDisplayed(words[index].slice(0, displayed.length + 1));
+      }, speed);
     } else {
       timeout = setTimeout(() => {
         setDisplayed("");
-        setIndex((i) => (i + 1) % words.length);
+        setIndex((prev) => (prev + 1) % words.length);
       }, pause);
     }
 
     return () => clearTimeout(timeout);
-  }, [displayed, index, words, speed, pause]);
+  }, [displayed, index, pause, speed, words]);
 
   return displayed;
 }
@@ -97,231 +92,186 @@ function useTypewriter(words: string[], speed = 70, pause = 1200) {
 const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
   const { language } = useLanguage();
   const { theme } = useTheme();
-  const isAurora = theme === "aurora";
+
   const copy = HERO_COPY[language];
-  const subtitle = useTypewriter(copy.typewriter, 60, 1800);
+  const isAurora = theme === "aurora";
+  const subtitle = useTypewriter(copy.typewriter);
 
-  const techIcons = [
-    { Icon: FaDocker, color: "text-blue-400", label: "Docker" },
-    { Icon: SiKubernetes, color: "text-blue-500", label: "Kubernetes" },
-    { Icon: FaGitAlt, color: "text-orange-500", label: "Git" },
-    { Icon: SiJenkins, color: "text-red-400", label: "Jenkins" },
-    { Icon: SiAnsible, color: "text-red-500", label: "Ansible" },
-    { Icon: FaServer, color: "text-green-400", label: "SRE" }
+  const techCapsules = [
+    { Icon: FaDocker, label: "Docker" },
+    { Icon: SiKubernetes, label: "Kubernetes" },
+    { Icon: FaGitAlt, label: "Git" },
+    { Icon: SiJenkins, label: "Jenkins" },
+    { Icon: SiAnsible, label: "Ansible" },
+    { Icon: FaServer, label: "SRE" }
   ];
-
-  const focusTags = ["CI/CD", "Microservices", "Cloud Native"];
 
   return (
     <header
       ref={ref}
-      className="hero-section relative py-12 sm:py-16 flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black px-4 sm:px-6"
+      className="hero-section relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-black py-20 sm:py-28"
     >
-      {/* Fond quadrillé */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(34, 211, 238, 0.08) 1px, transparent 1px)`,
-            backgroundSize: "50px 50px"
-          }}
-        />
-      </div>
-
-      {/* Icônes flottantes */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[
-          { left: "12%", top: "18%", delay: "0s", duration: "16s" },
-          { left: "80%", top: "26%", delay: "0.6s", duration: "18s" },
-          { left: "28%", top: "68%", delay: "1s", duration: "20s" },
-          { left: "68%", top: "74%", delay: "1.4s", duration: "22s" },
-          { left: "44%", top: "34%", delay: "2s", duration: "24s" },
-          { left: "18%", top: "84%", delay: "2.4s", duration: "26s" }
-        ].map((pos, i) => (
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 opacity-40">
           <div
-            key={i}
-            className="absolute text-cyan-500/5 animate-float"
+            className="absolute inset-0"
             style={{
-              left: pos.left,
-              top: pos.top,
-              animationDelay: pos.delay,
-              animationDuration: pos.duration
+              backgroundImage:
+                "radial-gradient(circle at 20% 20%, rgba(56,189,248,0.18), transparent 55%), radial-gradient(circle at 80% 15%, rgba(129,140,248,0.15), transparent 60%)"
             }}
-          >
-            <FaCode className="text-6xl sm:text-8xl" />
+          />
+        </div>
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(12,74,110,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(12,74,110,0.25) 1px, transparent 1px)",
+              backgroundSize: "46px 46px"
+            }}
+          />
+        </div>
+        <div className="absolute -top-24 left-1/3 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl motion-safe:animate-pulse-slow" />
+        <div className="absolute -bottom-16 right-1/3 h-64 w-64 rounded-full bg-purple-500/20 blur-3xl motion-safe:animate-pulse-slow delay-700" />
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-12 px-4 sm:px-6">
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+          <span className="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] text-cyan-200">
+            <FiZap className="text-sm" />
+            {copy.tagline}
+          </span>
+          <div className="mt-6 space-y-3 sm:space-y-4">
+            <h1 className="text-4xl font-bold text-transparent sm:text-5xl md:text-6xl bg-gradient-to-r from-cyan-200 via-blue-200 to-purple-300 bg-clip-text">
+              {copy.headline[0]} <span>{copy.headline[1]}</span> {copy.headline[2]}
+            </h1>
+            <p className="text-sm font-mono uppercase tracking-[0.35em] text-cyan-300">
+              <span className="text-cyan-500">$</span>{" "}
+              <span>{subtitle}</span>
+              <span className="ml-2 animate-pulse text-cyan-400">▮</span>
+            </p>
+            <p className="max-w-2xl text-base text-slate-300 sm:text-lg">{copy.introduction}</p>
           </div>
-        ))}
-      </div>
 
-      {/* halos lumineux */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-cyan-500/10 blur-3xl animate-pulse-slow" />
-        <div className="absolute top-1/2 right-1/4 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-blue-500/10 blur-3xl animate-pulse delay-500" />
-        <div className="absolute bottom-1/4 left-1/2 w-56 h-56 sm:w-80 sm:h-80 rounded-full bg-purple-500/10 blur-3xl animate-pulse delay-1000" />
-      </div>
-
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(260px,1fr)]">
-          {/* Colonne contenu */}
-          <div className="space-y-8">
-            <div
-              className={`backdrop-blur-sm border rounded-2xl px-6 py-6 shadow-2xl transition-colors ${
-                isAurora
-                  ? "bg-white/90 border-sky-200 shadow-sky-200/50"
-                  : "bg-gray-900/75 border-cyan-500/20 shadow-cyan-500/10"
-              }`}
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-3 rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-all duration-300 hover:translate-x-1 hover:shadow-2xl hover:shadow-cyan-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             >
-              <div
-                className={`flex items-center gap-2 text-xs font-mono ${
-                  isAurora ? "text-slate-400" : "text-gray-500"
-                }`}
-              >
-                <div className="flex gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-500" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500" />
-                  <span className="w-3 h-3 rounded-full bg-green-500" />
-                </div>
-                <span>~/portfolio</span>
-              </div>
-              <div className="mt-4 space-y-3">
-                <p className={`text-sm font-mono ${isAurora ? "text-sky-500" : "text-green-400"}`}>$ whoami</p>
-                <h1
-                  className={`text-2xl font-bold ${
-                    isAurora
-                      ? "text-slate-900"
-                      : "bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
-                  }`}
-                >
-                  Sim bienvenue HOULBOUMI
-                </h1>
-                <p className={`${isAurora ? "text-slate-600" : "text-gray-300"} text-sm leading-relaxed`}>
-                  {copy.introduction}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {copy.badges.map((badge, idx) => (
-                <div
-                  key={idx}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 text-white/90 px-4 py-2 text-xs sm:text-sm hover:bg-white/10"
-                >
-                  <badge.icon className="text-cyan-300" />
-                  {badge.text}
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-5 py-2.5 text-sm font-semibold text-cyan-100 transition-all duration-300 hover:border-cyan-300/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
-              >
-                <FiTerminal className="text-base" />
-                {copy.ctaSecondary}
-              </a>
-            </div>
+              <FiTerminal className="text-base" />
+              {copy.ctaPrimary}
+              <FiArrowRight className="text-base transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
             <DownLoadCV />
+          </div>
+        </div>
 
-            <div
-              className={`rounded-2xl px-5 py-4 backdrop-blur-sm shadow-2xl transition-colors duration-500 ${
-                isAurora
-                  ? "bg-white/95 border border-cyan-200/60 shadow-cyan-500/15"
-                  : "bg-gray-950/80 border border-green-500/25 shadow-green-500/10"
-              }`}
-            >
-              <div
-                className={`flex items-center justify-between text-xs font-mono ${
-                  isAurora ? "text-slate-500" : "text-gray-400"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <FiTerminal className={`${isAurora ? "text-emerald-500" : "text-green-400"}`} />
-                  <span className={isAurora ? "text-slate-600" : "text-gray-400"}>bash</span>
-                </div>
-                <span className={isAurora ? "text-slate-400" : "text-gray-500"}>live</span>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,360px)]">
+          <div className="space-y-8">
+            <div className="relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-white/5 px-8 py-10 backdrop-blur-xl">
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 hover:opacity-100">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))"
+                  }}
+                />
               </div>
-              <div
-                className={`mt-3 font-mono text-sm ${isAurora ? "text-slate-700" : "text-gray-100"}`}
-              >
-                <span className={isAurora ? "text-sky-500" : "text-blue-400"}>$</span>
-                <span className={`ml-2 ${isAurora ? "text-slate-700" : "text-gray-100"}`}>{subtitle}</span>
-                <span className={`${isAurora ? "text-emerald-500" : "text-green-400"} animate-pulse`}>▮</span>
-              </div>
-            </div>
-
-            <div className="bg-gray-900/80 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 shadow-xl shadow-cyan-500/10">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/40">
-                    <FaRocket className="text-white text-xl" />
+              <div className="relative z-10 grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,280px)] sm:items-center">
+                <div className="space-y-4">
+                  <p className="text-sm leading-relaxed text-slate-300">{copy.narrative}</p>
+                  <div className="flex flex-wrap gap-3">
+                    {copy.highlights.map((highlight) => (
+                      <div
+                        key={highlight.label}
+                        className="rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur"
+                      >
+                        <p className="text-xs uppercase tracking-[0.3em] text-cyan-300">{highlight.label}</p>
+                        <p className="text-xl font-semibold text-cyan-200">{highlight.value}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div className="space-y-3">
-                  <h2 className="text-lg font-semibold text-white">{copy.projectTitle}</h2>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {copy.projectDescription}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {focusTags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 text-xs font-medium hover:bg-cyan-500/20"
+                <div className="rounded-3xl border border-cyan-400/30 bg-slate-950/80 p-6 text-left shadow-2xl shadow-cyan-500/20">
+                  <p className="text-xs uppercase tracking-[0.35em] text-cyan-300">{copy.trustedStack}</p>
+                  <div className="mt-4 grid grid-cols-3 gap-2 text-center text-slate-300">
+                    {techCapsules.map(({ Icon, label }) => (
+                      <div
+                        key={label}
+                        className="group rounded-2xl border border-white/10 bg-white/5 px-2 py-4 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/80 hover:bg-cyan-500/10"
                       >
-                        {tag}
-                      </span>
+                        <Icon className="mx-auto text-lg text-cyan-300 transition-transform duration-300 group-hover:-translate-y-0.5" />
+                        <p className="mt-2 text-[8px] uppercase tracking-[0.08em] text-cyan-200 leading-tight">
+                          {label}
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
 
-
-          </div>
-
-          {/* Colonne visuelle */}
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex flex-col items-center gap-3">
-              <SocialBanger />
-              <div className="availability-badge relative inline-flex items-center justify-center rounded-full text-xs font-semibold tracking-wide px-5 py-2 whitespace-nowrap shadow-lg shadow-cyan-500/20 mt-6 sm:mt-7">
-                {copy.availability}
-              </div>
-            </div>
-
-            <div className="w-full bg-gray-900/70 border border-cyan-500/20 rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">{copy.trustedStack}</h3>
-              <div className="grid grid-cols-3 gap-4 text-center">
-                {techIcons.map(({ Icon, color, label }) => (
-                  <div key={label} className="flex flex-col items-center gap-2 text-xs text-gray-400">
-                    <div className={`flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 ${color}`}>
-                      <Icon className="text-xl" />
-                    </div>
-                    <span>{label}</span>
+            <div className="flex flex-col gap-4 rounded-3xl border border-cyan-400/25 bg-slate-950/70 p-6 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="absolute inset-0 animate-ping rounded-full bg-cyan-500/40" />
+                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950">
+                    <FaCodeBranch />
                   </div>
-                ))}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-cyan-200">{copy.availability}</p>
+                  <p className="text-xs text-slate-400">
+                    {language === "fr"
+                      ? "On synchronise les objectifs, on déploie en continu."
+                      : "We align the objectives, then keep shipping continuously."}
+                  </p>
+                </div>
+              </div>
+              <SocialBanger />
+            </div>
+
+            <Banner />
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3 rounded-3xl border border-cyan-400/20 bg-slate-950/80 p-6 backdrop-blur-xl">
+              <p className="text-xs uppercase tracking-[0.35em] text-cyan-300">{language === "fr" ? "Synthèse" : "Snapshot"}</p>
+              <div className="space-y-3 text-sm text-slate-300">
+                <p>
+                  {language === "fr"
+                    ? "Architecture, pipelines, feature delivery : un triptyque aligné qui rend la roadmap prédictible."
+                    : "Architecture, pipelines, and feature delivery: a tight trio that keeps the roadmap predictable."}
+                </p>
+                <p>
+                  {language === "fr"
+                    ? "Stack cloud multi-environnements, IaC versionnée, monitoring centralisé. Le delivery devient une boucle maîtrisée."
+                    : "Multi-environment cloud stack, versioned IaC, centralized monitoring. Delivery turns into a controlled loop."}
+                </p>
               </div>
             </div>
 
-            <div className="w-full bg-gray-900/70 border border-blue-500/20 rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">{copy.keyNumbers}</h3>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
-                  <div className="text-2xl font-bold text-cyan-400">2+</div>
-                  <p className="text-xs text-gray-400 mt-1 leading-tight">{copy.yearsExperience}</p>
+            <div className="rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-2xl shadow-cyan-500/15">
+              <div className="flex items-start gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950">
+                  <FaRocket />
                 </div>
-                <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3">
-                  <div className="text-2xl font-bold text-blue-400">5+</div>
-                  <p className="text-xs text-gray-400 mt-1 leading-tight">{copy.masteredTechs}</p>
+                <div className="space-y-2 text-sm text-slate-300">
+                  <p>
+                    {language === "fr"
+                      ? "Objectif : livrer plus vite que le cycle logique, sans sacrifier la stabilité ni la maintenabilité."
+                      : "Goal: ship faster than the logical cycle without trading away stability or maintainability."}
+                  </p>
+                  <p>
+                    {language === "fr"
+                      ? "Automatisation CI/CD, observabilité proactive et culture d’équipe orientée feedback."
+                      : "CI/CD automation, proactive observability, and a team culture wired around feedback loops."}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Bandeau social */}
-        <div className="mt-10 mb-6 opacity-1 animate-fadeInUp" style={{ animationDelay: "1.3s", animationFillMode: "both" }}>
-          <Banner />
         </div>
       </div>
     </header>

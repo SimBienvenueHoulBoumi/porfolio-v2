@@ -10,41 +10,48 @@ const ThemeToggle = () => {
   const isAurora = theme === "aurora";
 
   const baseClasses = isAurora
-    ? "border-amber-400/60 bg-white/70 text-slate-900 shadow-lg shadow-amber-400/40 hover:border-amber-300/80 hover:shadow-amber-400/60 focus:ring-amber-400/60"
-    : "border-purple-400/40 bg-black/50 text-gray-100 shadow-lg shadow-purple-500/30 hover:border-purple-300/80 hover:shadow-purple-500/60 focus:ring-purple-400/60";
+    ? "border-slate-200/80 bg-white/90 text-slate-800 shadow-lg shadow-sky-200/40 hover:border-sky-300 hover:bg-white focus-visible:ring-offset-white"
+    : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-950 focus-visible:ring-offset-slate-950";
+  const ringClass = isAurora ? "focus-visible:ring-sky-400/60" : "focus-visible:ring-cyan-400/60";
 
   const label = isAurora
     ? language === "fr"
-      ? "Activer le thème sombre"
+      ? "Activer le thème dark"
       : "Switch to dark theme"
     : language === "fr"
-      ? "Activer le thème aurora"
-      : "Switch to aurora theme";
+      ? "Activer le thème light"
+      : "Switch to light theme";
 
-  const tooltip = isAurora ? (language === "fr" ? "Mode sombre" : "Dark mode") : "Aurora mode";
+  const tooltip = isAurora ? "Dark mode" : "Light mode";
+  const buttonText = isAurora ? "Dark" : "Light";
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className={`group relative flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium transition-all hover:cursor-pointer focus:outline-none focus:ring-2 ${baseClasses}`}
+      className={`group relative inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-200 hover:cursor-pointer focus:outline-none focus-visible:ring-2 ${ringClass} ${baseClasses}`}
       aria-label={label}
       title={tooltip}
     >
       {isAurora ? (
         <>
-          <FiMoon className="text-indigo-200 text-sm" />
-          <span className="tracking-wide">{language === "fr" ? "Sombre" : "Dark"}</span>
+          <FiMoon className="text-slate-700 text-sm" />
+          <span>{buttonText}</span>
         </>
       ) : (
         <>
           <FiSun className="text-amber-300 text-sm" />
-          <span className="tracking-wide">Aurora</span>
+          <span>{buttonText}</span>
         </>
       )}
       <span
-        className={`absolute inset-0 -z-10 rounded-full blur opacity-0 transition-opacity group-hover:opacity-100 ${
-          isAurora ? "bg-amber-400/30" : "bg-purple-500/10"
+        className={`absolute inset-0 -z-10 rounded-full opacity-0 transition-opacity group-hover:opacity-100 ${
+          isAurora ? "bg-sky-200/40 blur" : "bg-cyan-500/20 blur"
+        }`}
+      />
+      <span
+        className={`pointer-events-none absolute bottom-0 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full transition-all duration-200 ${
+          isAurora ? "bg-sky-400 group-hover:w-8" : "bg-cyan-400 group-hover:w-8"
         }`}
       />
     </button>

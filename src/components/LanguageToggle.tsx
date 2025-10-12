@@ -11,18 +11,19 @@ const LanguageToggle = () => {
   const isAurora = theme === "aurora";
 
   const baseClasses = isAurora
-    ? "border-cyan-400/50 bg-white/80 text-slate-700 shadow-lg shadow-cyan-400/20 hover:border-cyan-400 hover:text-slate-900 hover:shadow-cyan-400/40 focus-visible:ring-offset-slate-100"
-    : "border-cyan-500/30 bg-black/60 text-gray-300 shadow-lg shadow-cyan-500/20 hover:border-cyan-400 hover:text-white hover:shadow-cyan-500/40 focus-visible:ring-offset-black";
+    ? "border-sky-200/80 bg-white/90 text-sky-600 shadow-lg shadow-sky-200/40 hover:border-sky-300 hover:bg-white focus-visible:ring-offset-white"
+    : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-950 focus-visible:ring-offset-slate-950";
 
   const activeText = isAurora ? "text-slate-900" : "text-white";
-  const inactiveText = isAurora ? "text-slate-400" : "text-gray-400";
+  const inactiveText = isAurora ? "text-slate-500" : "text-cyan-200/70";
   const hoverText = isAurora ? "group-hover:text-slate-900" : "group-hover:text-white";
+  const ringClass = isAurora ? "focus-visible:ring-sky-400/60" : "focus-visible:ring-cyan-400/60";
 
   return (
     <button
       type="button"
       onClick={toggleLanguage}
-      className={`group relative inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 ${baseClasses}`}
+      className={`group relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${ringClass} ${baseClasses}`}
       aria-label={isFrench ? "Passer le site en anglais" : "Switch the site to French"}
       title={isFrench ? "English version" : "Version française"}
     >
@@ -34,8 +35,13 @@ const LanguageToggle = () => {
         EN
       </span>
       <span
-        className={`absolute inset-0 -z-10 rounded-full blur opacity-0 transition-opacity group-hover:opacity-100 ${
-          isAurora ? "bg-cyan-400/20" : "bg-cyan-500/10"
+        className={`absolute inset-0 -z-10 rounded-full opacity-0 transition-opacity group-hover:opacity-100 ${
+          isAurora ? "bg-sky-200/30 blur" : "bg-cyan-500/20 blur"
+        }`}
+      />
+      <span
+        className={`pointer-events-none absolute bottom-0 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full transition-all duration-200 ${
+          isAurora ? "bg-sky-400 group-hover:w-8" : "bg-cyan-400 group-hover:w-8"
         }`}
       />
     </button>

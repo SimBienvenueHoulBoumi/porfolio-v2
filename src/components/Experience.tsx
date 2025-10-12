@@ -1,7 +1,13 @@
 "use client";
 
 import { FC, ReactNode } from "react";
-import { FaBuilding, FaUsers, FaCalendar, FaCode } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaUsers,
+  FaCalendar,
+  FaMicrochip,
+  FaChevronRight
+} from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -10,15 +16,14 @@ const Tooltip: FC<{ text: string; children: ReactNode }> = ({ text, children }) 
   const isAurora = theme === "aurora";
 
   const bubbleClasses = isAurora
-    ? "bg-white text-slate-700 border border-sky-200 shadow-lg shadow-sky-200/40"
-    : "bg-gray-900 text-white border border-cyan-500/30 shadow-lg";
+    ? "bg-white text-slate-700 border border-sky-200 shadow-xl shadow-sky-200/40"
+    : "bg-slate-950 text-white border border-cyan-500/40 shadow-xl shadow-cyan-500/20";
 
   return (
     <span className="relative group cursor-help">
       {children}
       <span
-        className={`absolute left-1/2 -translate-x-1/2 bottom-full mb-2 opacity-0 group-hover:opacity-100 pointer-events-none text-xs px-3 py-1 rounded-lg whitespace-pre-line z-30 transition-opacity duration-300 w-max max-w-xs font-normal ${bubbleClasses}`}
-        style={{ minWidth: "140px" }}
+        className={`pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-xs -translate-x-1/2 rounded-lg px-3 py-1 text-xs opacity-0 transition-opacity duration-300 ${bubbleClasses} group-hover:opacity-100`}
       >
         {text}
       </span>
@@ -26,55 +31,81 @@ const Tooltip: FC<{ text: string; children: ReactNode }> = ({ text, children }) 
   );
 };
 
-const EXPERIENCE_COPY = {
+type ExperienceBullet = {
+  content: ReactNode;
+};
+
+type ExperienceItem = {
+  company: { label: string; tooltip: string };
+  team: { label: string; tooltip: string };
+  role: string;
+  tech: { label: string; tooltip: string };
+  date: string;
+  location?: string;
+  impact: string;
+  bullets: ExperienceBullet[];
+};
+
+type ExperienceCopy = {
+  title: string;
+  subtitle: string;
+  experiences: ExperienceItem[];
+};
+
+const EXPERIENCE_COPY: Record<"fr" | "en", ExperienceCopy> = {
   fr: {
-    title: "Expériences Professionnelles",
+    title: "Expériences terrain",
+    subtitle:
+      "Des équipes livrées en mode continu : alignment produit, pipelines CI/CD, observabilité et culture feedback.",
     experiences: [
       {
         company: {
           label: "SNCF Voyageurs",
-          color: "from-blue-600 to-blue-800",
-          tooltip: "Groupe ferroviaire français, division transport de voyageurs.",
-          border: "border-blue-500"
+          tooltip: "Groupe ferroviaire français, division transport de voyageurs."
         },
         team: {
           label: "Équipe Agile",
-          color: "from-green-600 to-green-800",
-          tooltip: "Travail en mode Agile, avec rituels Scrum hebdomadaires."
+          tooltip: "Mode Scrum, sprints de 2 semaines, rituels calés sur le delivery pipeline."
         },
-        title: "Développeur Front ReactJS",
+        role: "Développeur Front ReactJS",
         tech: {
           label: "Next.js",
-          color: "text-blue-400",
-          tooltip: "Framework React avec SSR, utilisé pour des interfaces modernes et performantes."
+          tooltip: "Framework React avec SSR et ISR, utilisé pour des interfaces modernes et performantes."
         },
         date: "Octobre 2021 – Septembre 2023",
+        impact:
+          "Interface data pour piloter les flux voyageurs, livraisons hebdomadaires et visibilité en temps réel sur les indicateurs clés.",
         bullets: [
           {
             content: (
               <>
-                Conception d&apos;une interface data en <span className="text-sky-400 font-semibold">React / Next.js</span> orientée UX et performance.
+                Conception d&apos;une interface data en{" "}
+                <span className="text-cyan-300 font-semibold">React / Next.js</span> orientée UX et performance.
               </>
             )
           },
           {
             content: (
               <>
-                Contrôle des règles métiers via requêtes <span className="text-yellow-200 font-semibold">SQL</span> ciblées en production.
+                Contrôle des règles métiers via requêtes{" "}
+                <span className="text-amber-200 font-semibold">SQL</span> ciblées en production.
               </>
             )
           },
           {
             content: (
               <>
-                Intégration d&apos;API <span className="text-pink-300 font-semibold">Spring Boot</span> sécurisées avec authentification et gestion d&apos;erreurs.
+                Intégration d&apos;API{" "}
+                <span className="text-pink-300 font-semibold">Spring Boot</span> sécurisées avec authentification et gestion
+                d&apos;erreurs.
               </>
             )
           },
           {
             content: (
               <>
-                Automatisation des environnements de test avec <span className="text-cyan-300 font-semibold">Docker Compose</span> pour reproduire les bugs.
+                Automatisation des environnements de test avec{" "}
+                <span className="text-cyan-300 font-semibold">Docker Compose</span> pour reproduire les bugs.
               </>
             )
           },
@@ -82,9 +113,9 @@ const EXPERIENCE_COPY = {
             content: (
               <>
                 Participation aux pipelines{" "}
-                <Tooltip text="Exécution automatique des jobs, validation, déploiement.">
-                  <span className="text-gray-100 font-semibold cursor-help">CI/CD</span>
-                </Tooltip>
+                <Tooltip text="Orchestration des jobs, validations automatiques, déploiements contrôlés.">
+                  <span className="text-cyan-100 font-semibold">CI/CD</span>
+                </Tooltip>{" "}
                 Jenkins et à la documentation technique.
               </>
             )
@@ -94,22 +125,20 @@ const EXPERIENCE_COPY = {
       {
         company: {
           label: "INFO 2R",
-          color: "from-indigo-600 to-indigo-800",
-          tooltip: "ESN spécialisée dans les services IT et le développement logiciel.",
-          border: "border-indigo-500"
+          tooltip: "Plateforme RH interne modernisée pour piloter les processus employés."
         },
         team: {
           label: "Équipe DevOps",
-          color: "from-orange-600 to-orange-800",
-          tooltip: "Travail collaboratif sur les pipelines, les environnements et la supervision."
+          tooltip: "Responsable de l’automatisation RH, des pipelines et du monitoring opérationnel."
         },
-        title: "Développeur Backend Java / Spring Boot",
+        role: "Développeur Backend Java / Spring Boot",
         tech: {
           label: "Spring Boot",
-          color: "text-indigo-400",
           tooltip: "Framework Java moderne pour développer des API REST sécurisées et modulaires."
         },
         date: "Mars 2024 – Septembre 2024",
+        impact:
+          "Plateforme RH modulaire : gestion des onboarding, des congés et reporting légal, avec 30% de délais en moins.",
         bullets: [
           {
             content: (
@@ -122,28 +151,31 @@ const EXPERIENCE_COPY = {
           {
             content: (
               <>
-                Mise en place de <span className="text-pink-300 font-semibold">Kafka</span> pour les échanges asynchrones.
+                Mise en place de <span className="text-pink-300 font-semibold">Kafka</span> pour synchroniser les événements RH inter-services.
               </>
             )
           },
           {
             content: (
               <>
-                Création de pipelines <span className="text-gray-100 font-semibold">Jenkins CI/CD</span> pour build, tests et déploiements automatisés.
+                Création de pipelines{" "}
+                <span className="text-cyan-100 font-semibold">Jenkins CI/CD</span> pour build, tests et déploiements automatisés.
               </>
             )
           },
           {
             content: (
               <>
-                Pilotage de l&apos;observabilité avec <span className="text-green-200 font-semibold">Datadog</span> : métriques, alerting et documentation.
+                Pilotage de l&apos;observabilité RH avec{" "}
+                <span className="text-green-200 font-semibold">Datadog</span> : métriques, alerting et documentation.
               </>
             )
           },
           {
             content: (
               <>
-                <span className="text-cyan-300 font-semibold">Conteneurisation Docker</span> des services pour des environnements reproductibles.
+                <span className="text-cyan-300 font-semibold">Conteneurisation Docker</span> des services pour des environnements
+                reproductibles.
               </>
             )
           }
@@ -152,64 +184,68 @@ const EXPERIENCE_COPY = {
     ]
   },
   en: {
-    title: "Professional Experience",
+    title: "Field experience",
+    subtitle:
+      "Teams running continuous delivery: product alignment, CI/CD pipelines, observability, and feedback culture.",
     experiences: [
       {
         company: {
           label: "SNCF Voyageurs",
-          color: "from-blue-600 to-blue-800",
-          tooltip: "French railway group, passenger transport division.",
-          border: "border-blue-500"
+          tooltip: "French railway group, passenger transport division."
         },
         team: {
           label: "Agile Team",
-          color: "from-green-600 to-green-800",
-          tooltip: "Worked in Agile mode with weekly Scrum ceremonies."
+          tooltip: "Scrum setup, two-week sprints, rituals synchronized with the delivery pipeline."
         },
-        title: "Front-end ReactJS Developer",
+        role: "Front-end ReactJS Developer",
         tech: {
           label: "Next.js",
-          color: "text-blue-400",
-          tooltip: "React framework with SSR used to build modern, high-performance interfaces."
+          tooltip: "React framework with SSR & ISR used to build modern, high-performance interfaces."
         },
         date: "October 2021 – September 2023",
+        impact:
+          "Data interface to steer passenger flows, weekly releases, and real-time visibility into key service metrics.",
         bullets: [
           {
             content: (
               <>
-                Designed a data administration interface with <span className="text-sky-400 font-semibold">React / Next.js</span>, focusing on ergonomics and performance.
+                Designed data administration interfaces with{" "}
+                <span className="text-cyan-300 font-semibold">React / Next.js</span> focusing on ergonomics and performance.
               </>
             )
           },
           {
             content: (
               <>
-                Verified business rules directly in the database with targeted <span className="text-yellow-200 font-semibold">SQL</span> queries in production environments.
+                Validated business rules directly in production with targeted{" "}
+                <span className="text-amber-200 font-semibold">SQL</span> queries.
               </>
             )
           },
           {
             content: (
               <>
-                Consumed secured APIs (<span className="text-pink-300 font-semibold">Springboot</span>) with authentication and robust error handling for seamless front/back integration.
+                Consumed secured APIs (<span className="text-pink-300 font-semibold">Spring Boot</span>) with authentication and robust
+                error handling.
               </>
             )
           },
           {
             content: (
               <>
-                Automated test environments with <span className="text-cyan-300 font-semibold">Docker Compose</span>, simplifying bug reproduction and technical validation.
+                Automated test environments using{" "}
+                <span className="text-cyan-300 font-semibold">Docker Compose</span> for reproducible bug fixing.
               </>
             )
           },
           {
             content: (
               <>
-                Supported continuous testing and deployment{" "}
-                <Tooltip text="Automatic job execution, validation, and deployment.">
-                  <span className="text-gray-100 font-semibold cursor-help">CI/CD</span>
-                </Tooltip>
-                , contributing Jenkins scripts and technical documentation.
+                Drove{" "}
+                <Tooltip text="Automated jobs, validation gates, and controlled deployments.">
+                  <span className="text-cyan-100 font-semibold">CI/CD</span>
+                </Tooltip>{" "}
+                Jenkins pipelines and technical documentation.
               </>
             )
           }
@@ -218,56 +254,55 @@ const EXPERIENCE_COPY = {
       {
         company: {
           label: "INFO 2R",
-          color: "from-indigo-600 to-indigo-800",
-          tooltip: "IT services company specializing in software development.",
-          border: "border-indigo-500"
+          tooltip: "Internal HR platform modernized to drive employee lifecycle processes."
         },
         team: {
-          label: "DevOps Team",
-          color: "from-orange-600 to-orange-800",
-          tooltip: "Collaborative work on pipelines, environments, and monitoring."
+          label: "DevOps Squad",
+          tooltip: "Automated HR workflows, managed pipelines, and operational monitoring."
         },
-        title: "Backend Developer (Java/Spring Boot)",
+        role: "Backend Java / Spring Boot Developer",
         tech: {
           label: "Spring Boot",
-          color: "text-indigo-400",
-          tooltip: "Modern Java framework used to build secure and modular REST APIs."
+          tooltip: "Modern Java framework to build secure, modular REST APIs."
         },
         date: "March 2024 – September 2024",
+        impact:
+          "Modular HR platform: onboarding, leave management, and legal reporting with 30% faster processing.",
         bullets: [
           {
             content: (
               <>
-                Built secure <span className="text-indigo-300 font-semibold">REST APIs</span> with{" "}
-                <span className="text-indigo-300 font-semibold">Spring Boot</span> and JWT authentication in a robust modular architecture.
+                Crafted secure <span className="text-indigo-300 font-semibold">REST APIs</span> with{" "}
+                <span className="text-indigo-300 font-semibold">Spring Boot</span> and JWT authentication.
               </>
             )
           },
           {
             content: (
               <>
-                Integrated <span className="text-pink-300 font-semibold">Kafka</span> to enable asynchronous communication between microservices.
+                Rolled out <span className="text-pink-300 font-semibold">Kafka</span> for cross-department HR event synchronization.
               </>
             )
           },
           {
             content: (
               <>
-                Wrote <span className="text-gray-100 font-semibold">Jenkins CI/CD</span> pipelines to automate builds, tests, and deployments with integrated notifications.
+                Built{" "}
+                <span className="text-cyan-100 font-semibold">Jenkins CI/CD</span> pipelines covering builds, tests, and deployments.
               </>
             )
           },
           {
             content: (
               <>
-                Improved observability and reliability with <span className="text-green-200 font-semibold">Datadog</span>: error management, critical metrics tracking, and detailed documentation.
+                Led HR observability with <span className="text-green-200 font-semibold">Datadog</span>: metrics, alerting, documentation.
               </>
             )
           },
           {
             content: (
               <>
-                <span className="text-cyan-300 font-semibold">Dockerized services</span> to keep development, testing, and production environments reproducible.
+                <span className="text-cyan-300 font-semibold">Dockerized services</span> to guarantee reproducible environments.
               </>
             )
           }
@@ -275,168 +310,128 @@ const EXPERIENCE_COPY = {
       }
     ]
   }
-} as const;
+};
 
 const Experience: FC = () => {
   const { language } = useLanguage();
   const { theme } = useTheme();
-  const isAurora = theme === "aurora";
+
   const copy = EXPERIENCE_COPY[language];
+  const isAurora = theme === "aurora";
 
-  const sectionClasses = isAurora
-    ? "experience-section py-10 px-4 bg-gradient-to-b from-white via-slate-100 to-sky-50 relative overflow-hidden"
-    : "experience-section py-10 px-4 bg-gradient-to-b from-gray-950 via-slate-900 to-gray-900 relative overflow-hidden";
+  const sectionBg = isAurora
+    ? "from-slate-50 via-white to-sky-100"
+    : "from-slate-950 via-slate-900 to-black";
 
-  const gridColor = isAurora ? "rgba(37, 99, 235, 0.06)" : "rgba(34, 211, 238, 0.1)";
-
-  const timelineLineClasses = isAurora
-    ? "absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-400 via-blue-400 to-purple-400 transform md:-translate-x-1/2"
-    : "absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2";
-
-  const cardBaseClasses = isAurora
-    ? "group/experience relative w-full max-w-2xl bg-white/90 backdrop-blur-md border border-sky-200 rounded-2xl p-6 transition-all duration-300 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-200/70"
-    : "group/experience relative w-full max-w-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10";
-
-  const glowClasses = isAurora
-    ? "absolute inset-0 bg-gradient-to-br from-sky-200/40 to-transparent rounded-2xl opacity-0 group-hover/experience:opacity-100 transition-opacity"
-    : "absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-2xl opacity-0 group-hover/experience:opacity-100 transition-opacity";
-
-  const metaTextClass = isAurora ? "text-slate-500" : "text-gray-400";
-  const iconAccentClass = isAurora ? "text-sky-500" : "text-cyan-400";
-  const headingTextClass = isAurora ? "text-slate-900" : "text-white";
-  const bulletTextClass = isAurora ? "text-slate-700" : "text-gray-300";
-  const bulletDotClass = isAurora ? "bg-sky-400/70" : "bg-cyan-400/70";
-  const sectionTitleClass = isAurora
-    ? "text-4xl font-bold mb-3 text-gray-700"
-    : "text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent";
+  const cardClasses = isAurora
+    ? "border-sky-200/70 bg-white/90 text-slate-700 hover:border-sky-300/80 hover:bg-white focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
+    : "border-cyan-500/25 bg-slate-950/75 text-gray-200 hover:border-cyan-400/60 hover:bg-slate-950/90 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
   return (
-    <section id="experience" className={sectionClasses}>
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(${gridColor} 1px, transparent 1px),
-                         linear-gradient(90deg, ${gridColor} 1px, transparent 1px)`,
-            backgroundSize: "40px 40px"
-          }}
-        />
+    <section
+      id="experience"
+      className={`experience-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8`}
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 opacity-[0.08]">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px)",
+              backgroundSize: "44px 44px"
+            }}
+          />
+        </div>
+        <div className="absolute -top-20 left-1/3 h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
       </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h3 className={sectionTitleClass}>
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-12">
+        <div className="text-center space-y-4">
+          <h3
+            className={`text-3xl font-bold sm:text-4xl ${
+              isAurora
+                ? "text-transparent bg-gradient-to-r from-slate-900 via-sky-700 to-purple-700 bg-clip-text"
+                : "text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text"
+            }`}
+          >
             {copy.title}
           </h3>
-          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
+          <p className={`mx-auto max-w-3xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
+            {copy.subtitle}
+          </p>
         </div>
 
         <div className="relative">
-          <div className={timelineLineClasses} />
-
-          <ul className="space-y-12">
-            {copy.experiences.map((exp, idx) => {
-              const isLeftAligned = idx % 2 === 0;
-
-              const timelineDotClasses = isAurora
-                ? "absolute left-0 md:left-1/2 top-8 w-4 h-4 bg-gradient-to-br from-sky-400 to-blue-500 rounded-full transform md:-translate-x-1/2 border-4 border-white z-10 shadow-lg shadow-sky-300/60"
-                : "absolute left-0 md:left-1/2 top-8 w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full transform md:-translate-x-1/2 border-4 border-gray-900 z-10 shadow-lg shadow-cyan-500/50";
-
-              const teamBadgeClasses = isAurora
-                ? "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs sm:text-sm text-sky-700 font-medium cursor-help"
-                : "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-gray-800/80 to-gray-900/80 border border-cyan-500/30 text-xs sm:text-sm text-cyan-100 font-medium cursor-help";
-
-              const techBadgeClasses = isAurora
-                ? "inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-sky-50 border border-sky-200 text-xs sm:text-sm text-sky-700 font-medium"
-                : "inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-gray-800/60 border border-cyan-500/20 text-xs sm:text-sm text-cyan-100 font-medium";
-
-              const companyBadgeClasses = isAurora
-                ? "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-50 text-sky-700 text-sm sm:text-base font-semibold shadow-md border border-sky-200 cursor-help hover:-translate-y-0.5 transition-transform"
-                : `inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${exp.company.color} text-white text-sm sm:text-base font-bold shadow-lg border border-white/20 cursor-help hover:scale-105 transition-transform`;
-
-              return (
-                <li
-                  key={exp.company.label + idx}
-                  className={`relative ${isLeftAligned ? "md:pr-1/2" : "md:pl-1/2 md:text-right"}`}
-                >
-                  <div className={timelineDotClasses} />
-
-                  <div className={`ml-8 md:ml-0 w-full ${isLeftAligned ? "md:mr-8" : "md:ml-8"} flex justify-start md:justify-center`}>
-                    <div className={cardBaseClasses}>
-                      <div className={`${glowClasses} pointer-events-none`} />
-
-                      <div
-                        className={`relative z-10 md:flex md:flex-col ${
-                          isLeftAligned ? "md:items-start md:text-left" : "md:items-end md:text-right"
-                        }`}
-                      >
-                        <div className={`flex ${isLeftAligned ? "justify-start" : "md:justify-end justify-start"} mb-4`}>
-                          <Tooltip text={exp.company.tooltip}>
-                            <div className={companyBadgeClasses}>
-                              <FaBuilding className={`text-sm ${isAurora ? "text-sky-600" : "text-white"}`} />
-                              {exp.company.label}
-                            </div>
-                          </Tooltip>
-                        </div>
-
-                        <div className={`flex flex-wrap items-center gap-3 mb-4 ${isLeftAligned ? "" : "md:flex-row-reverse md:justify-end"}`}>
-                          <h4 className={`text-lg sm:text-xl font-semibold sm:font-bold flex items-center gap-2 text-balance ${headingTextClass}`}>
-                            <FaCode className={iconAccentClass} />
-                            {exp.title}
-                          </h4>
-
-                          <div className={`flex items-center gap-2 text-xs ${metaTextClass} ${isLeftAligned ? "" : "md:ml-auto md:justify-end"}`}>
-                            <FaUsers className={iconAccentClass} />
-                            <Tooltip text={exp.team.tooltip}>
-                              <span className={teamBadgeClasses}>{exp.team.label}</span>
-                            </Tooltip>
-                          </div>
-
-                          <div className={`flex items-center gap-2 text-xs ${metaTextClass} ${isLeftAligned ? "" : "md:ml-auto md:justify-end"}`}>
-                            <FaCalendar className={iconAccentClass} />
-                            <span>{exp.date}</span>
-                          </div>
-                        </div>
-
-                        <div
-                          className={`${techBadgeClasses} ${
-                            isLeftAligned ? "" : "md:self-end md:justify-end md:text-right"
-                          }`}
-                        >
-                          <span className={`font-semibold ${headingTextClass}`}>{exp.tech.label}</span>
-                          <Tooltip text={exp.tech.tooltip}>
-                            <span className={`${exp.tech.color} cursor-help`}>•</span>
-                          </Tooltip>
-                        </div>
-
-                        <ul
-                          className={`space-y-3 text-sm leading-snug sm:leading-relaxed text-pretty ${bulletTextClass} ${
-                            isLeftAligned ? "" : "md:text-right"
-                          }`}
-                        >
-                          {exp.bullets.map((bullet, bulletIdx) => (
-                            <li
-                              key={bulletIdx}
-                              className={`relative pl-5 ${
-                                isLeftAligned ? "md:pl-5 md:text-left" : "md:pl-0 md:pr-5 md:text-right"
-                              }`}
-                            >
-                              <span
-                                className={`absolute top-2 w-2 h-2 rounded-full ${bulletDotClass} ${
-                                  isLeftAligned ? "left-0" : "left-0 md:left-auto md:right-0"
-                                }`}
-                              />
-                              {bullet.content}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+          <div className="absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent blur-sm sm:block" />
+          <div className="space-y-10 sm:pl-4">
+            {copy.experiences.map((experience, index) => (
+              <article
+                key={`${experience.company.label}-${experience.role}`}
+                className={`relative rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-300 sm:pl-16 ${cardClasses}`}
+              >
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))"
+                    }}
+                  />
+                </div>
+                <div className="absolute -left-6 top-10 hidden h-3 w-20 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-400/40 via-cyan-500/10 to-transparent blur-sm sm:block" />
+                <div className="absolute left-0 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full border border-cyan-400 bg-cyan-500/50 sm:block">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-cyan-400/40" />
+                </div>
+                <div className="relative z-10 flex flex-col gap-5">
+                  <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-cyan-400">
+                      <span className="inline-flex items-center gap-2">
+                        <FaBuilding />
+                        <Tooltip text={experience.company.tooltip}>
+                          <span className="font-semibold">{experience.company.label}</span>
+                        </Tooltip>
+                      </span>
+                      <span className="inline-flex items-center gap-2">
+                        <FaUsers />
+                        <Tooltip text={experience.team.tooltip}>
+                          <span>{experience.team.label}</span>
+                        </Tooltip>
+                      </span>
+                      <span className="inline-flex items-center gap-2">
+                        <FaMicrochip />
+                        <Tooltip text={experience.tech.tooltip}>
+                          <span>{experience.tech.label}</span>
+                        </Tooltip>
+                      </span>
                     </div>
+                    <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200">
+                      <FaCalendar />
+                      {experience.date}
+                    </span>
+                  </header>
+
+                  <div className="space-y-3">
+                    <h4 className="text-xl font-semibold">{experience.role}</h4>
+                    <p className="text-sm font-medium">{experience.impact}</p>
                   </div>
-                </li>
-              );
-            })}
-          </ul>
+
+                  <ul className="space-y-3 text-sm leading-relaxed">
+                    {experience.bullets.map((bullet, bulletIndex) => (
+                      <li key={bulletIndex} className="flex items-start gap-3 text-slate-300">
+                        <FaChevronRight className="mt-1 text-xs text-cyan-300" />
+                        <span>{bullet.content}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {index < copy.experiences.length - 1 && (
+                  <div className="absolute -bottom-5 left-0 hidden h-12 w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-cyan-400/30 to-transparent blur-[1px] sm:block" />
+                )}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
