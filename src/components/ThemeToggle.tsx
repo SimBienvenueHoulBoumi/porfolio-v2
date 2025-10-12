@@ -10,8 +10,8 @@ const ThemeToggle = () => {
   const isAurora = theme === "aurora";
 
   const baseClasses = isAurora
-    ? "border-slate-200/80 bg-white/90 text-slate-800 shadow-lg shadow-sky-200/40 hover:border-sky-300 hover:bg-white focus-visible:ring-offset-white"
-    : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-950 focus-visible:ring-offset-slate-950";
+    ? "border-slate-200/80 bg-white text-slate-800 shadow-lg shadow-sky-200/25 hover:border-sky-300 hover:bg-sky-50 focus-visible:ring-offset-white"
+    : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-900 focus-visible:ring-offset-slate-950";
   const ringClass = isAurora ? "focus-visible:ring-sky-400/60" : "focus-visible:ring-cyan-400/60";
 
   const label = isAurora

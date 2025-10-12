@@ -4,7 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
 
-const PageLoader = () => {
+type PageLoaderProps = {
+  onComplete?: () => void;
+  stageDurationMs?: number;
+  completionDelayMs?: number;
+};
+
+const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 800 }: PageLoaderProps) => {
   const { theme } = useTheme();
   const { language } = useLanguage();
   const isAurora = theme === "aurora";
@@ -30,7 +36,6 @@ const PageLoader = () => {
   const [stageIndex, setStageIndex] = useState(0);
   const [showSupport, setShowSupport] = useState(false);
   const [showRetry, setShowRetry] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -41,12 +46,41 @@ const PageLoader = () => {
 
   useEffect(() => {
     setStageIndex(0);
+
+    const totalStages = copy.stages.length;
+    if (totalStages <= 1) {
+      const singleTimer = window.setTimeout(() => {
+        onComplete?.();
+      }, completionDelayMs);
+
+      return () => window.clearTimeout(singleTimer);
+    }
+
+    let current = 0;
+
     const interval = window.setInterval(() => {
-      setStageIndex((prev) => (prev + 1) % copy.stages.length);
-    }, 1800);
+      current += 1;
+      if (current >= totalStages - 1) {
+        setStageIndex(totalStages - 1);
+        window.clearInterval(interval);
+      } else {
+        setStageIndex(current);
+      }
+    }, stageDurationMs);
 
     return () => window.clearInterval(interval);
-  }, [copy.stages.length]);
+  }, [copy.stages, completionDelayMs, onComplete, stageDurationMs]);
+
+  useEffect(() => {
+    if (stageIndex === copy.stages.length - 1) {
+      const timer = window.setTimeout(() => {
+        onComplete?.();
+      }, completionDelayMs);
+
+      return () => window.clearTimeout(timer);
+    }
+    return undefined;
+  }, [stageIndex, copy.stages.length, completionDelayMs, onComplete]);
 
   useEffect(() => {
     setShowSupport(false);
@@ -59,20 +93,6 @@ const PageLoader = () => {
       window.clearTimeout(retryTimeout);
     };
   }, [language]);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !("matchMedia" in window)) {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setReduceMotion(mediaQuery.matches);
-
-    updatePreference();
-    mediaQuery.addEventListener("change", updatePreference);
-
-    return () => mediaQuery.removeEventListener("change", updatePreference);
-  }, []);
 
   const progressValue = Math.round(((stageIndex + 1) / copy.stages.length) * 100);
 
@@ -110,81 +130,53 @@ const PageLoader = () => {
               : "border-cyan-500/20 bg-gray-900/80 text-gray-200 shadow-cyan-500/15"
           }`}
         >
-          {reduceMotion ? (
-            <div className="w-full">
+          <div className="w-full">
+            <div
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={progressValue}
+              className={`relative h-3 w-full overflow-hidden rounded-full ${
+                isAurora ? "bg-sky-100" : "bg-gray-800"
+              }`}
+            >
               <div
-                role="progressbar"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={progressValue}
-                className={`relative h-3 w-full overflow-hidden rounded-full ${
-                  isAurora ? "bg-sky-100" : "bg-gray-800"
+                className={`h-full rounded-full transition-all duration-700 ${
+                  isAurora ? "bg-sky-500/80" : "bg-cyan-500/80"
                 }`}
-              >
-                <div
-                  className={`h-full rounded-full transition-all duration-700 ${
-                    isAurora ? "bg-sky-500/80" : "bg-cyan-500/80"
-                  }`}
-                  style={{ width: `${progressValue}%` }}
-                />
-              </div>
-              <p className={`mt-2 text-xs font-mono uppercase tracking-widest`}>
-                {copy.stages[stageIndex]}
-              </p>
-            </div>
-          ) : (
-            <div className="relative h-20 w-20">
-              <div
-                className={`absolute inset-0 animate-spin rounded-full border-[3px] border-transparent ${
-                  isAurora ? "border-t-sky-200 border-b-sky-400/70" : "border-t-cyan-500 border-b-blue-500/70"
-                }`}
-                style={{ animationDuration: "2.4s" }}
-              />
-              <div
-                className={`absolute inset-2 animate-spin rounded-full border-[3px] border-transparent ${
-                  isAurora ? "border-l-sky-500/80 border-r-sky-300/60" : "border-l-cyan-400 border-r-blue-400/60"
-                }`}
-                style={{ animationDirection: "reverse", animationDuration: "1.2s" }}
-              />
-              <div
-                className={`absolute inset-6 rounded-full ${
-                  isAurora ? "bg-white/50 blur-md" : "bg-cyan-500/10 blur-lg"
-                }`}
+                style={{ width: `${progressValue}%` }}
               />
             </div>
-          )}
+          </div>
 
           <p
             className={`text-sm font-medium tracking-wide ${
-              isAurora ? "text-slate-600" : "text-gray-300"
+              isAurora ? "text-slate-700" : "text-gray-300"
             }`}
           >
             {copy.message}
           </p>
           <div
-            className={`flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.35em] ${
-              isAurora ? "text-sky-600" : "text-cyan-200"
+            className={`flex flex-col items-center gap-1 text-xs font-semibold uppercase tracking-[0.35em] ${
+              isAurora ? "text-slate-700" : "text-cyan-200"
             }`}
           >
-            <span className={reduceMotion ? "" : "animate-pulse"}>{copy.stages[stageIndex]}</span>
-            {!reduceMotion && (
-              <span className="flex items-center gap-1">
-                {[0, 1, 2].map((dot) => (
-                  <span
-                    key={dot}
-                    className={`block h-1.5 w-1.5 rounded-full ${
-                      isAurora ? "bg-sky-400/80" : "bg-cyan-400/80"
-                    } animate-bounce`}
-                    style={{ animationDelay: `${dot * 0.2}s` }}
-                  />
-                ))}
-              </span>
-            )}
+            <span>{copy.stages[stageIndex]}</span>
+            <span className="flex gap-1">
+              {[0, 1, 2].map((dot) => (
+                <span
+                  key={dot}
+                  className={`block h-1.5 w-1.5 rounded-full ${
+                    isAurora ? "bg-sky-500/80" : "bg-cyan-400/80"
+                  }`}
+                />
+              ))}
+            </span>
           </div>
           {showSupport && (
             <p
               className={`max-w-xs text-xs ${
-                isAurora ? "text-slate-600" : "text-gray-200"
+                isAurora ? "text-slate-700" : "text-gray-200"
               }`}
             >
               {copy.fallback}

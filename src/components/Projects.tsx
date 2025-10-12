@@ -116,8 +116,8 @@ const Projects: FC = () => {
     : "from-slate-950 via-slate-900 to-black";
 
   const projectBg = isAurora
-    ? "border-sky-200/70 bg-white/85 hover:border-sky-300/80 hover:bg-white focus-visible:ring-sky-400/50 focus-visible:ring-offset-white shadow-[0_24px_60px_rgba(59,130,246,0.15)]"
-    : "border-cyan-500/25 bg-slate-950/75 hover:border-cyan-400/60 hover:bg-slate-950/90 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
+    ? "border-sky-200/70 bg-white focus-visible:ring-sky-400/50 focus-visible:ring-offset-white shadow-[0_20px_55px_rgba(59,130,246,0.12)]"
+    : "border-cyan-500/25 bg-slate-950/75 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
   const statCard = isAurora
     ? "border-sky-200/70 bg-white/80 text-slate-700 shadow-sky-200/40"
@@ -125,7 +125,10 @@ const Projects: FC = () => {
   const projectGlow = isAurora
     ? "linear-gradient(135deg, rgba(59,130,246,0.18), rgba(196,181,253,0.25))"
     : "linear-gradient(135deg, rgba(56,189,248,0.18), rgba(129,140,248,0.22))";
-  const stackPillText = isAurora ? "text-sky-600" : "text-cyan-400";
+  const stackPillText = isAurora ? "text-slate-600" : "text-cyan-400";
+  const headingClass = isAurora
+    ? "text-3xl font-bold sm:text-4xl text-slate-900"
+    : "text-3xl font-bold sm:text-4xl text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text";
 
   return (
     <section
@@ -154,15 +157,9 @@ const Projects: FC = () => {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-10">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-10">
         <div className="text-center space-y-4">
-          <h3
-            className={`text-3xl font-bold sm:text-4xl ${
-              isAurora
-                ? "text-transparent bg-gradient-to-r from-slate-900 via-sky-700 to-purple-700 bg-clip-text"
-                : "text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text"
-            }`}
-          >
+          <h3 className={headingClass}>
             {copy.title}
           </h3>
           <p className={`mx-auto max-w-2xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
@@ -177,9 +174,9 @@ const Projects: FC = () => {
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${projectBg}`}
+              className={`relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border px-6 py-7 backdrop-blur-xl transition-transform duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${projectBg} hover:-translate-y-1`}
             >
-              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div className="pointer-events-none absolute inset-0 opacity-0">
                 <div
                   className="absolute inset-0"
                   style={{
@@ -190,7 +187,7 @@ const Projects: FC = () => {
               <div className="relative z-10 flex flex-col gap-4">
                 <span
                   className={`inline-flex items-center gap-2 self-start rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] ${
-                    isAurora ? "bg-sky-100 text-sky-600" : "bg-cyan-500/20 text-cyan-200"
+                    isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/20 text-cyan-200"
                   }`}
                 >
                   {project.badge}
@@ -199,7 +196,7 @@ const Projects: FC = () => {
                   <h4 className={`text-xl font-semibold ${isAurora ? "text-slate-900" : "text-white"}`}>
                     {project.name}
                   </h4>
-                  <p className={`text-xs uppercase tracking-[0.3em] ${isAurora ? "text-sky-600" : "text-cyan-300"}`}>
+                  <p className={`text-xs uppercase tracking-[0.3em] ${isAurora ? "text-slate-600" : "text-cyan-300"}`}>
                     {project.role[language]}
                   </p>
                   <p className={`text-sm leading-relaxed ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
@@ -214,14 +211,14 @@ const Projects: FC = () => {
                 {project.stack.map((tech) => (
                   <span
                     key={tech}
-                    className={`rounded-full px-3 py-1 transition-all duration-300 ${
-                      isAurora ? "bg-sky-100/80 text-sky-700" : "bg-cyan-500/10 text-cyan-200"
+                    className={`rounded-full px-3 py-1 ${
+                      isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/10 text-cyan-200"
                     }`}
                   >
                     {tech}
                   </span>
                 ))}
-                <FiArrowUpRight className="ml-auto text-lg transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <FiArrowUpRight className="ml-auto text-lg text-cyan-400" />
               </div>
             </a>
           ))}

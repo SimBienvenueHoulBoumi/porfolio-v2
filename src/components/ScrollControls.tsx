@@ -55,7 +55,7 @@ const ScrollControls: FC<ScrollControlsProps> = ({ onScrollToFooter }) => {
         <FiArrowDown className="text-white text-xl sm:text-2xl group-hover:translate-y-1 transition-transform" />
       )}
 
-      <span className="absolute inset-0 rounded-full bg-cyan-500/30 animate-ping opacity-75" />
+      <span className="absolute inset-0 rounded-full bg-cyan-500/30 opacity-60" />
     </button>
   );
 };

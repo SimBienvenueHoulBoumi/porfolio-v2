@@ -2,27 +2,14 @@
 
 import { forwardRef } from "react";
 import { FaHeart, FaCode } from "react-icons/fa";
-import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import { FooterContent } from "@/lib/content";
 
-const FOOTER_COPY = {
-  fr: {
-    role: "Dev Fullstack Java/React",
-    madeWith: "Fait avec",
-    and: "et",
-    by: "par un passionné de code"
-  },
-  en: {
-    role: "Full-stack Java/React developer",
-    madeWith: "Made with",
-    and: "and",
-    by: "by a code enthusiast"
-  }
-} as const;
+type FooterProps = {
+  content: FooterContent;
+};
 
-const Footer = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { language } = useLanguage();
-  const copy = FOOTER_COPY[language];
+const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
   const { theme } = useTheme();
   const isAurora = theme === "aurora";
 
@@ -35,14 +22,14 @@ const Footer = forwardRef<HTMLDivElement>((_props, ref) => {
   const topGlow = isAurora ? "bg-sky-200/50" : "bg-cyan-500/20";
   const bottomGlow = isAurora ? "bg-indigo-200/45" : "bg-blue-500/20";
   const badgeClasses = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-sky-700 shadow-sm shadow-sky-200/40"
-    : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-slate-900/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-cyan-300";
+    ? "inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-sm shadow-sky-200/40"
+    : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-slate-900/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-cyan-200";
   const rolePill = isAurora
     ? "inline-flex items-center gap-2 rounded-full border border-sky-300/80 bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-500 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white shadow-sm shadow-sky-300/40"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-cyan-200";
   const textPrimary = isAurora ? "text-slate-600" : "text-slate-400";
   const textSecondary = isAurora ? "text-slate-500" : "text-slate-300";
-  const sectionTitle = isAurora ? "text-sky-600" : "text-cyan-200";
+  const sectionTitle = isAurora ? "text-slate-700" : "text-cyan-200";
   const dividerGradient = isAurora
     ? "from-transparent via-sky-300/40 to-transparent"
     : "from-transparent via-cyan-500/40 to-transparent";
@@ -67,41 +54,33 @@ const Footer = forwardRef<HTMLDivElement>((_props, ref) => {
         <div className={`absolute -bottom-20 right-1/3 h-64 w-64 rounded-full blur-3xl ${bottomGlow}`} />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-3 text-left">
-            <span className={badgeClasses}>
-              Sim Bienvenue Houlboumi
-            </span>
-            <p className={`text-sm max-w-sm ${textPrimary}`}>
-              {language === "fr"
-                ? "Ingénierie DevOps & full-stack : livraisons sans friction, plateformes stables, code orienté business."
-                : "DevOps & full-stack engineering: frictionless delivery, resilient platforms, business-driven code."}
-            </p>
+            <span className={badgeClasses}>{content.label}</span>
+            <p className={`text-sm max-w-sm ${textPrimary}`}>{content.by}</p>
           </div>
           <div className={`flex items-center gap-4 text-sm ${textSecondary}`}>
-            <span className={rolePill}>
-              {copy.role}
-            </span>
+            <span className={rolePill}>{content.role}</span>
           </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-3">
-          <div className={`flex flex-col gap-2 text-xs uppercase tracking-[0.35em] ${isAurora ? "text-sky-500" : "text-cyan-300"}`}>
-            <span>&copy; 2025</span>
-            <span>Sim Bienvenue Houlboumi</span>
+          <div className={`flex flex-col gap-2 text-xs uppercase tracking-[0.35em] ${isAurora ? "text-slate-600" : "text-cyan-300"}`}>
+            <span>&copy; {content.year}</span>
+            <span>{content.label}</span>
           </div>
           <div className={`flex flex-col gap-2 text-sm ${textSecondary}`}>
-            <span className={`font-semibold ${sectionTitle}`}>{language === "fr" ? "Stack de production" : "Production stack"}</span>
-            <span>Next.js · Spring Boot · Kubernetes · Datadog</span>
+            <span className={`font-semibold ${sectionTitle}`}>{content.stackTitle}</span>
+            <span>{content.stackItems}</span>
           </div>
           <div className={`flex flex-col gap-2 text-sm ${textSecondary}`}>
-            <span className={`font-semibold ${sectionTitle}`}>{copy.madeWith}</span>
+            <span className={`font-semibold ${sectionTitle}`}>{content.madeWith}</span>
             <span className={`inline-flex items-center gap-2 ${textPrimary}`}>
-              <FaHeart className="text-red-500 animate-pulse" />
-              {copy.and}
-              <FaCode className={isAurora ? "text-sky-500" : "text-cyan-400"} />
-              {copy.by}
+              <FaHeart className="text-red-500" />
+              {content.and}
+              <FaCode className={isAurora ? "text-slate-700" : "text-cyan-400"} />
+              {content.by}
             </span>
           </div>
         </div>

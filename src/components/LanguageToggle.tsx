@@ -11,13 +11,14 @@ const LanguageToggle = () => {
   const isAurora = theme === "aurora";
 
   const baseClasses = isAurora
-    ? "border-sky-200/80 bg-white/90 text-sky-600 shadow-lg shadow-sky-200/40 hover:border-sky-300 hover:bg-white focus-visible:ring-offset-white"
-    : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-950 focus-visible:ring-offset-slate-950";
+    ? "border-sky-200/80 bg-white text-slate-700 shadow-lg shadow-sky-200/20 hover:border-sky-300 hover:bg-sky-50 focus-visible:ring-offset-white"
+    : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-900 focus-visible:ring-offset-slate-950";
 
   const activeText = isAurora ? "text-slate-900" : "text-white";
   const inactiveText = isAurora ? "text-slate-500" : "text-cyan-200/70";
   const hoverText = isAurora ? "group-hover:text-slate-900" : "group-hover:text-white";
   const ringClass = isAurora ? "focus-visible:ring-sky-400/60" : "focus-visible:ring-cyan-400/60";
+  const dividerClass = isAurora ? "text-slate-400" : "text-cyan-500";
 
   return (
     <button
@@ -30,7 +31,7 @@ const LanguageToggle = () => {
       <span className={isFrench ? `${activeText} font-semibold` : `${inactiveText} ${hoverText}`}>
         FR
       </span>
-      <span className="text-cyan-500">/</span>
+      <span className={dividerClass}>/</span>
       <span className={!isFrench ? `${activeText} font-semibold` : `${inactiveText} ${hoverText}`}>
         EN
       </span>
