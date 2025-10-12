@@ -5,7 +5,6 @@ import {
   FaDocker,
   FaGitAlt,
   FaServer,
-  FaCloud,
   FaCodeBranch,
   FaRocket
 } from "react-icons/fa";
@@ -96,6 +95,16 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
   const copy = HERO_COPY[language];
   const isAurora = theme === "aurora";
   const subtitle = useTypewriter(copy.typewriter);
+  const heroBackground = isAurora ? "from-slate-50 via-sky-50 to-white" : "from-slate-950 via-slate-900 to-black";
+  const taglineClasses = isAurora
+    ? "border-sky-300/40 bg-sky-200/40 text-sky-600"
+    : "border-cyan-500/40 bg-cyan-500/10 text-cyan-200";
+  const headlineGradient = isAurora
+    ? "from-slate-900 via-sky-700 to-purple-700"
+    : "from-cyan-200 via-blue-200 to-purple-300";
+  const introTextClass = isAurora ? "text-slate-600" : "text-slate-300";
+  const typewriterText = isAurora ? "text-sky-600" : "text-cyan-300";
+  const typewriterAccent = isAurora ? "text-sky-500" : "text-cyan-500";
 
   const techCapsules = [
     { Icon: FaDocker, label: "Docker" },
@@ -109,7 +118,7 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
   return (
     <header
       ref={ref}
-      className="hero-section relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-black py-20 sm:py-28"
+      className={`hero-section relative overflow-hidden bg-gradient-to-br ${heroBackground} py-20 sm:py-28`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-40">
@@ -137,20 +146,24 @@ const Hero = forwardRef<HTMLDivElement, object>((_props, ref) => {
 
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-12 px-4 sm:px-6">
         <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
-          <span className="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] text-cyan-200">
+          <span
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] ${taglineClasses}`}
+          >
             <FiZap className="text-sm" />
             {copy.tagline}
           </span>
           <div className="mt-6 space-y-3 sm:space-y-4">
-            <h1 className="text-4xl font-bold text-transparent sm:text-5xl md:text-6xl bg-gradient-to-r from-cyan-200 via-blue-200 to-purple-300 bg-clip-text">
+            <h1
+              className={`text-4xl font-bold text-transparent sm:text-5xl md:text-6xl bg-gradient-to-r ${headlineGradient} bg-clip-text`}
+            >
               {copy.headline[0]} <span>{copy.headline[1]}</span> {copy.headline[2]}
             </h1>
-            <p className="text-sm font-mono uppercase tracking-[0.35em] text-cyan-300">
-              <span className="text-cyan-500">$</span>{" "}
+            <p className={`text-sm font-mono uppercase tracking-[0.35em] ${typewriterText}`}>
+              <span className={typewriterAccent}>$</span>{" "}
               <span>{subtitle}</span>
               <span className="ml-2 animate-pulse text-cyan-400">▮</span>
             </p>
-            <p className="max-w-2xl text-base text-slate-300 sm:text-lg">{copy.introduction}</p>
+            <p className={`max-w-2xl text-base sm:text-lg ${introTextClass}`}>{copy.introduction}</p>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
