@@ -120,7 +120,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
         <div className="relative">
           <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${isAurora ? "bg-gradient-to-b from-sky-400/60 via-sky-300/10 to-transparent" : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent"}`} />
           <div className="space-y-10 sm:pl-4">
-            {content.experiences.map((experience, index) => (
+            {content.experiences.map((experience) => (
               <article
                 key={`${experience.company.label}-${experience.role}`}
                 className={`relative rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-300 sm:pl-16 ${cardClasses}`}
@@ -165,10 +165,6 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
 
                   {renderBullets(experience)}
                 </div>
-
-                {index < content.experiences.length - 1 && (
-                  <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
-                )}
               </article>
             ))}
           </div>
