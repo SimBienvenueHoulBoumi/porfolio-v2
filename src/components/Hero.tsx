@@ -16,6 +16,7 @@ import DownLoadCV from "./DownLoadCV";
 import { useTheme } from "@/context/ThemeContext";
 import { HeroContent } from "@/lib/content";
 import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 
 function useTypewriter(words: readonly string[], speed = 65, pause = 1600) {
   const [index, setIndex] = useState(0);
@@ -94,12 +95,6 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
     : "flex flex-col gap-3 rounded-3xl border border-cyan-400/25 bg-slate-950/70 p-6 text-slate-200 shadow-cyan-500/20";
   const availabilityTitleClass = isAurora ? "text-slate-700" : "text-cyan-200";
   const availabilitySubtitleClass = isAurora ? "text-slate-600" : "text-slate-400";
-  const primaryCTAClasses = isAurora
-    ? "inline-flex items-center gap-3 rounded-full border border-sky-300/50 bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-    : "inline-flex items-center gap-3 rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900";
-  const secondaryCTAClasses = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-200/80 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-    : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 px-5 py-3 text-sm font-semibold text-cyan-200 hover:bg-white/5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900";
   const pulseColor = isAurora ? "bg-sky-300/40" : "bg-cyan-500/40";
   const objectiveCardClasses = isAurora
     ? "rounded-3xl border border-sky-200/70 bg-gradient-to-br from-white via-sky-50 to-white p-6 shadow-[0_24px_65px_rgba(59,130,246,0.16)]"
@@ -181,20 +176,26 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-              <a
+              <Button
+                as="a"
                 href="#contact"
-                className={`${primaryCTAClasses} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 ripple-effect group/cta`}
+                isAurora={isAurora}
+                variant="primary"
+                className="group ripple-effect"
+                iconLeft={<FiTerminal className="transition-transform duration-300 group-hover:scale-110" />}
+                iconRight={<FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />}
               >
-                <FiTerminal className="text-base transition-transform duration-300 group-hover/cta:scale-110" />
                 {content.ctaPrimary}
-                <FiArrowRight className="text-base transition-transform duration-300 group-hover/cta:translate-x-1" />
-              </a>
-              <a
+              </Button>
+              <Button
+                as="a"
                 href="#experience"
-                className={`${secondaryCTAClasses} hover:-translate-y-0.5`}
+                isAurora={isAurora}
+                variant="secondary"
+                className="hover:-translate-y-0.5"
               >
-                <span>{content.ctaSecondary}</span>
-              </a>
+                {content.ctaSecondary}
+              </Button>
             </div>
             <div className="mx-auto w-full max-w-xl sm:mx-0">
               <DownLoadCV />

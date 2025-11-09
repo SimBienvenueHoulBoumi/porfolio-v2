@@ -9,6 +9,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
 const channelIcon = (channel: ContactChannel) => ICON_MAP[channel.icon as IconKey] ?? FiMail;
@@ -37,12 +38,6 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
 
   const primaryChannel = content.channels[0];
   const secondaryChannel = content.channels[1];
-  const primaryCta = isAurora
-    ? "inline-flex items-center justify-center rounded-full bg-gradient-to-r from-slate-900 to-slate-800 text-white px-5 py-3 text-sm font-semibold shadow-lg shadow-slate-900/25 transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500"
-    : "inline-flex items-center justify-center rounded-full bg-cyan-500 text-slate-950 px-5 py-3 text-sm font-semibold transition hover:bg-cyan-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400";
-  const secondaryCta = isAurora
-    ? "inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300"
-    : "inline-flex items-center justify-center rounded-full border border-cyan-500/40 px-5 py-3 text-sm font-semibold text-cyan-100 hover:bg-gray-900 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400";
 
   return (
     <section
@@ -94,24 +89,30 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
           {(primaryChannel || secondaryChannel) && (
             <div className="flex flex-wrap items-center justify-center gap-3">
               {primaryChannel && (
-                <a
+                <Button
+                  as="a"
                   href={primaryChannel.href}
                   target={primaryChannel.external ? "_blank" : undefined}
                   rel={primaryChannel.external ? "noopener noreferrer" : undefined}
-                  className={primaryCta}
+                  isAurora={isAurora}
+                  variant="primary"
+                  size="md"
                 >
                   {primaryChannel.action}
-                </a>
+                </Button>
               )}
               {secondaryChannel && (
-                <a
+                <Button
+                  as="a"
                   href={secondaryChannel.href}
                   target={secondaryChannel.external ? "_blank" : undefined}
                   rel={secondaryChannel.external ? "noopener noreferrer" : undefined}
-                  className={secondaryCta}
+                  isAurora={isAurora}
+                  variant="secondary"
+                  size="md"
                 >
                   {secondaryChannel.action}
-                </a>
+                </Button>
               )}
             </div>
           )}

@@ -7,6 +7,7 @@ import { SkillsContent } from "@/lib/content";
 import { useTheme } from "@/context/ThemeContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import SectionHeader from "@/components/ui/SectionHeader";
+import Pill from "@/components/ui/Pill";
 
 const getIconComponent = (key: string) => ICON_MAP[key as IconKey];
 
@@ -32,12 +33,6 @@ const Skills: FC<SkillsProps> = ({ content }) => {
     ? "border-sky-200/70 bg-white/80 text-slate-700"
     : "border-cyan-500/25 bg-slate-950/70 text-gray-200";
 
-  const toolPill = isAurora
-    ? "bg-white text-slate-700 border border-sky-200 focus-visible:ring-sky-300 focus-visible:ring-offset-white"
-    : "bg-slate-950 text-cyan-200 border border-cyan-500/40 focus-visible:ring-cyan-400 focus-visible:ring-offset-slate-950";
-  const stackPill = isAurora
-    ? "bg-slate-100 text-slate-700 border border-slate-200"
-    : "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30";
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
@@ -84,14 +79,11 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                     <p className="text-sm leading-relaxed">{skill.description}</p>
                     <p className="text-sm font-medium opacity-80">{skill.impact}</p>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-xs font-semibold tracking-wide">
+                  <div className="flex flex-wrap gap-2">
                     {skill.stack.map((stackItem) => (
-                      <span
-                        key={stackItem}
-                        className={`rounded-full border px-3 py-1 ${stackPill}`}
-                      >
+                      <Pill key={stackItem} isAurora={isAurora} className="text-xs">
                         {stackItem}
-                      </span>
+                      </Pill>
                     ))}
                   </div>
                 </div>
@@ -131,13 +123,14 @@ const Skills: FC<SkillsProps> = ({ content }) => {
             {content.toolbox.map((tool) => {
               const Icon = getIconComponent(tool.icon) ?? ICON_MAP.terminal;
               const pill = (
-                <span
+                <Pill
                   key={tool.label}
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-lg ${toolPill}`}
+                  isAurora={isAurora}
+                  className="gap-2 text-xs hover:scale-105 hover:shadow-lg transition-transform duration-300"
                 >
                   <Icon className="text-sm" />
                   {tool.label}
-                </span>
+                </Pill>
               );
 
               return tool.href ? (

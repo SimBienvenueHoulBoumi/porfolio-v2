@@ -7,6 +7,9 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
+import Pill from "@/components/ui/Pill";
+import Button from "@/components/ui/Button";
+import StatCard from "@/components/ui/StatCard";
 
 type Project = {
   id: string;
@@ -121,15 +124,9 @@ const Projects: FC = () => {
     ? "border-sky-200/70 bg-white focus-visible:ring-sky-400/50 focus-visible:ring-offset-white shadow-[0_20px_55px_rgba(59,130,246,0.12)]"
     : "border-cyan-500/25 bg-slate-950/75 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
-  const statCard = isAurora
-    ? "border-sky-200/70 bg-white/80 text-slate-700 shadow-sky-200/40"
-    : "border-cyan-500/25 bg-slate-950/75 text-gray-200 shadow-cyan-500/20";
   const projectGlow = isAurora
     ? "linear-gradient(135deg, rgba(59,130,246,0.18), rgba(196,181,253,0.25))"
     : "linear-gradient(135deg, rgba(56,189,248,0.18), rgba(129,140,248,0.22))";
-  const stackPillBase = isAurora
-    ? "bg-slate-100 text-slate-700 border border-slate-200"
-    : "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30";
   return (
     <section
       id="projects"
@@ -205,14 +202,11 @@ const Projects: FC = () => {
                   </p>
                 </div>
               </div>
-              <div className="relative z-10 mt-6 flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide">
+              <div className="relative z-10 mt-6 flex flex-wrap items-center gap-2">
                 {project.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className={`rounded-full px-3 py-1 ${stackPillBase}`}
-                  >
+                  <Pill key={tech} isAurora={isAurora} className="text-[11px]">
                     {tech}
-                  </span>
+                  </Pill>
                 ))}
                 <span className="ml-auto inline-flex items-center gap-1 text-xs uppercase tracking-wide text-cyan-300">
                   GitHub
@@ -225,34 +219,32 @@ const Projects: FC = () => {
 
         <div className="grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,320px)] md:items-center">
           <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-            <a
+            <Button
+              as="a"
               href="https://github.com/SimBienvenueHoulBoumi"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-all duration-300 hover:translate-x-1 hover:shadow-2xl hover:shadow-cyan-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              isAurora={isAurora}
+              variant="primary"
+              size="md"
+              className="group"
+              iconRight={<FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1" />}
             >
               {copy.primaryCta}
-              <FiArrowUpRight className="text-base transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-            <a
+            </Button>
+            <Button
+              as="a"
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 px-5 py-2.5 text-sm font-semibold text-cyan-200 transition-all duration-300 hover:border-cyan-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              isAurora={isAurora}
+              variant="secondary"
+              size="md"
             >
               {copy.secondaryCta}
-            </a>
+            </Button>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
             {copy.stats.map(({ icon: Icon, label, value }) => (
-              <div
-                key={label}
-                className={`flex flex-col items-start gap-2 rounded-2xl border px-4 py-4 backdrop-blur-md transition-all duration-300 ${statCard}`}
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950">
-                  <Icon />
-                </span>
-                <p className="text-2xl font-semibold">{value}</p>
-                <p className="text-xs uppercase tracking-[0.3em] opacity-80">{label}</p>
-              </div>
+              <StatCard key={label} icon={<Icon />} value={value} label={label} isAurora={isAurora} />
             ))}
           </div>
         </div>
