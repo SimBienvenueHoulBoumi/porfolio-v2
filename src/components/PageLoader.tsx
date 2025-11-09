@@ -141,10 +141,10 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
               }`}
             >
               <div
-                className={`h-full rounded-full transition-all duration-700 ${
-                  isAurora ? "bg-sky-500/80" : "bg-cyan-500/80"
+                className={`h-full rounded-full transition-all duration-700 animate-shimmer ${
+                  isAurora ? "bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500" : "bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500"
                 }`}
-                style={{ width: `${progressValue}%` }}
+                style={{ width: `${progressValue}%`, backgroundSize: "200% 100%" }}
               />
             </div>
           </div>

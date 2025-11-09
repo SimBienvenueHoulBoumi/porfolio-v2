@@ -122,6 +122,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   return (
     <header
       ref={ref}
+      id="hero"
       className={`hero-section relative overflow-hidden bg-gradient-to-br ${heroBackground} py-20 sm:py-28`}
     >
       <div className="pointer-events-none absolute inset-0">
@@ -184,11 +185,11 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
             <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
               <a
                 href="#contact"
-                className={`${primaryCTAClasses} hover:-translate-y-0.5 hover:shadow-lg`}
+                className={`${primaryCTAClasses} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 ripple-effect group/cta`}
               >
-                <FiTerminal className="text-base" />
+                <FiTerminal className="text-base transition-transform duration-300 group-hover/cta:scale-110" />
                 {content.ctaPrimary}
-                <FiArrowRight className="text-base" />
+                <FiArrowRight className="text-base transition-transform duration-300 group-hover/cta:translate-x-1" />
               </a>
             </div>
             <div className="mx-auto w-full max-w-xl sm:mx-0">

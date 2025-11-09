@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Analytics from "@/components/Analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,15 +14,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://simfolio.com"),
-  title: "Simfolio",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://simfolio.com"),
+  title: "Sim Bienvenue HOULBOUMI | DevOps Engineer & Full Stack Developer",
   description:
-    "Sim Bienvenue Houlboumi – DevOps engineer & full stack developer delivering resilient cloud architectures, reliable CI/CD and business-focused code.",
+    "Sim Bienvenue Houlboumi – DevOps engineer & full stack developer delivering resilient cloud architectures, reliable CI/CD and business-focused code. Spécialisé en Java/Spring Boot, React, DevOps (Ansible, Jenkins, Docker, CI/CD).",
+  keywords: [
+    "DevOps engineer",
+    "full stack developer",
+    "Java",
+    "Spring Boot",
+    "React",
+    "Next.js",
+    "DevOps",
+    "Ansible",
+    "Jenkins",
+    "Docker",
+    "CI/CD",
+    "microservices",
+    "API REST",
+    "cloud architecture",
+    "Kubernetes"
+  ],
+  authors: [{ name: "Sim Bienvenue HOULBOUMI" }],
   openGraph: {
-    title: "Simfolio",
+    title: "Sim Bienvenue HOULBOUMI | DevOps Engineer & Full Stack Developer",
     description:
       "Découvrez les études de cas CI/CD, microservices et cloud portées par Sim Bienvenue Houlboumi.",
-    url: "https://simfolio.com",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://simfolio.com",
     siteName: "Simfolio",
     images: [
       {
@@ -36,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Simfolio",
+    title: "Sim Bienvenue HOULBOUMI | DevOps Engineer & Full Stack Developer",
     description:
       "CI/CD, microservices et cloud résilient : découvrez le portfolio de Sim Bienvenue Houlboumi.",
     images: ["/profile.png"]
@@ -49,11 +68,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

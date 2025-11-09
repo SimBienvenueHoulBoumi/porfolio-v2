@@ -38,7 +38,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
   return (
     <footer
       ref={ref}
-      className={`footer-section relative overflow-hidden border-t ${isAurora ? "border-sky-200/60" : "border-cyan-500/20"} bg-gradient-to-b ${footerBackground} ${backgroundOverlay}`}
+      className={`footer-section relative overflow-hidden border-t transition-all duration-500 ${isAurora ? "border-sky-200/60" : "border-cyan-500/20"} bg-gradient-to-b ${footerBackground} ${backgroundOverlay}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -76,10 +76,10 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
           </div>
           <div className={`flex flex-col gap-2 text-sm ${textSecondary}`}>
             <span className={`font-semibold ${sectionTitle}`}>{content.madeWith}</span>
-            <span className={`inline-flex items-center gap-2 ${textPrimary}`}>
-              <FaHeart className="text-red-500" />
+            <span className={`inline-flex items-center gap-2 ${textPrimary} group/heart`}>
+              <FaHeart className="text-red-500 transition-transform duration-300 group-hover/heart:scale-125 group-hover/heart:animate-pulse" />
               {content.and}
-              <FaCode className={isAurora ? "text-slate-700" : "text-cyan-400"} />
+              <FaCode className={`transition-transform duration-300 group-hover/heart:rotate-12 ${isAurora ? "text-slate-700" : "text-cyan-400"}`} />
               {content.by}
             </span>
           </div>

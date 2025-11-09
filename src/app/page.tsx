@@ -7,7 +7,8 @@ import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import ScrollControls from "@/components/ScrollControls";
+import Navigation from "@/components/Navigation";
+import ScrollProgress from "@/components/ScrollProgress";
 import LanguageToggle from "@/components/LanguageToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import PageLoader from "@/components/PageLoader";
@@ -62,12 +63,6 @@ const PageContent = () => {
     setLoaderDone(true);
   }, []);
 
-  const handleScrollToFooter = () => {
-    if (footerRef.current) {
-      footerRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const themeContainerClass =
     theme === "dark"
       ? "bg-gray-900 text-white theme-dark"
@@ -94,14 +89,15 @@ const PageContent = () => {
   }
 
   return (
-    <div className={`${themeContainerClass} font-sans relative transition-colors duration-500`}>
+    <div className={`${themeContainerClass} font-sans relative transition-colors duration-500 page-transition`}>
+      <ScrollProgress />
+      <Navigation />
       <div className="relative">
         <Hero content={content.hero} />
-        <div className="fixed bottom-24 right-4 sm:bottom-28 sm:right-8 z-50 flex flex-col items-end gap-3">
+        <div className="fixed bottom-20 right-4 sm:bottom-24 sm:right-8 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-2rem)]">
           <ThemeToggle />
           <LanguageToggle />
         </div>
-        <ScrollControls onScrollToFooter={handleScrollToFooter} />
       </div>
       <Skills content={content.skills} />
       <Experience content={content.experience} />

@@ -24,15 +24,15 @@ const LanguageToggle = () => {
     <button
       type="button"
       onClick={toggleLanguage}
-      className={`group relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${ringClass} ${baseClasses}`}
+      className={`group relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ripple-effect ${ringClass} ${baseClasses}`}
       aria-label={isFrench ? "Passer le site en anglais" : "Switch the site to French"}
       title={isFrench ? "English version" : "Version française"}
     >
-      <span className={isFrench ? `${activeText} font-semibold` : `${inactiveText} ${hoverText}`}>
+      <span className={`transition-all duration-300 ${isFrench ? `${activeText} font-semibold scale-110` : `${inactiveText} ${hoverText}`}`}>
         FR
       </span>
-      <span className={dividerClass}>/</span>
-      <span className={!isFrench ? `${activeText} font-semibold` : `${inactiveText} ${hoverText}`}>
+      <span className={`transition-opacity duration-300 ${dividerClass}`}>/</span>
+      <span className={`transition-all duration-300 ${!isFrench ? `${activeText} font-semibold scale-110` : `${inactiveText} ${hoverText}`}`}>
         EN
       </span>
       <span

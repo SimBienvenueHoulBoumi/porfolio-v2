@@ -6,11 +6,13 @@ import { FiMail, FiClock, FiZap } from "react-icons/fi";
 import { ContactContent, ContactChannel } from "@/lib/content";
 import { ICON_MAP, IconKey } from "@/lib/icon-map";
 import { useTheme } from "@/context/ThemeContext";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const channelIcon = (channel: ContactChannel) => ICON_MAP[channel.icon as IconKey] ?? FiMail;
 
 const Contact: FC<{ content: ContactContent }> = ({ content }) => {
   const { theme } = useTheme();
+  const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
@@ -31,8 +33,9 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
 
   return (
     <section
+      ref={sectionRef as React.RefObject<HTMLElement>}
       id="contact"
-      className={`contact-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8`}
+      className={`contact-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-30">
@@ -144,20 +147,21 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                   href={channel.href}
                   target={channel.external ? "_blank" : undefined}
                   rel={channel.external ? "noopener noreferrer" : undefined}
-                  className={`relative flex overflow-hidden rounded-2xl border px-6 py-6 transition-transform duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${channelCard} hover:-translate-y-1`}
+                  className={`relative flex overflow-hidden rounded-2xl border px-6 py-6 transition-all duration-500 hover-lift hover-glow group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${channelCard} ${hasIntersected ? "animate-scale-in" : ""}`}
+                  style={{ animationDelay: `${content.channels.indexOf(channel) * 100}ms` }}
                   aria-label={channel.action}
                 >
                   <div className="relative z-10 flex w-full flex-col gap-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <span
-                          className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+                          className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
                             isAurora
                               ? "bg-gradient-to-br from-sky-400 to-indigo-400 text-white shadow-sky-200/40"
                               : "bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950"
                           }`}
                         >
-                          <Icon className="text-lg" />
+                          <Icon className="text-lg transition-transform duration-300 group-hover:scale-125" />
                         </span>
                         <div>
                           <p className={`text-sm font-semibold ${isAurora ? "text-slate-800" : "text-white"}`}>

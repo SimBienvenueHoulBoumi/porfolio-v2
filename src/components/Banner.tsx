@@ -52,7 +52,7 @@ const Banner = () => {
 
   return (
     <div className="banner-section relative z-10 mt-4 mb-16 flex justify-center">
-      <div className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-950/70 px-6 py-6 shadow-2xl shadow-cyan-500/20 backdrop-blur-xl">
+      <div className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-950/70 px-6 py-6 shadow-2xl shadow-cyan-500/20 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-cyan-500/30">
         <div className="pointer-events-none absolute inset-0 opacity-30">
           <div
             className="absolute inset-0"
@@ -76,13 +76,13 @@ const Banner = () => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group inline-flex items-center gap-2 rounded-full border border-cyan-400/20 px-4 py-2 text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${ring}`}
+                  className={`group inline-flex items-center gap-2 rounded-full border border-cyan-400/20 px-4 py-2 text-sm font-semibold transition-all duration-500 hover:scale-105 hover:border-cyan-400/40 hover:bg-cyan-500/10 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ripple-effect ${ring}`}
                 >
-                  <span className={`flex h-9 w-9 items-center justify-center rounded-full ${accent}`}>
-                    <Icon className="text-base" />
+                  <span className={`flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${accent}`}>
+                    <Icon className="text-base transition-transform duration-300 group-hover:scale-125" />
                   </span>
-                  <span className="text-cyan-200">{label}</span>
-                  <FiArrowUpRight className="text-base text-cyan-300 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+                  <span className="text-cyan-200 transition-colors duration-300 group-hover:text-cyan-100">{label}</span>
+                  <FiArrowUpRight className="text-base text-cyan-300 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:scale-110" />
                 </a>
               );
             })}

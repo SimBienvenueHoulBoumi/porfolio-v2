@@ -148,7 +148,7 @@ export const SITE_CONTENT: SiteContentMap = {
       availabilityDescription: "On synchronise les objectifs, on déploie en continu.",
       trustedStack: "Stack de confiance",
       objective: [
-        "Objectif : livrer plus vite que le cycle logique, sans sacrifier la stabilité ni la maintenabilité.",
+        "Livrer plus vite que le cycle logique, sans sacrifier la stabilité ni la maintenabilité.",
         "Automatisation CI/CD, observabilité proactive et culture d’équipe orientée feedback."
       ]
     },
@@ -387,7 +387,7 @@ export const SITE_CONTENT: SiteContentMap = {
       availabilityDescription: "We align the objectives, then keep shipping continuously.",
       trustedStack: "Trusted stack",
       objective: [
-        "Goal: ship faster than the logical cycle without trading away stability or maintainability.",
+        "Ship faster than the logical cycle without trading away stability or maintainability.",
         "CI/CD automation, proactive observability, and a team culture wired around feedback loops."
       ]
     },

@@ -29,19 +29,19 @@ const ThemeToggle = () => {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`group relative inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-200 hover:cursor-pointer focus:outline-none focus-visible:ring-2 ${ringClass} ${baseClasses}`}
+      className={`group relative inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-300 hover:cursor-pointer hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 ripple-effect ${ringClass} ${baseClasses}`}
       aria-label={label}
       title={tooltip}
     >
       {isAurora ? (
         <>
-          <FiMoon className="text-slate-700 text-sm" />
-          <span>{buttonText}</span>
+          <FiMoon className="text-slate-700 text-sm transition-transform duration-300 group-hover:rotate-12" />
+          <span className="transition-all duration-300">{buttonText}</span>
         </>
       ) : (
         <>
-          <FiSun className="text-amber-300 text-sm" />
-          <span>{buttonText}</span>
+          <FiSun className="text-amber-300 text-sm transition-transform duration-300 group-hover:rotate-90" />
+          <span className="transition-all duration-300">{buttonText}</span>
         </>
       )}
       <span

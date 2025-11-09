@@ -58,12 +58,12 @@ const DownLoadCV = () => {
     : "focus-visible:ring-cyan-400/40 focus-visible:ring-offset-slate-950";
 
   return (
-    <div className={containerClasses}>
+    <div className={`${containerClasses} transition-all duration-500 hover-lift group/cv`}>
       <div className="space-y-2 text-center sm:text-left">
-        <span className={badgeClasses}>{copy.badge}</span>
+        <span className={`${badgeClasses} transition-all duration-300 group-hover/cv:scale-105`}>{copy.badge}</span>
         <div className="space-y-1">
-          <h3 className={`text-base sm:text-lg font-semibold ${titleClass}`}>{copy.title}</h3>
-          <p className={`text-sm ${descriptionClass}`}>{copy.description}</p>
+          <h3 className={`text-base sm:text-lg font-semibold transition-colors duration-300 ${titleClass}`}>{copy.title}</h3>
+          <p className={`text-sm transition-colors duration-300 ${descriptionClass}`}>{copy.description}</p>
         </div>
       </div>
       <div className="mt-2 flex w-full max-w-xs flex-col gap-2 sm:mt-0 sm:w-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-end sm:gap-3">
@@ -71,18 +71,18 @@ const DownLoadCV = () => {
           href={PDF_PATH}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${buttonBase} cv-download-primary ${primaryButton} ${primaryFocusRing}`}
+          className={`${buttonBase} cv-download-primary ${primaryButton} ${primaryFocusRing} ripple-effect group/btn`}
           aria-label={copy.view}
         >
-          <FiEye className="text-base" />
+          <FiEye className="text-base transition-transform duration-300 group-hover/btn:scale-125" />
         </a>
         <a
           href={PDF_PATH}
           download
-          className={`${buttonBase} cv-download-secondary ${secondaryButton} ${secondaryFocusRing}`}
+          className={`${buttonBase} cv-download-secondary ${secondaryButton} ${secondaryFocusRing} ripple-effect group/btn`}
           aria-label={copy.download}
         >
-          <FiDownload className="text-base" />
+          <FiDownload className="text-base transition-transform duration-300 group-hover/btn:scale-125 group-hover/btn:-translate-y-0.5" />
         </a>
       </div>
     </div>

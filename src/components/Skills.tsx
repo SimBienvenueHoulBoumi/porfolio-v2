@@ -5,6 +5,7 @@ import { FC } from "react";
 import { ICON_MAP, IconKey } from "@/lib/icon-map";
 import { SkillsContent } from "@/lib/content";
 import { useTheme } from "@/context/ThemeContext";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const getIconComponent = (key: string) => ICON_MAP[key as IconKey];
 
@@ -14,6 +15,7 @@ type SkillsProps = {
 
 const Skills: FC<SkillsProps> = ({ content }) => {
   const { theme } = useTheme();
+  const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
 
   const isAurora = theme === "aurora";
 
@@ -38,8 +40,9 @@ const Skills: FC<SkillsProps> = ({ content }) => {
 
   return (
     <section
+      ref={sectionRef as React.RefObject<HTMLElement>}
       id="skills"
-      className={`skills-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8`}
+      className={`skills-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -65,16 +68,17 @@ const Skills: FC<SkillsProps> = ({ content }) => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {content.coreSkills.map((skill) => {
+          {content.coreSkills.map((skill, index) => {
             const Icon = getIconComponent(skill.icon) ?? ICON_MAP.docker;
             return (
               <div
                 key={skill.id}
-                className={`relative flex h-full flex-col overflow-hidden rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-300 ${coreCard}`}
+                className={`relative flex h-full flex-col overflow-hidden rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group ${coreCard} ${hasIntersected ? "animate-scale-in" : ""}`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="relative z-10 space-y-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950 shadow-lg shadow-cyan-500/30">
-                    <Icon className="text-xl" />
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950 shadow-lg shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                    <Icon className="text-xl transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <div className="space-y-3">
                     <h4 className="text-xl font-semibold">{skill.title}</h4>
@@ -100,16 +104,17 @@ const Skills: FC<SkillsProps> = ({ content }) => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {content.loops.map((loop) => {
+          {content.loops.map((loop, index) => {
             const Icon = getIconComponent(loop.icon) ?? ICON_MAP.activity;
             return (
               <div
                 key={loop.title}
-                className={`rounded-3xl border px-6 py-7 text-left transition-colors ${loopCard}`}
+                className={`rounded-3xl border px-6 py-7 text-left transition-all duration-300 hover-lift group ${loopCard} ${hasIntersected ? "animate-scale-in" : ""}`}
+                style={{ animationDelay: `${(content.coreSkills.length + index) * 100}ms` }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950 shadow-cyan-500/30">
-                    <Icon className="text-sm" />
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950 shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    <Icon className="text-sm transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <p className="text-sm font-semibold">{loop.title}</p>
                 </div>
@@ -131,7 +136,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
               const pill = (
                 <span
                   key={tool.label}
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${toolPill}`}
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] transition-all duration-300 hover:scale-110 hover:shadow-lg ${toolPill}`}
                 >
                   <Icon className="text-sm" />
                   {tool.label}

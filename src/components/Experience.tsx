@@ -11,6 +11,7 @@ import {
 
 import { ExperienceContent, ExperienceItem } from "@/lib/content";
 import { useTheme } from "@/context/ThemeContext";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const emphasize = (text: string, className: string): ReactNode[] => {
   const segments = text.split("**");
@@ -56,6 +57,7 @@ type ExperienceProps = {
 
 const Experience: FC<ExperienceProps> = ({ content }) => {
   const { theme } = useTheme();
+  const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
@@ -77,9 +79,9 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
   const renderBullets = (item: ExperienceItem) => (
     <ul className="space-y-3 text-sm leading-relaxed">
       {item.bullets.map((bullet, index) => (
-        <li key={index} className="flex items-start gap-3">
-          <FaChevronRight className={`mt-1 text-xs ${isAurora ? "text-cyan-500" : "text-cyan-400"}`} />
-          <span className={isAurora ? "text-slate-600" : "text-slate-300"}>
+        <li key={index} className="flex items-start gap-3 group/bullet">
+          <FaChevronRight className={`mt-1 text-xs transition-transform duration-300 group-hover/bullet:translate-x-1 ${isAurora ? "text-cyan-500" : "text-cyan-400"}`} />
+          <span className={`transition-colors duration-300 ${isAurora ? "text-slate-600" : "text-slate-300"}`}>
             {emphasize(bullet, isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold")}
           </span>
         </li>
@@ -89,8 +91,9 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
 
   return (
     <section
+      ref={sectionRef as React.RefObject<HTMLElement>}
       id="experience"
-      className={`experience-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8`}
+      className={`experience-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -120,12 +123,13 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
         <div className="relative">
           <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${isAurora ? "bg-gradient-to-b from-sky-400/60 via-sky-300/10 to-transparent" : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent"}`} />
           <div className="space-y-10 sm:pl-4">
-            {content.experiences.map((experience) => (
+            {content.experiences.map((experience, index) => (
               <article
                 key={`${experience.company.label}-${experience.role}`}
-                className={`relative rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-300 sm:pl-16 ${cardClasses}`}
+                className={`relative rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:pl-16 ${cardClasses} ${hasIntersected ? "animate-scale-in" : ""}`}
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full sm:block ${isAurora ? "border border-sky-300 bg-sky-400/60" : "border border-cyan-400 bg-cyan-500/50"}`} />
+                <div className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${isAurora ? "border border-sky-300 bg-sky-400/60 group-hover:bg-sky-500" : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"}`} />
 
                 <div className="space-y-6">
                   <div className="flex flex-wrap items-center gap-6">
@@ -153,7 +157,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
 
                   <div className="flex flex-wrap items-center gap-2">
                     {experience.highlights.map((highlight) => (
-                      <span key={highlight.label} className={highlightBadge}>
+                      <span key={highlight.label} className={`${highlightBadge} transition-all duration-300 hover:scale-110 hover:shadow-md`}>
                         {highlight.label} · {highlight.value}
                       </span>
                     ))}
