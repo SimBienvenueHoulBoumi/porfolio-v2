@@ -171,7 +171,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                 <span>{subtitle}</span>
                 <span className={`ml-2 ${typewriterCursor}`}>▮</span>
               </p>
-              <p className={`max-w-2xl text-base sm:text-lg ${introTextClass}`}>
+              <p className={`max-w-2xl text-base sm:text-lg text-center lg:text-left mx-auto lg:mx-0 ${introTextClass}`}>
                 {content.introduction}
               </p>
             </div>
