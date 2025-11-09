@@ -73,8 +73,11 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
   const highlightBadge = isAurora
-    ? "rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-700"
-    : "rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-cyan-200";
+    ? "rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold text-slate-700 border border-slate-200"
+    : "rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold text-cyan-200 border border-cyan-500/30";
+  const sectionLabel = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-cyan-300";
+  const isFrench = content.title.toLowerCase().includes("exp");
+  const highlightHeadingText = isFrench ? "Résultats clés" : "Key outcomes";
 
   const renderBullets = (item: ExperienceItem) => (
     <ul className="space-y-3 text-sm leading-relaxed">
@@ -155,15 +158,19 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                     <DetailItem icon={<FaUsers />} label="Rôle" value={experience.role} isAurora={isAurora} />
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2">
-                    {experience.highlights.map((highlight) => (
-                      <span key={highlight.label} className={`${highlightBadge} transition-all duration-300 hover:scale-110 hover:shadow-md`}>
-                        {highlight.label} · {highlight.value}
-                      </span>
-                    ))}
+                  <div className="space-y-2">
+                    <p className={sectionLabel}>{highlightHeadingText}</p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      {experience.highlights.map((highlight) => (
+                        <span key={highlight.label} className={`${highlightBadge} transition-all duration-300 hover:-translate-y-0.5`}>
+                          <span className="font-semibold">{highlight.label}</span>
+                          <span className="ml-1 opacity-80">{highlight.value}</span>
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <p className={`text-sm font-medium ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
+                  <p className={`text-sm font-medium leading-relaxed ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
                     {experience.impact}
                   </p>
 

@@ -100,6 +100,9 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const primaryCTAClasses = isAurora
     ? "inline-flex items-center gap-3 rounded-full border border-sky-300/50 bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
     : "inline-flex items-center gap-3 rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900";
+  const secondaryCTAClasses = isAurora
+    ? "inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-200/80 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+    : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 px-5 py-3 text-sm font-semibold text-cyan-200 hover:bg-white/5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900";
   const pulseColor = isAurora ? "bg-sky-300/40" : "bg-cyan-500/40";
   const objectiveCardClasses = isAurora
     ? "rounded-3xl border border-sky-200/70 bg-gradient-to-br from-white via-sky-50 to-white p-6 shadow-[0_24px_65px_rgba(59,130,246,0.16)]"
@@ -191,6 +194,12 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                 {content.ctaPrimary}
                 <FiArrowRight className="text-base transition-transform duration-300 group-hover/cta:translate-x-1" />
               </a>
+              <a
+                href="#experience"
+                className={`${secondaryCTAClasses} hover:-translate-y-0.5`}
+              >
+                <span>{content.ctaSecondary}</span>
+              </a>
             </div>
             <div className="mx-auto w-full max-w-xl sm:mx-0">
               <DownLoadCV />
@@ -252,14 +261,14 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
             <div className="relative z-10 grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,280px)] sm:items-center">
               <div className="space-y-4">
                 <p className={`text-sm leading-relaxed ${narrativeText}`}>{content.narrative}</p>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid gap-3 sm:grid-cols-3">
                   {content.highlights.map((highlight) => (
                     <div
                       key={highlight.label}
                       className={highlightCardClasses}
                     >
-                      <p className={`text-xs uppercase tracking-[0.3em] ${highlightLabelClass}`}>{highlight.label}</p>
-                      <p className={`text-xl font-semibold ${highlightValueClass}`}>{highlight.value}</p>
+                      <p className={`text-xs font-medium tracking-wide ${highlightLabelClass}`}>{highlight.label}</p>
+                      <p className={`text-2xl font-semibold ${highlightValueClass}`}>{highlight.value}</p>
                     </div>
                   ))}
                 </div>

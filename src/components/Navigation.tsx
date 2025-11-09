@@ -12,12 +12,14 @@ const navItems = [
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero");
+  const [isElevated, setIsElevated] = useState(false);
   const { language } = useLanguage();
   const { theme } = useTheme();
   const isAurora = theme === "aurora";
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsElevated(window.scrollY > 32);
       const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean) as HTMLElement[];
       const scrollPosition = window.scrollY + 100;
 
@@ -30,6 +32,7 @@ export default function Navigation() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -41,8 +44,12 @@ export default function Navigation() {
   };
 
   const navBg = isAurora
-    ? "bg-white/95 backdrop-blur-md border-b border-sky-200/30 shadow-lg shadow-sky-200/10 transition-all duration-300"
-    : "bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-cyan-500/20 transition-all duration-300";
+    ? isElevated
+      ? "bg-white/90 backdrop-blur-md border-b border-sky-200/50 shadow-lg shadow-sky-200/20"
+      : "bg-white/70 backdrop-blur-sm border-b border-transparent shadow-none"
+    : isElevated
+      ? "bg-gray-950/90 backdrop-blur-md border-b border-cyan-500/30 shadow-lg shadow-cyan-900/40"
+      : "bg-gray-950/40 backdrop-blur-sm border-b border-transparent shadow-none";
 
   const activeButton = isAurora
     ? "bg-sky-500/20 text-sky-600"
@@ -95,6 +102,8 @@ export default function Navigation() {
               language={language}
               isAurora={isAurora}
               inactiveButton={inactiveButton}
+              activeButton={activeButton}
+              activeSection={activeSection}
             />
           </div>
         </div>
@@ -108,13 +117,17 @@ function MobileMenu({
   scrollToSection,
   language,
   isAurora,
-  inactiveButton
+  inactiveButton,
+  activeButton,
+  activeSection
 }: {
   navItems: Array<{ id: string; labelEn: string; labelFr: string }>;
   scrollToSection: (id: string) => void;
   language: string;
   isAurora: boolean;
   inactiveButton: string;
+  activeButton: string;
+  activeSection: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const menuBg = isAurora
@@ -151,18 +164,23 @@ function MobileMenu({
       {isOpen && (
         <div className={`absolute top-16 left-0 right-0 ${menuBg} md:hidden`}>
           <div className="px-4 py-2 space-y-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  scrollToSection(item.id);
-                  setIsOpen(false);
-                }}
-                className={`block w-full text-left px-4 py-2 rounded-lg transition-colors ${inactiveButton}`}
-              >
-                {language === "fr" ? item.labelFr : item.labelEn}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setIsOpen(false);
+                  }}
+                  className={`block w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                    isActive ? `${activeButton} font-semibold` : inactiveButton
+                  }`}
+                >
+                  {language === "fr" ? item.labelFr : item.labelEn}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

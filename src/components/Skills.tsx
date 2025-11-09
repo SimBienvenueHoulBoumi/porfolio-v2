@@ -34,6 +34,9 @@ const Skills: FC<SkillsProps> = ({ content }) => {
   const toolPill = isAurora
     ? "bg-white text-slate-700 border border-sky-200 focus-visible:ring-sky-300 focus-visible:ring-offset-white"
     : "bg-slate-950 text-cyan-200 border border-cyan-500/40 focus-visible:ring-cyan-400 focus-visible:ring-offset-slate-950";
+  const stackPill = isAurora
+    ? "bg-slate-100 text-slate-700 border border-slate-200"
+    : "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30";
   const headingClass = isAurora
     ? "text-3xl font-bold sm:text-4xl text-slate-900"
     : "text-3xl font-bold sm:text-4xl text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text";
@@ -85,13 +88,11 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                     <p className="text-sm leading-relaxed">{skill.description}</p>
                     <p className="text-sm font-medium opacity-80">{skill.impact}</p>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.25em] text-cyan-400">
+                  <div className="flex flex-wrap gap-2 text-xs font-semibold tracking-wide">
                     {skill.stack.map((stackItem) => (
                       <span
                         key={stackItem}
-                        className={`rounded-full px-3 py-1 ${
-                          isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/10 text-cyan-200"
-                        }`}
+                        className={`rounded-full border px-3 py-1 ${stackPill}`}
                       >
                         {stackItem}
                       </span>
@@ -136,7 +137,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
               const pill = (
                 <span
                   key={tool.label}
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] transition-all duration-300 hover:scale-110 hover:shadow-lg ${toolPill}`}
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-lg ${toolPill}`}
                 >
                   <Icon className="text-sm" />
                   {tool.label}

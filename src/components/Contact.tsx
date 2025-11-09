@@ -31,6 +31,15 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
     ? "border-sky-200/70 !bg-white text-slate-700 shadow-sky-200/30 focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
     : "border-cyan-500/25 bg-gray-900/80 text-gray-200 shadow-cyan-500/20 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-gray-950";
 
+  const primaryChannel = content.channels[0];
+  const secondaryChannel = content.channels[1];
+  const primaryCta = isAurora
+    ? "inline-flex items-center justify-center rounded-full bg-gradient-to-r from-slate-900 to-slate-800 text-white px-5 py-3 text-sm font-semibold shadow-lg shadow-slate-900/25 transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500"
+    : "inline-flex items-center justify-center rounded-full bg-cyan-500 text-slate-950 px-5 py-3 text-sm font-semibold transition hover:bg-cyan-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400";
+  const secondaryCta = isAurora
+    ? "inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300"
+    : "inline-flex items-center justify-center rounded-full border border-cyan-500/40 px-5 py-3 text-sm font-semibold text-cyan-100 hover:bg-gray-900 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400";
+
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
@@ -77,6 +86,30 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
           <p className={`mx-auto max-w-3xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
             {content.description}
           </p>
+          {(primaryChannel || secondaryChannel) && (
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {primaryChannel && (
+                <a
+                  href={primaryChannel.href}
+                  target={primaryChannel.external ? "_blank" : undefined}
+                  rel={primaryChannel.external ? "noopener noreferrer" : undefined}
+                  className={primaryCta}
+                >
+                  {primaryChannel.action}
+                </a>
+              )}
+              {secondaryChannel && (
+                <a
+                  href={secondaryChannel.href}
+                  target={secondaryChannel.external ? "_blank" : undefined}
+                  rel={secondaryChannel.external ? "noopener noreferrer" : undefined}
+                  className={secondaryCta}
+                >
+                  {secondaryChannel.action}
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,400px)]">
@@ -96,7 +129,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                 <p className={isAurora ? "text-base text-slate-600" : "text-base text-gray-300"}>
                   {content.description}
                 </p>
-                <ul className="grid gap-4 sm:grid-cols-3">
+                <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {content.steps.map((step) => (
                     <li
                       key={step.title}
