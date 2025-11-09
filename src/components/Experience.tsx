@@ -6,12 +6,14 @@ import {
   FaUsers,
   FaCalendar,
   FaMicrochip,
-  FaChevronRight
+  FaArrowRight
 } from "react-icons/fa";
 
-import { ExperienceContent, ExperienceItem } from "@/lib/content";
+import { ExperienceContent } from "@/lib/content";
 import { useTheme } from "@/context/ThemeContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Badge from "@/components/ui/Badge";
 
 const emphasize = (text: string, className: string): ReactNode[] => {
   const segments = text.split("**");
@@ -64,33 +66,16 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
     ? "from-slate-50 via-white to-sky-100"
     : "from-slate-950 via-slate-900 to-black";
 
-  const headingClass = isAurora
-    ? "text-3xl font-bold sm:text-4xl text-slate-900"
-    : "text-3xl font-bold sm:text-4xl text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text";
-
   const cardClasses = isAurora
     ? "border-sky-200/70 bg-white text-slate-700 focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
-  const highlightBadge = isAurora
-    ? "rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold text-slate-700 border border-slate-200"
-    : "rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold text-cyan-200 border border-cyan-500/30";
   const sectionLabel = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-cyan-300";
   const isFrench = content.title.toLowerCase().includes("exp");
   const highlightHeadingText = isFrench ? "Résultats clés" : "Key outcomes";
-
-  const renderBullets = (item: ExperienceItem) => (
-    <ul className="space-y-3 text-sm leading-relaxed">
-      {item.bullets.map((bullet, index) => (
-        <li key={index} className="flex items-start gap-3 group/bullet">
-          <FaChevronRight className={`mt-1 text-xs transition-transform duration-300 group-hover/bullet:translate-x-1 ${isAurora ? "text-cyan-500" : "text-cyan-400"}`} />
-          <span className={`transition-colors duration-300 ${isAurora ? "text-slate-600" : "text-slate-300"}`}>
-            {emphasize(bullet, isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold")}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
+  const strategyCardClasses = isAurora
+    ? "grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_40px_rgba(148,163,184,0.25)] sm:grid-cols-2"
+    : "grid gap-4 rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-4 backdrop-blur sm:grid-cols-2";
 
   return (
     <section
@@ -113,15 +98,18 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
         <div className="absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12">
-        <div className="text-center space-y-4">
-          <h3 className={headingClass}>
-            {content.title}
-          </h3>
-          <p className={`mx-auto max-w-3xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
-            {content.subtitle}
-          </p>
-        </div>
+      <div className="layout-shell relative z-10 flex flex-col gap-12">
+        <SectionHeader
+          isAurora={isAurora}
+          title={content.title}
+          description={content.subtitle}
+        >
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono uppercase tracking-[0.35em] text-cyan-400">
+            <span>{content.experiences[0]?.date.split("–")[0]?.trim() ?? ""}</span>
+            <FaArrowRight className="text-cyan-500" />
+            <span>{content.experiences.at(-1)?.date.split("–").pop()?.trim() ?? ""}</span>
+          </div>
+        </SectionHeader>
 
         <div className="relative">
           <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${isAurora ? "bg-gradient-to-b from-sky-400/60 via-sky-300/10 to-transparent" : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent"}`} />
@@ -162,19 +150,49 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                     <p className={sectionLabel}>{highlightHeadingText}</p>
                     <div className="flex flex-wrap items-center gap-2">
                       {experience.highlights.map((highlight) => (
-                        <span key={highlight.label} className={`${highlightBadge} transition-all duration-300 hover:-translate-y-0.5`}>
+                        <Badge
+                          key={highlight.label}
+                          isAurora={isAurora}
+                          variant="soft"
+                          uppercase={false}
+                          className="tracking-normal text-[11px]"
+                        >
                           <span className="font-semibold">{highlight.label}</span>
                           <span className="ml-1 opacity-80">{highlight.value}</span>
-                        </span>
+                        </Badge>
                       ))}
                     </div>
                   </div>
 
-                  <p className={`text-sm font-medium leading-relaxed ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
-                    {experience.impact}
-                  </p>
-
-                  {renderBullets(experience)}
+                  <div className="space-y-4">
+                    <p className={`text-sm font-medium leading-relaxed ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
+                      {experience.impact}
+                    </p>
+                    <div className={strategyCardClasses}>
+                      <div>
+                        <p className={sectionLabel}>{isFrench ? "Défis" : "Challenges"}</p>
+                        <div className="mt-2 space-y-3">
+                          {experience.bullets.slice(0, 2).map((bullet, index) => (
+                            <div key={`challenge-${index}`} className="flex items-start gap-2 text-sm">
+                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                              <span className={isAurora ? "text-slate-600" : "text-slate-300"}>{emphasize(bullet, isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold")}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <p className={sectionLabel}>{isFrench ? "Actions" : "Actions"}</p>
+                        <div className="mt-2 space-y-3">
+                          {experience.bullets.slice(2).map((bullet, index) => (
+                            <div key={`action-${index}`} className="flex items-start gap-2 text-sm">
+                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                              <span className={isAurora ? "text-slate-600" : "text-slate-300"}>{emphasize(bullet, isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold")}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}

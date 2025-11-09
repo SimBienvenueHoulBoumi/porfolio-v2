@@ -5,17 +5,17 @@ import {
   FaDocker,
   FaGitAlt,
   FaServer,
-  FaCodeBranch,
-  FaRocket
+  FaCodeBranch
 } from "react-icons/fa";
 import { SiKubernetes, SiJenkins, SiAnsible } from "react-icons/si";
-import { FiZap, FiTerminal, FiArrowRight } from "react-icons/fi";
+import { FiZap, FiTerminal, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 
 import SocialBanger from "./SocialBanger";
 import Banner from "./Banner";
 import DownLoadCV from "./DownLoadCV";
 import { useTheme } from "@/context/ThemeContext";
 import { HeroContent } from "@/lib/content";
+import Badge from "@/components/ui/Badge";
 
 function useTypewriter(words: readonly string[], speed = 65, pause = 1600) {
   const [index, setIndex] = useState(0);
@@ -50,16 +50,13 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const isAurora = theme === "aurora";
   const subtitle = useTypewriter(content.typewriter);
   const heroBackground = isAurora ? "from-slate-50 via-sky-50 to-white" : "from-slate-950 via-slate-900 to-black";
-  const taglineClasses = isAurora
-    ? "border-sky-400/40 bg-sky-100/80 text-slate-700"
-    : "border-cyan-500/40 bg-cyan-500/10 text-cyan-200";
   const nameGradient = "from-cyan-200 via-blue-300 to-purple-400";
   const heroNameClass = isAurora
-    ? "block text-5xl sm:text-[3.6rem] font-black tracking-tight text-slate-900"
-    : `block text-5xl sm:text-[3.6rem] font-black tracking-tight bg-gradient-to-r ${nameGradient} bg-clip-text text-transparent drop-shadow`;
+    ? "block text-4xl sm:text-[3rem] font-black tracking-tight text-slate-900"
+    : `block text-4xl sm:text-[3rem] font-black tracking-tight bg-gradient-to-r ${nameGradient} bg-clip-text text-transparent drop-shadow`;
   const headlineClass = isAurora
-    ? "block text-3xl sm:text-[2.4rem] font-semibold tracking-tight text-slate-700"
-    : "block text-3xl sm:text-[2.4rem] font-semibold tracking-tight";
+    ? "block text-2xl sm:text-[2.1rem] font-semibold tracking-tight text-slate-700"
+    : "block text-2xl sm:text-[2.1rem] font-semibold tracking-tight";
   const headlineGradient = "from-cyan-200 via-blue-200 to-purple-300";
   const heroRoleClass = isAurora
     ? headlineClass
@@ -107,10 +104,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const objectiveCardClasses = isAurora
     ? "rounded-3xl border border-sky-200/70 bg-gradient-to-br from-white via-sky-50 to-white p-6 shadow-[0_24px_65px_rgba(59,130,246,0.16)]"
     : "rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-2xl shadow-cyan-500/15";
-  const objectiveIconWrapper = isAurora
-    ? "flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-indigo-400 text-white shadow-sky-200/40"
-    : "flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950";
-  const objectiveTextClass = isAurora ? "space-y-2 text-sm text-slate-600" : "space-y-2 text-sm text-slate-300";
+  const objectiveTextClass = isAurora ? "text-sm text-slate-600" : "text-sm text-slate-300";
   const headlineStyle = isAurora ? undefined : { textShadow: "0 18px 45px rgba(59,130,246,0.28)" };
 
   const techCapsules = [
@@ -152,15 +146,16 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
         <div className="absolute -bottom-16 right-1/3 h-64 w-64 rounded-full bg-purple-500/15 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6">
+      <div className="layout-shell relative z-10 flex flex-col gap-12">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,420px)] lg:items-start">
           <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
-            <span
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] ${taglineClasses}`}
+            <Badge
+              isAurora={isAurora}
+              variant="soft"
+              icon={<FiZap />}
             >
-              <FiZap className="text-sm" />
               {content.tagline}
-            </span>
+            </Badge>
             <div className="w-full space-y-3 sm:space-y-4">
               <h1 className="space-y-1 text-4xl font-bold tracking-tight leading-tight sm:text-5xl md:text-[3.4rem]">
                 <span
@@ -233,15 +228,13 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                 </div>
               </div>
               <div className={objectiveCardClasses}>
-                <div className="flex items-start gap-3">
-                  <div className={objectiveIconWrapper}>
-                    <FaRocket />
-                  </div>
-                  <div className={objectiveTextClass}>
-                    {content.objective.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
+                <div className="space-y-3">
+                  {content.objective.map((paragraph) => (
+                    <div key={paragraph} className={`flex items-start gap-3 ${objectiveTextClass}`}>
+                      <FiCheckCircle className={isAurora ? "mt-0.5 text-sky-500" : "mt-0.5 text-cyan-400"} />
+                      <p>{paragraph}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

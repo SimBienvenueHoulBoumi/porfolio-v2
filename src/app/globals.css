@@ -28,6 +28,29 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Shared layout shell for consistent widths across sections */
+.layout-shell {
+  width: min(100%, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .layout-shell {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-shell {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

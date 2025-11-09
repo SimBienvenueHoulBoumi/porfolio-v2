@@ -54,7 +54,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
         <div className={`absolute -bottom-20 right-1/3 h-64 w-64 rounded-full blur-3xl ${bottomGlow}`} />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6">
+      <div className="layout-shell relative z-10 flex flex-col gap-8 py-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-3 text-left">
             <span className={badgeClasses}>{content.label}</span>

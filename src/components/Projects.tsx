@@ -1,10 +1,12 @@
 "use client";
 
 import { FC } from "react";
-import { FiArrowUpRight, FiGitBranch, FiShield, FiTrendingUp } from "react-icons/fi";
+import { FiArrowUpRight, FiGitBranch, FiShield, FiTrendingUp, FiCheckCircle } from "react-icons/fi";
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Badge from "@/components/ui/Badge";
 
 type Project = {
   id: string;
@@ -125,11 +127,9 @@ const Projects: FC = () => {
   const projectGlow = isAurora
     ? "linear-gradient(135deg, rgba(59,130,246,0.18), rgba(196,181,253,0.25))"
     : "linear-gradient(135deg, rgba(56,189,248,0.18), rgba(129,140,248,0.22))";
-  const stackPillText = isAurora ? "text-slate-600" : "text-cyan-400";
-  const headingClass = isAurora
-    ? "text-3xl font-bold sm:text-4xl text-slate-900"
-    : "text-3xl font-bold sm:text-4xl text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text";
-
+  const stackPillBase = isAurora
+    ? "bg-slate-100 text-slate-700 border border-slate-200"
+    : "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30";
   return (
     <section
       id="projects"
@@ -157,15 +157,12 @@ const Projects: FC = () => {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-10">
-        <div className="text-center space-y-4">
-          <h3 className={headingClass}>
-            {copy.title}
-          </h3>
-          <p className={`mx-auto max-w-2xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
-            {copy.subtitle}
-          </p>
-        </div>
+      <div className="layout-shell relative z-10 flex flex-col gap-10">
+        <SectionHeader
+          isAurora={isAurora}
+          title={copy.title}
+          description={copy.subtitle}
+        />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PROJECTS.map((project) => (
@@ -185,13 +182,13 @@ const Projects: FC = () => {
                 />
               </div>
               <div className="relative z-10 flex flex-col gap-4">
-                <span
-                  className={`inline-flex items-center gap-2 self-start rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] ${
-                    isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/20 text-cyan-200"
-                  }`}
+                <Badge
+                  isAurora={isAurora}
+                  variant="soft"
+                  className="self-start text-[11px]"
                 >
                   {project.badge}
-                </span>
+                </Badge>
                 <div className="space-y-3">
                   <h4 className={`text-xl font-semibold ${isAurora ? "text-slate-900" : "text-white"}`}>
                     {project.name}
@@ -202,23 +199,25 @@ const Projects: FC = () => {
                   <p className={`text-sm leading-relaxed ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
                     {project.description[language]}
                   </p>
-                  <p className={`text-sm font-medium ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
-                    {project.impact[language]}
+                  <p className={`flex items-start gap-2 text-sm font-medium ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
+                    <FiCheckCircle className={isAurora ? "mt-0.5 text-sky-500" : "mt-0.5 text-cyan-400"} />
+                    <span>{project.impact[language]}</span>
                   </p>
                 </div>
               </div>
-              <div className={`relative z-10 mt-6 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.25em] ${stackPillText}`}>
+              <div className="relative z-10 mt-6 flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide">
                 {project.stack.map((tech) => (
                   <span
                     key={tech}
-                    className={`rounded-full px-3 py-1 ${
-                      isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/10 text-cyan-200"
-                    }`}
+                    className={`rounded-full px-3 py-1 ${stackPillBase}`}
                   >
                     {tech}
                   </span>
                 ))}
-                <FiArrowUpRight className="ml-auto text-lg text-cyan-400" />
+                <span className="ml-auto inline-flex items-center gap-1 text-xs uppercase tracking-wide text-cyan-300">
+                  GitHub
+                  <FiArrowUpRight className="text-base" />
+                </span>
               </div>
             </a>
           ))}

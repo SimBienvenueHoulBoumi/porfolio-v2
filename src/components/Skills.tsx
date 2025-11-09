@@ -6,6 +6,7 @@ import { ICON_MAP, IconKey } from "@/lib/icon-map";
 import { SkillsContent } from "@/lib/content";
 import { useTheme } from "@/context/ThemeContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const getIconComponent = (key: string) => ICON_MAP[key as IconKey];
 
@@ -37,10 +38,6 @@ const Skills: FC<SkillsProps> = ({ content }) => {
   const stackPill = isAurora
     ? "bg-slate-100 text-slate-700 border border-slate-200"
     : "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30";
-  const headingClass = isAurora
-    ? "text-3xl font-bold sm:text-4xl text-slate-900"
-    : "text-3xl font-bold sm:text-4xl text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text";
-
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
@@ -62,13 +59,12 @@ const Skills: FC<SkillsProps> = ({ content }) => {
         <div className="absolute -bottom-12 right-1/3 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12">
-        <div className="text-center space-y-4">
-          <h3 className={headingClass}>{content.title}</h3>
-          <p className={`mx-auto max-w-3xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
-            {content.subtitle}
-          </p>
-        </div>
+      <div className="layout-shell relative z-10 flex flex-col gap-12">
+        <SectionHeader
+          isAurora={isAurora}
+          title={content.title}
+          description={content.subtitle}
+        />
 
         <div className="grid gap-6 md:grid-cols-3">
           {content.coreSkills.map((skill, index) => {

@@ -7,12 +7,16 @@ import { ContactContent, ContactChannel } from "@/lib/content";
 import { ICON_MAP, IconKey } from "@/lib/icon-map";
 import { useTheme } from "@/context/ThemeContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Badge from "@/components/ui/Badge";
+import { useLanguage } from "@/context/LanguageContext";
 
 const channelIcon = (channel: ContactChannel) => ICON_MAP[channel.icon as IconKey] ?? FiMail;
 
 const Contact: FC<{ content: ContactContent }> = ({ content }) => {
   const { theme } = useTheme();
   const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
+  const { language } = useLanguage();
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
@@ -70,22 +74,23 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
         <div className="absolute -bottom-20 right-1/3 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12">
-        <div className="text-center space-y-4">
-          <span
-            className={`inline-flex items-center gap-2 rounded-full border px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] ${
-              isAurora ? "border-sky-200/80 bg-white/70 text-slate-600" : "border-cyan-500/30 bg-gray-900/80 text-cyan-300"
-            }`}
-          >
-            <FiClock className="text-sm" />
-            {content.subtitle}
-          </span>
-          <h3 className={`text-4xl font-bold sm:text-5xl ${isAurora ? "text-slate-900" : "text-white"}`}>
-            {content.title}
-          </h3>
-          <p className={`mx-auto max-w-3xl text-sm sm:text-base ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
-            {content.description}
-          </p>
+      <div className="layout-shell relative z-10 flex flex-col gap-12">
+        <SectionHeader
+          isAurora={isAurora}
+          align="center"
+          title={content.title}
+          description={content.description}
+          titleClassName="text-4xl sm:text-5xl"
+          eyebrow={
+            <Badge
+              isAurora={isAurora}
+              variant="soft"
+              icon={<FiClock className="text-sm" />}
+            >
+              {content.subtitle}
+            </Badge>
+          }
+        >
           {(primaryChannel || secondaryChannel) && (
             <div className="flex flex-wrap items-center justify-center gap-3">
               {primaryChannel && (
@@ -110,7 +115,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
               )}
             </div>
           )}
-        </div>
+        </SectionHeader>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,400px)]">
           <div className="space-y-8">
@@ -135,13 +140,18 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                       key={step.title}
                       className={`relative overflow-hidden rounded-2xl border px-4 py-5 transition-transform duration-300 ${stepCard}`}
                     >
-                      <span
-                        className={`inline-flex items-center justify-center rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] ${
-                          isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/20 text-cyan-200"
-                        }`}
-                      >
-                        {step.accent}
-                      </span>
+                      <div className="flex items-center justify-between">
+                        <span
+                          className={`text-lg font-semibold ${
+                            isAurora ? "text-slate-800" : "text-white"
+                          }`}
+                        >
+                          {step.accent}
+                        </span>
+                        <span className={`text-[11px] uppercase tracking-[0.35em] ${isAurora ? "text-slate-500" : "text-cyan-200/80"}`}>
+                          {language === "fr" ? "Étape" : "Step"}
+                        </span>
+                      </div>
                       <h4 className={`mt-3 text-sm font-semibold ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
                         {step.title}
                       </h4>
