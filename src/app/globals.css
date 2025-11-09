@@ -206,6 +206,52 @@ html {
   }
 }
 
+@layer components {
+  .eyebrow-label {
+    @apply text-xs font-semibold uppercase tracking-[0.35em] text-slate-500;
+  }
+
+  .heading-display {
+    @apply text-4xl font-bold leading-tight tracking-tight sm:text-5xl;
+  }
+
+  .heading-xl {
+    @apply text-3xl font-semibold leading-snug sm:text-4xl;
+  }
+
+  .heading-lg {
+    @apply text-2xl font-semibold leading-snug sm:text-3xl;
+  }
+
+  .heading-md {
+    @apply text-xl font-semibold leading-snug;
+  }
+
+  .heading-sm {
+    @apply text-lg font-semibold leading-snug;
+  }
+
+  .body-lg {
+    @apply text-lg leading-relaxed;
+  }
+
+  .body-base {
+    @apply text-base leading-relaxed;
+  }
+
+  .body-sm {
+    @apply text-sm leading-relaxed;
+  }
+
+  .mono-label {
+    @apply font-mono text-xs font-semibold uppercase tracking-[0.35em];
+  }
+
+  .code-block {
+    @apply rounded-2xl bg-slate-950 p-4 font-mono text-sm leading-relaxed text-cyan-200 shadow-inner overflow-x-auto;
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;

@@ -1,0 +1,250 @@
+export const tutorialSidebar = [
+  { id: "intro", label: "Panorama" },
+  { id: "setup", label: "Installation" },
+  { id: "structure", label: "Structure" },
+  { id: "routes", label: "Routes" },
+  { id: "validation", label: "Validation" },
+  { id: "testing", label: "Tests" }
+];
+
+export const quickStartCards = [
+  {
+    id: "cli",
+    title: "Initialiser le projet",
+    minutes: "~2 min",
+    command: `npm init -y
+npm install express zod
+npm install -D typescript ts-node-dev`,
+    bullets: [
+      "Créer le dossier src/ et un fichier tsconfig.json",
+      "Ajouter \"dev\": \"ts-node-dev src/server.ts\" dans package.json"
+    ]
+  },
+  {
+    id: "server",
+    title: "Monter le serveur",
+    minutes: "~3 min",
+    command: `import express from "express";
+const app = express();
+app.use(express.json());
+
+app.listen(3333);`,
+    bullets: [
+      "Activer express.json pour parser le JSON",
+      "Exposer app pour les tests Supertest"
+    ]
+  },
+  {
+    id: "health",
+    title: "Route santé & test",
+    minutes: "~4 min",
+    command: `app.get("/health", (_, res) => {
+  res.status(200).json({ status: "ok" });
+});`,
+    bullets: [
+      "Écrire un test Vitest qui attend 200",
+      "Brancher la route dans un dashboard de monitoring"
+    ]
+  }
+];
+
+export const resources = [
+  { label: "Repository starter Node + TS", href: "https://github.com/vercel/next.js/tree/canary/examples/api-routes" },
+  { label: "Express documentation", href: "https://expressjs.com/fr/guide/routing.html" },
+  { label: "Zod schemas", href: "https://zod.dev" },
+  { label: "Vitest + Supertest example", href: "https://vitest.dev/guide/features.html#testing-http-servers" }
+];
+
+export const projectTree = `src/
+  server.ts
+  routes/
+    userRoutes.ts
+  services/
+    userService.ts
+  schemas/
+    userSchema.ts
+  middlewares/
+    validate.ts
+tests/
+  user.test.ts`;
+
+export const projectFiles = [
+  {
+    path: "src/server.ts",
+    description: "Point d'entrée : instancie Express, câble le JSON parser et la route /users.",
+    snippet: `import express from "express";
+import userRoutes from "./routes/userRoutes";
+
+export const app = express();
+app.use(express.json());
+app.use("/users", userRoutes);
+
+const port = process.env.PORT ?? 3333;
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(\`API ready on port \${port}\`);
+  });
+}`
+  },
+  {
+    path: "src/routes/userRoutes.ts",
+    description: "Routes HTTP : validation Zod + délégation au service.",
+    snippet: `import { Router } from "express";
+import { userService } from "../services/userService";
+import { validate } from "../middlewares/validate";
+import { createUserSchema } from "../schemas/userSchema";
+
+const router = Router();
+
+router.post("/", validate(createUserSchema), (req, res) => {
+  const user = userService.create(req.body);
+  res.status(201).json(user);
+});
+
+router.get("/", (_req, res) => {
+  res.json(userService.list());
+});
+
+export default router;`
+  },
+  {
+    path: "src/services/userService.ts",
+    description: "Service métier simplifié pour centraliser la logique et faciliter les tests.",
+    snippet: `import { CreateUserDTO } from "../schemas/userSchema";
+
+const store: Array<CreateUserDTO & { id: string }> = [];
+
+export const userService = {
+  create(payload: CreateUserDTO) {
+    const user = { id: crypto.randomUUID(), ...payload };
+    store.push(user);
+    return user;
+  },
+  list() {
+    return store;
+  }
+};`
+  },
+  {
+    path: "src/schemas/userSchema.ts",
+    description: "Schéma Zod partagé entre runtime et TypeScript.",
+    snippet: `import { z } from "zod";
+
+export const createUserSchema = z.object({
+  email: z.string().email(),
+  role: z.enum(["admin", "viewer"])
+});
+
+export type CreateUserDTO = z.infer<typeof createUserSchema>;`
+  },
+  {
+    path: "src/middlewares/validate.ts",
+    description: "Middleware générique pour propager une erreur 400 si le schéma échoue.",
+    snippet: `import { AnyZodObject } from "zod";
+import { Request, Response, NextFunction } from "express";
+
+export const validate = (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
+  const result = schema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(400).json({ errors: result.error.flatten() });
+  }
+  req.body = result.data;
+  return next();
+};`
+  },
+  {
+    path: "tests/user.test.ts",
+    description: "Test Vitest + Supertest pour sécuriser la route POST /users.",
+    snippet: `import request from "supertest";
+import { app } from "../src/server";
+
+describe("users", () => {
+  it("crée un utilisateur", async () => {
+    const res = await request(app)
+      .post("/users")
+      .send({ email: "ops@sim.dev", role: "admin" });
+
+    expect(res.status).toBe(201);
+    expect(res.body.email).toBe("ops@sim.dev");
+  });
+});`
+  }
+];
+
+export const tutorialSections = [
+  {
+    id: "intro",
+    title: "Panorama",
+    description: "Avant de plonger dans le code, voici les axes clés du tutoriel.",
+    bullets: [
+      "Architecture hexagonale light",
+      "Validation Zod + middlewares",
+      "Tests Vitest/Supertest"
+    ]
+  },
+  {
+    id: "setup",
+    title: "01. Installation",
+    description: "Initialisez npm et installez les dépendances côté runtime et tooling.",
+    code: `npm init -y
+npm install express zod
+npm install -D typescript ts-node-dev @types/node @types/express vitest supertest
+npx tsc --init`,
+    bullets: [
+      "Créer un tsconfig.json avec moduleResolution: node",
+      "Ajouter \"dev\": \"ts-node-dev --respawn src/server.ts\" dans package.json"
+    ]
+  },
+  {
+    id: "structure",
+    title: "02. Structurer le projet",
+    description: "Organisez src/ avec server.ts, routes/ et services/. Centralisez votre logique métier dans des services testables.",
+    code: projectTree,
+    bullets: [
+      "Séparer schemas/ pour les DTO Zod",
+      "Utiliser middlewares/validate.ts pour réutiliser la logique de validation"
+    ]
+  },
+  {
+    id: "routes",
+    title: "03. Définir les routes",
+    description: "Utilisez Router d'Express et vos services pour exposer les endpoints typés.",
+    code: `import { Router } from 'express';
+import { validate } from '../middlewares/validate';
+import { createUserSchema } from '../schemas/userSchemas';
+
+const router = Router();
+router.post('/users', validate(createUserSchema), controller.create);
+router.get('/users', controller.list);
+export default router;`
+  },
+  {
+    id: "validation",
+    title: "04. Validation & DTO",
+    description: "Zod décrit vos DTO et sert de source unique pour les validations runtime.",
+    code: `import { z } from 'zod';
+
+export const createUserSchema = z.object({
+  email: z.string().email(),
+  role: z.enum(['admin', 'viewer']),
+});
+
+export type CreateUserDTO = z.infer<typeof createUserSchema>;`
+  },
+  {
+    id: "testing",
+    title: "05. Tester et monitorer",
+    description: "Vitest + supertest simulent vos requêtes HTTP et vous assure que les routes restent stables.",
+    code: `import request from 'supertest';
+import { app } from '../server';
+
+test('POST /users crée un compte', async () => {
+  const res = await request(app)
+    .post('/users')
+    .send({ email: 'foo@bar.dev', role: 'admin' });
+
+  expect(res.status).toBe(201);
+});`
+  }
+];

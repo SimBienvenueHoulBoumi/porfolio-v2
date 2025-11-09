@@ -53,20 +53,18 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const heroBackground = isAurora ? "from-slate-50 via-sky-50 to-white" : "from-slate-950 via-slate-900 to-black";
   const nameGradient = "from-cyan-200 via-blue-300 to-purple-400";
   const heroNameClass = isAurora
-    ? "block text-4xl sm:text-[3rem] font-black tracking-tight text-slate-900"
-    : `block text-4xl sm:text-[3rem] font-black tracking-tight bg-gradient-to-r ${nameGradient} bg-clip-text text-transparent drop-shadow`;
-  const headlineClass = isAurora
-    ? "block text-2xl sm:text-[2.1rem] font-semibold tracking-tight text-slate-700"
-    : "block text-2xl sm:text-[2.1rem] font-semibold tracking-tight";
+    ? "heading-display block text-slate-900"
+    : `heading-display block bg-gradient-to-r ${nameGradient} bg-clip-text text-transparent drop-shadow`;
   const headlineGradient = "from-cyan-200 via-blue-200 to-purple-300";
-  const heroRoleClass = isAurora
-    ? headlineClass
-    : `${headlineClass} bg-gradient-to-r ${headlineGradient} bg-clip-text text-transparent`;
-  const introTextClass = isAurora ? "text-slate-700" : "text-slate-300";
-  const typewriterText = isAurora ? "text-slate-700" : "text-cyan-300";
+  const headlineClass = isAurora
+    ? "heading-lg block text-slate-700"
+    : `heading-lg block bg-gradient-to-r ${headlineGradient} bg-clip-text text-transparent`;
+  const heroRoleClass = headlineClass;
+  const introTextClass = isAurora ? "body-base text-slate-700" : "body-base text-slate-300";
+  const typewriterText = isAurora ? "mono-label text-slate-700" : "mono-label text-cyan-300";
   const typewriterAccent = isAurora ? "text-slate-900" : "text-cyan-500";
   const typewriterCursor = isAurora ? "text-slate-700" : "text-cyan-400";
-  const narrativeText = isAurora ? "text-slate-600" : "text-slate-300";
+  const narrativeText = isAurora ? "body-base text-slate-600" : "body-base text-slate-300";
   const highlightCardClasses = isAurora
     ? "rounded-2xl border border-sky-200/70 bg-sky-100/80 px-4 py-3 text-left shadow-[0_18px_40px_rgba(59,130,246,0.15)] backdrop-blur-sm"
     : "rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur";
@@ -152,7 +150,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
               {content.tagline}
             </Badge>
             <div className="w-full space-y-3 sm:space-y-4">
-              <h1 className="space-y-1 text-4xl font-bold tracking-tight leading-tight sm:text-5xl md:text-[3.4rem]">
+              <h1 className="space-y-1">
                 <span
                   className={heroNameClass}
                   style={headlineStyle}
@@ -166,12 +164,12 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                   {content.headline[0]} <span>{content.headline[1]}</span> {content.headline[2]}
                 </span>
               </h1>
-              <p className={`text-sm font-mono uppercase tracking-[0.35em] ${typewriterText}`}>
+              <p className={typewriterText}>
                 <span className={typewriterAccent}>$</span>{" "}
                 <span>{subtitle}</span>
                 <span className={`ml-2 ${typewriterCursor}`}>▮</span>
               </p>
-              <p className={`max-w-2xl text-base sm:text-lg text-center lg:text-left mx-auto lg:mx-0 ${introTextClass}`}>
+              <p className={`max-w-2xl text-center lg:text-left mx-auto lg:mx-0 ${introTextClass}`}>
                 {content.introduction}
               </p>
             </div>
@@ -195,6 +193,15 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                 className="hover:-translate-y-0.5"
               >
                 {content.ctaSecondary}
+              </Button>
+              <Button
+                as="a"
+                href="/tutorial"
+                isAurora={isAurora}
+                variant="ghost"
+                className="hover:-translate-y-0.5"
+              >
+                {isAurora ? "Page tuto" : "Tutorial page"}
               </Button>
             </div>
             <div className="mx-auto w-full max-w-xl sm:mx-0">
@@ -254,7 +261,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
             </div>
             <div className="relative z-10 grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,280px)] sm:items-center">
               <div className="space-y-4">
-                <p className={`text-sm leading-relaxed ${narrativeText}`}>{content.narrative}</p>
+                <p className={narrativeText}>{content.narrative}</p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {content.highlights.map((highlight) => (
                     <div

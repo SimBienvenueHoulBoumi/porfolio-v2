@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
 const navItems = [
   { id: "hero", labelEn: "Home", labelFr: "Accueil" },
   { id: "skills", labelEn: "Skills", labelFr: "Compétences" },
+  { id: "tutorial", labelEn: "Playbook", labelFr: "Méthode" },
   { id: "experience", labelEn: "Experience", labelFr: "Expérience" },
   { id: "contact", labelEn: "Contact", labelFr: "Contact" },
 ];
@@ -69,7 +71,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <button
             onClick={() => scrollToSection("hero")}
-            className={`text-xl font-bold transition-colors ${
+            className={`heading-sm font-bold transition-colors ${
               isAurora ? "text-sky-600 hover:text-sky-700" : "text-cyan-400 hover:text-cyan-300"
             }`}
             aria-label={language === "fr" ? "Retour à l'accueil" : "Back to home"}
@@ -77,12 +79,12 @@ export default function Navigation() {
             Simfolio
           </button>
           
-          <div className="hidden md:flex space-x-1">
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden group ${
+                className={`px-4 py-2 rounded-lg body-sm font-medium transition-all duration-300 relative overflow-hidden group ${
                   activeSection === item.id ? activeButton : inactiveButton
                 }`}
                 aria-current={activeSection === item.id ? "page" : undefined}
@@ -93,6 +95,12 @@ export default function Navigation() {
                 )}
               </button>
             ))}
+            <Link
+              href="/tutorial"
+              className="ml-4 rounded-full border border-cyan-400/40 px-4 py-2 body-sm font-semibold text-cyan-200 hover:bg-white/5 transition"
+            >
+              {language === "fr" ? "Tutoriels" : "Tutorial"}
+            </Link>
           </div>
 
           <div className="md:hidden">
@@ -173,7 +181,7 @@ function MobileMenu({
                     scrollToSection(item.id);
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                  className={`block w-full text-left px-4 py-2 rounded-lg body-sm transition-colors ${
                     isActive ? `${activeButton} font-semibold` : inactiveButton
                   }`}
                 >
@@ -181,6 +189,12 @@ function MobileMenu({
                 </button>
               );
             })}
+            <Link
+              href="/tutorial"
+              className="block w-full text-left px-4 py-2 rounded-lg body-sm transition-colors border border-cyan-400/30 text-cyan-200 hover:bg-white/5"
+            >
+              {language === "fr" ? "Tutoriels" : "Tutorial"}
+            </Link>
           </div>
         </div>
       )}

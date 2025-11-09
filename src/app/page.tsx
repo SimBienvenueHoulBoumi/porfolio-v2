@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useFadeIn from "@/hooks/useFadeIn";
 import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
+import Tutorial from "@/components/Tutorial";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
@@ -100,6 +101,7 @@ const PageContent = () => {
         </div>
       </div>
       <Skills content={content.skills} />
+      <Tutorial />
       <Experience content={content.experience} />
       <Contact content={content.contact} />
       <Footer ref={footerRef} content={content.footer} />
