@@ -28,6 +28,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+button:hover,
+[type="button"]:hover,
+[type="reset"]:hover,
+[type="submit"]:hover {
+  cursor: pointer;
+}
+
 /* Shared layout shell for consistent widths across sections */
 .layout-shell {
   width: min(100%, 1200px);

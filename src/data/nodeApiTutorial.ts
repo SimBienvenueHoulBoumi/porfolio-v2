@@ -1,3 +1,5 @@
+import type { Language } from "prism-react-renderer";
+
 export type TutorialStack = "node" | "spring";
 
 type SidebarEntry = {
@@ -11,6 +13,7 @@ type QuickStartCard = {
   minutes: string;
   command: string;
   bullets: string[];
+  language?: Language;
 };
 
 type TutorialSection = {
@@ -19,12 +22,14 @@ type TutorialSection = {
   description: string;
   bullets?: string[];
   code?: string;
+  codeLanguage?: Language;
 };
 
 type ProjectFile = {
   path: string;
   description: string;
   snippet: string;
+  language?: Language;
 };
 
 type TutorialContent = {
@@ -66,7 +71,8 @@ npm install -D typescript ts-node-dev`,
     bullets: [
       "Créer le dossier src/ et un fichier tsconfig.json",
       'Ajouter "dev": "ts-node-dev src/server.ts" dans package.json'
-    ]
+    ],
+    language: "bash"
   },
   {
     id: "server",
@@ -80,7 +86,8 @@ app.listen(3333);`,
     bullets: [
       "Activer express.json pour parser le JSON",
       "Exposer app pour les tests Supertest"
-    ]
+    ],
+    language: "typescript"
   },
   {
     id: "health",
@@ -92,7 +99,8 @@ app.listen(3333);`,
     bullets: [
       "Écrire un test Vitest qui attend 200",
       "Brancher la route dans un dashboard de monitoring"
-    ]
+    ],
+    language: "typescript"
   }
 ];
 
@@ -126,7 +134,8 @@ if (require.main === module) {
   app.listen(port, () => {
     console.log(\`API ready on port \${port}\`);
   });
-}`
+}`,
+    language: "typescript"
   },
   {
     path: "src/routes/userRoutes.ts",
@@ -147,7 +156,8 @@ router.get("/", (_req, res) => {
   res.json(userService.list());
 });
 
-export default router;`
+export default router;`,
+    language: "typescript"
   },
   {
     path: "src/services/userService.ts",
@@ -165,7 +175,8 @@ export const userService = {
   list() {
     return store;
   }
-};`
+};`,
+    language: "typescript"
   },
   {
     path: "src/schemas/userSchema.ts",
@@ -177,7 +188,8 @@ export const createUserSchema = z.object({
   role: z.enum(["admin", "viewer"])
 });
 
-export type CreateUserDTO = z.infer<typeof createUserSchema>;`
+export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
+    language: "typescript"
   },
   {
     path: "src/middlewares/validate.ts",
@@ -192,7 +204,8 @@ export const validate = (schema: AnyZodObject) => (req: Request, res: Response, 
   }
   req.body = result.data;
   return next();
-};`
+};`,
+    language: "typescript"
   },
   {
     path: "tests/user.test.ts",
@@ -209,7 +222,8 @@ describe("users", () => {
     expect(res.status).toBe(201);
     expect(res.body.email).toBe("ops@sim.dev");
   });
-});`
+});`,
+    language: "typescript"
   }
 ];
 
@@ -235,7 +249,8 @@ npx tsc --init`,
     bullets: [
       "Créer un tsconfig.json avec moduleResolution: node",
       'Ajouter "dev": "ts-node-dev --respawn src/server.ts" dans package.json'
-    ]
+    ],
+    codeLanguage: "bash"
   },
   {
     id: "structure",
@@ -245,7 +260,8 @@ npx tsc --init`,
     bullets: [
       "Séparer schemas/ pour les DTO Zod",
       "Utiliser middlewares/validate.ts pour réutiliser la logique de validation"
-    ]
+    ],
+    codeLanguage: "bash"
   },
   {
     id: "routes",
@@ -258,7 +274,8 @@ import { createUserSchema } from '../schemas/userSchemas';
 const router = Router();
 router.post('/users', validate(createUserSchema), controller.create);
 router.get('/users', controller.list);
-export default router;`
+export default router;`,
+    codeLanguage: "typescript"
   },
   {
     id: "validation",
@@ -271,7 +288,8 @@ export const createUserSchema = z.object({
   role: z.enum(['admin', 'viewer']),
 });
 
-export type CreateUserDTO = z.infer<typeof createUserSchema>;`
+export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
+    codeLanguage: "typescript"
   },
   {
     id: "testing",
@@ -286,7 +304,8 @@ test('POST /users crée un compte', async () => {
     .send({ email: 'foo@bar.dev', role: 'admin' });
 
   expect(res.status).toBe(201);
-});`
+});`,
+    codeLanguage: "typescript"
   }
 ];
 
@@ -340,7 +359,8 @@ cd tasks && ./mvnw spring-boot:run`,
     bullets: [
       "Package simple.tasks déjà câblé (web + JPA + Lombok)",
       "Utiliser ./mvnw pour garantir la version Maven wrapper"
-    ]
+    ],
+    language: "bash"
   },
   {
     id: "controller",
@@ -360,7 +380,8 @@ public class TasksControllers {
     bullets: [
       "Injecter chaque use-case via constructeur (pattern Tasks service)",
       "Séparer DTO et entité pour garder un contrat REST stable"
-    ]
+    ],
+    language: "java"
   },
   {
     id: "pipeline",
@@ -371,7 +392,8 @@ public class TasksControllers {
     bullets: [
       "La target surefire produit les rapports JUnit pour Jenkins",
       "Facile à dockeriser : exposez le port 5300 défini dans application.yml"
-    ]
+    ],
+    language: "bash"
   }
 ];
 
@@ -414,7 +436,8 @@ public class TasksControllers {
   public List<Tasks> getAllTasks() {
     return tasksGetAllTasks.getAllTasks();
   }
-}`
+}`,
+    language: "java"
   },
   {
     path: "TasksCreateTask.java",
@@ -428,7 +451,8 @@ public class TasksCreateTask {
     Tasks newTask = new Tasks(task.getName());
     return tasksRepository.save(newTask);
   }
-}`
+}`,
+    language: "java"
   },
   {
     path: "models/Tasks.java",
@@ -445,12 +469,14 @@ public class Tasks {
   public Tasks(String name) {
     this.name = name;
   }
-}`
+}`,
+    language: "java"
   },
   {
     path: "jpa/TasksRepository.java",
     description: "Repository Spring Data pour manipuler Tasks.",
-    snippet: `public interface TasksRepository extends JpaRepository<Tasks, Long> {}`
+    snippet: `public interface TasksRepository extends JpaRepository<Tasks, Long> {}`,
+    language: "java"
   },
   {
     path: "src/test/.../TasksCreateTaskTest.java",
@@ -466,7 +492,8 @@ void testCreateTask() {
 
   assertEquals("Nouvelle tâche", result.getName());
   verify(repo).save(any());
-}`
+}`,
+    language: "java"
   },
   {
     path: "main/resources/application.yml",
@@ -480,7 +507,8 @@ void testCreateTask() {
     hibernate:
       ddl-auto: create-drop
 server:
-  port: 5300`
+  port: 5300`,
+    language: "yaml"
   }
 ];
 
@@ -505,7 +533,8 @@ const springSections: TutorialSection[] = [
     bullets: [
       "Le wrapper assure la même version Maven pour tous",
       "Expose par défaut le port 5300 (configurable dans application.yml)"
-    ]
+    ],
+    codeLanguage: "bash"
   },
   {
     id: "structure",
@@ -526,7 +555,8 @@ public class TasksControllers {
     bullets: [
       "Constructeur obligatoire => injection sûre et testable",
       "Classes de service séparées => responsabilité unique"
-    ]
+    ],
+    codeLanguage: "java"
   },
   {
     id: "persistence",
@@ -547,7 +577,8 @@ public class Tasks {
     bullets: [
       "DTO (TasksDto) évite d'exposer l'entité complète",
       "Repository Spring Data fournit CRUD sans code supplémentaire"
-    ]
+    ],
+    codeLanguage: "java"
   },
   {
     id: "validation",
@@ -560,7 +591,8 @@ public class Tasks {
     bullets: [
       "Les messages sont contextualisés => logs exploitables",
       "Spring renverra automatiquement un 500, personnalisez avec @ControllerAdvice si besoin"
-    ]
+    ],
+    codeLanguage: "java"
   },
   {
     id: "testing",
@@ -580,7 +612,8 @@ void testCreateTask() {
     bullets: [
       "./mvnw clean test pour alimenter les rapports surefire",
       "Les mêmes commandes s'intègrent dans un Jenkinsfile ou GitHub Actions"
-    ]
+    ],
+    codeLanguage: "java"
   }
 ];
 

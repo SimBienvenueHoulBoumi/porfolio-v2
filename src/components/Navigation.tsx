@@ -186,7 +186,7 @@ function MobileMenu({
             })}
             <Link
               href="/tutorial"
-              className="block w-full text-left px-4 py-2 rounded-lg body-sm transition-colors border border-cyan-400/30 text-cyan-200 hover:bg-white/5"
+              className="block w-full text-left rounded-lg body-sm transition-colors border border-cyan-400/30 text-cyan-200 hover:bg-white/5"
             >
               Tutoriels
             </Link>

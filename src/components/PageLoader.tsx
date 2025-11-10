@@ -26,8 +26,10 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("page-loading");
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.classList.remove("page-loading");
     };
   }, []);
 

@@ -10,16 +10,13 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
-import ThemeToggle from "@/components/ThemeToggle";
 import PageLoader from "@/components/PageLoader";
 import Experience from "@/components/Experience";
-import { ThemeProvider, useTheme } from "@/context/ThemeContext";
 import { SiteContent } from "@/lib/content";
 
 const PageContent = () => {
   useFadeIn();
   const footerRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
   const [content, setContent] = useState<SiteContent | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loaderDone, setLoaderDone] = useState(false);
@@ -60,11 +57,6 @@ const PageContent = () => {
     setLoaderDone(true);
   }, []);
 
-  const themeContainerClass =
-    theme === "dark"
-      ? "bg-gray-900 text-white theme-dark"
-      : "bg-slate-100 text-slate-900 theme-aurora";
-
   const shouldShowLoader = !loaderDone || !content;
 
   if (shouldShowLoader && !error) {
@@ -86,15 +78,10 @@ const PageContent = () => {
   }
 
   return (
-    <div className={`${themeContainerClass} font-sans relative transition-colors duration-500 page-transition`}>
+    <div className={`relative page-transition`}>
       <ScrollProgress />
       <Navigation />
-      <div className="relative">
-        <Hero content={content.hero} />
-        <div className="fixed bottom-20 right-4 sm:bottom-24 sm:right-8 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-2rem)]">
-          <ThemeToggle />
-        </div>
-      </div>
+      <Hero content={content.hero} />
       <Skills content={content.skills} />
       <Tutorial />
       <Experience content={content.experience} />
@@ -105,9 +92,5 @@ const PageContent = () => {
 };
 
 export default function Page() {
-  return (
-    <ThemeProvider>
-      <PageContent />
-    </ThemeProvider>
-  );
+  return <PageContent />;
 }
