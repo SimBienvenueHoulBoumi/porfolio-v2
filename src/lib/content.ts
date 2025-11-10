@@ -150,7 +150,7 @@ export const SITE_CONTENT: SiteContent = {
       ]
     },
     skills: {
-      title: "Compétences néon",
+      title: "Compétences techniques",
       subtitle:
         "Un stack orienté delivery contrôlé : IaC, pipelines, front data-driven et observabilité temps réel.",
       secondaryTitle: "Boîte à outils opérationnelle",
