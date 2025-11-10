@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "@/context/ThemeContext";
 
-const navItems = [
+const navItems: { id: string; label: string }[] = [
   { id: "hero", label: "Accueil" },
   { id: "skills", label: "Compétences" },
   { id: "tutorial", label: "Méthode" },
   { id: "experience", label: "Expérience" },
   { id: "contact", label: "Contact" }
-] as const;
+];
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -125,7 +125,7 @@ function MobileMenu({
   activeButton,
   activeSection
 }: {
-  navItems: Array<{ id: string; label: string }>;
+  navItems: ReadonlyArray<{ id: string; label: string }>;
   scrollToSection: (id: string) => void;
   isAurora: boolean;
   inactiveButton: string;
