@@ -36,7 +36,7 @@ export default function Tutorial() {
       <div className="layout-shell relative z-10 flex flex-col gap-12">
         <SectionHeader
           isAurora={isAurora}
-          title="Tutoriel express"
+          title="Mise en activité"
           description="La méthode pour passer d'une idée à une plateforme opérationnelle sans dettes cachées."
         />
 
