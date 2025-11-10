@@ -1,7 +1,6 @@
 "use client";
 
 import { FiGithub, FiLinkedin, FiMail, FiArrowUpRight } from "react-icons/fi";
-import { useLanguage } from "@/context/LanguageContext";
 
 const CHANNELS = [
   {
@@ -20,7 +19,7 @@ const CHANNELS = [
   },
   {
     id: "email",
-    label: "Email",
+    label: "Courriel",
     href: "mailto:houlboumi.sim.bienvenue@gmail.com",
     accent: "bg-gradient-to-br from-pink-500 to-purple-500",
     ring: "focus-visible:ring-pink-400/60"
@@ -34,21 +33,13 @@ const ICON_MAP = {
 } as const;
 
 const BANNER_COPY = {
-  fr: {
-    caption: "Canaux prioritaires",
-    description:
-      "Connectons-nous, synchronisons et lançons le prochain incrément sans friction. Choisissez votre signal."
-  },
-  en: {
-    caption: "Priority channels",
-    description:
-      "Connect, sync, and launch the next increment without friction. Pick your signal."
-  }
+  caption: "Canaux prioritaires",
+  description:
+    "Connectons-nous, synchronisons et lançons le prochain incrément sans friction. Choisissez votre signal."
 } as const;
 
 const Banner = () => {
-  const { language } = useLanguage();
-  const copy = BANNER_COPY[language];
+  const copy = BANNER_COPY;
 
   return (
     <div className="banner-section relative z-10 mt-4 mb-16 flex justify-center">

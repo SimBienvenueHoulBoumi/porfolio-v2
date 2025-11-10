@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
-import { useLanguage } from "@/context/LanguageContext";
 
 type PageLoaderProps = {
   onComplete?: () => void;
@@ -12,26 +11,14 @@ type PageLoaderProps = {
 
 const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 800 }: PageLoaderProps) => {
   const { theme } = useTheme();
-  const { language } = useLanguage();
   const isAurora = theme === "aurora";
 
-  const copy = useMemo(
-    () =>
-      language === "fr"
-        ? {
-            message: "Chargement ...",
-            stages: ["Initialisation", "Chargement des ressources", "Presque prêt"],
-            fallback: "Cela semble plus long que prévu. Essayez d'actualiser si besoin.",
-            retryLabel: "Rafraîchir"
-          }
-        : {
-            message: "Loading ...",
-            stages: ["Booting up", "Fetching resources", "Almost there"],
-            fallback: "This is taking longer than expected. You can refresh if needed.",
-            retryLabel: "Refresh"
-          },
-    [language]
-  );
+  const copy = {
+    message: "Chargement ...",
+    stages: ["Initialisation", "Chargement des ressources", "Presque prêt"],
+    fallback: "Cela semble plus long que prévu. Essayez d'actualiser si besoin.",
+    retryLabel: "Rafraîchir"
+  };
 
   const [stageIndex, setStageIndex] = useState(0);
   const [showSupport, setShowSupport] = useState(false);
@@ -69,7 +56,7 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
     }, stageDurationMs);
 
     return () => window.clearInterval(interval);
-  }, [copy.stages, completionDelayMs, onComplete, stageDurationMs]);
+  }, [completionDelayMs, onComplete, stageDurationMs, copy.stages.length]);
 
   useEffect(() => {
     if (stageIndex === copy.stages.length - 1) {
@@ -80,7 +67,7 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
       return () => window.clearTimeout(timer);
     }
     return undefined;
-  }, [stageIndex, copy.stages.length, completionDelayMs, onComplete]);
+  }, [stageIndex, completionDelayMs, onComplete, copy.stages.length]);
 
   useEffect(() => {
     setShowSupport(false);
@@ -92,7 +79,7 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
       window.clearTimeout(supportTimeout);
       window.clearTimeout(retryTimeout);
     };
-  }, [language]);
+  }, []);
 
   const progressValue = Math.round(((stageIndex + 1) / copy.stages.length) * 100);
 

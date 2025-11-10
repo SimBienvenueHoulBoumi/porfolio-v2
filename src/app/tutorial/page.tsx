@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import PageLoader from "@/components/PageLoader";
 import { ThemeProvider } from "@/context/ThemeContext";
-import { LanguageProvider } from "@/context/LanguageContext";
 import { FiChevronRight, FiMenu, FiX } from "react-icons/fi";
 import { tutorialContent, tutorialStacks, TutorialStack } from "@/data/nodeApiTutorial";
 import ConsolePanel from "@/components/ui/Console";
@@ -55,8 +54,7 @@ const TutorialPage = () => {
           >
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <p className="eyebrow-label">Tutoriel</p>
-                <h2 className="heading-sm text-slate-900">Démarrage rapide</h2>
+                <p className="eyebrow-label">Tutoriels</p>
               </div>
               <button
                 type="button"
@@ -135,8 +133,8 @@ const TutorialPage = () => {
                 </ul>
               </div>
                 <div>
-                  <h3 className="heading-lg text-slate-900">Quick start</h3>
-                  <p className="body-sm text-slate-500">Les trois blocs critiques pour livrer une API robuste.</p>
+                  <h3 className="heading-lg text-slate-900">{content.quickStartHeading}</h3>
+                  <p className="body-sm text-slate-500">{content.quickStartIntro}</p>
                   <div className="mt-4 flex flex-col gap-4">
                     {content.quickStartCards.map((card) => (
                       <article key={card.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -254,9 +252,7 @@ const TutorialPage = () => {
 export default function TutorialPageWithProviders() {
   return (
     <ThemeProvider>
-      <LanguageProvider>
-        <TutorialPage />
-      </LanguageProvider>
+      <TutorialPage />
     </ThemeProvider>
   );
 }

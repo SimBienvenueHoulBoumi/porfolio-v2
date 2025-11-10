@@ -194,15 +194,6 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
               >
                 {content.ctaSecondary}
               </Button>
-              <Button
-                as="a"
-                href="/tutorial"
-                isAurora={isAurora}
-                variant="ghost"
-                className="hover:-translate-y-0.5"
-              >
-                {isAurora ? "Page tuto" : "Tutorial page"}
-              </Button>
             </div>
             <div className="mx-auto w-full max-w-xl sm:mx-0">
               <DownLoadCV />

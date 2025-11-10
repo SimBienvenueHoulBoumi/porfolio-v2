@@ -1,33 +1,22 @@
 "use client";
 
 import { FiDownload, FiEye } from "react-icons/fi";
-import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import Button from "@/components/ui/Button";
 
 const COPY = {
-  fr: {
-    badge: "Version PDF · CV personnel",
-    title: "Consulter le CV",
-    description: "Découvrez mon parcours en détail et gardez une copie pour plus tard.",
-    view: "Voir le CV",
-    download: "Télécharger"
-  },
-  en: {
-    badge: "PDF version · Personal résumé",
-    title: "View the résumé",
-    description: "See the full journey and keep a copy for later.",
-    view: "View résumé",
-    download: "Download"
-  }
+  badge: "Version PDF · CV personnel",
+  title: "Consulter le CV",
+  description: "Découvrez mon parcours en détail et gardez une copie pour plus tard.",
+  view: "Voir le CV",
+  download: "Télécharger"
 } as const;
 
 const PDF_PATH = "/developpeur_java_react_cv.pdf";
 
 const DownLoadCV = () => {
-  const { language } = useLanguage();
   const { theme } = useTheme();
-  const copy = COPY[language];
+  const copy = COPY;
   const isAurora = theme === "aurora";
 
   const containerClasses = isAurora

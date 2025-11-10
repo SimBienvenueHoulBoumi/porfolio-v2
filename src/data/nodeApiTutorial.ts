@@ -31,6 +31,8 @@ type TutorialContent = {
   heroTitle: string;
   heroDescription: string;
   learnList: string[];
+  quickStartHeading: string;
+  quickStartIntro: string;
   sidebar: SidebarEntry[];
   quickStartCards: QuickStartCard[];
   projectTree: string;
@@ -289,10 +291,10 @@ test('POST /users crée un compte', async () => {
 ];
 
 const nodeResources = [
-  { label: "Repository starter Node + TS", href: "https://github.com/vercel/next.js/tree/canary/examples/api-routes" },
-  { label: "Express documentation", href: "https://expressjs.com/fr/guide/routing.html" },
-  { label: "Zod schemas", href: "https://zod.dev" },
-  { label: "Vitest + Supertest example", href: "https://vitest.dev/guide/features.html#testing-http-servers" }
+  { label: "Exemple Node.js + TypeScript", href: "https://github.com/vercel/next.js/tree/canary/examples/api-routes" },
+  { label: "Documentation Express", href: "https://expressjs.com/fr/guide/routing.html" },
+  { label: "Référence Zod", href: "https://zod.dev" },
+  { label: "Exemple Vitest + Supertest", href: "https://vitest.dev/guide/features.html#testing-http-servers" }
 ];
 
 const nodeContent: TutorialContent = {
@@ -304,6 +306,8 @@ const nodeContent: TutorialContent = {
     "Structurer services/routes et sécuriser les payloads avec Zod",
     "Écrire des tests Vitest + Supertest et ajouter une route /health"
   ],
+  quickStartHeading: "Démarrage rapide Node.js",
+  quickStartIntro: "Les trois blocs critiques pour livrer une API robuste.",
   sidebar: nodeSidebar,
   quickStartCards: nodeQuickStartCards,
   projectTree: nodeProjectTree,
@@ -360,7 +364,7 @@ public class TasksControllers {
   },
   {
     id: "pipeline",
-    title: "Tests & pipeline",
+    title: "Tests et pipeline",
     minutes: "~2 min",
     command: `./mvnw clean test
 ./mvnw verify`,
@@ -581,10 +585,10 @@ void testCreateTask() {
 ];
 
 const springResources = [
-  { label: "Repository Tasks (Spring Boot)", href: "https://github.com/simbie/tasks" },
-  { label: "Spring Boot Reference", href: "https://docs.spring.io/spring-boot/docs/current/reference/html/" },
-  { label: "Spring Data JPA", href: "https://spring.io/projects/spring-data-jpa" },
-  { label: "JUnit 5 + Mockito", href: "https://junit.org/junit5/docs/current/user-guide/" }
+  { label: "Projet Tasks (Spring Boot)", href: "https://github.com/simbie/tasks" },
+  { label: "Documentation Spring Boot", href: "https://docs.spring.io/spring-boot/docs/current/reference/html/" },
+  { label: "Référence Spring Data JPA", href: "https://spring.io/projects/spring-data-jpa" },
+  { label: "Guide JUnit 5 + Mockito", href: "https://junit.org/junit5/docs/current/user-guide/" }
 ];
 
 const springContent: TutorialContent = {
@@ -596,6 +600,8 @@ const springContent: TutorialContent = {
     "Structurer controllers/dto/services + repository JPA",
     "Écrire des tests JUnit/Mockito et brancher la CI"
   ],
+  quickStartHeading: "Démarrage Spring Boot",
+  quickStartIntro: "Scripts Maven et snippets prêts à l’emploi pour sécuriser l’API Tasks.",
   sidebar: springSidebar,
   quickStartCards: springQuickStartCards,
   projectTree: springProjectTree,

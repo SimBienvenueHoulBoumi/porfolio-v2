@@ -1,12 +1,10 @@
 "use client";
 
 import { useTheme } from "@/context/ThemeContext";
-import { useLanguage } from "@/context/LanguageContext";
 import { FiMoon, FiSun } from "react-icons/fi";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
-  const { language } = useLanguage();
   const isAurora = theme === "aurora";
 
   const baseClasses = isAurora
@@ -14,16 +12,10 @@ const ThemeToggle = () => {
     : "border-cyan-500/40 bg-slate-950/70 text-cyan-200 shadow-lg shadow-cyan-500/20 hover:border-cyan-300 hover:bg-slate-900 focus-visible:ring-offset-slate-950";
   const ringClass = isAurora ? "focus-visible:ring-sky-400/60" : "focus-visible:ring-cyan-400/60";
 
-  const label = isAurora
-    ? language === "fr"
-      ? "Activer le thème dark"
-      : "Switch to dark theme"
-    : language === "fr"
-      ? "Activer le thème light"
-      : "Switch to light theme";
+  const label = isAurora ? "Activer le thème sombre" : "Activer le thème clair";
 
-  const tooltip = isAurora ? "Dark mode" : "Light mode";
-  const buttonText = isAurora ? "Dark" : "Light";
+  const tooltip = isAurora ? "Mode sombre" : "Mode clair";
+  const buttonText = isAurora ? "Sombre" : "Clair";
 
   return (
     <button

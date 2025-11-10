@@ -3,7 +3,6 @@
 import { FC } from "react";
 import { FiArrowUpRight, FiGitBranch, FiShield, FiTrendingUp, FiCheckCircle } from "react-icons/fi";
 
-import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
@@ -15,9 +14,9 @@ type Project = {
   id: string;
   badge: string;
   name: string;
-  role: Record<"fr" | "en", string>;
-  description: Record<"fr" | "en", string>;
-  impact: Record<"fr" | "en", string>;
+  role: string;
+  description: string;
+  impact: string;
   stack: string[];
   href: string;
 };
@@ -27,18 +26,11 @@ const PROJECTS: readonly Project[] = [
     id: "rail-platform",
     badge: "SNCF Voyageurs",
     name: "Rail Data Governance",
-    role: {
-      fr: "Lead Dev React & pipeline",
-      en: "Lead React & pipeline engineer"
-    },
-    description: {
-      fr: "Interfaces stratégiques Next.js pour la data ferroviaire, reliées à des APIs Spring sécurisées.",
-      en: "Strategic Next.js interfaces for railway data, backed by secured Spring microservices."
-    },
-    impact: {
-      fr: "Livraisons hebdomadaires, traçabilité complète et résilience renforcée pour le pilotage des flux passagers.",
-      en: "Weekly releases, full traceability, and reinforced resilience for passenger flow steering."
-    },
+    role: "Lead Dev React & pipeline",
+    description:
+      "Interfaces stratégiques Next.js pour la data ferroviaire, reliées à des APIs Spring sécurisées.",
+    impact:
+      "Livraisons hebdomadaires, traçabilité complète et résilience renforcée pour le pilotage des flux passagers.",
     stack: ["Next.js", "Spring Boot", "PostgreSQL", "Docker", "Jenkins"],
     href: "https://github.com/SimBienvenueHoulBoumi"
   },
@@ -46,18 +38,11 @@ const PROJECTS: readonly Project[] = [
     id: "core-banking",
     badge: "INFO 2R",
     name: "HR Operations Hub",
-    role: {
-      fr: "Engineer DevOps & backend",
-      en: "Backend & DevOps engineer"
-    },
-    description: {
-      fr: "Plateforme RH interne pour orchestrer onboarding, gestion des congés et reporting réglementaire.",
-      en: "Internal HR platform orchestrating onboarding flows, leave management, and regulatory reporting."
-    },
-    impact: {
-      fr: "Processus RH industrialisés, temps de traitement réduit de 30% et conformité automatisée.",
-      en: "Industrialized HR processes, 30% faster processing time, and automated compliance."
-    },
+    role: "Engineer DevOps & backend",
+    description:
+      "Plateforme RH interne pour orchestrer onboarding, gestion des congés et reporting réglementaire.",
+    impact:
+      "Processus RH industrialisés, temps de traitement réduit de 30% et conformité automatisée.",
     stack: ["Java", "Spring Boot", "Kafka", "Datadog", "Ansible"],
     href: "https://github.com/SimBienvenueHoulBoumi"
   },
@@ -65,55 +50,33 @@ const PROJECTS: readonly Project[] = [
     id: "cloud-lab",
     badge: "R&D",
     name: "Cloud Native Lab",
-    role: {
-      fr: "Architecture & experimentation",
-      en: "Architecture & experimentation"
-    },
-    description: {
-      fr: "Laboratoire multi-cloud pour valider IaC, GitOps, observabilité et stratégies de déploiement progressive.",
-      en: "Multi-cloud lab validating IaC, GitOps, observability, and progressive deployment strategies."
-    },
-    impact: {
-      fr: "Templates reproductibles, blueprints Terraform et pipelines GitOps prêts à l’emploi.",
-      en: "Reproducible templates, Terraform blueprints, and ready-to-use GitOps pipelines."
-    },
+    role: "Architecture & experimentation",
+    description:
+      "Laboratoire multi-cloud pour valider IaC, GitOps, observabilité et stratégies de déploiement progressive.",
+    impact:
+      "Templates reproductibles, blueprints Terraform et pipelines GitOps prêts à l’emploi.",
     stack: ["Terraform", "Kubernetes", "ArgoCD", "Grafana", "GitHub Actions"],
     href: "https://github.com/SimBienvenueHoulBoumi"
   }
 ] as const;
 
 const PROJECTS_COPY = {
-  fr: {
-    title: "Cas d'usage terrain",
-    subtitle:
-      "Des plateformes construites pour survivre aux rushs produits : pipelines fiables, code maintenable, monitoring temps réel.",
-    primaryCta: "Découvrir sur GitHub",
-    secondaryCta: "Me contacter",
-    stats: [
-      { icon: FiGitBranch, label: "Pipelines automatisés", value: "18+" },
-      { icon: FiShield, label: "Environnements sécurisés", value: "7" },
-      { icon: FiTrendingUp, label: "KPIs suivis", value: "25" }
-    ]
-  },
-  en: {
-    title: "Real-world impact",
-    subtitle:
-      "Platforms engineered to survive product rushes: reliable pipelines, maintainable code, real-time monitoring.",
-    primaryCta: "Browse on GitHub",
-    secondaryCta: "Contact me",
-    stats: [
-      { icon: FiGitBranch, label: "Automated pipelines", value: "18+" },
-      { icon: FiShield, label: "Secured environments", value: "7" },
-      { icon: FiTrendingUp, label: "Monitored KPIs", value: "25" }
-    ]
-  }
+  title: "Cas d'usage terrain",
+  subtitle:
+    "Des plateformes construites pour survivre aux rushs produits : pipelines fiables, code maintenable, monitoring temps réel.",
+  primaryCta: "Découvrir sur GitHub",
+  secondaryCta: "Me contacter",
+  stats: [
+    { icon: FiGitBranch, label: "Pipelines automatisés", value: "18+" },
+    { icon: FiShield, label: "Environnements sécurisés", value: "7" },
+    { icon: FiTrendingUp, label: "KPIs suivis", value: "25" }
+  ]
 } as const;
 
 const Projects: FC = () => {
-  const { language } = useLanguage();
   const { theme } = useTheme();
 
-  const copy = PROJECTS_COPY[language];
+  const copy = PROJECTS_COPY;
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
@@ -191,14 +154,14 @@ const Projects: FC = () => {
                     {project.name}
                   </h4>
                   <p className={`text-xs uppercase tracking-[0.3em] ${isAurora ? "text-slate-600" : "text-cyan-300"}`}>
-                    {project.role[language]}
+                    {project.role}
                   </p>
                   <p className={`text-sm leading-relaxed ${isAurora ? "text-slate-600" : "text-gray-300"}`}>
-                    {project.description[language]}
+                    {project.description}
                   </p>
                   <p className={`flex items-start gap-2 text-sm font-medium ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
                     <FiCheckCircle className={isAurora ? "mt-0.5 text-sky-500" : "mt-0.5 text-cyan-400"} />
-                    <span>{project.impact[language]}</span>
+                    <span>{project.impact}</span>
                   </p>
                 </div>
               </div>

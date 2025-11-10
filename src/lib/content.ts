@@ -120,10 +120,7 @@ export type SiteContent = {
   footer: FooterContent;
 };
 
-export type SiteContentMap = Record<"fr" | "en", SiteContent>;
-
-export const SITE_CONTENT: SiteContentMap = {
-  fr: {
+export const SITE_CONTENT: SiteContent = {
     hero: {
       name: "Sim Bienvenue Houlboumi",
       tagline: "Créateur de plateformes fiables",
@@ -135,10 +132,10 @@ export const SITE_CONTENT: SiteContentMap = {
       headline: ["Ingénieur DevOps", "&", "Développeur Full-stack"],
       introduction:
         "J’accompagne les équipes produit vers un delivery continu : pipelines fiables, plateformes cloud résilientes et code taillé pour la valeur métier.",
-      highlights: [
-        { label: "Deploy frequency", value: "x8" },
+  highlights: [
+        { label: "Fréquence de déploiement", value: "x8" },
         { label: "Incidents réduits", value: "-45%" },
-        { label: "Cloud cost", value: "-18%" }
+        { label: "Coûts cloud", value: "-18%" }
       ],
       narrative:
         "Du cadrage à la MEP : IaC, observabilité, microservices et culture d’ingénierie pour shipper vite, bien et sans surprises.",
@@ -156,13 +153,13 @@ export const SITE_CONTENT: SiteContentMap = {
       title: "Compétences néon",
       subtitle:
         "Un stack orienté delivery contrôlé : IaC, pipelines, front data-driven et observabilité temps réel.",
-      secondaryTitle: "Toolbelt opérationnelle",
+      secondaryTitle: "Boîte à outils opérationnelle",
       loopsTitle: "Boucles de feedback",
       coreSkills: [
         {
           id: "delivery",
           icon: "docker",
-          title: "Delivery automatisé",
+          title: "Livraison automatisée",
           description:
             "Pipelines CI/CD versionnés, tests orchestrés, feature flags et stratégies de déploiement progressif.",
           impact:
@@ -205,9 +202,9 @@ export const SITE_CONTENT: SiteContentMap = {
         },
         {
           icon: "trendingUp",
-          title: "Value stream tracking",
+          title: "Suivi du flux de valeur",
           description:
-            "KPIs pipeline, cycle time et DORA metrics pour prédire et stabiliser le delivery."
+            "Indicateurs pipeline, temps de cycle et métriques DORA pour prédire et stabiliser le delivery."
         }
       ],
       toolbox: [
@@ -218,8 +215,8 @@ export const SITE_CONTENT: SiteContentMap = {
         { label: "Ansible", href: "https://www.ansible.com", icon: "ansible" },
         { label: "Kubernetes", href: "https://kubernetes.io", icon: "kubernetes" },
         { label: "Java / Spring", href: "https://spring.io/projects/spring-boot", icon: "java" },
-        { label: "SQL Engines", icon: "database" },
-        { label: "Linux Tooling", icon: "terminal" }
+        { label: "Moteurs SQL", icon: "database" },
+        { label: "Outils Linux", icon: "terminal" }
       ]
     },
     experience: {
@@ -361,244 +358,4 @@ export const SITE_CONTENT: SiteContentMap = {
       stackTitle: "Stack de production",
       stackItems: "Next.js · Spring Boot · Kubernetes · Datadog"
     }
-  },
-  en: {
-    hero: {
-      name: "Sim Bienvenue Houlboumi",
-      tagline: "Building resilient platforms",
-      typewriter: [
-        "Building scalable microservices...",
-        "Automating infrastructure as code...",
-        "Shipping with resilient CI/CD pipelines..."
-      ],
-      headline: ["DevOps Engineer", "&", "Full-stack Developer"],
-      introduction:
-        "I help product teams unlock continuous delivery: reliable pipelines, resilient cloud platforms, and business-first code.",
-      highlights: [
-        { label: "Deployment frequency", value: "x8" },
-        { label: "Incidents reduced", value: "-45%" },
-        { label: "Cloud cost", value: "-18%" }
-      ],
-      narrative:
-        "From scoping to production: IaC, observability, microservices, and engineering culture to ship fast, safe, and sustainably.",
-      ctaPrimary: "Book a call",
-      ctaSecondary: "Explore the stack",
-      availability: "Open to new missions",
-      availabilityDescription: "We align the objectives, then keep shipping continuously.",
-      trustedStack: "Trusted stack",
-      objective: [
-        "Ship faster than the logical cycle without trading away stability or maintainability.",
-        "CI/CD automation, proactive observability, and a team culture wired around feedback loops."
-      ]
-    },
-    skills: {
-      title: "Neon skillset",
-      subtitle:
-        "A stack engineered for controlled delivery: IaC, pipelines, data-driven front-end, and real-time observability.",
-      secondaryTitle: "Operational toolbelt",
-      loopsTitle: "Feedback loops",
-      coreSkills: [
-        {
-          id: "delivery",
-          icon: "docker",
-          title: "Automated delivery",
-          description:
-            "Versioned CI/CD pipelines, orchestrated testing, feature flags, and progressive deploy strategies.",
-          impact:
-            "Ship any branch to production in under 15 minutes without disrupting live traffic.",
-          stack: ["GitOps", "Jenkins", "GitHub Actions", "ArgoCD", "Docker"]
-        },
-        {
-          id: "platform",
-          icon: "cloud",
-          title: "Cloud native platforms",
-          description:
-            "Modular IaC, proactive observability, and multi-environment governance for microservices.",
-          impact:
-            "Built-in resilience and security, optimized costs, and real-time situational awareness.",
-          stack: ["Kubernetes", "Datadog", "Cloud Governance"]
-        },
-        {
-          id: "experience",
-          icon: "react",
-          title: "Front-end & APIs",
-          description:
-            "Data-driven React/Next.js interfaces, secure Spring Boot APIs, and product-driven documentation.",
-          impact:
-            "Responsive UX, reduced debt, maintainable code, and scalability-ready foundations.",
-          stack: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "Redis"]
-        }
-      ],
-      loops: [
-        {
-          icon: "activity",
-          title: "Proactive observability",
-          description:
-            "Product-centric dashboards, structured alerting, and trace/log correlation to act before incidents."
-        },
-        {
-          icon: "layers",
-          title: "Composable architecture",
-          description:
-            "Containerized services, versioned API contracts, and feature toggles to ship without freeze."
-        },
-        {
-          icon: "trendingUp",
-          title: "Value stream tracking",
-          description:
-            "Pipeline KPIs, cycle times, and DORA metrics keeping delivery predictable and steady."
-        }
-      ],
-      toolbox: [
-        { label: "TypeScript", href: "https://www.typescriptlang.org", icon: "typescript" },
-        { label: "Redux Toolkit", href: "https://redux.js.org", icon: "redux" },
-        { label: "Tailwind CSS", href: "https://tailwindcss.com", icon: "tailwind" },
-        { label: "Jenkins", href: "https://www.jenkins.io", icon: "jenkins" },
-        { label: "Ansible", href: "https://www.ansible.com", icon: "ansible" },
-        { label: "Kubernetes", href: "https://kubernetes.io", icon: "kubernetes" },
-        { label: "Java / Spring", href: "https://spring.io/projects/spring-boot", icon: "java" },
-        { label: "SQL Engines", icon: "database" },
-        { label: "Linux Tooling", icon: "terminal" }
-      ]
-    },
-    experience: {
-      title: "Field experience",
-      subtitle:
-        "Teams operating in continuous delivery mode: product alignment, CI/CD pipelines, observability, and feedback culture.",
-      experiences: [
-        {
-          company: {
-            label: "SNCF Voyageurs",
-            tooltip: "French railway group, passenger transportation division."
-          },
-          team: {
-            label: "Agile team",
-            tooltip: "Scrum cadence, two-week sprints, rituals aligned with the delivery pipeline."
-          },
-          role: "ReactJS Front-end Developer",
-          tech: {
-            label: "Next.js",
-            tooltip: "React framework with SSR and ISR, used to build modern high-performance interfaces."
-          },
-          date: "October 2021 – September 2023",
-          impact:
-            "Data interface powering passenger flow operations, weekly releases, and real-time visibility on key indicators.",
-          highlights: [
-            { label: "Scope", value: "National passengers" },
-            { label: "Visibility", value: "Real time" }
-          ],
-          bullets: [
-            "Designed a data interface in **React / Next.js** focused on UX and performance.",
-            "Controlled business rules through targeted **SQL** queries executed in production.",
-            "Integrated secure **Spring Boot** APIs with authentication and robust error handling.",
-            "Automated test environments with **Docker Compose** to reproduce incidents.",
-            "Contributed to **Jenkins CI/CD** pipelines and maintained technical documentation."
-          ]
-        },
-        {
-          company: {
-            label: "INFO 2R",
-            tooltip: "Modernized internal HR platform streamlining employee processes."
-          },
-          team: {
-            label: "DevOps squad",
-            tooltip: "Accountable for HR automation, CI/CD pipelines, and operational monitoring."
-          },
-          role: "Java / Spring Boot Backend Developer",
-          tech: {
-            label: "Spring Boot",
-            tooltip: "Modern Java framework for building secure, modular REST APIs."
-          },
-          date: "March 2024 – September 2024",
-          impact:
-            "Modular HR platform: onboarding, leave management, and compliance reporting delivered 30% faster.",
-          highlights: [
-            { label: "Processes", value: "Onboarding & leave" },
-            { label: "Automation", value: "HR CI/CD" }
-          ],
-          bullets: [
-            "Developed secure **Spring Boot REST APIs** with JWT authentication.",
-            "Implemented **Kafka** to synchronize HR events across services.",
-            "Built **Jenkins CI/CD** pipelines for automated builds, tests, and deployments.",
-            "Drove HR observability with **Datadog** dashboards, alerting, and runbooks.",
-            "Containerized services with **Docker** to guarantee reproducible environments."
-          ]
-        }
-      ]
-    },
-    contact: {
-      title: "Contact",
-      subtitle: "Priority channel",
-      description:
-        "Let's establish a direct line to align product objectives, validate the stack, and deploy the next increments without friction.",
-      processTitle: "Fast-track protocol",
-      steps: [
-        {
-          accent: "T+0",
-          title: "Express brief",
-          description: "Share the context (product, team, stack) through your preferred channel."
-        },
-        {
-          accent: "T+1h",
-          title: "Quick sync",
-          description: "I confirm reception, clarify the mission, and suggest a call slot if needed."
-        },
-        {
-          accent: "T+24h",
-          title: "Roadmap",
-          description: "Receive an action plan or estimate to launch the engagement."
-        }
-      ],
-      callouts: [
-        { label: "Availability", value: "Freelance & Full-time" },
-        { label: "Time zone", value: "CET / CEST" },
-        { label: "Response SLA", value: "< 24h" }
-      ],
-      channels: [
-        {
-          id: "email",
-          label: "Priority email",
-          description:
-            "Best channel to detail your needs, share requirements, or send a prioritized backlog.",
-          action: "Send a message",
-          badge: "Reply < 24h",
-          href: "mailto:houlboumi.sim.bienvenue@gmail.com",
-          icon: "mail"
-        },
-        {
-          id: "linkedin",
-          label: "LinkedIn",
-          description:
-            "Perfect to kick off a business conversation, validate cultural fit, and share product challenges.",
-          action: "Connect",
-          badge: "Pro network",
-          href: "https://www.linkedin.com/in/sim-bienvenue-houl-boumi/",
-          icon: "linkedin",
-          external: true
-        },
-        {
-          id: "github",
-          label: "GitHub",
-          description:
-            "Browse production-grade code, CI/CD pipelines, and cloud-native experiments.",
-          action: "Explore projects",
-          badge: "Active repos",
-          href: "https://github.com/SimBienvenueHoulBoumi",
-          icon: "github",
-          external: true
-        }
-      ],
-      footnote: "Phone slots are proposed after an initial discussion on your chosen channel."
-    },
-    footer: {
-      label: "Personal portfolio",
-      role: "Full-stack Java/React Engineer",
-      madeWith: "Built with",
-      and: "and",
-      by: "by Sim Bienvenue Houlboumi",
-      year: "2025",
-      stackTitle: "Production stack",
-      stackItems: "Next.js · Spring Boot · Kubernetes · Datadog"
-    }
-  }
 };

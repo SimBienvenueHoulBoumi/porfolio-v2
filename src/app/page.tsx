@@ -10,20 +10,16 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
-import LanguageToggle from "@/components/LanguageToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import PageLoader from "@/components/PageLoader";
 import Experience from "@/components/Experience";
-import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
-import { useLanguage } from "@/context/LanguageContext";
 import { SiteContent } from "@/lib/content";
 
 const PageContent = () => {
   useFadeIn();
   const footerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
-  const { language } = useLanguage();
   const [content, setContent] = useState<SiteContent | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loaderDone, setLoaderDone] = useState(false);
@@ -36,7 +32,7 @@ const PageContent = () => {
 
     const controller = new AbortController();
 
-    fetch(`/api/content?lang=${language}`, { signal: controller.signal })
+    fetch(`/api/content`, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Status ${response.status}`);
@@ -58,7 +54,7 @@ const PageContent = () => {
       isActive = false;
       controller.abort();
     };
-  }, [language]);
+  }, []);
 
   const handleLoaderComplete = useCallback(() => {
     setLoaderDone(true);
@@ -97,7 +93,6 @@ const PageContent = () => {
         <Hero content={content.hero} />
         <div className="fixed bottom-20 right-4 sm:bottom-24 sm:right-8 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-2rem)]">
           <ThemeToggle />
-          <LanguageToggle />
         </div>
       </div>
       <Skills content={content.skills} />
@@ -112,9 +107,7 @@ const PageContent = () => {
 export default function Page() {
   return (
     <ThemeProvider>
-      <LanguageProvider>
-        <PageContent />
-      </LanguageProvider>
+      <PageContent />
     </ThemeProvider>
   );
 }

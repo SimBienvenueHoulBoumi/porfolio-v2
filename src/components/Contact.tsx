@@ -10,14 +10,12 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
-import { useLanguage } from "@/context/LanguageContext";
 
 const channelIcon = (channel: ContactChannel) => ICON_MAP[channel.icon as IconKey] ?? FiMail;
 
 const Contact: FC<{ content: ContactContent }> = ({ content }) => {
   const { theme } = useTheme();
   const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
-  const { language } = useLanguage();
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
@@ -150,7 +148,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                           {step.accent}
                         </span>
                         <span className={`text-[11px] uppercase tracking-[0.35em] ${isAurora ? "text-slate-500" : "text-cyan-200/80"}`}>
-                          {language === "fr" ? "Étape" : "Step"}
+                          Étape
                         </span>
                       </div>
                       <h4 className={`mt-3 text-sm font-semibold ${isAurora ? "text-slate-700" : "text-gray-100"}`}>

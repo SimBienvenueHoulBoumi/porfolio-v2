@@ -1,13 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useLanguage } from "@/context/LanguageContext";
 
 const SocialBanger = () => {
-  const { language } = useLanguage();
-
-  const altText =
-    language === "fr" ? "Portrait de Sim Bienvenue Houlboumi" : "Portrait of Sim Bienvenue Houlboumi";
+  const altText = "Portrait de Sim Bienvenue Houlboumi";
 
   return (
     <div className="relative flex items-center justify-center group/avatar mt-2 mb-2">

@@ -1,21 +1,19 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
 const navItems = [
-  { id: "hero", labelEn: "Home", labelFr: "Accueil" },
-  { id: "skills", labelEn: "Skills", labelFr: "Compétences" },
-  { id: "tutorial", labelEn: "Playbook", labelFr: "Méthode" },
-  { id: "experience", labelEn: "Experience", labelFr: "Expérience" },
-  { id: "contact", labelEn: "Contact", labelFr: "Contact" },
-];
+  { id: "hero", label: "Accueil" },
+  { id: "skills", label: "Compétences" },
+  { id: "tutorial", label: "Méthode" },
+  { id: "experience", label: "Expérience" },
+  { id: "contact", label: "Contact" }
+] as const;
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isElevated, setIsElevated] = useState(false);
-  const { language } = useLanguage();
   const { theme } = useTheme();
   const isAurora = theme === "aurora";
 
@@ -65,7 +63,7 @@ export default function Navigation() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}
       role="navigation"
-      aria-label={language === "fr" ? "Navigation principale" : "Main navigation"}
+      aria-label="Navigation principale"
     >
       <div className="layout-shell">
         <div className="flex items-center justify-between h-16">
@@ -74,7 +72,7 @@ export default function Navigation() {
             className={`heading-sm font-bold transition-colors ${
               isAurora ? "text-sky-600 hover:text-sky-700" : "text-cyan-400 hover:text-cyan-300"
             }`}
-            aria-label={language === "fr" ? "Retour à l'accueil" : "Back to home"}
+            aria-label="Retour à l'accueil"
           >
             Simfolio
           </button>
@@ -89,7 +87,7 @@ export default function Navigation() {
                 }`}
                 aria-current={activeSection === item.id ? "page" : undefined}
               >
-                <span className="relative z-10">{language === "fr" ? item.labelFr : item.labelEn}</span>
+                <span className="relative z-10">{item.label}</span>
                 {activeSection === item.id && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 animate-pulse" />
                 )}
@@ -99,7 +97,7 @@ export default function Navigation() {
               href="/tutorial"
               className="ml-4 rounded-full border border-cyan-400/40 px-4 py-2 body-sm font-semibold text-cyan-200 hover:bg-white/5 transition"
             >
-              {language === "fr" ? "Tutoriels" : "Tutorial"}
+              Tutoriels
             </Link>
           </div>
 
@@ -107,7 +105,6 @@ export default function Navigation() {
             <MobileMenu
               navItems={navItems}
               scrollToSection={scrollToSection}
-              language={language}
               isAurora={isAurora}
               inactiveButton={inactiveButton}
               activeButton={activeButton}
@@ -123,15 +120,13 @@ export default function Navigation() {
 function MobileMenu({
   navItems,
   scrollToSection,
-  language,
   isAurora,
   inactiveButton,
   activeButton,
   activeSection
 }: {
-  navItems: Array<{ id: string; labelEn: string; labelFr: string }>;
+  navItems: Array<{ id: string; label: string }>;
   scrollToSection: (id: string) => void;
-  language: string;
   isAurora: boolean;
   inactiveButton: string;
   activeButton: string;
@@ -149,7 +144,7 @@ function MobileMenu({
         className={`p-2 transition-colors ${
           isAurora ? "text-slate-600 hover:text-sky-600" : "text-gray-300 hover:text-cyan-400"
         }`}
-        aria-label={language === "fr" ? "Menu" : "Menu"}
+        aria-label="Menu"
         aria-expanded={isOpen}
       >
         <svg
@@ -185,7 +180,7 @@ function MobileMenu({
                     isActive ? `${activeButton} font-semibold` : inactiveButton
                   }`}
                 >
-                  {language === "fr" ? item.labelFr : item.labelEn}
+                  {item.label}
                 </button>
               );
             })}
@@ -193,7 +188,7 @@ function MobileMenu({
               href="/tutorial"
               className="block w-full text-left px-4 py-2 rounded-lg body-sm transition-colors border border-cyan-400/30 text-cyan-200 hover:bg-white/5"
             >
-              {language === "fr" ? "Tutoriels" : "Tutorial"}
+              Tutoriels
             </Link>
           </div>
         </div>

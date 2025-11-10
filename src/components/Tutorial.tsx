@@ -15,13 +15,13 @@ const STEPS = [
     id: "build",
     title: "Construire avec rigueur",
     description: "Mettre en place pipeline, observabilité et code testable pour sécuriser le delivery.",
-    tips: ["CI/CD verifiée", "Monitoring connecté"],
+    tips: ["CI/CD vérifiée", "Monitoring connecté"],
   },
   {
     id: "ship",
     title: "Livrer en continu",
     description: "Déployer étape par étape, mesurer l'impact et itérer avec les équipes produit.",
-    tips: ["Feedback loops", "Post-mortem rapide"],
+    tips: ["Boucles de feedback", "Post-mortem rapide"],
   },
 ];
 
@@ -36,12 +36,8 @@ export default function Tutorial() {
       <div className="layout-shell relative z-10 flex flex-col gap-12">
         <SectionHeader
           isAurora={isAurora}
-          title={isAurora ? "Tutoriel express" : "How we ship"}
-          description={
-            isAurora
-              ? "La méthode pour passer d'une idée à une plateforme opérationnelle sans dettes cachées."
-              : "The playbook to go from idea to reliable platform without shortcuts."
-          }
+          title="Tutoriel express"
+          description="La méthode pour passer d'une idée à une plateforme opérationnelle sans dettes cachées."
         />
 
         <div className="grid gap-6 md:grid-cols-3">
