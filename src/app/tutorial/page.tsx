@@ -7,14 +7,16 @@ import PageLoader from "@/components/PageLoader";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { FiChevronRight, FiMenu, FiX } from "react-icons/fi";
-import { tutorialSidebar, tutorialSections, quickStartCards, resources, projectTree, projectFiles } from "@/data/nodeApiTutorial";
+import { tutorialContent, tutorialStacks, TutorialStack } from "@/data/nodeApiTutorial";
 import ConsolePanel from "@/components/ui/Console";
 
 const TutorialPage = () => {
   const [isReady, setIsReady] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const handleComplete = useCallback(() => setIsReady(true), []);
-  const steps = tutorialSidebar;
+  const [stack, setStack] = useState<TutorialStack>("node");
+  const content = tutorialContent[stack];
+  const steps = content.sidebar;
 
   useEffect(() => {
     if (drawerOpen) {
@@ -43,6 +45,7 @@ const TutorialPage = () => {
         />
       )}
       <div className="layout-shell min-h-screen py-8">
+        
         <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
           <aside
             className={`fixed inset-y-0 left-0 z-40 flex h-full w-[88%] max-w-sm flex-col rounded-r-[28px] border border-l-0 border-slate-100 bg-white px-6 py-8 shadow-[0_25px_60px_rgba(15,23,42,0.08)] transition-transform lg:sticky lg:top-8 lg:h-[calc(100vh-64px)] lg:w-full lg:max-w-none lg:rounded-[28px] lg:border ${
@@ -50,7 +53,7 @@ const TutorialPage = () => {
             }`}
             aria-label="Navigation du tutoriel"
           >
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between">
               <div>
                 <p className="eyebrow-label">Tutoriel</p>
                 <h2 className="heading-sm text-slate-900">Démarrage rapide</h2>
@@ -64,15 +67,31 @@ const TutorialPage = () => {
                 <FiX />
               </button>
             </div>
-            <nav className="space-y-1 body-sm text-slate-600">
+            <nav className="space-y-3 body-sm text-slate-600">
               <Link
                 href="/"
-                className="mb-3 inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 px-3 py-2 body-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 px-3 py-2 body-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
                 onClick={() => setDrawerOpen(false)}
               >
                 ← Retour à l&apos;accueil
               </Link>
-              <p className="eyebrow-label text-slate-400">Node.js</p>
+              <ul className="space-y-1">
+                {tutorialStacks.map(({ id, label }) => (
+                  <li key={id}>
+                    <button
+                      type="button"
+                      onClick={() => setStack(id)}
+                      className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left body-sm font-semibold transition ${
+                        stack === id ? "text-cyan-600" : "text-slate-500 hover:text-slate-700"
+                      }`}
+                    >
+                      {label}
+                      {stack === id && <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <p className="eyebrow-label text-slate-400">{stack === "node" ? "Node.js" : "Spring Boot"}</p>
               {steps.map((step) => (
                 <a
                   key={step.id}
@@ -101,19 +120,13 @@ const TutorialPage = () => {
             >
               <div className="space-y-2 max-w-3xl">
                 <span className="eyebrow-label text-cyan-500">Tutoriel</span>
-                <h1 className="heading-display">Démarrage rapide Node.js + TypeScript</h1>
-                <p className="body-base text-slate-600">
-                  Exposez une API REST fiable en moins d&apos;une heure grâce à Express, TypeScript, Zod et Vitest. Cette page rassemble les commandes clés, la structure type et les garde-fous indispensables pour shipper sereinement.
-                </p>
+                <h1 className="heading-display">{content.heroTitle}</h1>
+                <p className="body-base text-slate-600">{content.heroDescription}</p>
               </div>
               <div className="rounded-2xl border border-slate-200 bg-white px-6 py-6 shadow-sm sm:px-8">
                 <p className="heading-sm text-slate-900">Vous allez apprendre</p>
                 <ul className="mt-4 space-y-3 body-base text-slate-600">
-                  {[
-                    "Initialiser un projet TypeScript prêt pour la prod",
-                    "Structurer services/routes et sécuriser les payloads avec Zod",
-                    "Écrire des tests Vitest + Supertest et ajouter une route /health"
-                  ].map((item) => (
+                  {content.learnList.map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="mt-2 inline-block h-2.5 w-2.5 rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500" />
                       <span>{item}</span>
@@ -125,7 +138,7 @@ const TutorialPage = () => {
                   <h3 className="heading-lg text-slate-900">Quick start</h3>
                   <p className="body-sm text-slate-500">Les trois blocs critiques pour livrer une API robuste.</p>
                   <div className="mt-4 flex flex-col gap-4">
-                    {quickStartCards.map((card) => (
+                    {content.quickStartCards.map((card) => (
                       <article key={card.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                         <div className="flex items-center justify-between mono-label text-cyan-500">
                           <span>{card.title}</span>
@@ -150,7 +163,7 @@ const TutorialPage = () => {
                   <h3 className="heading-lg text-slate-900">Arborescence recommandée</h3>
                   <p className="body-base text-slate-500">Utilisez la même structure pour aligner services, validations et tests.</p>
                   <ConsolePanel className="mt-4" title="Structure">
-                    <code>{projectTree}</code>
+                    <code>{content.projectTree}</code>
                   </ConsolePanel>
                 </div>
                 <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -159,7 +172,7 @@ const TutorialPage = () => {
                     Copiez-collez ces snippets pour obtenir un squelette d&apos;API complet, puis adaptez-les à votre domaine métier.
                   </p>
                   <div className="mt-6 space-y-5">
-                    {projectFiles.map((file) => (
+                    {content.projectFiles.map((file) => (
                       <article key={file.path} className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
                         <div className="flex items-center justify-between gap-4">
                           <p className="body-sm font-semibold text-slate-900">{file.path}</p>
@@ -175,14 +188,14 @@ const TutorialPage = () => {
                 </div>
             </section>
             <div className="relative space-y-2 pb-10 mt-2">
-              {tutorialSections.map((section, index) => {
+              {content.tutorialSections.map((section, index) => {
                 const stackClass = index === 0 ? "mt-0" : "mt-8";
                 return (
                   <section
                     key={section.id}
                     id={section.id}
                     className={`relative ${stackClass}`}
-                    style={{ zIndex: tutorialSections.length - index }}
+                    style={{ zIndex: content.tutorialSections.length - index }}
                   >
                     <div className="flex items-center gap-3 py-4 mono-label text-cyan-600">
                       <span>{`Étape ${index + 1}`}</span>
@@ -216,7 +229,7 @@ const TutorialPage = () => {
               <h3 className="heading-lg text-slate-900">Ressources utiles</h3>
               <p className="body-base text-slate-500">Guides complémentaires pour aller plus loin.</p>
               <div className="mt-4 flex flex-wrap gap-3">
-                {resources.map((item) => (
+                {content.resources.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
