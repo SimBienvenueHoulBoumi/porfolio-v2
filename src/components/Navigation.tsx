@@ -133,9 +133,10 @@ function MobileMenu({
   activeSection: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const menuBg = isAurora
-    ? "bg-white/98 backdrop-blur-md border-b border-sky-200/30"
-    : "bg-gray-900/98 backdrop-blur-md border-b border-cyan-500/20";
+  const panelBg = isAurora
+    ? "bg-white/95 text-slate-800 border border-sky-100 shadow-sky-200/40"
+    : "bg-gray-900/95 text-gray-50 border border-cyan-500/20 shadow-cyan-900/30";
+  const brandColor = isAurora ? "text-sky-600" : "text-cyan-300";
 
   return (
     <>
@@ -165,8 +166,38 @@ function MobileMenu({
       </button>
 
       {isOpen && (
-        <div className={`absolute top-16 left-0 right-0 ${menuBg} md:hidden`}>
-          <div className="px-4 py-2 space-y-1">
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="fixed inset-x-3 top-16 z-50 md:hidden">
+            <div className={`rounded-3xl px-5 py-6 shadow-2xl ${panelBg}`}>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className={`text-lg font-semibold ${brandColor}`}>Simfolio</p>
+                  <p className="text-xs uppercase tracking-[0.3em] opacity-70">Menu</p>
+                </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Fermer le menu"
+                  className="rounded-full p-2 hover:bg-white/10 transition"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-2">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -176,9 +207,13 @@ function MobileMenu({
                     scrollToSection(item.id);
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 rounded-lg body-sm transition-colors ${
-                    isActive ? `${activeButton} font-semibold` : inactiveButton
-                  }`}
+                    className={`block w-full rounded-2xl px-4 py-3 text-left font-medium transition-all ${
+                      isActive
+                        ? isAurora
+                          ? "bg-sky-50 text-sky-600 shadow-inner shadow-sky-100"
+                          : "bg-gray-800 text-cyan-300 shadow-inner shadow-cyan-900/30"
+                        : "text-inherit hover:bg-white/5"
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -186,12 +221,19 @@ function MobileMenu({
             })}
             <Link
               href="/tutorial"
-              className="block w-full text-left rounded-lg body-sm transition-colors border border-cyan-400/30 text-cyan-200 hover:bg-white/5"
+                className={`block w-full rounded-2xl border px-4 py-3 text-left font-semibold transition ${
+                  isAurora
+                    ? "border-sky-200 text-sky-600 hover:bg-sky-50"
+                    : "border-cyan-500/40 text-cyan-300 hover:bg-gray-800"
+                }`}
+              onClick={() => setIsOpen(false)}
             >
               Tutoriels
             </Link>
+            </div>
           </div>
-        </div>
+          </div>
+        </>
       )}
     </>
   );

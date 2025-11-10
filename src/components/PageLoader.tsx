@@ -125,15 +125,23 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={progressValue}
-              className={`relative h-3 w-full overflow-hidden rounded-full ${
-                isAurora ? "bg-sky-100" : "bg-gray-800"
-              }`}
+              className="relative h-3 w-full overflow-hidden rounded-full"
             >
               <div
-                className={`h-full rounded-full transition-all duration-700 animate-shimmer ${
-                  isAurora ? "bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500" : "bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500"
+                className={`absolute inset-0 rounded-full ${
+                  isAurora ? "bg-sky-200/80" : "bg-gray-800/80"
                 }`}
-                style={{ width: `${progressValue}%`, backgroundSize: "200% 100%" }}
+              />
+              <div
+                className="absolute inset-[2px] rounded-full bg-white/40 blur-md"
+              />
+              <div
+                className={`relative h-full rounded-full transition-all duration-700 animate-shimmer shadow-[0_0_20px_5px_rgba(14,165,233,0.45)] ${
+                  isAurora
+                    ? "bg-gradient-to-r from-[#0ea5e9] via-[#0284c7] to-[#0ea5e9]"
+                    : "bg-gradient-to-r from-[#22d3ee] via-[#14b8a6] to-[#22d3ee]"
+                }`}
+                style={{ width: `${progressValue}%`, backgroundSize: "250% 100%" }}
               />
             </div>
           </div>
