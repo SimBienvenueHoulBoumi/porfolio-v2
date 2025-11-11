@@ -258,7 +258,7 @@ html {
   }
 
   .mono-label {
-    @apply font-mono text-xs font-semibold uppercase tracking-[0.35em];
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.35em];
   }
 
   .code-block {

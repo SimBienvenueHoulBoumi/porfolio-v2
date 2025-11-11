@@ -204,13 +204,15 @@ const TutorialPage = () => {
                     ))}
                   </div>
                 </div>
-                <div className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
-                  <h3 className={`heading-lg ${themeTokens.strong}`}>Arborescence recommandée</h3>
-                  <p className={`body-base ${themeTokens.muted}`}>Utilisez la même structure pour aligner services, validations et tests.</p>
-                  <ConsoleWindow className="mt-4" title="Structure" language="bash">
-                    <code>{content.projectTree}</code>
-                  </ConsoleWindow>
-                </div>
+                {stack !== "node" && (
+                  <div className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
+                    <h3 className={`heading-lg ${themeTokens.strong}`}>Arborescence recommandée</h3>
+                    <p className={`body-base ${themeTokens.muted}`}>Utilisez la même structure pour aligner services, validations et tests.</p>
+                    <ConsoleWindow className="mt-4" title="Structure" language="bash">
+                      <code>{content.projectTree}</code>
+                    </ConsoleWindow>
+                  </div>
+                )}
                 <div className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
                   <h3 className={`heading-lg ${themeTokens.strong}`}>Contenu des fichiers clés</h3>
                   <p className={`body-base ${themeTokens.muted}`}>

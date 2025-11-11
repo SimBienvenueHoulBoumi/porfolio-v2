@@ -1398,7 +1398,8 @@ const dockerQuickStartCards: QuickStartCard[] = [
     id: "env",
     title: "Définir les variables",
     minutes: "~1 min",
-    command: `cat <<'EOF' > .env
+    command: `mkdir -p docker && cd docker
+cat <<'EOF' > .env
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=app

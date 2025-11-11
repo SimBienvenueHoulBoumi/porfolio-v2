@@ -204,7 +204,7 @@ export const SITE_CONTENT: SiteContent = {
           icon: "trendingUp",
           title: "Suivi du flux de valeur",
           description:
-            "Indicateurs pipeline, temps de cycle et métriques DORA pour prédire et stabiliser le delivery."
+            "Indicateurs pipeline, temps de cycle et métriques Datadog pour prédire et stabiliser le delivery."
         }
       ],
       toolbox: [
