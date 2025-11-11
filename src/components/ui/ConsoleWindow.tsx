@@ -1,38 +1,30 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import React, { ReactNode, useState, useMemo, isValidElement, useEffect } from "react";
 import { Highlight, themes, type Language } from "prism-react-renderer";
 import Prism from "prismjs";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-yaml";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-ini";
+import "prismjs/components/prism-python";
 import { FiTerminal, FiChevronDown } from "react-icons/fi";
+import { useTheme } from "@/context/ThemeContext";
 
 const ensurePrismGlobal = () => {
   const globalAny = globalThis as typeof globalThis & { Prism?: typeof Prism };
   if (!globalAny.Prism) {
     globalAny.Prism = Prism;
   }
-};
-
-const loadPrismLanguages = () => {
-  if (typeof window === "undefined") {
-    return Promise.resolve();
-  }
-  const globalAny = globalThis as typeof globalThis & { __prismLanguagesPromise?: Promise<void> };
-  ensurePrismGlobal();
-  if (!globalAny.__prismLanguagesPromise) {
-    globalAny.__prismLanguagesPromise = (async () => {
-      await import("prismjs/components/prism-markup");
-      await import("prismjs/components/prism-clike");
-      await import("prismjs/components/prism-javascript");
-      await import("prismjs/components/prism-typescript");
-      await import("prismjs/components/prism-jsx");
-      await import("prismjs/components/prism-tsx");
-      await import("prismjs/components/prism-bash");
-      await import("prismjs/components/prism-java");
-      await import("prismjs/components/prism-yaml");
-      await import("prismjs/components/prism-json");
-    })();
-  }
-  return globalAny.__prismLanguagesPromise;
 };
 
 interface ConsoleWindowProps {
@@ -44,18 +36,12 @@ interface ConsoleWindowProps {
 
 const ConsoleWindow = ({ children, title, className = "", language = "typescript" }: ConsoleWindowProps) => {
   const textContent = useMemo(() => extractText(children), [children]);
+  const { theme } = useTheme();
+  const isAurora = theme === "aurora";
   const [isMobile, setIsMobile] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
-    let mounted = true;
-    loadPrismLanguages().catch((err) => {
-      if (mounted) {
-        console.error("Prism languages failed to load", err);
-      }
-    });
-    return () => {
-      mounted = false;
-    };
+    ensurePrismGlobal();
   }, []);
 
   useEffect(() => {
@@ -98,8 +84,8 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
             </span>
             <div className="flex flex-col min-w-0">
               <span className="text-xs uppercase tracking-[0.3em] text-slate-400">Log</span>
-              <span className="font-semibold text-slate-700 text-sm truncate max-w-[160px]">
-                {title ?? "Sortie console"}
+              <span className="font-semibold text-slate-700 text-sm truncate max-w-[200px]">
+                {title ?? "Snippet"}
               </span>
             </div>
           </div>
@@ -126,10 +112,7 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
           <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
           <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
         </div>
-        <div className="flex items-center gap-3">
-          {title && <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">{title}</span>}
-          <CopyButton text={textContent} />
-        </div>
+        <CopyButton text={textContent} />
       </div>
       <div className="p-4">
         <Highlight
@@ -171,6 +154,8 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
 };
 const CopyButton = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
+  const { theme } = useTheme();
+  const isAurora = theme === "aurora";
 
   const handleCopy = async () => {
     if (!text) {
@@ -219,7 +204,11 @@ const CopyButton = ({ text }: { text: string }) => {
     <button
       type="button"
       onClick={handleCopy}
-      className="rounded-full border border-slate-700/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 transition hover:border-slate-500 hover:text-white"
+      className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] transition ${
+        isAurora
+          ? "border-slate-200 text-slate-900 bg-white/80 hover:bg-white"
+          : "border-emerald-400/70 text-emerald-200 hover:border-emerald-300 hover:text-white"
+      }`}
     >
       {copied ? "Copié !" : "Copier"}
     </button>

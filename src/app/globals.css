@@ -44,7 +44,7 @@ button:hover,
 
 /* Shared layout shell for consistent widths across sections */
 .layout-shell {
-  width: min(100%, 1200px);
+  width: min(100%, 1300px);
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -226,35 +226,35 @@ html {
   }
 
   .heading-display {
-    @apply text-4xl font-bold leading-tight tracking-tight sm:text-5xl;
+    @apply text-[2.75rem] font-semibold leading-snug tracking-tight sm:text-[3.25rem];
   }
 
   .heading-xl {
-    @apply text-3xl font-semibold leading-snug sm:text-4xl;
+    @apply text-[2.25rem] font-semibold leading-snug sm:text-[2.5rem];
   }
 
   .heading-lg {
-    @apply text-2xl font-semibold leading-snug sm:text-3xl;
+    @apply text-[1.75rem] font-semibold leading-snug sm:text-[2rem];
   }
 
   .heading-md {
-    @apply text-xl font-semibold leading-snug;
+    @apply text-[1.375rem] font-semibold leading-snug;
   }
 
   .heading-sm {
-    @apply text-lg font-semibold leading-snug;
+    @apply text-[1.125rem] font-semibold leading-snug;
   }
 
   .body-lg {
-    @apply text-lg leading-relaxed;
+    @apply text-[1.0625rem] leading-relaxed;
   }
 
   .body-base {
-    @apply text-base leading-relaxed;
+    @apply text-[0.95rem] leading-relaxed;
   }
 
   .body-sm {
-    @apply text-sm leading-relaxed;
+    @apply text-[0.8125rem] leading-relaxed;
   }
 
   .mono-label {

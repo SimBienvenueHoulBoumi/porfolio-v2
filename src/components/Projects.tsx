@@ -61,7 +61,7 @@ const PROJECTS: readonly Project[] = [
 ] as const;
 
 const PROJECTS_COPY = {
-  title: "Cas d'usage terrain",
+  title: "Cas d'usage",
   subtitle:
     "Des plateformes construites pour survivre aux rushs produits : pipelines fiables, code maintenable, monitoring temps réel.",
   primaryCta: "Découvrir sur GitHub",

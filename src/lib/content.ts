@@ -220,7 +220,7 @@ export const SITE_CONTENT: SiteContent = {
       ]
     },
     experience: {
-      title: "Expériences terrain",
+      title: "Expériences",
       subtitle:
         "Des équipes livrées en mode continu : alignment produit, pipelines CI/CD, observabilité et culture feedback.",
       experiences: [

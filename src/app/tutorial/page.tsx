@@ -17,6 +17,12 @@ const TutorialPage = () => {
   const { theme } = useTheme();
   const content = tutorialContent[stack];
   const steps = content.sidebar;
+  const stackLabels: Record<TutorialStack, string> = {
+    node: "Node.js",
+    spring: "Spring Boot",
+    ansible: "Ansible",
+    docker: "Docker"
+  };
   const themeTokens = useMemo(() => {
     const isDark = theme === "dark";
     return {
@@ -26,9 +32,7 @@ const TutorialPage = () => {
       button: isDark ? "border-slate-700 text-slate-200 hover:border-slate-500" : "border-slate-200 text-slate-600 hover:border-slate-300",
       accent: isDark ? "text-cyan-300" : "text-cyan-600",
       strong: isDark ? "text-white" : "text-slate-900",
-      hero: isDark
-        ? "border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"
-        : "border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100",
+      hero: isDark ? "border border-slate-800 bg-slate-900" : "border border-slate-200 bg-white",
       card: isDark ? "border border-slate-800 bg-slate-900/70" : "border border-slate-200 bg-white",
       subCard: isDark ? "border border-slate-800 bg-slate-900/60" : "border border-slate-200 bg-white/90",
       soft: isDark ? "border border-slate-800 bg-slate-900/40" : "border border-slate-200 bg-slate-50"
@@ -63,7 +67,7 @@ const TutorialPage = () => {
       )}
       <div className="layout-shell min-h-screen py-8">
         
-        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-1">
           <aside
             className={`fixed inset-y-0 left-0 z-40 flex h-full w-[88%] max-w-sm flex-col rounded-r-[28px] border-l-0 px-6 py-8 shadow-[0_25px_60px_rgba(15,23,42,0.15)] transition-transform lg:sticky lg:top-8 lg:h-[calc(100vh-64px)] lg:w-full lg:max-w-none lg:rounded-[28px] ${
               drawerOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -83,42 +87,67 @@ const TutorialPage = () => {
                 <FiX />
               </button>
             </div>
-            <nav className={`space-y-3 body-sm ${themeTokens.muted}`}>
-              <Link
-                href="/"
-                className={`inline-flex w-full items-center justify-center rounded-2xl border px-3 py-2 body-sm font-semibold transition hover:bg-white/5 ${themeTokens.button}`}
-                onClick={() => setDrawerOpen(false)}
-              >
-                ← Retour à l&apos;accueil
-              </Link>
-              <ul className="space-y-1">
-                {tutorialStacks.map(({ id, label }) => (
-                  <li key={id}>
-                    <button
-                      type="button"
-                      onClick={() => setStack(id)}
-                      className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left body-sm font-semibold transition ${
-                        stack === id ? `${themeTokens.accent}` : "text-slate-500 hover:text-slate-700"
-                      }`}
-                    >
-                      {label}
-                      {stack === id && <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <p className={`eyebrow-label ${themeTokens.muted}`}>{stack === "node" ? "Node.js" : "Spring Boot"}</p>
-              {steps.map((step) => (
-                <a
-                  key={step.id}
-                  href={`#${step.id}`}
-                  className={`flex items-center justify-between rounded-xl px-3 py-2 transition hover:bg-white/5`}
-                  onClick={() => setDrawerOpen(false)}
-                >
-                  <span className={`body-sm font-medium ${theme === "dark" ? "text-white" : "text-slate-700"}`}>{step.label}</span>
-                  <FiChevronRight className="text-slate-400" />
-                </a>
-              ))}
+            <Link
+              href="/"
+              className={`mb-4 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl border px-4 py-2 text-center body-sm font-semibold transition hover:bg-white/5 ${themeTokens.button}`}
+              onClick={() => setDrawerOpen(false)}
+            >
+              <span aria-hidden>←</span>
+              <span>Retour à l&apos;accueil</span>
+            </Link>
+            <nav className={`flex-1 min-h-0 space-y-4 overflow-y-auto pr-1 body-sm ${themeTokens.muted}`}>
+              <div className={`rounded-3xl p-4 ${themeTokens.soft}`}>
+                <p className="mono-label text-[11px] uppercase tracking-[0.4em] text-slate-400">Technologies</p>
+                <ul className="mt-3 space-y-2">
+                  {tutorialStacks.map(({ id, label }) => {
+                    const stackClasses =
+                      stack === id
+                        ? theme === "dark"
+                          ? "border-cyan-400/60 bg-cyan-400/10 text-cyan-200"
+                          : "border-cyan-500/40 bg-cyan-50 text-cyan-700"
+                        : theme === "dark"
+                          ? "border-white/5 text-slate-400 hover:border-cyan-400/30 hover:text-white"
+                          : "border-slate-200 text-slate-500 hover:border-cyan-400/20 hover:text-slate-900";
+                    return (
+                      <li key={id}>
+                        <button
+                          type="button"
+                          aria-current={stack === id ? "true" : undefined}
+                          onClick={() => {
+                            setStack(id);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className={`flex w-full items-center justify-between rounded-2xl border px-4 py-2 text-left font-semibold transition ${stackClasses}`}
+                        >
+                          <span>{label}</span>
+                          {stack === id && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className={`rounded-3xl p-4 ${themeTokens.soft}`}>
+                <p className="mono-label text-[11px] uppercase tracking-[0.4em] text-slate-400">{stackLabels[stack]}</p>
+                <ul className="mt-4 space-y-2">
+                  {steps.map((step) => (
+                    <li key={step.id}>
+                      <a
+                        href={`#${step.id}`}
+                        className={`group flex items-center justify-between rounded-2xl border px-4 py-3 transition ${
+                          theme === "dark"
+                            ? "border-white/5 bg-white/[0.02] hover:border-cyan-400/40 hover:bg-white/10"
+                            : "border-slate-200 bg-white hover:border-cyan-500/30 hover:bg-cyan-50"
+                        }`}
+                        onClick={() => setDrawerOpen(false)}
+                      >
+                        <span className={`body-sm font-medium ${theme === "dark" ? "text-white" : "text-slate-700"}`}>{step.label}</span>
+                        <FiChevronRight className="text-slate-400 transition group-hover:translate-x-1" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </nav>
           </aside>
           <main className="w-full">
@@ -188,16 +217,19 @@ const TutorialPage = () => {
                     Copiez-collez ces snippets pour obtenir un squelette d&apos;API complet, puis adaptez-les à votre domaine métier.
                   </p>
                   <div className="mt-6 space-y-5">
-                    {content.projectFiles.map((file) => (
-                      <article key={file.path} className={`rounded-2xl p-5 shadow-sm ${themeTokens.subCard}`}>
-                        <div className="flex items-center justify-between gap-4">
-                          <p className={`body-sm font-semibold ${themeTokens.strong}`}>{file.path}</p>
+                    {content.projectFiles.map((file, index) => (
+                      <article
+                        key={`${file.path}-${index}`}
+                        className={`rounded-2xl p-5 shadow-sm ${themeTokens.subCard}`}
+                      >
+                        <div className="flex flex-wrap items-center gap-3">
+                          <p className={`body-sm font-semibold break-all ${themeTokens.strong}`}>{file.path}</p>
                           <span className={`mono-label ${themeTokens.accent}`}>Core</span>
                       </div>
                       <p className={`mt-2 body-sm ${themeTokens.muted}`}>{file.description}</p>
-                      <ConsoleWindow className="mt-4" title={file.path} language={file.language}>
-                        <code>{file.snippet}</code>
-                      </ConsoleWindow>
+                        <ConsoleWindow className="mt-4 max-w-full break-all sm:break-normal" language={file.language}>
+                          <code>{file.snippet}</code>
+                        </ConsoleWindow>
                       </article>
                     ))}
                   </div>
