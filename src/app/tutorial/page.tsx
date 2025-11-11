@@ -27,15 +27,15 @@ const TutorialPage = () => {
     const isDark = theme === "dark";
     return {
       pageBg: isDark ? "bg-slate-950 text-white" : "bg-slate-50 text-slate-900",
-      panel: isDark ? "bg-slate-950/60 backdrop-blur border border-slate-800" : "bg-white border border-slate-100",
+      panel: isDark ? "bg-slate-950/70 backdrop-blur border border-slate-800/40" : "bg-white border border-slate-200/70",
       muted: isDark ? "text-slate-400" : "text-slate-600",
-      button: isDark ? "border-slate-700 text-slate-200 hover:border-slate-500" : "border-slate-200 text-slate-600 hover:border-slate-300",
+      button: isDark ? "border-slate-700/70 text-slate-200 hover:border-slate-500/70" : "border-slate-200 text-slate-600 hover:border-slate-400/70",
       accent: isDark ? "text-cyan-300" : "text-cyan-600",
       strong: isDark ? "text-white" : "text-slate-900",
-      hero: isDark ? "border border-slate-800 bg-slate-900" : "border border-slate-200 bg-white",
-      card: isDark ? "border border-slate-800 bg-slate-900/70" : "border border-slate-200 bg-white",
-      subCard: isDark ? "border border-slate-800 bg-slate-900/60" : "border border-slate-200 bg-white/90",
-      soft: isDark ? "border border-slate-800 bg-slate-900/40" : "border border-slate-200 bg-slate-50"
+      hero: isDark ? "border border-slate-800/40 bg-slate-900" : "border border-slate-200/70 bg-white",
+      card: isDark ? "border border-slate-800/30 bg-slate-900/70" : "border border-slate-200/60 bg-white",
+      subCard: isDark ? "border border-slate-800/30 bg-slate-900/60" : "border border-slate-200/50 bg-white/90",
+      soft: isDark ? "border border-slate-800/20 bg-slate-900/40" : "border border-slate-200/40 bg-slate-50"
     };
   }, [theme]);
 
@@ -67,7 +67,7 @@ const TutorialPage = () => {
       )}
       <div className="layout-shell min-h-screen py-8">
         
-        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-1">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-1">
           <aside
             className={`fixed inset-y-0 left-0 z-40 flex h-full w-[88%] max-w-sm flex-col rounded-r-[28px] border-l-0 px-6 py-8 shadow-[0_25px_60px_rgba(15,23,42,0.15)] transition-transform lg:sticky lg:top-8 lg:h-[calc(100vh-64px)] lg:w-full lg:max-w-none lg:rounded-[28px] ${
               drawerOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
