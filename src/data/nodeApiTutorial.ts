@@ -23,6 +23,7 @@ type TutorialSection = {
   bullets?: string[];
   code?: string;
   codeLanguage?: Language;
+  codePath?: string;
 };
 
 type ProjectFile = {
@@ -133,8 +134,7 @@ const nodeProjectFiles: ProjectFile[] = [
   {
     path: "src/server.ts",
     description: "Point d'entrée : charge la configuration, sécurise Express et instancie les middlewares critiques.",
-    snippet: `// src/server.ts
-import express from "express";
+    snippet: `import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
@@ -164,8 +164,7 @@ if (require.main === module) {
   {
     path: "src/config/env.ts",
     description: "Centralise la lecture des variables d'environnement et fournit des valeurs sûres.",
-    snippet: `// src/config/env.ts
-import "dotenv/config";
+    snippet: `import "dotenv/config";
 
 export const loadEnv = () => {
   const origin = process.env.ALLOWED_ORIGINS ?? "*";
@@ -180,8 +179,7 @@ export const loadEnv = () => {
   {
     path: "src/config/logger.ts",
     description: "Logger Pino configuré pour différencier le dev (pino-pretty) de la prod.",
-    snippet: `// src/config/logger.ts
-import pino from "pino";
+    snippet: `import pino from "pino";
 
 const isProd = process.env.NODE_ENV === "production";
 export const logger = pino({
@@ -195,8 +193,7 @@ export const logger = pino({
   {
     path: "src/routes/userRoutes.ts",
     description: "Routes HTTP : validation Zod + délégation au service.",
-    snippet: `// src/routes/userRoutes.ts
-import { Router } from "express";
+    snippet: `import { Router } from "express";
 import { userService } from "../services/userService";
 import { validate } from "../middlewares/validate";
 import { createUserSchema } from "../schemas/userSchema";
@@ -218,8 +215,7 @@ export default router;`,
   {
     path: "src/services/userService.ts",
     description: "Service métier simplifié pour centraliser la logique et faciliter les tests.",
-    snippet: `// src/services/userService.ts
-import { CreateUserDTO } from "../schemas/userSchema";
+    snippet: `import { CreateUserDTO } from "../schemas/userSchema";
 
 const store: Array<CreateUserDTO & { id: string }> = [];
 
@@ -238,8 +234,7 @@ export const userService = {
   {
     path: "src/schemas/userSchema.ts",
     description: "Schéma Zod partagé entre runtime et TypeScript.",
-    snippet: `// src/schemas/userSchema.ts
-import { z } from "zod";
+    snippet: `import { z } from "zod";
 
 export const createUserSchema = z.object({
   email: z.string().email(),
@@ -252,8 +247,7 @@ export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
   {
     path: "src/middlewares/validate.ts",
     description: "Middleware générique pour propager une erreur 400 si le schéma échoue.",
-    snippet: `// src/middlewares/validate.ts
-import { AnyZodObject } from "zod";
+    snippet: `import { AnyZodObject } from "zod";
 import { Request, Response, NextFunction } from "express";
 
 export const validate = (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
@@ -359,8 +353,7 @@ npx tsc --init`,
     id: "validation",
     title: "Définir les DTO & la validation",
     description: "Zod décrit vos DTO et sert de source unique pour les validations runtime.",
-    code: `// src/schemas/userSchema.ts
-import { z } from 'zod';
+    code: `import { z } from 'zod';
 
 export const createUserSchema = z.object({
   email: z.string().email(),
@@ -374,8 +367,7 @@ export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
     id: "services",
     title: "Service métier",
     description: "Centralisez la logique (stockage en mémoire, génération d'ID) dans un service testable avant de câbler vos routes.",
-    code: `// src/services/userService.ts
-import { CreateUserDTO } from "../schemas/userSchema";
+    code: `import { CreateUserDTO } from "../schemas/userSchema";
 
 const store: Array<CreateUserDTO & { id: string }> = [];
 
@@ -395,8 +387,7 @@ export const userService = {
     id: "routes",
     title: "Définir les routes",
     description: "Une fois DTO + service prêts, exposez les endpoints avec Router d'Express et votre middleware de validation.",
-    code: `// src/routes/userRoutes.ts
-import { Router } from 'express';
+    code: `import { Router } from 'express';
 import { validate } from '../middlewares/validate';
 import { createUserSchema } from '../schemas/userSchema';
 import { userService } from '../services/userService';
@@ -418,8 +409,7 @@ export default router;`,
     id: "observability",
     title: "Observabilité",
     description: "Injectez Pino pour tracer chaque requête et exposez une route /health monitorable.",
-    code: `// src/config/logger.ts
-import pino from 'pino';
+    code: `import pino from 'pino';
 import pinoHttp from 'pino-http';
 
 export const logger = pino({ level: process.env.LOG_LEVEL ?? 'info' });
@@ -547,7 +537,6 @@ unzip demo-rest-api.zip && cd demo-rest-api
     title: "Configurer Postgres & run",
     minutes: "~2 min",
     command: `docker compose up -d postgres
-# src/main/resources/application.yml
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -881,8 +870,7 @@ management:
     id: "model",
     title: "Modèle et DTO",
     description: "Définissez l'entité JPA et les DTO associés avant de câbler le reste.",
-    code: `// src/main/java/simdev/demo/models/Tasks.java
-@Entity
+    code: `@Entity
 @Data
 @Builder
 public class Tasks {
@@ -902,12 +890,10 @@ public class Tasks {
     id: "repository",
     title: "Repository et mapper",
     description: "Ajoutez le repository Spring Data et les mappers qui convertissent DTO ⇄ entité.",
-    code: `// src/main/java/simdev/demo/repositories/TasksRepository.java
-public interface TasksRepository extends JpaRepository<Tasks, Long> {
+    code: `public interface TasksRepository extends JpaRepository<Tasks, Long> {
   Optional<Tasks> findByName(String name);
 }
 
-// src/main/java/simdev/demo/mapper/TasksMapper.java
 @Component
 public class TasksMapper {
   public Tasks toEntity(TasksDto dto) { ... }
@@ -922,8 +908,7 @@ public class TasksMapper {
     id: "services",
     title: "Services métiers",
     description: "Implémentez les use-cases Create/Get/Update/Delete dans les services et leurs implémentations.",
-    code: `// src/main/java/simdev/demo/servicesImpl/TasksServiceImpl.java
-@Service
+    code: `@Service
 @AllArgsConstructor
 public final class TasksServiceImpl implements TasksService {
   private final TasksRepository tasksRepository;
@@ -945,8 +930,7 @@ public final class TasksServiceImpl implements TasksService {
     id: "controller",
     title: "Contrôleur REST",
     description: "Exposez /api/tasks une fois que les services sont en place.",
-    code: `// src/main/java/simdev/demo/controllers/TasksController.java
-@RestController
+    code: `@RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
 public final class TasksController {
@@ -990,8 +974,7 @@ services:
     id: "testing",
     title: "Tests",
     description: "Chaque use-case possède des tests Mockito + un test d'intégration sur le controller.",
-    code: `// src/test/java/simdev/demo/services/unit/CreateTaskServiceTest.java
-@ExtendWith(MockitoExtension.class)
+    code: `@ExtendWith(MockitoExtension.class)
 class CreateTaskServiceTest {
   @Test
   void shouldThrowIfTaskAlreadyExists() {
