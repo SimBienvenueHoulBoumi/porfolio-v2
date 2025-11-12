@@ -1,5 +1,7 @@
 "use client";
 
+// pbara@arvadon.fr :: envoyer le cv en pdf
+
 import Link from "next/link";
 import { FiArrowLeft, FiTool, FiBell } from "react-icons/fi";
 import Button from "@/components/ui/Button";

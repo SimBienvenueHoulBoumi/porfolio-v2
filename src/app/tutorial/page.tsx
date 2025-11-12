@@ -16,6 +16,7 @@ const TutorialPage = () => {
   const [stack, setStack] = useState<TutorialStack>("node");
   const { theme } = useTheme();
   const content = tutorialContent[stack];
+  const [activeSection, setActiveSection] = useState<string | null>(content.tutorialSections[0]?.id ?? null);
   const steps = content.sidebar;
   const stackLabels: Record<TutorialStack, string> = {
     node: "Node.js",
@@ -56,56 +57,110 @@ const TutorialPage = () => {
       troubleshooting: "docker/"
     }
   };
-  const introSectionIds = ["intro", "setup"];
+  const introSectionIds = ["intro", "setup", "structure"];
   const introSections = content.tutorialSections.filter((section) => introSectionIds.includes(section.id));
   const remainingSections = content.tutorialSections.filter((section) => !introSectionIds.includes(section.id));
   const themeTokens = useMemo(() => {
     if (theme === "aurora") {
       return {
-        pageBg: "bg-white text-slate-900",
-        panel: "bg-white border border-slate-200 shadow-sm text-slate-700",
+        pageBg: "bg-slate-50 text-slate-900",
+        panel:
+          "bg-white/90 text-slate-700 border border-slate-200 shadow-[0_8px_30px_rgba(15,23,42,0.08)]",
         muted: "text-slate-600",
-        button: "border-slate-200 text-slate-600 hover:bg-slate-100",
-        accentLabel: "text-sky-600",
+        button: "border border-slate-200 text-slate-600 hover:bg-slate-100",
+        accentLabel: "text-lime-600",
         strong: "text-slate-900",
         hero: "border border-slate-200 bg-white",
         card: "border border-slate-200 bg-white",
         subCard: "border border-slate-200 bg-slate-50",
         soft: "border border-slate-200 bg-slate-50",
         returnLink: "border border-slate-200 text-slate-700 hover:bg-slate-100",
-        navSection: "rounded-2xl border border-slate-200 bg-slate-50 p-4",
-        navSectionSecondary: "rounded-2xl border border-slate-200 bg-white p-4",
-        navItemBase: "flex w-full items-center justify-between rounded-xl border px-4 py-2 text-left font-semibold transition",
-        navItemActive: "border-sky-400 bg-sky-50 text-sky-900",
-        navItem: "border-transparent text-slate-600 hover:bg-white",
-        navStepBase: "group flex items-center justify-between rounded-xl border px-4 py-2 font-medium transition",
-        navStepLink: "border-slate-200 text-slate-700 hover:border-slate-200 hover:bg-slate-50",
-        bullet: "bg-sky-400"
+        navSection: "space-y-4",
+        navHeading: "text-xs font-semibold uppercase tracking-[0.35em] text-slate-500",
+        navList: "space-y-1",
+        navItemBase:
+          "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition",
+        navItemActive: "bg-slate-900/5 text-slate-900 border-l-4 border-l-lime-500 pl-2.5",
+        navItem: "text-slate-500 hover:text-slate-900 hover:bg-slate-100",
+        navStepBase:
+          "flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition",
+        navStepLink: "text-slate-600 hover:bg-slate-100",
+        outlineCard: "rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm text-slate-600",
+        outlineHeading: "text-xs font-semibold uppercase tracking-[0.35em] text-slate-500",
+        outlineBullet: "border-l border-slate-200 pl-3",
+        outlineLink: "text-sm font-medium text-slate-600 hover:text-slate-900 hover:underline",
+        outlineLinkActive: "text-lime-600",
+        bullet: "bg-lime-500"
       };
     }
 
     return {
       pageBg: "bg-slate-950 text-slate-100",
-      panel: "bg-slate-950/80 border border-slate-800 text-slate-100",
+      panel: "bg-slate-900/80 text-slate-100 border border-slate-800",
       muted: "text-slate-400",
-      button: "border-slate-700 text-slate-200 hover:bg-slate-900",
-      accentLabel: "text-cyan-300",
+      button: "border border-slate-700 text-slate-200 hover:bg-slate-900",
+      accentLabel: "text-emerald-300",
       strong: "text-white",
       hero: "border border-slate-800 bg-slate-900",
       card: "border border-slate-800 bg-slate-900/80",
       subCard: "border border-slate-800 bg-slate-900/70",
       soft: "border border-slate-800 bg-slate-900/60",
       returnLink: "border border-slate-700 text-slate-100 hover:bg-slate-900",
-      navSection: "rounded-2xl border border-slate-800 bg-slate-900 p-4",
-      navSectionSecondary: "rounded-2xl border border-slate-800 bg-slate-900/80 p-4",
-      navItemBase: "flex w-full items-center justify-between rounded-xl border px-4 py-2 text-left font-semibold transition",
-      navItemActive: "border-cyan-400/60 bg-cyan-400/10 text-cyan-200",
-      navItem: "border-white/5 text-slate-400 hover:border-cyan-400/30 hover:text-white",
-      navStepBase: "group flex items-center justify-between rounded-xl border px-4 py-2 font-medium transition",
-      navStepLink: "border-white/5 text-slate-200 hover:border-cyan-400/40 hover:bg-white/10",
-      bullet: "bg-cyan-400"
+      navSection: "space-y-4",
+      navHeading: "text-xs font-semibold uppercase tracking-[0.35em] text-slate-400",
+      navList: "space-y-1",
+      navItemBase:
+        "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition",
+      navItemActive:
+        "bg-emerald-400/10 text-emerald-200 border-l-4 border-l-emerald-400 pl-2.5",
+      navItem: "text-slate-400 hover:text-white hover:bg-white/10",
+      navStepBase:
+        "flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition",
+      navStepLink: "text-slate-300 hover:bg-white/10",
+      outlineCard:
+        "rounded-2xl border border-slate-800 bg-slate-900/80 p-4 text-sm text-slate-300",
+      outlineHeading: "text-xs font-semibold uppercase tracking-[0.35em] text-slate-400",
+      outlineBullet: "border-l border-slate-800 pl-3",
+      outlineLink: "text-sm font-medium text-slate-300 hover:text-white hover:underline",
+      outlineLinkActive: "text-emerald-300",
+      bullet: "bg-emerald-400"
     };
   }, [theme]);
+  const outlineActiveBorderClass = theme === "aurora" ? "border-l-lime-500" : "border-l-emerald-400";
+
+  useEffect(() => {
+    setActiveSection(content.tutorialSections[0]?.id ?? null);
+  }, [content]);
+
+  useEffect(() => {
+    const ids = steps.map((step) => step.id);
+    const updateActive = () => {
+      const detectionLine = 140;
+      let current: string | null = ids[0] ?? null;
+
+      ids.forEach((id) => {
+        const element = document.getElementById(id);
+        if (!element) {
+          return;
+        }
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= detectionLine) {
+          current = id;
+        }
+      });
+
+      setActiveSection(current);
+    };
+
+    updateActive();
+    window.addEventListener("scroll", updateActive, { passive: true });
+    window.addEventListener("resize", updateActive);
+
+    return () => {
+      window.removeEventListener("scroll", updateActive);
+      window.removeEventListener("resize", updateActive);
+    };
+  }, [steps]);
 
   useEffect(() => {
     if (drawerOpen) {
@@ -134,10 +189,9 @@ const TutorialPage = () => {
         />
       )}
       <div className="layout-shell min-h-screen py-8">
-        
-        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)_220px] lg:gap-8">
           <aside
-            className={`fixed inset-y-0 left-0 z-40 flex h-full w-[88%] max-w-sm flex-col rounded-3xl px-6 py-8 shadow-sm transition-transform lg:sticky lg:top-8 lg:h-[calc(100vh-64px)] lg:w-full lg:max-w-none ${
+            className={`fixed inset-y-0 left-0 z-40 flex h-full w-[88%] max-w-sm flex-col rounded-3xl px-6 py-8 transition-transform lg:sticky lg:top-8 lg:h-[calc(100vh-64px)] lg:w-full lg:max-w-none ${
               drawerOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             } ${themeTokens.panel}`}
             aria-label="Navigation du tutoriel"
@@ -163,19 +217,20 @@ const TutorialPage = () => {
               <span aria-hidden>←</span>
               <span>Retour à l&apos;accueil</span>
             </Link>
-            <nav className="flex-1 space-y-4 overflow-y-auto pr-2 text-sm lg:min-h-0">
+            <nav className="flex-1 space-y-8 overflow-y-auto pr-2 text-sm lg:min-h-0">
               <div className={themeTokens.navSection}>
-                <p className={`text-xs font-semibold uppercase tracking-[0.35em] ${themeTokens.accentLabel}`}>Technologies</p>
-                <ul className="mt-3 space-y-2">
+                <p className={themeTokens.navHeading}>Technologies</p>
+                <ul className={themeTokens.navList}>
                   {tutorialStacks.map(({ id, label }) => {
+                    const isActive = stack === id;
                     const stackClasses = `${themeTokens.navItemBase} ${
-                      stack === id ? themeTokens.navItemActive : themeTokens.navItem
+                      isActive ? themeTokens.navItemActive : themeTokens.navItem
                     }`;
                     return (
                       <li key={id}>
                         <button
                           type="button"
-                          aria-current={stack === id ? "true" : undefined}
+                          aria-current={isActive ? "true" : undefined}
                           onClick={() => {
                             setStack(id);
                             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -183,28 +238,17 @@ const TutorialPage = () => {
                           className={stackClasses}
                         >
                           <span>{label}</span>
-                          {stack === id && <span className={`h-1.5 w-1.5 rounded-full ${theme === "aurora" ? "bg-sky-500" : "bg-cyan-400"}`} />}
+                          {isActive && (
+                            <span
+                              className={`h-1.5 w-1.5 rounded-full ${
+                                theme === "aurora" ? "bg-lime-500" : "bg-emerald-400"
+                              }`}
+                            />
+                          )}
                         </button>
                       </li>
                     );
                   })}
-                </ul>
-              </div>
-              <div className={themeTokens.navSectionSecondary}>
-                <p className={`text-xs font-semibold uppercase tracking-[0.35em] ${themeTokens.accentLabel}`}>{stackLabels[stack]}</p>
-                <ul className="mt-4 space-y-2">
-                  {steps.map((step) => (
-                    <li key={step.id}>
-                      <a
-                        href={`#${step.id}`}
-                        className={`${themeTokens.navStepBase} ${themeTokens.navStepLink}`}
-                        onClick={() => setDrawerOpen(false)}
-                      >
-                        <span>{step.label}</span>
-                        <FiChevronRight className="text-slate-400 transition group-hover:translate-x-1" />
-                      </a>
-                    </li>
-                  ))}
                 </ul>
               </div>
             </nav>
@@ -264,7 +308,7 @@ const TutorialPage = () => {
                 </div>
               </div>
               {introSections.map((section) => (
-                <article key={section.id} className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
+                <article id={section.id} key={section.id} className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
                   <h3 className={`heading-lg ${themeTokens.strong}`}>{section.title}</h3>
                   <p className={`mt-3 body-base ${themeTokens.muted}`}>{section.description}</p>
                   {section.bullets && (
@@ -374,6 +418,38 @@ const TutorialPage = () => {
             </section>
           </div>
         </main>
+        <aside className="hidden lg:block">
+          <div className={`${themeTokens.outlineCard} sticky top-8 max-h-[calc(100vh-64px)] overflow-auto`}>
+            <p className={themeTokens.outlineHeading}>Sur cette page</p>
+            <ol className="mt-4 space-y-3">
+              {steps.map((step) => {
+                const isActive = activeSection === step.id;
+                return (
+                  <li
+                    key={step.id}
+                    className={`${themeTokens.outlineBullet} ${isActive ? outlineActiveBorderClass : ""}`}
+                  >
+                    <a
+                      href={`#${step.id}`}
+                      className={`${themeTokens.outlineLink} ${isActive ? themeTokens.outlineLinkActive : ""}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        const target = document.getElementById(step.id);
+                        if (target) {
+                          window.history.replaceState(null, "", `#${step.id}`);
+                          setActiveSection(step.id);
+                          target.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }}
+                    >
+                      {step.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </aside>
       </div>
     </div>
   </div>
