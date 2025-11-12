@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import PageLoader from "@/components/PageLoader";
 import { FiChevronRight, FiMenu, FiX } from "react-icons/fi";
-import { tutorialContent, tutorialStacks, TutorialStack } from "@/data/nodeApiTutorial";
+import { tutorialContent, tutorialStacks, TutorialStack } from "@/data/tutorial";
 import ConsoleWindow from "@/components/ui/ConsoleWindow";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -23,6 +23,42 @@ const TutorialPage = () => {
     ansible: "Ansible",
     docker: "Docker"
   };
+  const sectionPaths: Partial<Record<TutorialStack, Record<string, string>>> = {
+    node: {
+      validation: "src/schemas/userSchema.ts",
+      services: "src/services/userService.ts",
+      routes: "src/routes/userRoutes.ts",
+      observability: "src/config/logger.ts",
+      testing: "tests/user.test.ts"
+    },
+    spring: {
+      config: "src/main/resources/application.yml",
+      model: "src/main/java/simdev/demo/models/Tasks.java",
+      repository: "src/main/java/simdev/demo/repositories/TasksRepository.java",
+      services: "src/main/java/simdev/demo/servicesImpl/TasksServiceImpl.java",
+      controller: "src/main/java/simdev/demo/controllers/TasksController.java",
+      observability: "src/main/resources/application.yml",
+      testing: "src/test/java/simdev/demo/services/unit/CreateTaskServiceTest.java",
+      delivery: ".github/workflows/ci.yml"
+    },
+    ansible: {
+      vars: "ansible/inventory.ini & group_vars/db.yml",
+      roles: "ansible/roles/postgres/tasks/main.yml",
+      playbook: "ansible/playbooks/postgres.yml",
+      commands: "ansible/",
+      quality: ".github/workflows/ansible.yml"
+    },
+    docker: {
+      compose: "docker/docker-compose.yml",
+      init: "docker/init/001_schema.sql",
+      volumes: "docker/",
+      verification: "docker/",
+      troubleshooting: "docker/"
+    }
+  };
+  const introSectionIds = ["intro", "setup"];
+  const introSections = content.tutorialSections.filter((section) => introSectionIds.includes(section.id));
+  const remainingSections = content.tutorialSections.filter((section) => !introSectionIds.includes(section.id));
   const themeTokens = useMemo(() => {
     if (theme === "aurora") {
       return {
@@ -227,13 +263,31 @@ const TutorialPage = () => {
                   ))}
                 </div>
               </div>
-              <div className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
-                <h3 className={`heading-lg ${themeTokens.strong}`}>Arborescence recommandée</h3>
-                <p className={`body-base ${themeTokens.muted}`}>Utilisez la même structure pour aligner services, validations et tests.</p>
-                <ConsoleWindow className="mt-4" title="Structure" language="bash">
-                  <code>{content.projectTree}</code>
-                </ConsoleWindow>
-              </div>
+              {introSections.map((section) => (
+                <article key={section.id} className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
+                  <h3 className={`heading-lg ${themeTokens.strong}`}>{section.title}</h3>
+                  <p className={`mt-3 body-base ${themeTokens.muted}`}>{section.description}</p>
+                  {section.bullets && (
+                    <ul className={`mt-4 space-y-3 body-base ${themeTokens.muted}`}>
+                      {section.bullets.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className={`mt-2 inline-block h-2.5 w-2.5 rounded-full ${themeTokens.bullet}`} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {section.code && (
+                    <ConsoleWindow
+                      className="mt-4"
+                      title={sectionPaths[stack]?.[section.id] ?? section.title}
+                      language={section.codeLanguage}
+                    >
+                      <code>{section.code}</code>
+                    </ConsoleWindow>
+                  )}
+                </article>
+              ))}
               <div className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
                   <h3 className={`heading-lg ${themeTokens.strong}`}>Contenu des fichiers clés</h3>
                   <p className={`body-base ${themeTokens.muted}`}>
@@ -259,7 +313,7 @@ const TutorialPage = () => {
                 </div>
             </section>
             <div className="relative space-y-2 pb-10 mt-2">
-              {content.tutorialSections.map((section, index) => {
+              {remainingSections.map((section, index) => {
                 const stackClass = index === 0 ? "mt-0" : "mt-8";
                 return (
                   <section
@@ -329,36 +383,3 @@ const TutorialPage = () => {
 export default function TutorialPageWithProviders() {
   return <TutorialPage />;
 }
-  const sectionPaths: Partial<Record<TutorialStack, Record<string, string>>> = {
-    node: {
-      validation: "src/schemas/userSchema.ts",
-      services: "src/services/userService.ts",
-      routes: "src/routes/userRoutes.ts",
-      observability: "src/config/logger.ts",
-      testing: "tests/user.test.ts"
-    },
-    spring: {
-      config: "src/main/resources/application.yml",
-      model: "src/main/java/simdev/demo/models/Tasks.java",
-      repository: "src/main/java/simdev/demo/repositories/TasksRepository.java",
-      services: "src/main/java/simdev/demo/servicesImpl/TasksServiceImpl.java",
-      controller: "src/main/java/simdev/demo/controllers/TasksController.java",
-      observability: "src/main/resources/application.yml",
-      testing: "src/test/java/simdev/demo/services/unit/CreateTaskServiceTest.java",
-      delivery: ".github/workflows/ci.yml"
-    },
-    ansible: {
-      vars: "ansible/inventory.ini & group_vars/db.yml",
-      roles: "ansible/roles/postgres/tasks/main.yml",
-      playbook: "ansible/playbooks/postgres.yml",
-      commands: "ansible/",
-      quality: ".github/workflows/ansible.yml"
-    },
-    docker: {
-      compose: "docker/docker-compose.yml",
-      init: "docker/init/001_schema.sql",
-      volumes: "docker/",
-      verification: "docker/",
-      troubleshooting: "docker/"
-    }
-  };
