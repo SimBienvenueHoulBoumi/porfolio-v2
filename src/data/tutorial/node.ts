@@ -4,8 +4,7 @@ const nodeSidebar: SidebarEntry[] = [
   { id: "intro", label: "Panorama" },
   { id: "setup", label: "Installation" },
   { id: "structure", label: "Structure" },
-  { id: "validation", label: "DTO & Validation" },
-  { id: "services", label: "Service métier" },
+  { id: "services", label: "DTO & Service métier" },
   { id: "routes", label: "Routes" },
   { id: "observability", label: "Observabilité" },
   { id: "testing", label: "Tests" },
@@ -43,9 +42,9 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import pinoHttp from "pino-http";
-import userRoutes from "./routes/userRoutes";
-import { loadEnv } from "./config/env";
-import { logger } from "./config/logger";
+import userRoutes from "./routes/userRoutes.js";
+import { loadEnv } from "./config/env.js";
+import { logger } from "./config/logger.js";
 
 const config = loadEnv();
 export const app = express();
@@ -58,7 +57,7 @@ app.use("/users", userRoutes);
 
 const port = config.port;
 
-if (require.main === module) {
+if (import.meta.url === \`file://\${process.argv[1]}\`) {
   app.listen(port, () => {
     logger.info({ port }, "API prête");
   });
@@ -98,9 +97,9 @@ export const logger = pino({
     path: "src/routes/userRoutes.ts",
     description: "Routes HTTP : validation Zod + délégation au service.",
     snippet: `import { Router } from "express";
-import { userService } from "../services/userService";
-import { validate } from "../middlewares/validate";
-import { createUserSchema } from "../schemas/userSchema";
+import { userService } from "../services/userService.js";
+import { validate } from "../middlewares/validate.js";
+import { createUserSchema } from "../schemas/userSchema.js";
 
 const router = Router();
 
@@ -119,7 +118,7 @@ export default router;`,
   {
     path: "src/services/userService.ts",
     description: "Service métier simplifié pour centraliser la logique et faciliter les tests.",
-    snippet: `import { CreateUserDTO } from "../schemas/userSchema";
+    snippet: `import { CreateUserDTO } from "../schemas/userSchema.js";
 
 const store: Array<CreateUserDTO & { id: string }> = [];
 
@@ -236,10 +235,10 @@ const nodeSections: TutorialSection[] = [
     code: `mkdir my-node-api && cd my-node-api
 npm init -y
 npm install express zod pino pino-http helmet cors express-rate-limit dotenv
-npm install -D typescript ts-node-dev @types/node @types/express @types/cors @types/helmet @types/express-rate-limit vitest supertest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npm install -D typescript tsx @types/node @types/express @types/cors @types/helmet @types/express-rate-limit vitest supertest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 npx tsc --init
 npm pkg set type="module"
-npm pkg set scripts.dev="ts-node-dev --respawn src/server.ts"
+npm pkg set scripts.dev="tsx src/server.ts"
 npm pkg set scripts.test="vitest"
 npm pkg set scripts.lint="eslint src --ext .ts"
 cat <<'EOF' > .env.example
@@ -247,9 +246,24 @@ PORT=3333
 ALLOWED_ORIGINS=http://localhost:3000
 LOG_LEVEL=debug
 EOF
-cp .env.example .env`,
+cp .env.example .env
+
+cat <<'EOF' > tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist"
+  },
+  "include": ["src", "tests"]
+}
+EOF`,
     bullets: [
-      "tsconfig.json : fixez \"module\": \"NodeNext\", \"moduleResolution\": \"NodeNext\" et \"verbatimModuleSyntax\": true pour rester cohérent avec les imports ESM.",
       "src/server.ts : chargez immédiatement loadEnv() afin que les variables issues de .env soient disponibles avant d'instancier Express."
     ],
     codeLanguage: "bash"
@@ -277,14 +291,54 @@ export const createUserSchema = z.object({
 });
 
 export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
-    codeLanguage: "typescript"
+    codeLanguage: "typescript",
+    interactive: {
+      type: "playground",
+      code: `import { z } from 'zod';
+
+// Test du schéma Zod
+const createUserSchema = z.object({
+  email: z.string().email(),
+  role: z.enum(['admin', 'viewer']),
+});
+
+type CreateUserDTO = z.infer<typeof createUserSchema>;
+
+// Test valide
+const validUser: CreateUserDTO = {
+  email: "user@example.com",
+  role: "admin"
+};
+
+console.log("Utilisateur valide:", validUser);
+
+// Test invalide (va lever une erreur)
+try {
+  createUserSchema.parse({
+    email: "invalid-email",
+    role: "invalid-role"
+  });
+} catch (error) {
+  console.log("Erreur de validation:", error.message);
+}`,
+      language: "typescript"
+    }
   },
   {
     id: "services",
-    title: "Service métier",
-    description: "Centralisez la logique (stockage en mémoire, génération d'ID) dans un service testable avant de câbler vos routes.",
-    code: `import { CreateUserDTO } from "../schemas/userSchema";
+    title: "DTO & Service métier",
+    description: "Commencez par définir vos DTO avec Zod pour la validation, puis centralisez la logique métier dans un service testable.",
+    code: `import { z } from 'zod';
 
+// DTO & Validation
+export const createUserSchema = z.object({
+  email: z.string().email(),
+  role: z.enum(['admin', 'viewer']),
+});
+
+export type CreateUserDTO = z.infer<typeof createUserSchema>;
+
+// Service métier
 const store: Array<CreateUserDTO & { id: string }> = [];
 
 export const userService = {
@@ -297,16 +351,47 @@ export const userService = {
     return store;
   }
 };`,
-    codeLanguage: "typescript"
+    codeLanguage: "typescript",
+    interactive: {
+      type: "playground",
+      code: `import { z } from 'zod';
+
+// Test du schéma Zod
+const createUserSchema = z.object({
+  email: z.string().email(),
+  role: z.enum(['admin', 'viewer']),
+});
+
+type CreateUserDTO = z.infer<typeof createUserSchema>;
+
+// Test valide
+const validUser: CreateUserDTO = {
+  email: "user@example.com",
+  role: "admin"
+};
+
+console.log("Utilisateur valide:", validUser);
+
+// Test invalide (va lever une erreur)
+try {
+  createUserSchema.parse({
+    email: "invalid-email",
+    role: "invalid-role"
+  });
+} catch (error) {
+  console.log("Erreur de validation:", error.message);
+}`,
+      language: "typescript"
+    }
   },
   {
     id: "routes",
     title: "Définir les routes",
     description: "Une fois DTO + service prêts, exposez les endpoints avec Router d'Express et votre middleware de validation.",
     code: `import { Router } from 'express';
-import { validate } from '../middlewares/validate';
-import { createUserSchema } from '../schemas/userSchema';
-import { userService } from '../services/userService';
+import { validate } from '../middlewares/validate.js';
+import { createUserSchema } from '../schemas/userSchema.js';
+import { userService } from '../services/userService.js';
 
 const router = Router();
 router.post('/users', validate(createUserSchema), (req, res) => {
@@ -354,16 +439,89 @@ test('POST /users crée un compte', async () => {
     .send({ email: 'foo@bar.dev', role: 'admin' });
 
   expect(res.status).toBe(201);
-});
+});`,
+    codeLanguage: "typescript",
+    interactive: {
+      type: "demo",
+      code: `// Exemple de test complet avec Vitest
+import request from 'supertest';
+import { app } from '../src/server.js';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-# exécuter les tests
-npm run test`,
-    codeLanguage: "typescript"
+describe('User API', () => {
+  beforeEach(() => {
+    // Nettoyer la base de données de test
+  });
+
+  describe('POST /users', () => {
+    it('should create a user with valid data', async () => {
+      const userData = {
+        email: 'test@example.com',
+        role: 'admin'
+      };
+
+      const response = await request(app)
+        .post('/users')
+        .send(userData)
+        .expect(201);
+
+      expect(response.body).toHaveProperty('id');
+      expect(response.body.email).toBe(userData.email);
+      expect(response.body.role).toBe(userData.role);
+    });
+
+    it('should return 400 for invalid email', async () => {
+      const response = await request(app)
+        .post('/users')
+        .send({
+          email: 'invalid-email',
+          role: 'admin'
+        })
+        .expect(400);
+
+      expect(response.body).toHaveProperty('errors');
+    });
+
+    it('should return 400 for invalid role', async () => {
+      const response = await request(app)
+        .post('/users')
+        .send({
+          email: 'test@example.com',
+          role: 'invalid-role'
+        })
+        .expect(400);
+
+      expect(response.body).toHaveProperty('errors');
+    });
+  });
+
+  describe('GET /users', () => {
+    it('should return all users', async () => {
+      // Créer quelques utilisateurs d'abord
+      await request(app)
+        .post('/users')
+        .send({ email: 'user1@example.com', role: 'admin' });
+
+      await request(app)
+        .post('/users')
+        .send({ email: 'user2@example.com', role: 'viewer' });
+
+      const response = await request(app)
+        .get('/users')
+        .expect(200);
+
+      expect(Array.isArray(response.body)).toBe(true);
+      expect(response.body.length).toBeGreaterThanOrEqual(2);
+    });
+  });
+});`,
+      language: "typescript"
+    }
   },
   {
     id: "delivery",
     title: "CI/CD prêt à l'emploi",
-    description: "Chaque push lance lint + tests sur GitHub Actions pour bloquer les régressions avant déploiement.",
+    description: "GitHub Actions vérifie chaque push et un pipeline Jenkins mirroré reste disponible pour les exécutions on-prem.",
     code: `# .github/workflows/ci.yml (extrait)
 jobs:
   quality:
@@ -376,7 +534,20 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm test -- --runInBand`,
+      - run: npm test -- --runInBand
+
+// Jenkinsfile (équivalent)
+pipeline {
+  agent any
+  stages {
+    stage('Install') { steps { sh 'npm ci' } }
+    stage('Lint') { steps { sh 'npm run lint' } }
+    stage('Test') { steps { sh 'npm test -- --runInBand' } }
+  }
+  post {
+    always { junit 'coverage/junit.xml' }
+  }
+}`,
     bullets: [
       "Ajoutez un job build Docker si vous déployez sur un orchestrateur",
       "Artifacts (coverage, rapports) peuvent être téléversés pour audit"
@@ -392,7 +563,10 @@ const nodeResources = [
   { label: "Logger Pino", href: "https://getpino.io/#/" },
   { label: "Référence TypeScript", href: "https://www.typescriptlang.org/docs/" },
   { label: "Vitest + Supertest", href: "https://vitest.dev/guide/features.html#testing-http-servers" },
-  { label: "GitHub Actions", href: "https://docs.github.com/actions" }
+  { label: "GitHub Actions", href: "https://docs.github.com/actions" },
+  { label: "ES Modules Guide", href: "https://nodejs.org/api/esm.html" },
+  { label: "tsx - TypeScript executor", href: "https://github.com/esbuild-kit/tsx" },
+  { label: "Prism.js - Syntax highlighting", href: "https://prismjs.com/" }
 ];
 
 const nodeContent: TutorialContent = {

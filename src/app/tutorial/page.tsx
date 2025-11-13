@@ -7,6 +7,7 @@ import PageLoader from "@/components/PageLoader";
 import { FiChevronRight, FiMenu, FiX } from "react-icons/fi";
 import { tutorialContent, tutorialStacks, TutorialStack } from "@/data/tutorial";
 import ConsoleWindow from "@/components/ui/ConsoleWindow";
+import InteractivePlayground from "@/components/ui/InteractivePlayground";
 import { useTheme } from "@/context/ThemeContext";
 
 const TutorialPage = () => {
@@ -392,6 +393,24 @@ const TutorialPage = () => {
                         >
                           <code>{section.code}</code>
                         </ConsoleWindow>
+                      )}
+
+                      {section.interactive && (
+                        <div className="mt-6">
+                          {section.interactive.type === "playground" ? (
+                            <InteractivePlayground
+                              code={section.interactive.code || section.code || ""}
+                              language={section.interactive.language || section.codeLanguage || "typescript"}
+                              title={`Playground: ${section.title}`}
+                            />
+                          ) : section.interactive.type === "demo" ? (
+                            <InteractivePlayground
+                              code={section.interactive.code || section.code || ""}
+                              language={section.interactive.language || section.codeLanguage || "typescript"}
+                              title={`Démo: ${section.title}`}
+                            />
+                          ) : null}
+                        </div>
                       )}
                     </div>
                   </section>

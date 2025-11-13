@@ -2,6 +2,14 @@ import type { Language } from "prism-react-renderer";
 
 export type TutorialStack = "node" | "spring" | "ansible" | "docker";
 
+export type ProgressState = {
+  completedSections: string[];
+  currentSection: string | null;
+  lastUpdated: Date;
+};
+
+export type UserProgress = Record<TutorialStack, ProgressState>;
+
 export type SidebarEntry = {
   id: string;
   label: string;
@@ -24,6 +32,12 @@ export type TutorialSection = {
   code?: string;
   codeLanguage?: Language;
   codePath?: string;
+  interactive?: {
+    type: "playground" | "demo";
+    url?: string;
+    code?: string;
+    language?: Language;
+  };
 };
 
 export type ProjectFile = {

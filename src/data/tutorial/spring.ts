@@ -59,7 +59,7 @@ spring:
 ./mvnw -Dspring.profiles.active=test verify`,
     bullets: [
       "Chaque use-case possède son test Mockito (Create/Get/Update/Delete)",
-      "Ces commandes alimentent directement le Jenkinsfile fourni dans la démo"
+      "Ces commandes alimentent directement le workflow GitHub Actions fourni dans la démo"
     ],
     language: "bash"
   }
@@ -117,14 +117,12 @@ public final class TasksController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-    tasksService.deleteTask(id);
-    return ResponseEntity.noContent().build();
-  }
+public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+  tasksService.deleteTask(id);
+  return ResponseEntity.noContent().build();
 }
-
-# exécuter les tests
-./mvnw test`,
+}
+`,
     language: "java"
   },
   {
@@ -497,7 +495,7 @@ class CreateTaskServiceTest {
   {
     id: "delivery",
     title: "CI/CD",
-    description: "GitHub Actions (ou Jenkins) lance verify, publie les rapports et construit l'image.",
+    description: "GitHub Actions et Jenkins déclenchent verify, publient les rapports et préparent l'image Docker.",
     code: `# .github/workflows/ci.yml (extrait)
 jobs:
   quality:
@@ -508,7 +506,20 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: maven
-      - run: ./mvnw -B verify`,
+      - run: ./mvnw -B verify
+
+// Jenkinsfile (pipeline équivalent)
+pipeline {
+  agent any
+  tools { jdk 'temurin-17' }
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Test & Verify') { steps { sh './mvnw -B verify' } }
+  }
+  post {
+    always { junit '**/surefire-reports/*.xml' }
+  }
+}`,
     bullets: [
       "Ajoutez un job docker/build-push-action pour publier votre image",
       "Configurez sonar: true pour brancher SonarCloud si besoin"
