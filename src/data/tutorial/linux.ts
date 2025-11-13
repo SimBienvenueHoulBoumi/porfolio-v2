@@ -283,31 +283,54 @@ lsof | grep deleted        # fichiers supprimés mais ouverts`,
   },
   {
     id: "ssh",
-    title: "SSH et connexion sécurisée",
-    description: "Configuration et utilisation de SSH pour l'administration à distance.",
-    code: `# Connexion
+    title: "SSH et transfert de fichiers",
+    description: "Configuration SSH et transfert sécurisé de fichiers entre serveurs.",
+    code: `# Connexion SSH
 ssh user@192.168.1.100
 ssh -i ~/.ssh/id_rsa user@server.com
+ssh -p 2222 user@server.com  # port personnalisé
 
-# Copie de fichiers
+# Transfert de fichiers - SCP (Secure Copy)
 scp fichier.txt user@server:/tmp/
-rsync -avz /local/dir user@server:/remote/dir
+scp user@server:/remote/file.txt /local/
+scp -r dossier/ user@server:/remote/  # récursif
 
-# Configuration client
-Host myserver
+# Transfert avancé - RSYNC (synchronisation)
+rsync -avz /local/dir user@server:/remote/     # local vers distant
+rsync -avz user@server:/remote/dir /local/     # distant vers local
+rsync -avz --delete /local/ user@server:/remote/  # miroir exact
+
+# Transfert entre deux serveurs distants
+scp user1@server1:/path/file.txt user2@server2:/path/
+
+# Montage SSHFS (filesystem via SSH)
+sshfs user@server:/remote/dir /local/mountpoint
+fusermount -u /local/mountpoint  # démonter
+
+# Configuration client (~/.ssh/config)
+Host prod-server
     HostName 192.168.1.100
-    User devuser
-    IdentityFile ~/.ssh/id_rsa
+    User deploy
+    Port 2222
+    IdentityFile ~/.ssh/prod_key
+    StrictHostKeyChecking no
+
+# Puis connexion simplifiée
+ssh prod-server
+scp fichier.txt prod-server:/tmp/
 
 # Configuration serveur (/etc/ssh/sshd_config)
 PermitRootLogin no
 PasswordAuthentication no
-PubkeyAuthentication yes`,
+PubkeyAuthentication yes
+AllowTcpForwarding yes
+X11Forwarding no`,
     bullets: [
-      "Utilisez des clés SSH plutôt que les mots de passe",
-      "scp pour copie simple, rsync pour synchronisation",
-      "~/.ssh/config pour éviter de retaper les options",
-      "Désactivez l'accès root et les mots de passe en prod"
+      "scp : copie simple et sécurisée via SSH",
+      "rsync : synchronisation avancée avec reprise de transfert",
+      "sshfs : monter un répertoire distant comme local",
+      "Utilisez des clés SSH pour l'automatisation",
+      "Configurez ~/.ssh/config pour simplifier les connexions"
     ],
     codeLanguage: "bash"
   },

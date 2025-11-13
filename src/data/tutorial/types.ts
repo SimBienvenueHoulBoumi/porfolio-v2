@@ -1,6 +1,6 @@
 import type { Language } from "prism-react-renderer";
 
-export type TutorialStack = "node" | "spring" | "ansible" | "docker" | "linux";
+export type TutorialStack = "node" | "spring" | "ansible" | "docker" | "linux" | "sql";
 
 export type ProgressState = {
   completedSections: string[];

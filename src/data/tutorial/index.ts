@@ -4,6 +4,7 @@ import { springContent } from "./spring";
 import { ansibleContent } from "./ansible";
 import { dockerContent } from "./docker";
 import { linuxContent } from "./linux";
+import { sqlContent } from "./sql";
 
 export * from "./types";
 
@@ -12,7 +13,8 @@ export const tutorialStacks: { id: TutorialStack; label: string }[] = [
   { id: "spring", label: "Spring Boot" },
   { id: "ansible", label: "Ansible" },
   { id: "docker", label: "Docker" },
-  { id: "linux", label: "Linux" }
+  { id: "linux", label: "Linux" },
+  { id: "sql", label: "SQL" }
 ];
 
 export const tutorialContent: Record<TutorialStack, TutorialContent> = {
@@ -20,5 +22,6 @@ export const tutorialContent: Record<TutorialStack, TutorialContent> = {
   spring: springContent,
   ansible: ansibleContent,
   docker: dockerContent,
-  linux: linuxContent
+  linux: linuxContent,
+  sql: sqlContent
 };

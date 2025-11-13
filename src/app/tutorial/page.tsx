@@ -25,7 +25,8 @@ const TutorialPage = () => {
     spring: "Spring Boot",
     ansible: "Ansible",
     docker: "Docker",
-    linux: "Linux"
+    linux: "Linux",
+    sql: "SQL"
   };
   const sectionPaths: Partial<Record<TutorialStack, Record<string, string>>> = {
     node: {
@@ -66,6 +67,12 @@ const TutorialPage = () => {
       disk: "/etc/fstab",
       ssh: "/etc/ssh/sshd_config",
       users: "/etc/group"
+    },
+    sql: {
+      basics: "sql/foundations.sql",
+      intermediate: "sql/analytics/joins.sql",
+      advanced: "sql/analytics/windows.sql",
+      optimization: "sql/optimization/indexing.sql"
     }
   };
   const introSectionIds = ["intro", "setup", "structure"];
@@ -230,9 +237,42 @@ const TutorialPage = () => {
             </Link>
             <nav className="flex-1 space-y-8 overflow-y-auto pr-2 text-sm lg:min-h-0">
               <div className={themeTokens.navSection}>
-                <p className={themeTokens.navHeading}>Technologies</p>
+                <p className={themeTokens.navHeading}>Backend & DevOps</p>
                 <ul className={themeTokens.navList}>
-                  {tutorialStacks.map(({ id, label }) => {
+                  {tutorialStacks.filter(({ id }) => id !== "sql").map(({ id, label }) => {
+                    const isActive = stack === id;
+                    const stackClasses = `${themeTokens.navItemBase} ${
+                      isActive ? themeTokens.navItemActive : themeTokens.navItem
+                    }`;
+                    return (
+                      <li key={id}>
+                        <button
+                          type="button"
+                          aria-current={isActive ? "true" : undefined}
+                          onClick={() => {
+                            setStack(id);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className={stackClasses}
+                        >
+                          <span>{label}</span>
+                          {isActive && (
+                            <span
+                              className={`h-1.5 w-1.5 rounded-full ${
+                                theme === "aurora" ? "bg-lime-500" : "bg-emerald-400"
+                              }`}
+                            />
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className={themeTokens.navSection}>
+                <p className={themeTokens.navHeading}>Bases de données</p>
+                <ul className={themeTokens.navList}>
+                  {tutorialStacks.filter(({ id }) => id === "sql").map(({ id, label }) => {
                     const isActive = stack === id;
                     const stackClasses = `${themeTokens.navItemBase} ${
                       isActive ? themeTokens.navItemActive : themeTokens.navItem
