@@ -7,6 +7,7 @@ const dockerSidebar: SidebarEntry[] = [
   { id: "init", label: "Script d'initialisation" },
   { id: "volumes", label: "Volumes & sauvegardes" },
   { id: "verification", label: "Vérifications" },
+  { id: "inspection", label: "Commandes utiles" },
   { id: "troubleshooting", label: "Dépannage" }
 ];
 
@@ -191,6 +192,25 @@ docker compose down -v`,
     title: "Vérifier le provisioning",
     description: "Exposez une commande psql ou un test automatisé pour contrôler l'état.",
     code: dockerQuickStartCards[2].command,
+    codeLanguage: "bash"
+  },
+  {
+    id: "inspection",
+    title: "Commandes utiles pour inspecter",
+    description: "Visualisez l'état des containers, volumes et lancez des requêtes à la volée.",
+    code: `# containers actifs + ports
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# surveiller CPU/RAM
+docker stats postgres
+
+# ouvrir un shell et requêter
+docker compose exec postgres bash -c "psql -U $POSTGRES_USER -d $POSTGRES_DB -c '\dt app.*'"`,
+    bullets: [
+      "docker ps --format ... facilite la lecture depuis une CI",
+      "docker stats/postgres identifie rapidement un container saturé",
+      "docker exec / psql permet d'interroger les données sans quitter le terminal"
+    ],
     codeLanguage: "bash"
   },
   {

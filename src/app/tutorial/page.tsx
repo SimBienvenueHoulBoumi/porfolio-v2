@@ -9,6 +9,7 @@ import { tutorialContent, tutorialStacks, TutorialStack } from "@/data/tutorial"
 import ConsoleWindow from "@/components/ui/ConsoleWindow";
 import InteractivePlayground from "@/components/ui/InteractivePlayground";
 import { useTheme } from "@/context/ThemeContext";
+import Button from "@/components/ui/Button";
 
 const TutorialPage = () => {
   const [isReady, setIsReady] = useState(false);
@@ -23,7 +24,8 @@ const TutorialPage = () => {
     node: "Node.js",
     spring: "Spring Boot",
     ansible: "Ansible",
-    docker: "Docker"
+    docker: "Docker",
+    linux: "Linux"
   };
   const sectionPaths: Partial<Record<TutorialStack, Record<string, string>>> = {
     node: {
@@ -56,6 +58,14 @@ const TutorialPage = () => {
       volumes: "docker/",
       verification: "docker/",
       troubleshooting: "docker/"
+    },
+    linux: {
+      files: "/etc/passwd",
+      processes: "/proc/",
+      services: "/etc/systemd/system/",
+      disk: "/etc/fstab",
+      ssh: "/etc/ssh/sshd_config",
+      users: "/etc/group"
     }
   };
   const introSectionIds = ["intro", "setup", "structure"];
@@ -433,6 +443,24 @@ const TutorialPage = () => {
                     <FiChevronRight className="text-sm" />
                   </a>
                 ))}
+              </div>
+            </section>
+            <section className={`rounded-3xl px-6 py-6 sm:px-8 ${themeTokens.card}`}>
+              <h3 className={`heading-lg ${themeTokens.strong}`}>Soutenir mes recherches</h3>
+              <p className={`body-base ${themeTokens.muted}`}>
+                Ces tutoriels restent gratuits et évolutifs grâce au temps passé en veille et en expérimentation. Si vous souhaitez encourager ce travail,
+                vous pouvez offrir un café.
+              </p>
+              <div className="mt-4">
+                <Button
+                  as="a"
+                  href="https://buymeacoffee.com/simdev"
+                  isAurora={theme === "aurora"}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Offrir un café
+                </Button>
               </div>
             </section>
           </div>
