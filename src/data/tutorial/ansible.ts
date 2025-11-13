@@ -72,7 +72,7 @@ const ansibleProjectTree = `ansible/
 const ansibleProjectFiles: ProjectFile[] = [
   {
     path: "ansible/ansible.cfg",
-    description: "Configuration locale : active le SSH multiplexing, force l'inventaire par défaut et centralise les callbacks.",
+    description: "Configuration locale alignée sur la doc Ansible (https://docs.ansible.com/ansible/latest/reference_appendices/config.html) : SSH multiplexing, inventaire par défaut et callbacks centralisés.",
     snippet: `[defaults]
 inventory = ./inventory.ini
 remote_user = ubuntu
@@ -85,7 +85,7 @@ pipelining = True`,
   },
   {
     path: "ansible/inventory.ini",
-    description: "Inventaire statique avec un groupe db dédié.",
+    description: "Inventaire statique avec un groupe db dédié, tel que décrit dans le guide officiel (https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html).",
     snippet: `[db]
 db01 ansible_host=192.168.1.20 ansible_user=ubuntu ansible_become=true
 
@@ -95,7 +95,7 @@ ansible_python_interpreter=/usr/bin/python3`,
   },
   {
     path: "ansible/group_vars/db.yml",
-    description: "Variables partagées par le groupe db : version, ports, chemins de templates.",
+    description: "Variables partagées par le groupe db (version, ports, templates) conformément au guide group_vars (https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#group-variables).",
     snippet: `postgres_version: "15"
 postgres_listen_address: "0.0.0.0"
 postgres_port: 5432
@@ -104,7 +104,7 @@ postgres_data_dir: /var/lib/postgresql/15/main`,
   },
   {
     path: "ansible/roles/postgres/tasks/main.yml",
-    description: "Rôle principal pour installer Postgres, créer les dossiers et déployer les templates.",
+    description: "Rôle principal qui suit la référence Ansible sur les rôles (https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html) pour installer Postgres et déployer les templates.",
     snippet: `- name: Installer les dépendances APT
   ansible.builtin.apt:
     name:
@@ -123,7 +123,7 @@ postgres_data_dir: /var/lib/postgresql/15/main`,
   },
   {
     path: "ansible/roles/postgres/templates/postgresql.conf.j2",
-    description: "Template de configuration Postgres personnalisable via les variables.",
+    description: "Template Postgres piloté par les variables, comme documenté pour le module template (https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html).",
     snippet: `listen_addresses = '{{ postgres_listen_address }}'
 port = {{ postgres_port }}
 max_connections = 100
@@ -133,7 +133,7 @@ wal_level = replica`,
   },
   {
     path: "ansible/roles/postgres/handlers/main.yml",
-    description: "Handlers déclenchés lors des changements de templates ou de services.",
+    description: "Handlers déclenchés lors des changements, conformément au guide officiel (https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html).",
     snippet: `- name: Restart postgres
   ansible.builtin.service:
     name: postgresql
@@ -142,7 +142,7 @@ wal_level = replica`,
   },
   {
     path: "ansible/playbooks/postgres.yml",
-    description: "Playbook orchestrant l'installation Postgres via le rôle dédié.",
+    description: "Playbook orchestrant l'installation Postgres via le rôle dédié, selon la doc Ansible Playbooks (https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html).",
     snippet: `- name: Provisionner Postgres
   hosts: db
   become: true
@@ -152,7 +152,7 @@ wal_level = replica`,
   },
   {
     path: "molecule/default/molecule.yml",
-    description: "Scénario Molecule pour tester le rôle postgres dans un conteneur ephemeral.",
+    description: "Scénario Molecule pour tester le rôle Postgres, conforme à la doc officielle (https://ansible.readthedocs.io/projects/molecule/).",
     snippet: `dependency:
   name: galaxy
 platforms:
@@ -166,7 +166,7 @@ provisioner:
   },
   {
     path: ".github/workflows/ansible.yml",
-    description: "Workflow qui lance lint + Molecule sur chaque PR.",
+    description: "Workflow GitHub Actions qui lance lint + Molecule sur chaque PR, comme préconisé par ansible-lint (https://ansible.readthedocs.io/projects/lint/en/latest/) et GitHub Actions (https://docs.github.com/actions).",
     snippet: `name: ansible-ci
 on:
   pull_request:
@@ -192,7 +192,7 @@ const ansibleSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "On utilise Ansible pour provisionner Postgres 15 sur les hôtes du groupe db : structure pro (ansible.cfg, inventory, roles), variables explicites et commandes de run.",
+    description: "On provisionne Postgres 15 avec Ansible en suivant la user guide officielle (https://docs.ansible.com/ansible/latest/user_guide/index.html) : ansible.cfg, inventaire, rôles et commandes maîtrisées.",
     bullets: [
       "Inventaire clair (inventory.ini) + group_vars pour factoriser la config",
       "Rôles séparés (common, postgres) pour réutiliser les tâches",
@@ -202,7 +202,7 @@ const ansibleSections: TutorialSection[] = [
   {
     id: "setup",
     title: "Installation",
-    description: "Créer un environnement isolé puis installer la version d'Ansible voulue.",
+    description: "Créez un environnement isolé puis installez Ansible comme indiqué dans le guide d'installation (https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).",
     code: `python -m venv .venv
 source .venv/bin/activate
 pip install ansible==9.0.0`,
@@ -215,7 +215,7 @@ pip install ansible==9.0.0`,
   {
     id: "vars",
     title: "Variables & inventaire",
-    description: "Définissez vos hôtes et variables séparément pour simplifier les overrides.",
+    description: "Définissez vos hôtes et variables séparément, conformément aux chapitres inventaire + variables de la doc (https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html).",
     code: `# inventory.ini
 [db]
 db01 ansible_host=192.168.1.20 ansible_user=ubuntu ansible_become=true
@@ -233,7 +233,7 @@ postgres_port: 5432`,
   {
     id: "roles",
     title: "Rôles & handlers",
-    description: "Les rôles encapsulent la logique (install, config, templates) et déclenchent des handlers si besoin.",
+    description: "Les rôles encapsulent installation/configuration selon la doc officielle sur les rôles (https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html) et déclenchent des handlers.",
     code: `# roles/postgres/tasks/main.yml
 - name: Installer Postgres {{ postgres_version }}
   ansible.builtin.apt:
@@ -255,7 +255,7 @@ postgres_port: 5432`,
   {
     id: "playbook",
     title: "Playbook principal",
-    description: "Le playbook agrège tout : inventaire db, escalade sudo, exécution du rôle postgres.",
+    description: "Le playbook agrège inventaire db, escalade sudo et rôle postgres comme expliqué dans la doc Playbooks (https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html).",
     code: `- name: Provisionner Postgres
   hosts: db
   become: true
@@ -272,7 +272,7 @@ postgres_port: 5432`,
   {
     id: "commands",
     title: "Commandes utiles",
-    description: "Exemples de commandes pour tester, exécuter en mode check ou dépanner.",
+    description: "Exemples de commandes issues du guide ad-hoc/CLI (https://docs.ansible.com/ansible/latest/cli/ansible.html) pour tester, faire du check ou dépanner.",
     code: `# tester la connexion SSH
 ansible db -i inventory.ini -m ping
 
@@ -294,7 +294,7 @@ ansible db -i inventory.ini -m shell -a \"psql -U postgres -c 'SELECT 1'\"`,
   {
     id: "quality",
     title: "Qualité & CI",
-    description: "ansible-lint + Molecule vérifient l'idempotence et vos workflows GitHub automatisent les checks.",
+    description: "ansible-lint + Molecule vérifient l'idempotence conformément aux docs officielles (https://ansible.readthedocs.io/projects/lint/en/latest/ et https://ansible.readthedocs.io/projects/molecule/) tandis que la CI GitHub automatise les checks.",
     code: `ansible-lint ansible/
 cd ansible && molecule test
 

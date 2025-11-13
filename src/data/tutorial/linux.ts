@@ -82,7 +82,7 @@ const linuxProjectTree = `/
 const linuxProjectFiles: ProjectFile[] = [
   {
     path: "/etc/passwd",
-    description: "Base des utilisateurs système avec leurs informations.",
+    description: "Base des utilisateurs système telle que décrite dans man 5 passwd (https://man7.org/linux/man-pages/man5/passwd.5.html).",
     snippet: `root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
@@ -91,7 +91,7 @@ devuser:x:1000:1000:Developer,,,:/home/devuser:/bin/bash`,
   },
   {
     path: "/etc/group",
-    description: "Définition des groupes et de leurs membres.",
+    description: "Définition des groupes et membres selon man 5 group (https://man7.org/linux/man-pages/man5/group.5.html).",
     snippet: `root:x:0:
 sudo:x:27:devuser
 www-data:x:33:www-data
@@ -100,7 +100,7 @@ developers:x:1001:devuser,alice,bob`,
   },
   {
     path: "/etc/ssh/sshd_config",
-    description: "Configuration du serveur SSH.",
+    description: "Configuration du serveur SSH en suivant le manuel officiel sshd_config (https://man.openbsd.org/sshd_config).",
     snippet: `#Port 22
 #AddressFamily any
 #ListenAddress 0.0.0.0
@@ -112,7 +112,7 @@ AuthorizedKeysFile .ssh/authorized_keys`,
   },
   {
     path: "/etc/systemd/system/myapp.service",
-    description: "Unité systemd pour une application personnalisée.",
+    description: "Unité systemd pour une application personnalisée conformément à la doc systemd (https://www.freedesktop.org/software/systemd/man/systemd.service.html).",
     snippet: `[Unit]
 Description=My Application
 After=network.target
@@ -135,7 +135,7 @@ const linuxSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "Linux est le système d'exploitation de référence pour les serveurs. Maîtriser les commandes de base permet d'administrer efficacement vos infrastructures.",
+    description: "Linux reste la référence serveur et ce panorama s'aligne sur les guides officiels (https://ubuntu.com/server/docs) pour couvrir les commandes indispensables à l'administration.",
     bullets: [
       "Navigation et gestion des fichiers (ls, cd, cp, mv, rm)",
       "Gestion des processus (ps, kill, top)",
@@ -146,7 +146,7 @@ const linuxSections: TutorialSection[] = [
   {
     id: "setup",
     title: "Installation et environnement",
-    description: "Installation d'une distribution Linux et configuration de base.",
+    description: "Installation d'une distribution Linux et configuration de base comme décrit dans les guides Ubuntu/CentOS (https://ubuntu.com/server/docs/install).",
     code: `# Ubuntu/Debian
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget vim htop tree
@@ -168,7 +168,7 @@ uname -a`,
   {
     id: "files",
     title: "Gestion des fichiers",
-    description: "Navigation, manipulation et archivage des fichiers.",
+    description: "Navigation, manipulation et archivage des fichiers conformément au manuel GNU Coreutils (https://www.gnu.org/software/coreutils/manual/coreutils.html).",
     code: `# Navigation
 pwd                    # répertoire actuel
 ls -la                 # liste détaillée
@@ -196,7 +196,7 @@ gunzip fichier.txt.gz`,
   {
     id: "processes",
     title: "Gestion des processus",
-    description: "Surveillance et contrôle des processus système.",
+    description: "Surveillance et contrôle des processus système en appliquant les pages man ps/top/kill (https://man7.org/linux/man-pages/man1/ps.1.html).",
     code: `# Surveillance
 ps aux | head -10     # liste des processus
 top                   # monitoring interactif
@@ -224,7 +224,7 @@ fg %1                 # ramener au premier plan`,
   {
     id: "services",
     title: "Gestion des services",
-    description: "Contrôle des services système avec systemd.",
+    description: "Contrôle des services système avec systemd tel que documenté par freedesktop.org (https://www.freedesktop.org/software/systemd/man/systemctl.html).",
     code: `# État des services
 systemctl status nginx
 systemctl list-units --type=service
@@ -254,7 +254,7 @@ journalctl -u nginx --since "1 hour ago"`,
   {
     id: "disk",
     title: "Disques et stockage",
-    description: "Gestion des partitions, systèmes de fichiers et espace disque.",
+    description: "Gestion des partitions, systèmes de fichiers et espace disque selon la documentation officielle util-linux (https://man7.org/linux/man-pages/man8/lsblk.8.html).",
     code: `# Espace disque
 df -h                   # utilisation des systèmes de fichiers
 du -sh /var/*          # taille des répertoires
@@ -284,7 +284,7 @@ lsof | grep deleted        # fichiers supprimés mais ouverts`,
   {
     id: "ssh",
     title: "SSH et transfert de fichiers",
-    description: "Configuration SSH et transfert sécurisé de fichiers entre serveurs.",
+    description: "Configuration SSH et transferts sécurisés en suivant les guides OpenSSH (https://www.openssh.com/manual.html).",
     code: `# Connexion SSH
 ssh user@192.168.1.100
 ssh -i ~/.ssh/id_rsa user@server.com
@@ -337,7 +337,7 @@ X11Forwarding no`,
   {
     id: "users",
     title: "Utilisateurs et droits",
-    description: "Gestion des comptes utilisateurs et des permissions.",
+    description: "Gestion des comptes utilisateurs et permissions comme décrits dans le guide administrateur GNU/Linux (https://tldp.org/LDP/sag/html/user-account-setup.html).",
     code: `# Gestion utilisateurs
 useradd -m -s /bin/bash newuser
 usermod -aG sudo newuser
@@ -375,7 +375,7 @@ getfacl fichier.txt`,
   {
     id: "network",
     title: "Configuration réseau",
-    description: "Outils de base pour diagnostiquer et configurer le réseau.",
+    description: "Outils de base pour diagnostiquer/configurer le réseau tels que référencés dans la doc iproute2 et net-tools (https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html).",
     code: `# Diagnostic
 ping google.com
 traceroute google.com
@@ -412,7 +412,7 @@ curl -X POST -d "data=value" https://api.example.com`,
   {
     id: "monitoring",
     title: "Monitoring et logs",
-    description: "Surveillance du système et analyse des logs.",
+    description: "Surveillance du système et analyse des logs en s'appuyant sur les manuels sysstat/journalctl (https://man7.org/linux/man-pages/man1/journalctl.1.html).",
     code: `# Ressources système
 free -h              # mémoire
 vmstat 1             # statistiques virtuelles

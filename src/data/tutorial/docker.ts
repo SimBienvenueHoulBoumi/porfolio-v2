@@ -69,7 +69,7 @@ const dockerProjectTree = `docker/
 const dockerProjectFiles: ProjectFile[] = [
   {
     path: "docker/docker-compose.yml",
-    description: "Décrit le service Postgres, le volume persistant et l'exécution du script d'init.",
+    description: "Décrit le service Postgres, le volume persistant et l'exécution du script d'init conformément au guide Compose (https://docs.docker.com/compose/compose-file/).",
     snippet: `services:
   postgres:
     image: postgres:15
@@ -92,7 +92,7 @@ volumes:
   },
   {
     path: "docker/init/001_schema.sql",
-    description: "Création du schéma cible et des rôles par défaut.",
+    description: "Création du schéma cible et des rôles par défaut, comme présenté dans la doc PostgreSQL (https://www.postgresql.org/docs/current/ddl-schemas.html).",
     snippet: `CREATE SCHEMA IF NOT EXISTS app;
 CREATE TABLE IF NOT EXISTS app.accounts (
   id UUID PRIMARY KEY,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS app.accounts (
   },
   {
     path: "docker/init/002_seed.sql",
-    description: "Jeu de données minimal chargé lors de l'initialisation.",
+    description: "Jeu de données minimal chargé à l'initialisation, en suivant les recommandations de l'image officielle Postgres (https://hub.docker.com/_/postgres).",
     snippet: `INSERT INTO app.accounts (id, email)
 VALUES
   (gen_random_uuid(), 'ops@sim.dev'),
@@ -113,7 +113,7 @@ ON CONFLICT DO NOTHING;`,
   },
   {
     path: "docker/scripts/wait-for-postgres.sh",
-    description: "Script optionnel pour attendre la disponibilité dans les pipelines.",
+    description: "Script optionnel pour attendre la disponibilité, appuyé sur psql tel que documenté ici : https://www.postgresql.org/docs/current/app-psql.html.",
     snippet: `#!/usr/bin/env bash
 set -euo pipefail
 until PGPASSWORD="$POSTGRES_PASSWORD" psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 1" >/dev/null 2>&1; do
@@ -129,7 +129,7 @@ const dockerSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "Compose + scripts init = un Postgres reproductible, prêt pour les devs comme pour la CI.",
+    description: "Compose + scripts init = un Postgres reproductible, exactement comme décrit dans la documentation Docker (https://docs.docker.com/compose/) et l'image officielle Postgres.",
     bullets: [
       "docker compose + env file",
       "Scripts SQL versionnés",
@@ -139,7 +139,7 @@ const dockerSections: TutorialSection[] = [
   {
     id: "setup",
     title: "Préparer l'environnement",
-    description: "Créer le dossier docker/, un .env et activer Docker Desktop ou Colima.",
+    description: "Créez le dossier docker/, un .env et activez Docker Desktop/Colima selon le guide officiel (https://docs.docker.com/get-started/).",
     code: `mkdir -p docker/init docker/scripts
 cp .env.example .env
 # vérifier que docker compose fonctionne
@@ -153,7 +153,7 @@ docker compose version`,
   {
     id: "compose",
     title: "Définir docker-compose.yml",
-    description: "Expose le service Postgres, monte les scripts et crée un volume persistant.",
+    description: "Expose le service Postgres, monte les scripts et crée un volume persistant conformément aux best practices Compose (https://docs.docker.com/compose/compose-file/).",
     code: dockerProjectFiles[0].snippet,
     bullets: [
       "⚠️ Lancez `docker compose up` uniquement après avoir créé .env et placé vos scripts dans init/",
@@ -164,7 +164,7 @@ docker compose version`,
   {
     id: "init",
     title: "Scripts d'initialisation",
-    description: "Tout fichier .sql placé dans docker-entrypoint-initdb.d est exécuté au premier démarrage.",
+    description: "Tout fichier .sql placé dans docker-entrypoint-initdb.d est exécuté au premier démarrage, comme expliqué dans la doc de l'image Postgres (https://hub.docker.com/_/postgres).",
     code: dockerProjectFiles[1].snippet,
     bullets: [
       "Utilisez un préfixe numéroté pour contrôler l'ordre",
@@ -175,7 +175,7 @@ docker compose version`,
   {
     id: "volumes",
     title: "Volumes & sauvegardes",
-    description: "Séparez vos données de l'image et automatisez les exports.",
+    description: "Séparez vos données de l'image et automatisez les exports en appliquant le guide Docker Volumes (https://docs.docker.com/storage/volumes/).",
     code: `# effectuer une sauvegarde
 PGPASSWORD=$POSTGRES_PASSWORD docker compose exec postgres   pg_dump -U $POSTGRES_USER -d $POSTGRES_DB > backups/$(date +%F).sql
 
@@ -190,14 +190,14 @@ docker compose down -v`,
   {
     id: "verification",
     title: "Vérifier le provisioning",
-    description: "Exposez une commande psql ou un test automatisé pour contrôler l'état.",
+    description: "Exposez une commande psql ou un test automatisé pour contrôler l'état, conformément à la doc psql (https://www.postgresql.org/docs/current/app-psql.html).",
     code: dockerQuickStartCards[2].command,
     codeLanguage: "bash"
   },
   {
     id: "inspection",
     title: "Commandes utiles pour inspecter",
-    description: "Visualisez l'état des containers, volumes et lancez des requêtes à la volée.",
+    description: "Visualisez l'état des containers, volumes et lancez des requêtes en suivant les commandes documentées par Docker (https://docs.docker.com/engine/reference/commandline/docker/).",
     code: `# containers actifs + ports
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
@@ -216,7 +216,7 @@ docker compose exec postgres bash -c "psql -U $POSTGRES_USER -d $POSTGRES_DB -c 
   {
     id: "troubleshooting",
     title: "Dépanner",
-    description: "Commandes utiles quand un init ou un volume échoue.",
+    description: "Commandes utiles quand un init ou un volume échoue, issues des sections dépannage de la doc Docker (https://docs.docker.com/config/containers/troubleshoot/).",
     code: `docker compose logs postgres
 # supprimer uniquement le container
 docker compose rm -sf postgres

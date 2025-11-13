@@ -67,7 +67,7 @@ const sqlProjectTree = `sql/
 const sqlProjectFiles: ProjectFile[] = [
   {
     path: "sql/foundations.sql",
-    description: "CRUD de base : filtrer, ordonner, agréger.",
+    description: "CRUD de base (filtrer, ordonner, agréger) conforme aux chapitres introductifs PostgreSQL (https://www.postgresql.org/docs/current/tutorial-select.html).",
     snippet: `-- Lecture ciblée
 SELECT order_id, amount, status
 FROM orders
@@ -89,7 +89,7 @@ WHERE c.segment = 'ENTERPRISE';`,
   },
   {
     path: "sql/analytics/joins.sql",
-    description: "Jointures et sous-requêtes pour enrichir la donnée.",
+    description: "Jointures, sous-requêtes et fenêtres telles que décrites dans la doc PostgreSQL (https://www.postgresql.org/docs/current/queries-with.html).",
     snippet: `WITH monthly_sales AS (
   SELECT date_trunc('month', purchased_at) AS mois,
          c.segment,
@@ -106,7 +106,7 @@ ORDER BY mois DESC;`,
   },
   {
     path: "sql/optimization/indexing.sql",
-    description: "Exemple d'EXPLAIN et d'indexation ciblée.",
+    description: "Exemple d'EXPLAIN et d'indexation ciblée, aligné sur la section EXPLAIN/Indexes (https://www.postgresql.org/docs/current/using-explain.html).",
     snippet: `EXPLAIN (ANALYZE, COSTS)
 SELECT *
 FROM orders
@@ -123,7 +123,7 @@ const sqlSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "SQL reste la brique essentielle pour transformer, agréger et fiabiliser la donnée métier.",
+    description: "SQL reste la brique essentielle pour transformer la donnée, comme le rappelle la documentation PostgreSQL (https://www.postgresql.org/docs/current/).",
     bullets: [
       "Niveau base : sélection, filtres, agrégations",
       "Niveau intermédiaire : jointures, sous-requêtes, CTE",
@@ -133,7 +133,7 @@ const sqlSections: TutorialSection[] = [
   {
     id: "setup",
     title: "Préparer l'environnement",
-    description: "Utilisez un Postgres jetable (Docker) + un dataset reproductible pour apprendre sans risque.",
+    description: "Utilisez un Postgres jetable (Docker) + un dataset reproductible, conformément aux bonnes pratiques documentées (https://www.postgresql.org/docs/current/tutorial-install.html).",
     code: sqlQuickStartCards[0].command,
     bullets: [
       "Placez vos scripts dans sql/ et rejouez-les avec psql",
@@ -144,7 +144,7 @@ const sqlSections: TutorialSection[] = [
   {
     id: "basics",
     title: "Fondamentaux",
-    description: "Sélections, filtres, ORDER BY, LIMIT, agrégations : ces primitives couvrent 80 % des besoins.",
+    description: "Sélections, filtres, ORDER BY, LIMIT, agrégations : primitives couvertes dans le tutoriel officiel PostgreSQL (https://www.postgresql.org/docs/current/tutorial-select.html).",
     code: sqlProjectFiles[0].snippet,
     bullets: [
       "Pensez « ensemble » : vos requêtes manipulent des sets, pas des boucles",
@@ -156,7 +156,7 @@ const sqlSections: TutorialSection[] = [
   {
     id: "intermediate",
     title: "Jointures & agrégations",
-    description: "Combinez plusieurs tables, créez des CTE pour structurer vos calculs intermédiaires.",
+    description: "Combinez plusieurs tables et créez des CTE, comme détaillé dans la doc WITH Queries (https://www.postgresql.org/docs/current/queries-with.html).",
     code: sqlProjectFiles[1].snippet,
     bullets: [
       "Les CTE rendent vos requêtes lisibles et testables",
@@ -167,7 +167,7 @@ const sqlSections: TutorialSection[] = [
   {
     id: "advanced",
     title: "CTE & fenêtres avancées",
-    description: "Va plus loin : fenêtres partitionnées, pivot, JSON, fonctions custom.",
+    description: "Va plus loin avec fenêtres partitionnées, pivot, JSON et fonctions custom en suivant la documentation Window Functions (https://www.postgresql.org/docs/current/tutorial-window.html).",
     code: `WITH cohort AS (
   SELECT customer_id,
          MIN(purchased_at) AS first_purchase
@@ -191,7 +191,7 @@ ORDER BY 1 DESC;`,
   {
     id: "optimization",
     title: "Optimisation & gouvernance",
-    description: "Utilisez EXPLAIN, la collecte de stats et les index pour garder des temps de réponse stables.",
+    description: "Utilisez EXPLAIN, les stats et les index comme recommandé par les chapitres Performance de PostgreSQL (https://www.postgresql.org/docs/current/performance-tips.html).",
     code: sqlProjectFiles[2].snippet,
     bullets: [
       "Ajoutez toujours EXPLAIN (ANALYZE) dans vos notes pour tracer l'impact d'un index",

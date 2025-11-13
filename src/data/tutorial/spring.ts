@@ -107,7 +107,7 @@ docker-compose.yml`;
 const springProjectFiles: ProjectFile[] = [
   {
     path: "src/main/java/simdev/demo/controllers/TasksController.java",
-    description: "Couche REST : expose /api/tasks et délègue au service.",
+    description: "Couche REST conforme au guide Spring Web MVC (https://docs.spring.io/spring-framework/reference/web/webmvc.html) : expose /api/tasks et délègue au service.",
     snippet: `@RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
@@ -130,7 +130,7 @@ public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
   },
   {
     path: "src/main/java/simdev/demo/services/TasksService.java",
-    description: "Contrat unique utilisé par le controller.",
+    description: "Contrat unique utilisé par le controller, conformément aux recommandations Spring sur l'injection de dépendances (https://docs.spring.io/spring-framework/reference/core/beans.html).",
     snippet: `public interface TasksService {
   Tasks createTask(TasksDto task);
   Tasks getTaskById(Long id);
@@ -142,7 +142,7 @@ public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
   },
   {
     path: "src/main/java/simdev/demo/servicesImpl/TasksServiceImpl.java",
-    description: "Facade métier principale, gère repository + mapper.",
+    description: "Façade métier principale alignée sur Spring Data JPA (https://spring.io/projects/spring-data-jpa) pour orchestrer repository et mapper.",
     snippet: `@Service
 @AllArgsConstructor
 public final class TasksServiceImpl implements TasksService {
@@ -159,7 +159,7 @@ public final class TasksServiceImpl implements TasksService {
   },
   {
     path: "src/main/java/simdev/demo/servicesImpl/TasksCreationServiceImpl.java",
-    description: "Use-case création : évite les doublons et applique le statut PENDING.",
+    description: "Use-case création inspiré du guide Spring Service Layer (https://docs.spring.io/spring-framework/reference/core/beans.html#beans-scopes) : il empêche les doublons et force le statut PENDING.",
     snippet: `@Service
 @AllArgsConstructor
 public class TasksCreationServiceImpl implements TasksCreationService {
@@ -179,7 +179,7 @@ public class TasksCreationServiceImpl implements TasksCreationService {
   },
   {
     path: "src/main/java/simdev/demo/repositories/TasksRepository.java",
-    description: "Repository Spring Data avec finder custom.",
+    description: "Repository Spring Data avec finder custom, tel que documenté dans https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.",
     snippet: `public interface TasksRepository extends JpaRepository<Tasks, Long> {
   Optional<Tasks> findByName(String name);
 }`,
@@ -187,7 +187,7 @@ public class TasksCreationServiceImpl implements TasksCreationService {
   },
   {
     path: "src/main/java/simdev/demo/dto/TasksDto.java",
-    description: "DTO simple (name/description/status) généré via Lombok.",
+    description: "DTO Lombok (https://projectlombok.org/features/Data) minimal qui transporte name/description/status côté controller.",
     snippet: `@Data
 @Builder
 @NoArgsConstructor
@@ -201,7 +201,7 @@ public class TasksDto {
   },
   {
     path: "src/main/java/simdev/demo/models/Tasks.java",
-    description: "Entité JPA avec timestamps auto.",
+    description: "Entité JPA annotée selon la spécification officielle (https://jakarta.ee/specifications/persistence/3.1/) avec timestamps automatiques.",
     snippet: `@Entity
 @Data
 @Builder
@@ -218,7 +218,7 @@ public class Tasks {
   },
   {
     path: "src/main/java/simdev/demo/exceptions/GlobalExceptionHandler.java",
-    description: "ControllerAdvice pour retourner des erreurs JSON propres.",
+    description: "ControllerAdvice conforme à la documentation Spring MVC (https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-controller-advice.html) pour renvoyer des erreurs JSON propres.",
     snippet: `@ControllerAdvice
 public final class GlobalExceptionHandler {
   @ExceptionHandler(TaskNotFoundException.class)
@@ -233,7 +233,7 @@ public final class GlobalExceptionHandler {
   },
   {
     path: "src/main/resources/application.yml",
-    description: "Configuration Postgres + port 5300 + Actuator activé.",
+    description: "Configuration Postgres + Actuator basée sur le guide Spring Boot application properties (https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).",
     snippet: `spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -251,7 +251,7 @@ server:
   },
   {
     path: "src/test/java/simdev/demo/services/unit/CreateTaskServiceTest.java",
-    description: "Test Mockito qui sécurise la création de tâche.",
+    description: "Test Mockito/JUnit 5 aligné sur la doc officielle (https://junit.org/junit5/docs/current/user-guide/) pour sécuriser la création de tâche.",
     snippet: `@ExtendWith(MockitoExtension.class)
 class CreateTaskServiceTest {
   @Test
@@ -267,7 +267,7 @@ class CreateTaskServiceTest {
 
   {
     path: ".github/workflows/ci.yml",
-    description: "Pipeline Maven : build, tests unitaires et publication des rapports.",
+    description: "Pipeline Maven GitHub Actions appliquant les recommandations officielles (https://docs.github.com/actions) pour build, tests et rapports.",
     snippet: `name: spring-api-ci
 on:
   push:
@@ -295,7 +295,7 @@ const springSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "demo-rest-api (Spring Boot 3 + Java 17) livre une API de gestion de tâches testée, documentée et prête pour la CI.",
+    description: "demo-rest-api (Spring Boot 3 + Java 17) suit la référence Spring Boot (https://docs.spring.io/spring-boot/docs/current/reference/html/) pour livrer une API de tâches testée, documentée et prête pour la CI.",
     bullets: [
       "Couche REST ultra fine grâce à TasksController + TasksService",
       "Use-cases séparés (Creation/Get/Update/Delete) pour isoler la logique",
@@ -305,7 +305,7 @@ const springSections: TutorialSection[] = [
   {
     id: "setup",
     title: "Installation",
-    description: "Générez le squelette avec Spring Initializr et installez les dépendances nécessaires.",
+    description: "Générez le squelette avec Spring Initializr (https://start.spring.io/) puis installez les dépendances nécessaires.",
     code: `curl https://start.spring.io/starter.zip \
   -d type=maven-project \
   -d language=java \
@@ -325,7 +325,7 @@ unzip demo-rest-api.zip && cd demo-rest-api
   {
     id: "config",
     title: "Configuration applicative",
-    description: "application.yml concentre datasource Postgres, JPA et Actuator.",
+    description: "application.yml concentre datasource Postgres, JPA et Actuator conformément à la doc Spring Boot (https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).",
     code: `spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -346,7 +346,7 @@ management:
   {
     id: "model",
     title: "Modèle et DTO",
-    description: "Définissez l'entité JPA et les DTO associés avant de câbler le reste.",
+    description: "Définissez l'entité JPA et les DTO associés comme indiqué dans la doc Jakarta Persistence (https://jakarta.ee/specifications/persistence/3.1/).",
     code: `@Entity
 @Data
 @Builder
@@ -366,7 +366,7 @@ public class Tasks {
   {
     id: "repository",
     title: "Repository et mapper",
-    description: "Ajoutez le repository Spring Data et les mappers qui convertissent DTO ⇄ entité.",
+    description: "Ajoutez le repository Spring Data et les mappers DTO ⇄ entité en suivant la référence Spring Data JPA (https://spring.io/projects/spring-data-jpa).",
     code: `public interface TasksRepository extends JpaRepository<Tasks, Long> {
   Optional<Tasks> findByName(String name);
 }
@@ -384,7 +384,7 @@ public class TasksMapper {
   {
     id: "services",
     title: "Services métiers",
-    description: "Implémentez les use-cases Create/Get/Update/Delete dans les services et leurs implémentations.",
+    description: "Implémentez les use-cases Create/Get/Update/Delete dans les services en reproduisant la séparation décrite par Spring (https://docs.spring.io/spring-framework/reference/core/beans.html#beans-scopes).",
     code: `@Service
 @AllArgsConstructor
 public final class TasksServiceImpl implements TasksService {
@@ -406,7 +406,7 @@ public final class TasksServiceImpl implements TasksService {
   {
     id: "controller",
     title: "Contrôleur REST",
-    description: "Exposez /api/tasks une fois que les services sont en place.",
+    description: "Exposez /api/tasks via Spring Web MVC comme recommandé par https://docs.spring.io/spring-framework/reference/web/webmvc.html.",
     code: `@RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
@@ -427,7 +427,7 @@ public final class TasksController {
   {
     id: "observability",
     title: "Observabilité",
-    description: "Actuator + logs structurés + docker-compose pour reproduire la prod.",
+    description: "Actuator + logs structurés + docker-compose reproduisent la prod selon le guide Actuator (https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html).",
     code: `management:
   endpoints:
     web.exposure.include: health,info
@@ -450,7 +450,7 @@ services:
   {
     id: "testing",
     title: "Tests",
-    description: "Chaque use-case possède des tests Mockito + un test d'intégration sur le controller.",
+    description: "Chaque use-case possède des tests Mockito + un test d'intégration sur le controller, conformément au guide JUnit 5 (https://junit.org/junit5/docs/current/user-guide/).",
     code: `@ExtendWith(MockitoExtension.class)
 class CreateTaskServiceTest {
   @Test
@@ -473,7 +473,7 @@ class CreateTaskServiceTest {
   {
     id: "delivery",
     title: "CI/CD",
-    description: "GitHub Actions et Jenkins déclenchent verify, publient les rapports et préparent l'image Docker.",
+    description: "GitHub Actions et Jenkins déclenchent verify, publient les rapports et préparent l'image Docker comme décrit dans les docs officielles (https://docs.github.com/actions et https://www.jenkins.io/doc/book/pipeline/).",
     code: `# .github/workflows/ci.yml (extrait)
 jobs:
   quality:

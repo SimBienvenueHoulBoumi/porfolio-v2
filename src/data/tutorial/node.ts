@@ -11,7 +11,77 @@ const nodeSidebar: SidebarEntry[] = [
   { id: "delivery", label: "CI/CD" }
 ];
 
-const nodeQuickStartCards: QuickStartCard[] = [];
+const nodeQuickStartCards: QuickStartCard[] = [
+  {
+    id: "init",
+    title: "Initialisation du projet",
+    minutes: "~3 min",
+    command: `mkdir my-node-api && cd my-node-api
+npm init -y
+npm install express zod pino pino-http helmet cors express-rate-limit dotenv
+npm install -D typescript tsx @types/node @types/express @types/cors @types/helmet @types/express-rate-limit vitest supertest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npx tsc --init
+npm pkg set type="module"
+npm pkg set scripts.dev="tsx src/server.ts"
+npm pkg set scripts.test="vitest"
+npm pkg set scripts.lint="eslint src --ext .ts"`,
+    bullets: [
+      "mkdir && cd : Crée et entre dans le répertoire projet – organisez votre code dans un dossier dédié pour isolation.",
+      "npm init -y : Initialise package.json avec valeurs par défaut ; c'est le manifeste de votre projet (dépendances, scripts).",
+      "npm install ... : Installe runtime deps (express pour routes, zod pour validation, pino pour logs, helmet/cors/rate-limit pour sécurité). Pourquoi ? Sécurité (helmet protège headers), CORS (accès cross-origin), rate-limit (anti-DDoS).",
+      "npm install -D ... : Dev deps pour build/test (typescript pour types, tsx pour exécution TS, vitest pour tests, eslint pour lint). -D = seulement en dev, pas en prod.",
+      "npx tsc --init : Génère tsconfig.json pour config TypeScript (strict mode recommandé pour catch erreurs tôt).",
+      "npm pkg set ... : Configure ESM (type='module' pour import/export moderne), scripts pour dev/test/lint – exécutez npm run dev pour lancer."
+    ],
+    language: "bash"
+  },
+  {
+    id: "env",
+    title: "Configuration .env",
+    minutes: "~1 min",
+    command: `cat <<'EOF' > .env.example
+PORT=3333
+ALLOWED_ORIGINS=http://localhost:3000
+LOG_LEVEL=debug
+EOF
+cp .env.example .env`,
+    bullets: [
+      "cat <<'EOF' > .env.example : Crée un template .env avec vars critiques – PORT pour serveur, ALLOWED_ORIGINS pour CORS whitelist, LOG_LEVEL pour Pino (debug/info/error).",
+      "Pourquoi .env ? Sépare config sensible (secrets) du code ; gitignore .env pour sécurité. .env.example guide les contributeurs.",
+      "cp .env.example .env : Copie pour usage local ; éditez avec vos valeurs (ex: PORT=8080 si conflit).",
+      "Astuce : Dans code, utilisez process.env.VAR ?? default ; validez avec zod pour types sûrs (Number(process.env.PORT))."
+    ],
+    language: "bash"
+  },
+  {
+    id: "tsconfig",
+    title: "Configurer TypeScript",
+    minutes: "~2 min",
+    command: `cat <<'EOF' > tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist"
+  },
+  "include": ["src", "tests"]
+}
+EOF`,
+    bullets: [
+      '"target": "ES2022" : Compile vers JS moderne (async/await natif) ; compatible Node 18+.',
+      '"module": "NodeNext" : Support ESM (import/export) pour Node récent ; évite CommonJS legacy.',
+      '"strict": true : Active checks TS stricts (null checks, etc.) – catch bugs compile-time, pas runtime.',
+      '"include": ["src", "tests"] : TS scanne seulement ces dossiers ; ignore node_modules pour vitesse.',
+      "Pourquoi ? tsconfig assure cohérence équipe ; testez avec npx tsc --noEmit pour valider sans build."
+    ],
+    language: "json"
+  }
+];
 
 const nodeProjectTree = `src/
   config/
@@ -36,7 +106,7 @@ tests/
 const nodeProjectFiles: ProjectFile[] = [
   {
     path: "src/server.ts",
-    description: "Point d'entrée : charge la configuration, sécurise Express et instancie les middlewares critiques.",
+    description: "Ce fichier lance toute l'API conformément au guide Express (https://expressjs.com/fr/starter/hello-world.html). Il charge la configuration, crée l'application, empile les protections (logs, sécurité, CORS, limiteur) puis branche les routes avant d'écouter sur le port défini, comme recommandé par la documentation officielle.",
     snippet: `import express from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -47,12 +117,15 @@ import { loadEnv } from "./config/env.js";
 import { logger } from "./config/logger.js";
 
 const config = loadEnv();
+
 export const app = express();
+
 app.use(pinoHttp({ logger }));
 app.use(helmet());
 app.use(cors({ origin: config.allowedOrigins }));
 app.use(rateLimit({ windowMs: 60_000, max: 100 }));
 app.use(express.json());
+
 app.use("/users", userRoutes);
 
 const port = config.port;
@@ -62,11 +135,12 @@ if (import.meta.url === \`file://\${process.argv[1]}\`) {
     logger.info({ port }, "API prête");
   });
 }`,
+
     language: "typescript"
   },
   {
     path: "src/config/env.ts",
-    description: "Centralise la lecture des variables d'environnement et fournit des valeurs sûres.",
+    description: "Ce module suit la documentation officielle dotenv (https://github.com/motdotla/dotenv#readme) : il lit .env, applique des valeurs de secours et expose un objet prêt à l'emploi afin que le code consomme la configuration validée sans manipuler la console.",
     snippet: `import "dotenv/config";
 
 export const loadEnv = () => {
@@ -77,25 +151,34 @@ export const loadEnv = () => {
     logLevel: process.env.LOG_LEVEL ?? "info"
   } as const;
 };`,
+
     language: "typescript"
   },
   {
     path: "src/config/logger.ts",
-    description: "Logger Pino configuré pour différencier le dev (pino-pretty) de la prod.",
+    description: "Ce fichier prépare Pino conformément au guide officiel (https://getpino.io/#/). Il lit vos variables d'environnement pour fixer le niveau de logs et adapte le transport JSON/pretty afin que chaque message reste exploitable quel que soit le contexte.",
     snippet: `import pino from "pino";
 
 const isProd = process.env.NODE_ENV === "production";
+
 export const logger = pino({
   level: process.env.LOG_LEVEL ?? "info",
   transport: isProd
     ? undefined
-    : { target: "pino-pretty", options: { colorize: true, singleLine: false } }
+    : {
+        target: "pino-pretty",
+        options: {
+          colorize: true,
+          singleLine: false
+        }
+      }
 });`,
+
     language: "typescript"
   },
   {
     path: "src/routes/userRoutes.ts",
-    description: "Routes HTTP : validation Zod + délégation au service.",
+    description: "Ce fichier rassemble les points d'entrée HTTP liés aux utilisateurs en appliquant la structure Router décrite dans la doc Express (https://expressjs.com/fr/guide/routing.html). Il relie validation, service métier et réponses HTTP pour faire transiter la requête jusqu'à la réponse officielle.",
     snippet: `import { Router } from "express";
 import { userService } from "../services/userService.js";
 import { validate } from "../middlewares/validate.js";
@@ -113,11 +196,12 @@ router.get("/", (_req, res) => {
 });
 
 export default router;`,
+
     language: "typescript"
   },
   {
     path: "src/services/userService.ts",
-    description: "Service métier simplifié pour centraliser la logique et faciliter les tests.",
+    description: "Le service encapsule la logique métier (création et lecture) en suivant la recommandation Node de séparer le domaine de la couche HTTP. Il utilise crypto.randomUUID comme décrit dans la doc officielle Node (https://nodejs.org/api/crypto.html#cryptorandomuuidoptions), ce qui facilitera la migration vers une base réelle.",
     snippet: `import { CreateUserDTO } from "../schemas/userSchema.js";
 
 const store: Array<CreateUserDTO & { id: string }> = [];
@@ -132,11 +216,12 @@ export const userService = {
     return store;
   }
 };`,
+
     language: "typescript"
   },
   {
     path: "src/schemas/userSchema.ts",
-    description: "Schéma Zod partagé entre runtime et TypeScript.",
+    description: "Ce module décrit la forme d'un utilisateur avec Zod conformément à la référence officielle (https://zod.dev/?id=basic-usage) et génère le type TypeScript associé. Ce contrat garantit que toute donnée non conforme est rejetée avant d'atteindre la suite de la pile.",
     snippet: `import { z } from "zod";
 
 export const createUserSchema = z.object({
@@ -145,61 +230,88 @@ export const createUserSchema = z.object({
 });
 
 export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
+
     language: "typescript"
   },
   {
     path: "src/middlewares/validate.ts",
-    description: "Middleware générique pour propager une erreur 400 si le schéma échoue.",
+    description: "Ce middleware applique un schéma Zod sur req.body pour respecter la mécanique des middlewares Express décrite dans la doc officielle (https://expressjs.com/fr/guide/using-middleware.html). Il répond en 400 en cas d'erreur et ne laisse passer que des données conformes.",
     snippet: `import { AnyZodObject } from "zod";
 import { Request, Response, NextFunction } from "express";
 
-export const validate = (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
-  const result = schema.safeParse(req.body);
-  if (!result.success) {
-    return res.status(400).json({ errors: result.error.flatten() });
-  }
-  req.body = result.data;
-  return next();
-};`,
+export const validate = (schema: AnyZodObject) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json({ errors: result.error.flatten() });
+    }
+
+    req.body = result.data;
+    return next();
+  };`,
+
     language: "typescript"
   },
   {
     path: ".env.example",
-    description: "Variables d'environnement documentées pour guider la configuration.",
-    snippet: `# .env.example
-PORT=3333
+    description: "Ce fichier d'exemple suit la pratique décrite dans la documentation dotenv (https://github.com/motdotla/dotenv#usage). Chacun le copie en .env avec ses valeurs, ce qui aligne l'équipe sans exposer de secrets dans le dépôt.",
+    snippet: `PORT=3333
 ALLOWED_ORIGINS=http://localhost:3000
 LOG_LEVEL=debug`,
+
     language: "ini"
   },
   {
     path: "tests/user.test.ts",
-    description: "Test Vitest + Supertest pour sécuriser la route POST /users.",
-    snippet: `// tests/user.test.ts
-import request from "supertest";
+    description: "Cette suite Vitest + Supertest applique la démarche décrite dans la doc officielle Vitest (https://vitest.dev/guide/) pour simuler des requêtes HTTP et vérifier les réponses, offrant un filet de sécurité reproductible sans scénarios manuels.",
+    snippet: `import request from "supertest";
 import { app } from "../src/server";
 
-describe("users", () => {
-  it("crée un utilisateur", async () => {
+describe("users API", () => {
+  it("crée un utilisateur valide", async () => {
+    const payload = { email: "ops@sim.dev", role: "admin" };
+
     const res = await request(app)
       .post("/users")
-      .send({ email: "ops@sim.dev", role: "admin" });
+      .send(payload)
+      .expect(201);
 
-    expect(res.status).toBe(201);
-    expect(res.body.email).toBe("ops@sim.dev");
+    expect(res.body).toHaveProperty("id");
+    expect(res.body.email).toBe(payload.email);
+    expect(res.body.role).toBe(payload.role);
+  });
+
+  it("liste les utilisateurs", async () => {
+    const res = await request(app)
+      .get("/users")
+      .expect(200);
+
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it("rejette email invalid", async () => {
+    await request(app)
+      .post("/users")
+      .send({ email: "invalid", role: "admin" })
+      .expect(400);
   });
 });`,
+
     language: "typescript"
   },
   {
     path: ".github/workflows/ci.yml",
-    description: "Pipeline GitHub Actions qui installe, lint et teste l'API à chaque push.",
-    snippet: `name: api-ci
+    description: "Ce workflow GitHub Actions suit la référence officielle (https://docs.github.com/actions) pour rejouer installation, lint et tests à chaque push/PR, fournissant un feu vert automatique avant même de consulter les logs locaux.",
+    snippet: `name: API CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -212,6 +324,7 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test -- --runInBand`,
+
     language: "yaml"
   }
 ];
@@ -282,7 +395,7 @@ EOF`,
   {
     id: "validation",
     title: "Définir les DTO & la validation",
-    description: "Zod décrit vos DTO et sert de source unique pour les validations runtime.",
+    description: "Zod décrit vos DTO selon la documentation officielle (https://zod.dev/?id=basic-usage) et devient votre source unique pour les validations runtime.",
     code: `import { z } from 'zod';
 
 export const createUserSchema = z.object({
@@ -296,7 +409,6 @@ export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
       type: "playground",
       code: `import { z } from 'zod';
 
-// Test du schéma Zod
 const createUserSchema = z.object({
   email: z.string().email(),
   role: z.enum(['admin', 'viewer']),
@@ -304,7 +416,6 @@ const createUserSchema = z.object({
 
 type CreateUserDTO = z.infer<typeof createUserSchema>;
 
-// Test valide
 const validUser: CreateUserDTO = {
   email: "user@example.com",
   role: "admin"
@@ -312,7 +423,6 @@ const validUser: CreateUserDTO = {
 
 console.log("Utilisateur valide:", validUser);
 
-// Test invalide (va lever une erreur)
 try {
   createUserSchema.parse({
     email: "invalid-email",
@@ -327,10 +437,9 @@ try {
   {
     id: "services",
     title: "DTO & Service métier",
-    description: "Commencez par définir vos DTO avec Zod pour la validation, puis centralisez la logique métier dans un service testable.",
+    description: "Commencez par définir vos DTO avec Zod (https://zod.dev) puis centralisez la logique métier dans un service testable comme le recommandent les guides Express sur la séparation des responsabilités.",
     code: `import { z } from 'zod';
 
-// DTO & Validation
 export const createUserSchema = z.object({
   email: z.string().email(),
   role: z.enum(['admin', 'viewer']),
@@ -338,7 +447,6 @@ export const createUserSchema = z.object({
 
 export type CreateUserDTO = z.infer<typeof createUserSchema>;
 
-// Service métier
 const store: Array<CreateUserDTO & { id: string }> = [];
 
 export const userService = {
@@ -356,7 +464,6 @@ export const userService = {
       type: "playground",
       code: `import { z } from 'zod';
 
-// Test du schéma Zod
 const createUserSchema = z.object({
   email: z.string().email(),
   role: z.enum(['admin', 'viewer']),
@@ -364,7 +471,6 @@ const createUserSchema = z.object({
 
 type CreateUserDTO = z.infer<typeof createUserSchema>;
 
-// Test valide
 const validUser: CreateUserDTO = {
   email: "user@example.com",
   role: "admin"
@@ -372,7 +478,6 @@ const validUser: CreateUserDTO = {
 
 console.log("Utilisateur valide:", validUser);
 
-// Test invalide (va lever une erreur)
 try {
   createUserSchema.parse({
     email: "invalid-email",
@@ -387,7 +492,7 @@ try {
   {
     id: "routes",
     title: "Définir les routes",
-    description: "Une fois DTO + service prêts, exposez les endpoints avec Router d'Express et votre middleware de validation.",
+    description: "Une fois DTO + service prêts, exposez les endpoints avec Router d'Express conformément à la doc officielle (https://expressjs.com/fr/guide/routing.html) et branchez votre middleware de validation.",
     code: `import { Router } from 'express';
 import { validate } from '../middlewares/validate.js';
 import { createUserSchema } from '../schemas/userSchema.js';
@@ -409,7 +514,7 @@ export default router;`,
   {
     id: "observability",
     title: "Observabilité",
-    description: "Injectez Pino pour tracer chaque requête et exposez une route /health monitorable.",
+    description: "Injectez Pino pour tracer chaque requête comme dans la documentation officielle (https://getpino.io/#/) puis exposez une route /health monitorable pour respecter les recommandations Node sur les sondes de santé.",
     code: `import pino from 'pino';
 import pinoHttp from 'pino-http';
 
@@ -428,9 +533,8 @@ app.get('/health', (_req, res) => {
   {
     id: "testing",
     title: "Tester et monitorer",
-    description: "Vitest + supertest simulent vos requêtes HTTP et vous assure que les routes restent stables. Terminez toujours par un run de tests.",
-    code: `// tests/user.test.ts
-import request from 'supertest';
+    description: "Vitest + Supertest simulent vos requêtes HTTP conformément au guide Vitest (https://vitest.dev/guide/) afin de garantir la stabilité des routes ; terminez toujours par un run de tests.",
+    code: `import request from 'supertest';
 import { app } from '../server';
 
 test('POST /users crée un compte', async () => {
@@ -443,16 +547,11 @@ test('POST /users crée un compte', async () => {
     codeLanguage: "typescript",
     interactive: {
       type: "demo",
-      code: `// Exemple de test complet avec Vitest
-import request from 'supertest';
+      code: `import request from 'supertest';
 import { app } from '../src/server.js';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 describe('User API', () => {
-  beforeEach(() => {
-    // Nettoyer la base de données de test
-  });
-
   describe('POST /users', () => {
     it('should create a user with valid data', async () => {
       const userData = {
@@ -497,7 +596,6 @@ describe('User API', () => {
 
   describe('GET /users', () => {
     it('should return all users', async () => {
-      // Créer quelques utilisateurs d'abord
       await request(app)
         .post('/users')
         .send({ email: 'user1@example.com', role: 'admin' });
@@ -521,9 +619,8 @@ describe('User API', () => {
   {
     id: "delivery",
     title: "CI/CD prêt à l'emploi",
-    description: "GitHub Actions vérifie chaque push et un pipeline Jenkins mirroré reste disponible pour les exécutions on-prem.",
-    code: `# .github/workflows/ci.yml (extrait)
-jobs:
+    description: "GitHub Actions vérifie chaque push en suivant la documentation officielle (https://docs.github.com/actions) tandis qu'un pipeline Jenkins mirroré reste disponible pour les exécutions on-prem.",
+    code: `jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
@@ -536,7 +633,6 @@ jobs:
       - run: npm run lint
       - run: npm test -- --runInBand
 
-// Jenkinsfile (équivalent)
 pipeline {
   agent any
   stages {
