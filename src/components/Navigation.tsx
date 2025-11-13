@@ -6,7 +6,7 @@ import { useTheme } from "@/context/ThemeContext";
 const navItems: { id: string; label: string }[] = [
   { id: "hero", label: "Accueil" },
   { id: "skills", label: "Compétences" },
-  { id: "tutorial", label: "Méthode" },
+  { id: "tutorial", label: "Tutoriels" },
   { id: "experience", label: "Expérience" },
   { id: "contact", label: "Contact" }
 ];
@@ -99,6 +99,7 @@ export default function Navigation() {
             >
               Tutoriels
             </Link>
+
           </div>
 
           <div className="md:hidden">
@@ -230,6 +231,7 @@ function MobileMenu({
             >
               Tutoriels
             </Link>
+
             </div>
           </div>
           </div>
