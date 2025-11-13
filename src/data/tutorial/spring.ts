@@ -22,7 +22,7 @@ const springQuickStartCards: QuickStartCard[] = [
   -d type=maven-project \\
   -d language=java \\
   -d bootVersion=3.3.2 \\
-  -d dependencies=web,data-jpa,postgresql,lombok,validation \\
+  -d dependencies=web,data-jpa,postgresql,lombok,validation,actuator,security \\
   -d groupId=simdev.demo \\
   -d artifactId=demo-rest-api \\
   -o demo-rest-api.zip
@@ -44,9 +44,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
-./mvnw spring-boot:run --args='--spring.profiles.active=local'`,
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+./mvnw spring-boot:run`,
     bullets: [
-      "Adaptez username/password si besoin, sinon utilisez docker-compose pour Postgres",
+      "Docker Compose lance Postgres + pgAdmin pour tester localement",
       "Profils Spring (local/prod) permettent d'activer les bons secrets et la sécurité"
     ],
     language: "yaml"
@@ -230,7 +233,7 @@ public final class GlobalExceptionHandler {
   },
   {
     path: "src/main/resources/application.yml",
-    description: "Configuration Postgres + port 5200 + Swagger.",
+    description: "Configuration Postgres + port 5300 + Actuator activé.",
     snippet: `spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -239,8 +242,11 @@ public final class GlobalExceptionHandler {
   jpa:
     hibernate:
       ddl-auto: create-drop
+management:
+  endpoints:
+    web.exposure.include: health,info
 server:
-  port: 5200`,
+  port: 5300`,
     language: "yaml"
   },
   {
@@ -258,36 +264,7 @@ class CreateTaskServiceTest {
 }`,
     language: "java"
   },
-  {
-    path: "src/main/resources/application.yml",
-    description: "Configuration centralisée des profils, datasource et Flyway.",
-    snippet: `spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
-  jpa:
-    hibernate:
-      ddl-auto: validate
-  flyway:
-    enabled: true
-    locations: classpath:db/migration`,
-    language: "yaml"
-  },
-  {
-    path: "docker-compose.yml",
-    description: "Stack locale Postgres + pgAdmin pour tester l'API.",
-    snippet: `services:
-  postgres:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"`,
-    language: "yaml"
-  },
+
   {
     path: ".github/workflows/ci.yml",
     description: "Pipeline Maven : build, tests unitaires et publication des rapports.",
@@ -348,7 +325,7 @@ unzip demo-rest-api.zip && cd demo-rest-api
   {
     id: "config",
     title: "Configuration applicative",
-    description: "application.yml concentre datasource, Flyway, profils et Actuator.",
+    description: "application.yml concentre datasource Postgres, JPA et Actuator.",
     code: `spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -356,13 +333,13 @@ unzip demo-rest-api.zip && cd demo-rest-api
     password: postgres
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
 management:
   endpoints:
     web.exposure.include: health,info`,
     bullets: [
-      "Séparez application-local.yml / application-prod.yml si besoin",
-      "Activez Flyway pour garder un historique versionné du schéma"
+      "Docker Compose lance Postgres + pgAdmin pour tester localement",
+      "ddl-auto: create-drop recrée le schéma à chaque démarrage"
     ],
     codeLanguage: "yaml"
   },
@@ -492,6 +469,7 @@ class CreateTaskServiceTest {
     ],
     codeLanguage: "java"
   },
+
   {
     id: "delivery",
     title: "CI/CD",
