@@ -26,7 +26,8 @@ const TutorialPage = () => {
     ansible: "Ansible",
     docker: "Docker",
     linux: "Linux",
-    sql: "SQL"
+    sql: "SQL",
+    nosql: "NoSQL"
   };
   const sectionPaths: Partial<Record<TutorialStack, Record<string, string>>> = {
     node: {
@@ -73,6 +74,12 @@ const TutorialPage = () => {
       intermediate: "sql/analytics/joins.sql",
       advanced: "sql/analytics/windows.sql",
       optimization: "sql/optimization/indexing.sql"
+    },
+    nosql: {
+      basics: "nosql/foundations.js",
+      queries: "nosql/analytics/aggregation.js",
+      indexing: "nosql/indexing.js",
+      design: "nosql/design/schema_patterns.js"
     }
   };
   const introSectionIds = ["intro", "setup", "structure"];
@@ -239,7 +246,7 @@ const TutorialPage = () => {
               <div className={themeTokens.navSection}>
                 <p className={themeTokens.navHeading}>Backend & DevOps</p>
                 <ul className={themeTokens.navList}>
-                  {tutorialStacks.filter(({ id }) => id !== "sql").map(({ id, label }) => {
+                  {tutorialStacks.filter(({ id }) => id !== "sql" && id !== "nosql").map(({ id, label }) => {
                     const isActive = stack === id;
                     const stackClasses = `${themeTokens.navItemBase} ${
                       isActive ? themeTokens.navItemActive : themeTokens.navItem
@@ -272,7 +279,7 @@ const TutorialPage = () => {
               <div className={themeTokens.navSection}>
                 <p className={themeTokens.navHeading}>Bases de données</p>
                 <ul className={themeTokens.navList}>
-                  {tutorialStacks.filter(({ id }) => id === "sql").map(({ id, label }) => {
+                  {tutorialStacks.filter(({ id }) => id === "sql" || id === "nosql").map(({ id, label }) => {
                     const isActive = stack === id;
                     const stackClasses = `${themeTokens.navItemBase} ${
                       isActive ? themeTokens.navItemActive : themeTokens.navItem
