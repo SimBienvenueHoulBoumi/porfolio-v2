@@ -123,6 +123,8 @@ export const SITE_CONTENT: SiteContent = {
     hero: {
       name: "Sim Bienvenue Houlboumi",
       tagline: "Ingénieur DevOps & spécialiste Spring Boot",
+      introduction:
+        "Je conçois des API sécurisées et des pipelines DevOps robustes pour accompagner les équipes backend & infra vers des déploiements fiables.",
       typewriter: [
         "Déployer des environnements DevOps prêts pour les équipes...",
         "Industrialiser des pipelines Jenkins de bout en bout...",
