@@ -74,7 +74,7 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
 
   if (isMobile) {
     const mobileShell = isAurora
-      ? "border-slate-200 bg-white"
+      ? "border-slate-300/80 bg-slate-100/90"
       : "border-slate-800/50 bg-slate-900";
     const mobileText = isAurora ? "text-slate-700" : "text-slate-100";
 
@@ -102,7 +102,7 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
         </button>
         {mobileOpen && (
           <div className={`mx-3 mb-3 rounded-2xl border ${mobileShell} px-4 py-3 ${mobileText}`}>
-            <pre className="whitespace-pre-wrap break-words text-[13px] leading-6 max-h-60 overflow-auto">
+            <pre className="whitespace-pre-wrap break-words text-[12px] leading-[1.5] sm:text-sm sm:leading-[1.75] max-h-60 overflow-auto">
               {textContent}
             </pre>
           </div>
@@ -112,9 +112,17 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
   }
 
   const desktopShell = isAurora
-    ? "border border-slate-200 bg-slate-50 text-slate-800"
+    ? "border border-slate-300/80 bg-slate-100/90 text-slate-800 shadow-[inset_0_0_30px_rgba(15,23,42,0.06)]"
     : "border border-slate-800/50 bg-slate-900 text-slate-100";
-  const highlightTheme = isAurora ? themes.duotoneLight : themes.nightOwl;
+  const highlightTheme = isAurora
+    ? {
+        ...themes.duotoneLight,
+        plain: {
+          ...themes.duotoneLight.plain,
+          backgroundColor: "rgba(148,163,184,0.08)"
+        }
+      }
+    : themes.nightOwl;
 
   return (
     <div className={`rounded-3xl ${desktopShell} ${className}`}>
@@ -125,8 +133,8 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
         <Highlight prism={Prism as never} code={textContent} language={language} theme={highlightTheme}>
           {({ className: highlightClassName, style, tokens, getLineProps, getTokenProps }) => (
             <pre
-              className={`${highlightClassName} overflow-x-auto whitespace-pre-wrap break-words text-sm leading-7`}
-              style={{ ...style, backgroundColor: "transparent" }}
+              className={`${highlightClassName} overflow-x-auto whitespace-pre-wrap break-words text-[12px] leading-[1.5] sm:text-[13px] sm:leading-[1.75] md:text-sm md:leading-[1.9] lg:text-[15px] lg:leading-[2.1]`}
+              style={{ ...style, backgroundColor: "transparent", wordBreak: "break-word" }}
             >
               {tokens.map((line, i) => {
                 const lineProps = getLineProps({ line, key: i });
@@ -134,7 +142,7 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
                 const safeLineKey = typeof lineKey === "string" || typeof lineKey === "number" ? lineKey : i;
                 return (
                   <div key={safeLineKey} {...lineRest} className={`table-row ${lineClassName ?? ""}`}>
-                    <span className="table-cell select-none pr-4 text-right text-[11px] opacity-60">
+                    <span className="table-cell select-none pr-4 text-right text-[9px] sm:text-[10px] md:text-[11px] opacity-60">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="table-cell">

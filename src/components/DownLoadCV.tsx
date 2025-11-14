@@ -6,7 +6,6 @@ import Button from "@/components/ui/Button";
 
 const COPY = {
   badge: "Version PDF · CV personnel",
-  title: "Consulter le CV",
   description: "Découvrez mon parcours en détail et gardez une copie pour plus tard.",
   view: "Voir le CV",
   download: "Télécharger"
@@ -27,17 +26,13 @@ const DownLoadCV = () => {
     ? "inline-flex items-center gap-2 rounded-full border border-sky-200/80 bg-sky-100/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-700"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-cyan-200";
 
-  const titleClass = isAurora ? "text-slate-800" : "text-white";
   const descriptionClass = isAurora ? "text-slate-600" : "text-slate-300";
 
   return (
     <div className={`${containerClasses} transition-all duration-500 hover-lift group/cv`}>
       <div className="space-y-2 text-center sm:text-left">
         <span className={`${badgeClasses} transition-all duration-300 group-hover/cv:scale-105`}>{copy.badge}</span>
-        <div className="space-y-1">
-          <h3 className={`text-base sm:text-lg font-semibold transition-colors duration-300 ${titleClass}`}>{copy.title}</h3>
-          <p className={`text-sm transition-colors duration-300 ${descriptionClass}`}>{copy.description}</p>
-        </div>
+        <p className={`text-sm sm:text-base transition-colors duration-300 ${descriptionClass}`}>{copy.description}</p>
       </div>
       <div className="mt-2 flex w-full max-w-xs flex-col gap-2 sm:mt-0 sm:w-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-end sm:gap-3">
         <Button

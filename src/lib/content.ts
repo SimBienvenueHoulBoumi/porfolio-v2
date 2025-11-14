@@ -10,7 +10,6 @@ export type HeroContent = {
   headline: [string, string, string];
   introduction: string;
   highlights: HeroHighlight[];
-  narrative: string;
   ctaPrimary: string;
   ctaSecondary: string;
   availability: string;
@@ -123,30 +122,28 @@ export type SiteContent = {
 export const SITE_CONTENT: SiteContent = {
     hero: {
       name: "Sim Bienvenue Houlboumi",
-      tagline: "Créateur de plateformes fiables",
+      tagline: "Ingénieur DevOps & spécialiste Spring Boot",
       typewriter: [
-        "Créer des microservices évolutifs...",
-        "Automatiser l’infrastructure comme du code...",
-        "Déployer avec des pipelines CI/CD..."
+        "Déployer des environnements DevOps prêts pour les équipes...",
+        "Industrialiser des pipelines Jenkins de bout en bout...",
+        "Automatiser qualité et sécurité avec Trivy & Snyk..."
       ],
-      headline: ["Ingénieur DevOps", "&", "Développeur Full-stack"],
-      introduction:
-        "J’accompagne les équipes produit vers un delivery continu : pipelines fiables, plateformes cloud résilientes et code taillé pour la valeur métier.",
-  highlights: [
-        { label: "Fréquence de déploiement", value: "x8" },
-        { label: "Incidents réduits", value: "-45%" },
-        { label: "Coûts cloud", value: "-18%" }
+      headline: ["Ingénieur DevOps", "&", "Spécialiste backend"],
+      highlights: [
+        { label: "Pipelines Jenkins", value: "Build → Test → Sécu" },
+        { label: "Quality gate", value: "Trivy + SonarQube" },
+        { label: "Stack locale", value: "Docker Compose complet" }
       ],
-      narrative:
-        "Du cadrage à la MEP : IaC, observabilité, microservices et culture d’ingénierie pour shipper vite, bien et sans surprises.",
       ctaPrimary: "Planifier un call",
-      ctaSecondary: "Découvrir les stacks",
-      availability: "Disponible pour de nouveaux challenges",
-      availabilityDescription: "On synchronise les objectifs, on déploie en continu.",
-      trustedStack: "Stack de confiance",
+      ctaSecondary: "Voir le portfolio",
+      availability: "Disponible pour des missions DevOps & backend",
+      availabilityDescription: "Audit express de vos pipelines ou design complet d’une plateforme CI/CD.",
+      trustedStack: "Stack actuelle",
       objective: [
-        "Livrer plus vite que le cycle logique, sans sacrifier la stabilité ni la maintenabilité.",
-        "Automatisation CI/CD, observabilité proactive et culture d’équipe orientée feedback."
+        "Développer des API REST Spring Boot et Node sécurisées, prêtes pour la scalabilité.",
+        "Concevoir des UI interactives (React/Next/Angular) pour exposer la valeur métier.",
+        "Déployer des stacks DevOps locales (Jenkins, Trivy, Nexus, SonarQube, Snyk) via Docker Compose.",
+        "Automatiser build, tests, qualité et sécurité dans des pipelines Jenkins déclaratifs."
       ]
     },
     skills: {

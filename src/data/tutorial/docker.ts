@@ -129,75 +129,75 @@ const dockerSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "Compose + scripts init = un Postgres reproductible, exactement comme décrit dans la documentation Docker (https://docs.docker.com/compose/) et l'image officielle Postgres.",
+    description: "Configuration d'un environnement PostgreSQL reproductible avec Docker Compose, scripts d'initialisation SQL et vérifications automatisées, suivant les meilleures pratiques Docker.",
     bullets: [
-      "docker compose + env file",
-      "Scripts SQL versionnés",
-      "Healthcheck pour orchestrateurs et pipelines"
+      "Utilisation de docker-compose.yml avec fichier .env",
+      "Scripts SQL versionnés pour l'initialisation",
+      "Healthchecks pour les orchestrateurs et pipelines CI/CD"
     ]
   },
   {
     id: "setup",
     title: "Préparer l'environnement",
-    description: "Créez le dossier docker/, un .env et activez Docker Desktop/Colima selon le guide officiel (https://docs.docker.com/get-started/).",
+    description: "Créez la structure de dossiers docker/ et configurez le fichier .env, en suivant le guide de démarrage Docker.",
     code: `mkdir -p docker/init docker/scripts
 cp .env.example .env
 # vérifier que docker compose fonctionne
 docker compose version`,
     bullets: [
-      "Le .env est lu automatiquement par Compose",
-      "Créez une version .env.ci pour vos pipelines"
+      "Le fichier .env est automatiquement chargé par Docker Compose",
+      "Préparez un .env.ci pour les environnements de CI/CD"
     ],
     codeLanguage: "bash"
   },
   {
     id: "compose",
     title: "Définir docker-compose.yml",
-    description: "Expose le service Postgres, monte les scripts et crée un volume persistant conformément aux best practices Compose (https://docs.docker.com/compose/compose-file/).",
+    description: "Définissez le service PostgreSQL avec volumes persistants et scripts d'initialisation, suivant les bonnes pratiques Docker Compose.",
     code: dockerProjectFiles[0].snippet,
     bullets: [
-      "⚠️ Lancez `docker compose up` uniquement après avoir créé .env et placé vos scripts dans init/",
-      "Modifiez les ports/volumes selon votre environnement (dev, CI, staging)"
+      "Lancez `docker compose up` seulement après avoir préparé .env et les scripts dans init/",
+      "Ajustez les ports et volumes selon l'environnement (développement, CI, staging)"
     ],
     codeLanguage: "yaml"
   },
   {
     id: "init",
     title: "Scripts d'initialisation",
-    description: "Tout fichier .sql placé dans docker-entrypoint-initdb.d est exécuté au premier démarrage, comme expliqué dans la doc de l'image Postgres (https://hub.docker.com/_/postgres).",
+    description: "Placez les fichiers SQL dans docker-entrypoint-initdb.d pour qu'ils soient exécutés automatiquement au premier démarrage du conteneur PostgreSQL.",
     code: dockerProjectFiles[1].snippet,
     bullets: [
-      "Utilisez un préfixe numéroté pour contrôler l'ordre",
-      "Ajoutez 002_seed.sql pour insérer des données de test"
+      "Utilisez des préfixes numériques pour contrôler l'ordre d'exécution",
+      "Ajoutez des scripts de seed pour insérer des données de test"
     ],
     codeLanguage: "sql"
   },
   {
     id: "volumes",
     title: "Volumes & sauvegardes",
-    description: "Séparez vos données de l'image et automatisez les exports en appliquant le guide Docker Volumes (https://docs.docker.com/storage/volumes/).",
+    description: "Configurez des volumes persistants pour séparer les données de l'image et automatisez les sauvegardes, suivant le guide Docker sur les volumes.",
     code: `# effectuer une sauvegarde
 PGPASSWORD=$POSTGRES_PASSWORD docker compose exec postgres   pg_dump -U $POSTGRES_USER -d $POSTGRES_DB > backups/$(date +%F).sql
 
 # repartir de zéro
 docker compose down -v`,
     bullets: [
-      "backups/ est ignoré par git mais stocke les dumps",
-      "down -v supprime le volume pour réexécuter les scripts d'init"
+      "Le dossier backups/ est ignoré par Git mais conserve les dumps",
+      "docker compose down -v supprime le volume pour relancer l'initialisation"
     ],
     codeLanguage: "bash"
   },
   {
     id: "verification",
     title: "Vérifier le provisioning",
-    description: "Exposez une commande psql ou un test automatisé pour contrôler l'état, conformément à la doc psql (https://www.postgresql.org/docs/current/app-psql.html).",
+    description: "Utilisez des commandes psql ou des tests automatisés pour vérifier l'état du provisioning de la base de données.",
     code: dockerQuickStartCards[2].command,
     codeLanguage: "bash"
   },
   {
     id: "inspection",
     title: "Commandes utiles pour inspecter",
-    description: "Visualisez l'état des containers, volumes et lancez des requêtes en suivant les commandes documentées par Docker (https://docs.docker.com/engine/reference/commandline/docker/).",
+    description: "Utilisez les commandes Docker pour inspecter l'état des conteneurs, volumes et exécuter des requêtes sur la base de données.",
     code: `# containers actifs + ports
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
@@ -207,24 +207,24 @@ docker stats postgres
 # ouvrir un shell et requêter
 docker compose exec postgres bash -c "psql -U $POSTGRES_USER -d $POSTGRES_DB -c '\dt app.*'"`,
     bullets: [
-      "docker ps --format ... facilite la lecture depuis une CI",
-      "docker stats/postgres identifie rapidement un container saturé",
-      "docker exec / psql permet d'interroger les données sans quitter le terminal"
+      "docker ps --format facilite la lecture en CI/CD",
+      "docker stats identifie rapidement un conteneur surchargé",
+      "docker compose exec permet d'interroger les données directement"
     ],
     codeLanguage: "bash"
   },
   {
     id: "troubleshooting",
     title: "Dépanner",
-    description: "Commandes utiles quand un init ou un volume échoue, issues des sections dépannage de la doc Docker (https://docs.docker.com/config/containers/troubleshoot/).",
+    description: "Utilisez ces commandes pour diagnostiquer les problèmes liés à l'initialisation ou aux volumes, en suivant les guides de dépannage Docker.",
     code: `docker compose logs postgres
 # supprimer uniquement le container
 docker compose rm -sf postgres
 # inspecter le volume
 docker volume inspect docker_postgres-data`,
     bullets: [
-      "docker compose logs -f postgres pour voir l'exécution des scripts",
-      "docker volume rm recrée un volume propre"
+      "docker compose logs -f postgres affiche l'exécution des scripts",
+      "docker volume rm permet de recréer un volume propre"
     ],
     codeLanguage: "bash"
   }

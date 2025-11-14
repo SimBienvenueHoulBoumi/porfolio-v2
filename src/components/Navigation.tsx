@@ -6,7 +6,7 @@ import { useTheme } from "@/context/ThemeContext";
 const navItems: { id: string; label: string }[] = [
   { id: "hero", label: "Accueil" },
   { id: "skills", label: "Compétences" },
-  { id: "tutorial", label: "Tutoriels" },
+  { id: "activities", label: "Expérience" },
   { id: "experience", label: "Expérience" },
   { id: "contact", label: "Contact" }
 ];
@@ -69,12 +69,32 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <button
             onClick={() => scrollToSection("hero")}
-            className={`heading-sm font-bold transition-colors ${
-              isAurora ? "text-sky-600 hover:text-sky-700" : "text-cyan-400 hover:text-cyan-300"
-            }`}
+            className="group flex items-center gap-3 rounded-full border border-transparent px-1 py-1 transition-all duration-300 hover:border-white/10"
             aria-label="Retour à l'accueil"
           >
-            Simfolio
+            <span
+              className={`flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br ${
+                isAurora ? "from-sky-400 via-blue-500 to-indigo-500" : "from-cyan-400 via-blue-500 to-purple-600"
+              } text-sm font-extrabold text-white shadow-lg shadow-cyan-500/40 group-hover:scale-105 transition-transform`}
+            >
+              SF
+            </span>
+            <span className="flex flex-col leading-tight text-left">
+              <span
+                className={`text-[10px] font-semibold uppercase tracking-[0.6em] ${
+                  isAurora ? "text-slate-500/80" : "text-cyan-100/70"
+                }`}
+              >
+                Sim
+              </span>
+              <span
+                className={`text-base font-black tracking-wide ${
+                  isAurora ? "text-slate-900" : "text-white"
+                }`}
+              >
+                Simfolio
+              </span>
+            </span>
           </button>
           
           <div className="hidden md:flex items-center space-x-1">
@@ -176,9 +196,18 @@ function MobileMenu({
           <div className="fixed inset-x-3 top-16 z-50 md:hidden">
             <div className={`rounded-3xl px-5 py-6 shadow-2xl ${panelBg}`}>
               <div className="flex items-center justify-between mb-4">
-                <div>
-                  <p className={`text-lg font-semibold ${brandColor}`}>Simfolio</p>
-                  <p className="text-xs uppercase tracking-[0.3em] opacity-70">Menu</p>
+                <div className="flex items-center gap-3">
+                  <span
+                    className={`flex h-10 w-10 items-center justify-center rounded-3xl bg-gradient-to-br ${
+                      isAurora ? "from-sky-400 via-blue-500 to-indigo-500" : "from-cyan-400 via-blue-500 to-purple-600"
+                    } text-sm font-extrabold text-white shadow-lg shadow-cyan-500/40`}
+                  >
+                    SF
+                  </span>
+                  <div>
+                    <p className={`text-lg font-semibold ${brandColor}`}>Simfolio</p>
+                    <p className="text-xs uppercase tracking-[0.3em] opacity-70">Menu</p>
+                  </div>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}

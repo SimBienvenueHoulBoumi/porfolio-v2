@@ -6,7 +6,7 @@ const SocialBanger = () => {
   const altText = "Portrait de Sim Bienvenue Houlboumi";
 
   return (
-    <div className="relative flex items-center justify-center group/avatar mt-2 mb-2">
+    <div className="relative flex items-center justify-center group/avatar mt-2 mb-2 md:-translate-y-6 lg:translate-y-0 transition-transform duration-300">
       <div className="relative h-40 w-40 sm:h-44 sm:w-44 lg:h-48 lg:w-48">
         <div className="pointer-events-none absolute inset-0 -translate-y-[12%] blur-3xl animate-pulse-slow">
           <div className="h-full w-full rounded-full bg-gradient-to-br from-cyan-500/35 via-blue-500/25 to-purple-500/25" />

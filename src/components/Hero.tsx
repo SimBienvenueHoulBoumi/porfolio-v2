@@ -50,7 +50,9 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const { theme } = useTheme();
   const isAurora = theme === "aurora";
   const subtitle = useTypewriter(content.typewriter);
-  const heroBackground = isAurora ? "from-slate-50 via-sky-50 to-white" : "from-slate-950 via-slate-900 to-black";
+  const heroBackground = isAurora
+    ? "from-[#d8e7ff] via-[#c7d9ff] to-[#bfe9ff]"
+    : "from-slate-950 via-slate-900 to-black";
   const nameGradient = "from-cyan-200 via-blue-300 to-purple-400";
   const heroNameClass = isAurora
     ? "heading-display block text-slate-900"
@@ -64,7 +66,6 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const typewriterText = isAurora ? "mono-label text-slate-700" : "mono-label text-cyan-300";
   const typewriterAccent = isAurora ? "text-slate-900" : "text-cyan-500";
   const typewriterCursor = isAurora ? "text-slate-700" : "text-cyan-400";
-  const narrativeText = isAurora ? "body-base text-slate-600" : "body-base text-slate-300";
   const highlightCardClasses = isAurora
     ? "rounded-2xl border border-sky-200/70 bg-sky-100/80 px-4 py-3 text-left shadow-[0_18px_40px_rgba(59,130,246,0.15)] backdrop-blur-sm"
     : "rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur";
@@ -83,8 +84,8 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
     : "mt-2 text-[8px] uppercase tracking-[0.08em] text-cyan-200 leading-tight";
   const stackTextClass = isAurora ? "text-slate-600" : "text-slate-300";
   const introCardClasses = isAurora
-    ? "relative overflow-hidden rounded-3xl border border-sky-200/60 bg-white px-8 py-10 shadow-[0_32px_70px_rgba(59,130,246,0.18)] backdrop-blur-md"
-    : "relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-white/5 px-8 py-10 backdrop-blur-xl";
+    ? "relative overflow-hidden rounded-3xl border border-sky-200/60 bg-white px-6 py-8 shadow-[0_32px_70px_rgba(59,130,246,0.18)] backdrop-blur-md sm:px-8 sm:py-10"
+    : "relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-white/5 px-6 py-8 backdrop-blur-xl sm:px-8 sm:py-10";
   const glowGradient = isAurora
     ? "linear-gradient(120deg, rgba(59,130,246,0.16), rgba(236,233,254,0.55), rgba(14,165,233,0.12))"
     : "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))";
@@ -140,7 +141,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
       </div>
 
       <div className="layout-shell relative z-10 flex flex-col gap-12">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,420px)] lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,440px)] lg:gap-10 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,520px)]">
           <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
             <Badge
               isAurora={isAurora}
@@ -150,7 +151,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
               {content.tagline}
             </Badge>
             <div className="w-full space-y-3 sm:space-y-4">
-              <h1 className="space-y-1">
+              <h1 className="space-y-2 sm:space-y-1">
                 <span
                   className={heroNameClass}
                   style={headlineStyle}
@@ -185,25 +186,16 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
               >
                 {content.ctaPrimary}
               </Button>
-              <Button
-                as="a"
-                href="#experience"
-                isAurora={isAurora}
-                variant="secondary"
-                className="hover:-translate-y-0.5"
-              >
-                {content.ctaSecondary}
-              </Button>
             </div>
             <div className="mx-auto w-full max-w-xl sm:mx-0">
               <DownLoadCV />
             </div>
           </div>
-          <div className="mt-16 flex flex-col items-center gap-6 lg:mt-0 lg:items-end lg:gap-8">
+          <div className="mt-12 flex flex-col items-center gap-6 lg:mt-0 lg:items-end lg:gap-8">
             <div className="lg:self-end lg:pb-2">
               <SocialBanger />
             </div>
-            <div className="mt-6 flex w-full max-w-sm flex-col gap-6 lg:mt-0 lg:w-full lg:max-w-none lg:self-end lg:pt-8">
+            <div className="mt-4 flex w-full flex-col gap-6 lg:mt-0 lg:self-end lg:pt-6">
               <div className={availabilityCardClasses}>
                 <div className="flex items-center gap-3 text-left">
                   <div className="relative">
@@ -250,20 +242,17 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                 }}
               />
             </div>
-            <div className="relative z-10 grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,280px)] sm:items-center">
-              <div className="space-y-4">
-                <p className={narrativeText}>{content.narrative}</p>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {content.highlights.map((highlight) => (
-                    <div
-                      key={highlight.label}
-                      className={highlightCardClasses}
-                    >
-                      <p className={`text-xs font-medium tracking-wide ${highlightLabelClass}`}>{highlight.label}</p>
-                      <p className={`text-2xl font-semibold ${highlightValueClass}`}>{highlight.value}</p>
-                    </div>
-                  ))}
-                </div>
+            <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,280px)] lg:items-center">
+              <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                {content.highlights.map((highlight) => (
+                  <div
+                    key={highlight.label}
+                    className={highlightCardClasses}
+                  >
+                    <p className={`text-xs font-medium tracking-wide ${highlightLabelClass}`}>{highlight.label}</p>
+                    <p className={`text-2xl font-semibold ${highlightValueClass}`}>{highlight.value}</p>
+                  </div>
+                ))}
               </div>
               <div className={stackPanelClasses}>
                 <p className={`text-xs uppercase tracking-[0.35em] ${stackPanelTitle}`}>{content.trustedStack}</p>

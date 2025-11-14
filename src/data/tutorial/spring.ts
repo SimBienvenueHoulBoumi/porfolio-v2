@@ -295,17 +295,17 @@ const springSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "demo-rest-api (Spring Boot 3 + Java 17) suit la référence Spring Boot (https://docs.spring.io/spring-boot/docs/current/reference/html/) pour livrer une API de tâches testée, documentée et prête pour la CI.",
+    description: "Bienvenue dans ce tutoriel pour construire une API Spring Boot complète, en suivant les meilleures pratiques de Spring Boot 3 et Java 17. Nous allons créer une architecture modulaire avec contrôleurs fins, services métier, repositories JPA et observabilité Actuator, prête pour la production.",
     bullets: [
-      "Couche REST ultra fine grâce à TasksController + TasksService",
-      "Use-cases séparés (Creation/Get/Update/Delete) pour isoler la logique",
-      "GlobalExceptionHandler renvoie des 404 JSON exploitables"
+      "Architecture modulaire avec séparation des responsabilités : contrôleurs pour les endpoints REST, services pour la logique métier, repositories pour l'accès aux données.",
+      "Gestion centralisée des exceptions avec GlobalExceptionHandler pour des réponses d'erreur cohérentes.",
+      "Observabilité intégrée avec Spring Boot Actuator pour la surveillance en production."
     ]
   },
   {
     id: "setup",
     title: "Installation",
-    description: "Générez le squelette avec Spring Initializr (https://start.spring.io/) puis installez les dépendances nécessaires.",
+    description: "Générez le projet Spring Boot avec Spring Initializr pour obtenir un squelette Maven prêt à l'emploi, incluant les dépendances essentielles pour le développement d'une API REST avec base de données.",
     code: `curl https://start.spring.io/starter.zip \
   -d type=maven-project \
   -d language=java \
@@ -317,15 +317,15 @@ const springSections: TutorialSection[] = [
 unzip demo-rest-api.zip && cd demo-rest-api
 ./mvnw clean compile`,
     bullets: [
-      "Utilisez JDK 17 et le wrapper Maven pour uniformiser l'environnement",
-      "Créez la structure controllers/, services/, servicesImpl/, dto/, mapper/, repositories/, exceptions/ et config/"
+      "Assurez-vous que JAVA_HOME pointe vers une JDK 17 avant d'exécuter ./mvnw.",
+      "Créez les packages nécessaires (controllers, services, etc.) selon la structure recommandée."
     ],
     codeLanguage: "bash"
   },
   {
     id: "config",
     title: "Configuration applicative",
-    description: "application.yml concentre datasource Postgres, JPA et Actuator conformément à la doc Spring Boot (https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).",
+    description: "Configurez application.yml pour la connexion à PostgreSQL, les paramètres JPA et l'exposition des endpoints Actuator, suivant la documentation Spring Boot.",
     code: `spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -338,15 +338,15 @@ management:
   endpoints:
     web.exposure.include: health,info`,
     bullets: [
-      "Docker Compose lance Postgres + pgAdmin pour tester localement",
-      "ddl-auto: create-drop recrée le schéma à chaque démarrage"
+      "Utilisez des profils Spring (local, prod) pour différencier les configurations selon l'environnement.",
+      "ddl-auto: create-drop est utile pour les tests, mais utilisez update ou validate en production."
     ],
     codeLanguage: "yaml"
   },
   {
     id: "model",
     title: "Modèle et DTO",
-    description: "Définissez l'entité JPA et les DTO associés comme indiqué dans la doc Jakarta Persistence (https://jakarta.ee/specifications/persistence/3.1/).",
+    description: "Définissez l'entité JPA avec les annotations appropriées et les DTO pour le transfert de données, suivant les spécifications Jakarta Persistence.",
     code: `@Entity
 @Data
 @Builder
@@ -358,15 +358,15 @@ public class Tasks {
   private String status;
 }`,
     bullets: [
-      "L'entité Tasks stocke également les timestamps createdAt/updatedAt",
-      "Le DTO TasksDto limite les champs exposés côté controller"
+      "Utilisez Lombok pour réduire le code boilerplate dans les entités et DTO.",
+      "Les DTO permettent de contrôler les données exposées via l'API REST."
     ],
     codeLanguage: "java"
   },
   {
     id: "repository",
     title: "Repository et mapper",
-    description: "Ajoutez le repository Spring Data et les mappers DTO ⇄ entité en suivant la référence Spring Data JPA (https://spring.io/projects/spring-data-jpa).",
+    description: "Implémentez le repository Spring Data JPA pour l'accès aux données et un mapper pour la conversion entre entités et DTO, suivant les bonnes pratiques Spring Data.",
     code: `public interface TasksRepository extends JpaRepository<Tasks, Long> {
   Optional<Tasks> findByName(String name);
 }
@@ -376,15 +376,15 @@ public class TasksMapper {
   public Tasks toEntity(TasksDto dto) { ... }
 }`,
     bullets: [
-      "Spring Data JPA fournit les CRUD de base, add-on: findByName pour l'unicité",
-      "Mapper isolé pour garder les services propres"
+      "Utilisez les méthodes dérivées de Spring Data pour les requêtes simples.",
+      "Le mapper assure la séparation entre la couche de données et la couche de présentation."
     ],
     codeLanguage: "java"
   },
   {
     id: "services",
     title: "Services métiers",
-    description: "Implémentez les use-cases Create/Get/Update/Delete dans les services en reproduisant la séparation décrite par Spring (https://docs.spring.io/spring-framework/reference/core/beans.html#beans-scopes).",
+    description: "Développez les services métier pour encapsuler la logique applicative, en séparant les use-cases (création, lecture, mise à jour, suppression) selon les principes de Spring.",
     code: `@Service
 @AllArgsConstructor
 public final class TasksServiceImpl implements TasksService {
@@ -398,15 +398,15 @@ public final class TasksServiceImpl implements TasksService {
   }
 }`,
     bullets: [
-      "Les implémentations manipulent TasksRepository + TasksMapper pour rester testables",
-      "Les exceptions métiers sont centralisées dans simdev.demo.exceptions"
+      "Utilisez des interfaces pour les services afin de faciliter les tests unitaires avec des mocks.",
+      "Gérez les exceptions métier de manière centralisée pour une meilleure maintenabilité."
     ],
     codeLanguage: "java"
   },
   {
     id: "controller",
     title: "Contrôleur REST",
-    description: "Exposez /api/tasks via Spring Web MVC comme recommandé par https://docs.spring.io/spring-framework/reference/web/webmvc.html.",
+    description: "Créez le contrôleur REST pour exposer les endpoints /api/tasks, en utilisant les annotations Spring Web MVC pour mapper les requêtes HTTP aux méthodes métier.",
     code: `@RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
@@ -419,15 +419,15 @@ public final class TasksController {
   }
 }`,
     bullets: [
-      "Chaque endpoint renvoie un ResponseEntity explicite (200/201/204)",
-      "Le controller reste stateless pour simplifier les tests slice MVC"
+      "Utilisez ResponseEntity pour contrôler précisément les codes de statut HTTP.",
+      "Gardez les contrôleurs fins en déléguant la logique aux services."
     ],
     codeLanguage: "java"
   },
   {
     id: "observability",
     title: "Observabilité",
-    description: "Actuator + logs structurés + docker-compose reproduisent la prod selon le guide Actuator (https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html).",
+    description: "Configurez Spring Boot Actuator pour exposer les métriques et endpoints de santé, et utilisez Docker Compose pour l'environnement de développement local.",
     code: `management:
   endpoints:
     web.exposure.include: health,info
@@ -442,15 +442,15 @@ services:
     ports:
       - "5432:5432"`,
     bullets: [
-      "Surveillez /actuator/health avec vos outils APM (Datadog, Grafana Cloud, etc.)",
-      "docker-compose.yml héberge Postgres + pgAdmin pour tester localement"
+      "Les endpoints Actuator permettent la surveillance et le debugging en production.",
+      "Docker Compose facilite la configuration d'un environnement de développement isolé."
     ],
     codeLanguage: "yaml"
   },
   {
     id: "testing",
     title: "Tests",
-    description: "Chaque use-case possède des tests Mockito + un test d'intégration sur le controller, conformément au guide JUnit 5 (https://junit.org/junit5/docs/current/user-guide/).",
+    description: "Écrivez des tests unitaires avec Mockito et JUnit 5 pour chaque use-case, ainsi que des tests d'intégration pour valider le comportement end-to-end.",
     code: `@ExtendWith(MockitoExtension.class)
 class CreateTaskServiceTest {
   @Test
@@ -464,8 +464,8 @@ class CreateTaskServiceTest {
 
 ./mvnw test`,
     bullets: [
-      "./mvnw test génère les rapports Surefire exploitables par la CI",
-      "Ajoutez un test @SpringBootTest avec Testcontainers pour valider Postgres"
+      "Les tests unitaires isolent les composants pour une couverture fiable.",
+      "Utilisez Testcontainers pour les tests d'intégration nécessitant une base de données réelle."
     ],
     codeLanguage: "java"
   },
@@ -473,7 +473,7 @@ class CreateTaskServiceTest {
   {
     id: "delivery",
     title: "CI/CD",
-    description: "GitHub Actions et Jenkins déclenchent verify, publient les rapports et préparent l'image Docker comme décrit dans les docs officielles (https://docs.github.com/actions et https://www.jenkins.io/doc/book/pipeline/).",
+    description: "Configurez des pipelines CI/CD avec GitHub Actions ou Jenkins pour automatiser les tests, la construction et le déploiement, suivant les meilleures pratiques de livraison continue.",
     code: `# .github/workflows/ci.yml (extrait)
 jobs:
   quality:
@@ -499,8 +499,8 @@ pipeline {
   }
 }`,
     bullets: [
-      "Ajoutez un job docker/build-push-action pour publier votre image",
-      "Configurez sonar: true pour brancher SonarCloud si besoin"
+      "Automatisez la construction d'images Docker pour le déploiement.",
+      "Intégrez des outils de qualité de code comme SonarQube pour l'analyse statique."
     ],
     codeLanguage: "yaml"
   }
@@ -518,11 +518,11 @@ const springResources = [
 const springContent: TutorialContent = {
   heroTitle: "Démarrage rapide Spring Boot + Maven",
   heroDescription:
-    "Dans ce tutoriel, on reproduit l'architecture du projet demo-rest-api (Spring Boot 3 + Java 17) en partant de zéro : controllers fins, sécurité Spring, observabilité Actuator et pipeline CI prêts pour la prod.",
+    "Dans ce tutoriel, nous reproduisons l'architecture du projet demo-rest-api (Spring Boot 3 + Java 17) en partant de zéro : contrôleurs fins, observabilité Actuator et pipeline CI prêts pour la production.",
   learnList: [
-    "Initialiser demo-rest-api avec les bons starters (security, actuator, Flyway)",
-    "Structurer controllers/services + verrouiller l'accès via Spring Security",
-    "Brancher Actuator, les tests et la CI GitHub Actions"
+    "Initialiser demo-rest-api avec les bons starters (actuator, Flyway).",
+    "Structurer controllers/services.",
+    "Brancher Actuator, les tests et la CI GitHub Actions."
   ],
   quickStartHeading: "Démarrage Spring Boot",
   quickStartIntro: "Commandes et snippets directement issus du repo demo-rest-api.",

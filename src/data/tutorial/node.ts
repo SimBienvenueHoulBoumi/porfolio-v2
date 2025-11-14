@@ -106,7 +106,7 @@ tests/
 const nodeProjectFiles: ProjectFile[] = [
   {
     path: "src/server.ts",
-    description: "Ce fichier lance toute l'API conformément au guide Express (https://expressjs.com/fr/starter/hello-world.html). Il charge la configuration, crée l'application, empile les protections (logs, sécurité, CORS, limiteur) puis branche les routes avant d'écouter sur le port défini, comme recommandé par la documentation officielle.",
+    description: `Contexte : c'est le tableau de bord Express. Objectif : suivre la checklist du guide Express et empiler config + middlewares avant de brancher /users et d'écouter le port. Réf : https://expressjs.com/fr/starter/hello-world.html.`,
     snippet: `import express from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -140,7 +140,7 @@ if (import.meta.url === \`file://\${process.argv[1]}\`) {
   },
   {
     path: "src/config/env.ts",
-    description: "Ce module suit la documentation officielle dotenv (https://github.com/motdotla/dotenv#readme) : il lit .env, applique des valeurs de secours et expose un objet prêt à l'emploi afin que le code consomme la configuration validée sans manipuler la console.",
+    description: `Contexte : on charge la config via dotenv pour que tout le code lise les mêmes valeurs sûres. Objectif : appliquer la doc officielle (https://github.com/motdotla/dotenv#readme) et exposer un helper unique loadEnv.`,
     snippet: `import "dotenv/config";
 
 export const loadEnv = () => {
@@ -156,7 +156,7 @@ export const loadEnv = () => {
   },
   {
     path: "src/config/logger.ts",
-    description: "Ce fichier prépare Pino conformément au guide officiel (https://getpino.io/#/). Il lit vos variables d'environnement pour fixer le niveau de logs et adapte le transport JSON/pretty afin que chaque message reste exploitable quel que soit le contexte.",
+    description: `Contexte : des logs illisibles ne servent à rien. Objectif : reproduire la config recommandée par Pino (https://getpino.io/#/) avec JSON en prod et pretty en dev pour garder une lecture humaine.`,
     snippet: `import pino from "pino";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -178,7 +178,7 @@ export const logger = pino({
   },
   {
     path: "src/routes/userRoutes.ts",
-    description: "Ce fichier rassemble les points d'entrée HTTP liés aux utilisateurs en appliquant la structure Router décrite dans la doc Express (https://expressjs.com/fr/guide/routing.html). Il relie validation, service métier et réponses HTTP pour faire transiter la requête jusqu'à la réponse officielle.",
+    description: `Contexte : toutes les routes /users passent par la même porte. Objectif : suivre la structure Router d'Express (https://expressjs.com/fr/guide/routing.html) et montrer comment validation + service + HTTP dialoguent.`,
     snippet: `import { Router } from "express";
 import { userService } from "../services/userService.js";
 import { validate } from "../middlewares/validate.js";
@@ -201,7 +201,7 @@ export default router;`,
   },
   {
     path: "src/services/userService.ts",
-    description: "Le service encapsule la logique métier (création et lecture) en suivant la recommandation Node de séparer le domaine de la couche HTTP. Il utilise crypto.randomUUID comme décrit dans la doc officielle Node (https://nodejs.org/api/crypto.html#cryptorandomuuidoptions), ce qui facilitera la migration vers une base réelle.",
+    description: `Contexte : on veut un endroit unique pour la logique métier. Objectif : isoler Create/List dans un service testable, en reprenant crypto.randomUUID documenté par Node (https://nodejs.org/api/crypto.html#cryptorandomuuidoptions).`,
     snippet: `import { CreateUserDTO } from "../schemas/userSchema.js";
 
 const store: Array<CreateUserDTO & { id: string }> = [];
@@ -221,7 +221,7 @@ export const userService = {
   },
   {
     path: "src/schemas/userSchema.ts",
-    description: "Ce module décrit la forme d'un utilisateur avec Zod conformément à la référence officielle (https://zod.dev/?id=basic-usage) et génère le type TypeScript associé. Ce contrat garantit que toute donnée non conforme est rejetée avant d'atteindre la suite de la pile.",
+    description: `Contexte : sans contrat partagé, l'API accumule les surprises. Objectif : écrire le schéma Zod (https://zod.dev/?id=basic-usage), en déduire le type TypeScript et le réutiliser partout.`,
     snippet: `import { z } from "zod";
 
 export const createUserSchema = z.object({
@@ -235,7 +235,7 @@ export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
   },
   {
     path: "src/middlewares/validate.ts",
-    description: "Ce middleware applique un schéma Zod sur req.body pour respecter la mécanique des middlewares Express décrite dans la doc officielle (https://expressjs.com/fr/guide/using-middleware.html). Il répond en 400 en cas d'erreur et ne laisse passer que des données conformes.",
+    description: `Contexte : chaque POST doit passer par un garde-fou. Objectif : empaqueter Zod dans un middleware Express (https://expressjs.com/fr/guide/using-middleware.html) qui renvoie un 400 propre et ne transmet que des données validées.`,
     snippet: `import { AnyZodObject } from "zod";
 import { Request, Response, NextFunction } from "express";
 
@@ -255,7 +255,7 @@ export const validate = (schema: AnyZodObject) =>
   },
   {
     path: ".env.example",
-    description: "Ce fichier d'exemple suit la pratique décrite dans la documentation dotenv (https://github.com/motdotla/dotenv#usage). Chacun le copie en .env avec ses valeurs, ce qui aligne l'équipe sans exposer de secrets dans le dépôt.",
+    description: `Contexte : partager les variables sans exposer les secrets. Objectif : fournir un .env.example conforme à la doc dotenv (https://github.com/motdotla/dotenv#usage) pour aligner tout le monde.`,
     snippet: `PORT=3333
 ALLOWED_ORIGINS=http://localhost:3000
 LOG_LEVEL=debug`,
@@ -264,7 +264,7 @@ LOG_LEVEL=debug`,
   },
   {
     path: "tests/user.test.ts",
-    description: "Cette suite Vitest + Supertest applique la démarche décrite dans la doc officielle Vitest (https://vitest.dev/guide/) pour simuler des requêtes HTTP et vérifier les réponses, offrant un filet de sécurité reproductible sans scénarios manuels.",
+    description: `Contexte : on valide l'API comme dans un tuto Grafikart : un test par use-case, un feedback immédiat. Objectif : s'appuyer sur Vitest + Supertest (https://vitest.dev/guide/) pour simuler POST/GET et verrouiller les régressions.`,
     snippet: `import request from "supertest";
 import { app } from "../src/server";
 
@@ -303,7 +303,7 @@ describe("users API", () => {
   },
   {
     path: ".github/workflows/ci.yml",
-    description: "Ce workflow GitHub Actions suit la référence officielle (https://docs.github.com/actions) pour rejouer installation, lint et tests à chaque push/PR, fournissant un feu vert automatique avant même de consulter les logs locaux.",
+    description: `Contexte : aucune feature ne part sans pipeline. Objectif : suivre la doc GitHub Actions (https://docs.github.com/actions) pour rejouer install/lint/test à chaque push et garder la même recette sur Jenkins.`,
     snippet: `name: API CI
 
 on:
@@ -333,18 +333,17 @@ const nodeSections: TutorialSection[] = [
   {
     id: "intro",
     title: "Panorama",
-    description: "Avant de plonger dans le code, voici les axes clés du tutoriel.",
+    description: "Ce tutoriel démontre la construction d'une API REST avec Node.js et TypeScript, utilisant Express pour le routage, Zod pour la validation des schémas, et Vitest pour les tests, basé sur la documentation officielle et les meilleures pratiques.",
     bullets: [
-      "Architecture hexagonale light",
-      "Validation Zod + middlewares",
-      "Tests Vitest/Supertest"
+      "Architecture hexagonale : Sépare la logique métier des préoccupations externes pour la maintenabilité.",
+      "Validation Zod : Assure l'intégrité des données en analysant et validant les schémas d'entrée.",
+      "Tests Vitest : Fournit des tests unitaires et d'intégration rapides pour détecter les problèmes tôt."
     ]
   },
   {
     id: "setup",
     title: "Installation",
-    description:
-      "Initialisez npm et installez les dépendances runtime, sécurité, logs et qualité dans un répertoire dédié. Terminez ensuite la configuration pour passer en ESM et brancher la configuration applicative.",
+    description: "Initialiser un projet Node.js avec TypeScript, installer les dépendances comme Express, Zod et Vitest, et configurer tsconfig.json pour la vérification stricte des types, suivant les meilleures pratiques Node.js et TypeScript.",
     code: `mkdir my-node-api && cd my-node-api
 npm init -y
 npm install express zod pino pino-http helmet cors express-rate-limit dotenv
@@ -377,25 +376,26 @@ cat <<'EOF' > tsconfig.json
 }
 EOF`,
     bullets: [
-      "src/server.ts : chargez immédiatement loadEnv() afin que les variables issues de .env soient disponibles avant d'instancier Express."
+      "Défi : Lance 'npm run dev' après ça. Si ça plante, vérifie ton .env – c'est souvent là que ça coince !",
+      "Astuce : Copie-colle ces commandes dans ton terminal, ligne par ligne, pour voir ce qui se passe. Pas de magie, juste de la rigueur."
     ],
     codeLanguage: "bash"
   },
   {
     id: "structure",
     title: "Structurer le projet",
-    description: "Avant de commencer à implémenter, créez le squelette src/ décrit ci-dessous pour savoir où chaque responsabilité vivra.",
+    description: "Organiser la structure du projet avec des répertoires dédiés pour les schémas, services, routes, middlewares et tests pour promouvoir la séparation des préoccupations et la maintenabilité.",
     code: nodeProjectTree,
     bullets: [
-      "Séparez schemas/, services/, routes/ et middlewares/ pour limiter les dépendances",
-      "tests/ contiendra les specs Vitest + Supertest qui valident les endpoints"
+      "Utiliser schemas/ pour les schémas de validation Zod, services/ pour la logique métier, routes/ pour les routes Express, et middlewares/ pour les middlewares personnalisés.",
+      "Placer tests/ pour les spécifications Vitest afin d'assurer que les endpoints sont validés via des tests d'intégration."
     ],
     codeLanguage: "text"
   },
   {
     id: "validation",
     title: "Définir les DTO & la validation",
-    description: "Zod décrit vos DTO selon la documentation officielle (https://zod.dev/?id=basic-usage) et devient votre source unique pour les validations runtime.",
+    description: "Définir les schémas Zod pour la validation des données, inférer les types TypeScript, et tester les schémas dans le playground pour assurer l'intégrité des données, suivant la documentation Zod.",
     code: `import { z } from 'zod';
 
 export const createUserSchema = z.object({
@@ -437,7 +437,7 @@ try {
   {
     id: "services",
     title: "DTO & Service métier",
-    description: "Commencez par définir vos DTO avec Zod (https://zod.dev) puis centralisez la logique métier dans un service testable comme le recommandent les guides Express sur la séparation des responsabilités.",
+    description: "Centraliser la logique métier dans les services pour la testabilité et la maintenabilité, gardant les contrôleurs fins et concentrés sur les préoccupations HTTP, selon les meilleures pratiques Express.",
     code: `import { z } from 'zod';
 
 export const createUserSchema = z.object({
@@ -492,7 +492,7 @@ try {
   {
     id: "routes",
     title: "Définir les routes",
-    description: "Une fois DTO + service prêts, exposez les endpoints avec Router d'Express conformément à la doc officielle (https://expressjs.com/fr/guide/routing.html) et branchez votre middleware de validation.",
+    description: "Connecter Express Router avec le middleware de validation pour exposer les endpoints /users, suivant la documentation de routage Express pour une gestion modulaire des routes.",
     code: `import { Router } from 'express';
 import { validate } from '../middlewares/validate.js';
 import { createUserSchema } from '../schemas/userSchema.js';
@@ -514,7 +514,7 @@ export default router;`,
   {
     id: "observability",
     title: "Observabilité",
-    description: "Injectez Pino pour tracer chaque requête comme dans la documentation officielle (https://getpino.io/#/) puis exposez une route /health monitorable pour respecter les recommandations Node sur les sondes de santé.",
+    description: "Implémenter la journalisation avec Pino pour le suivi des requêtes et ajouter un endpoint /health pour la surveillance de l'application, suivant la documentation Pino et les meilleures pratiques d'observabilité.",
     code: `import pino from 'pino';
 import pinoHttp from 'pino-http';
 
@@ -525,15 +525,15 @@ app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok', uptime: process.uptime() });
 });`,
     bullets: [
-      "Pino écrit en JSON → collectable par Loki/Elastic",
-      "Le healthcheck est utilisé par les probes Kubernetes et les dashboards"
+      "Pino produit des logs JSON pour la collecte par des outils comme Loki ou Elasticsearch.",
+      "Les vérifications de santé sont utilisées par les probes Kubernetes et les tableaux de bord de surveillance."
     ],
     codeLanguage: "typescript"
   },
   {
     id: "testing",
     title: "Tester et monitorer",
-    description: "Vitest + Supertest simulent vos requêtes HTTP conformément au guide Vitest (https://vitest.dev/guide/) afin de garantir la stabilité des routes ; terminez toujours par un run de tests.",
+    description: "Écrire des tests avec Vitest et Supertest pour un retour immédiat sur les endpoints POST/GET, assurant la fiabilité du code et prévenant les régressions.",
     code: `import request from 'supertest';
 import { app } from '../server';
 
@@ -619,7 +619,7 @@ describe('User API', () => {
   {
     id: "delivery",
     title: "CI/CD prêt à l'emploi",
-    description: "GitHub Actions vérifie chaque push en suivant la documentation officielle (https://docs.github.com/actions) tandis qu'un pipeline Jenkins mirroré reste disponible pour les exécutions on-prem.",
+    description: "Automatiser npm ci, lint et test sur GitHub Actions et Jenkins, suivant la documentation CI officielle pour assurer des portes de qualité à chaque commit.",
     code: `jobs:
   quality:
     runs-on: ubuntu-latest
@@ -645,8 +645,8 @@ pipeline {
   }
 }`,
     bullets: [
-      "Ajoutez un job build Docker si vous déployez sur un orchestrateur",
-      "Artifacts (coverage, rapports) peuvent être téléversés pour audit"
+      "Ajoutez un job de build Docker si vous déployez sur un orchestrateur – votre API dans une boîte prête à voyager.",
+      "Les artifacts (couverture, rapports) peuvent être téléversés pour audit – preuves que votre code est solide."
     ],
     codeLanguage: "yaml"
   }
@@ -670,9 +670,9 @@ const nodeContent: TutorialContent = {
   heroDescription:
     "Exposez une API REST fiable en moins d'une heure grâce à Express, TypeScript, Zod et Vitest. Cet article rassemble les commandes clés, la structure type et les garde-fous indispensables pour la mettre en place sereinement.",
   learnList: [
-    "Initialiser un projet TypeScript prêt pour la prod",
-    "Structurer services/routes, valider avec Zod et exposer des DTO propres",
-    "Brancher observabilité (health/logs) et CI GitHub Actions"
+    "Initialiser un projet TypeScript prêt pour la prod.",
+    "Structurer services/routes, valider avec Zod et exposer des DTO propres.",
+    "Brancher observabilité (health/logs) et CI GitHub Actions."
   ],
   quickStartHeading: "Démarrage rapide Node.js",
   quickStartIntro: "Les trois blocs critiques pour livrer une API robuste.",

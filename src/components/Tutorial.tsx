@@ -30,7 +30,7 @@ export default function Tutorial() {
   const isAurora = theme === "aurora";
 
   return (
-    <section id="tutorial" className={`relative overflow-hidden bg-gradient-to-br ${
+    <section id="activities" className={`relative overflow-hidden bg-gradient-to-br ${
       isAurora ? "from-slate-50 via-white to-sky-100" : "from-slate-950 via-slate-900 to-black"
     } py-24 px-4 sm:px-8`}>
       <div className="layout-shell relative z-10 flex flex-col gap-12">

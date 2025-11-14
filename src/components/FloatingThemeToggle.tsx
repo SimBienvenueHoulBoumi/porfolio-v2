@@ -5,9 +5,15 @@ import ThemeToggle from "./ThemeToggle";
 
 const FloatingThemeToggle = () => {
   const [hidden, setHidden] = useState(true);
+  const [suppress, setSuppress] = useState(false);
 
   useEffect(() => {
     if (typeof document === "undefined") {
+      return;
+    }
+
+    if (window.location.pathname.startsWith("/tutorial")) {
+      setSuppress(true);
       return;
     }
 
@@ -24,7 +30,7 @@ const FloatingThemeToggle = () => {
     return () => observer.disconnect();
   }, []);
 
-  if (hidden) {
+  if (hidden || suppress) {
     return null;
   }
 

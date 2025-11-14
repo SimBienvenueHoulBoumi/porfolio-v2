@@ -10,6 +10,7 @@ import ConsoleWindow from "@/components/ui/ConsoleWindow";
 import InteractivePlayground from "@/components/ui/InteractivePlayground";
 import { useTheme } from "@/context/ThemeContext";
 import Button from "@/components/ui/Button";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const TutorialPage = () => {
   const [isReady, setIsReady] = useState(false);
@@ -19,7 +20,16 @@ const TutorialPage = () => {
   const { theme } = useTheme();
   const content = tutorialContent[stack];
   const [activeSection, setActiveSection] = useState<string | null>(content.tutorialSections[0]?.id ?? null);
-  const steps = content.sidebar;
+  const steps = useMemo(
+    () =>
+      content.sidebar
+        .map((entry) => {
+          const section = content.tutorialSections.find((section) => section.id === entry.id);
+          return section ? { ...entry, label: section.title ?? entry.label } : entry;
+        })
+        .filter((entry) => content.tutorialSections.some((section) => section.id === entry.id)),
+    [content]
+  );
   const stackLabels: Record<TutorialStack, string> = {
     node: "Node.js",
     spring: "Spring Boot",
@@ -151,41 +161,86 @@ const TutorialPage = () => {
       bullet: "bg-emerald-400"
     };
   }, [theme]);
-  const outlineActiveBorderClass = theme === "aurora" ? "border-l-lime-500" : "border-l-emerald-400";
-
   useEffect(() => {
     setActiveSection(content.tutorialSections[0]?.id ?? null);
   }, [content]);
 
-  useEffect(() => {
-    const ids = steps.map((step) => step.id);
-    const updateActive = () => {
-      const detectionLine = 140;
-      let current: string | null = ids[0] ?? null;
+  const [useInnerScroll, setUseInnerScroll] = useState(false);
+  const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null);
 
-      ids.forEach((id) => {
-        const element = document.getElementById(id);
-        if (!element) {
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const update = (event: MediaQueryList | MediaQueryListEvent) => {
+      setUseInnerScroll(event.matches);
+    };
+    update(mql);
+    if (typeof mql.addEventListener === "function") {
+      mql.addEventListener("change", update);
+    } else {
+      mql.addListener(update);
+    }
+    return () => {
+      if (typeof mql.removeEventListener === "function") {
+        mql.removeEventListener("change", update);
+      } else {
+        mql.removeListener(update);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (useInnerScroll && !contentEl) {
+      return undefined;
+    }
+
+    const scrollRoot = useInnerScroll ? contentEl : null;
+    const lookupRoot: ParentNode = scrollRoot ?? document;
+
+    const sectionElements = steps
+      .map((step) => lookupRoot.querySelector(`#${step.id}`))
+      .filter((element): element is HTMLElement => Boolean(element));
+
+    if (sectionElements.length === 0) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting || entry.intersectionRatio > 0);
+        if (visibleEntries.length === 0) {
           return;
         }
-        const rect = element.getBoundingClientRect();
-        if (rect.top <= detectionLine) {
-          current = id;
-        }
-      });
 
-      setActiveSection(current);
-    };
+        const rootTop = scrollRoot ? scrollRoot.getBoundingClientRect().top : 0;
 
-    updateActive();
-    window.addEventListener("scroll", updateActive, { passive: true });
-    window.addEventListener("resize", updateActive);
+        visibleEntries.sort((a, b) => {
+          const aDistance = Math.abs(a.boundingClientRect.top - rootTop);
+          const bDistance = Math.abs(b.boundingClientRect.top - rootTop);
+          if (Math.abs(aDistance - bDistance) < 1) {
+            return b.intersectionRatio - a.intersectionRatio;
+          }
+          return aDistance - bDistance;
+        });
+
+        const nextId = visibleEntries[0].target.id;
+        setActiveSection((current) => (current === nextId ? current : nextId));
+      },
+      {
+        root: scrollRoot ?? undefined,
+        rootMargin: scrollRoot ? "0px 0px -40% 0px" : "-10% 0px -40% 0px",
+        threshold: [0, 0.25, 0.5]
+      }
+    );
+
+    sectionElements.forEach((element) => observer.observe(element));
 
     return () => {
-      window.removeEventListener("scroll", updateActive);
-      window.removeEventListener("resize", updateActive);
+      observer.disconnect();
     };
-  }, [steps]);
+  }, [steps, useInnerScroll, contentEl]);
 
   useEffect(() => {
     if (drawerOpen) {
@@ -213,18 +268,15 @@ const TutorialPage = () => {
           onClick={() => setDrawerOpen(false)}
         />
       )}
-      <div className="layout-shell min-h-screen py-8">
-        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)_220px] lg:gap-8">
+      <div className="layout-shell min-h-screen py-4 sm:py-8 overflow-x-hidden">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)_220px] lg:gap-8 lg:h-[calc(100vh-4rem)] lg:overflow-hidden">
           <aside
             className={`fixed inset-y-0 left-0 z-40 flex h-full w-[88%] max-w-sm flex-col rounded-3xl px-6 py-8 transition-transform lg:sticky lg:top-8 lg:h-[calc(100vh-64px)] lg:w-full lg:max-w-none ${
               drawerOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             } ${themeTokens.panel}`}
             aria-label="Navigation du tutoriel"
           >
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <p className={`text-xs font-semibold uppercase tracking-[0.35em] ${themeTokens.accentLabel}`}>Tutoriels</p>
-              </div>
+            <div className="mb-6 flex items-center justify-end">
               <button
                 type="button"
                 className={`rounded-full border p-2 transition lg:hidden ${themeTokens.button}`}
@@ -311,25 +363,33 @@ const TutorialPage = () => {
               </div>
             </nav>
           </aside>
-          <main className="w-full">
-            <div className="space-y-12">
-            <button
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 body-sm shadow-sm transition hover:bg-white/5 lg:hidden ${themeTokens.button}`}
-              onClick={() => setDrawerOpen(true)}
+          <main className="w-full pt-20 lg:pt-0 lg:h-[calc(100vh-4rem)] lg:overflow-hidden">
+            <div className="lg:hidden">
+              <div className="fixed top-4 inset-x-0 z-50 flex items-center justify-between gap-1 rounded-3xl border border-slate-700 bg-slate-900 px-6 py-3 shadow-xl shadow-slate-900/50 transition">
+                <button
+                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 body-sm shadow-sm transition hover:bg-slate-800 ${themeTokens.button}`}
+                  onClick={() => setDrawerOpen(!drawerOpen)}
+                >
+                  <FiMenu />
+                  Sommaire
+                </button>
+                <ThemeToggle />
+              </div>
+            </div>
+            <div
+              ref={setContentEl}
+              className="space-y-12 pt-6 lg:pt-0 lg:h-full lg:overflow-y-auto lg:pr-3"
             >
-              <FiMenu />
-              Sommaire
-            </button>
-            <section
-              id="intro"
-              className={`space-y-8 rounded-[32px] px-6 py-10 shadow-sm sm:px-10 sm:py-12 ${themeTokens.card}`}
-            >
+              <section
+                id="intro"
+                className={`space-y-8 rounded-[32px] px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12 shadow-sm ${themeTokens.card}`}
+              >
               <div className="space-y-2 max-w-3xl">
                 <span className={`text-xs font-semibold uppercase tracking-[0.35em] ${themeTokens.accentLabel}`}>Apprendre</span>
                 <h1 className={`heading-display ${themeTokens.strong}`}>{content.heroTitle}</h1>
                 <p className={`body-base ${themeTokens.muted}`}>{content.heroDescription}</p>
               </div>
-              <div className={`rounded-2xl px-6 py-6 sm:px-8 ${themeTokens.subCard}`}>
+              <div className={`rounded-2xl px-4 sm:px-6 sm:px-8 py-4 sm:py-6 ${themeTokens.subCard}`}>
                 <p className={`heading-sm ${themeTokens.strong}`}>Vous allez apprendre</p>
                 <ul className={`mt-4 space-y-3 body-base ${themeTokens.muted}`}>
                   {content.learnList.map((item) => (
@@ -345,7 +405,7 @@ const TutorialPage = () => {
                 <p className={`body-sm ${themeTokens.muted}`}>{content.quickStartIntro}</p>
                 <div className="mt-4 flex flex-col gap-4">
                   {content.quickStartCards.map((card) => (
-                    <article key={card.id} className={`rounded-2xl p-4 shadow-sm ${themeTokens.card}`}>
+                  <article key={card.id} className={`rounded-2xl p-3 sm:p-4 shadow-sm ${themeTokens.card}`}>
                       <div className={`flex items-center justify-between text-xs font-semibold uppercase tracking-[0.35em] ${themeTokens.accentLabel}`}>
                         <span className={themeTokens.strong}>{card.title}</span>
                         <span className={themeTokens.muted}>{card.minutes}</span>
@@ -366,7 +426,7 @@ const TutorialPage = () => {
                 </div>
               </div>
               {introSections.map((section) => (
-                <article id={section.id} key={section.id} className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
+                <article id={section.id} key={section.id} className={`rounded-2xl p-4 sm:p-6 shadow-sm ${themeTokens.card}`}>
                   <h3 className={`heading-lg ${themeTokens.strong}`}>{section.title}</h3>
                   <p className={`mt-3 body-base ${themeTokens.muted}`}>{section.description}</p>
                   {section.bullets && (
@@ -390,16 +450,15 @@ const TutorialPage = () => {
                   )}
                 </article>
               ))}
-              <div className={`rounded-2xl p-6 shadow-sm ${themeTokens.card}`}>
+              <div className={`rounded-2xl p-4 sm:p-6 shadow-sm ${themeTokens.card}`}>
                   <h3 className={`heading-lg ${themeTokens.strong}`}>Contenu des fichiers clés</h3>
                   <p className={`body-base ${themeTokens.muted}`}>
-                    Copiez-collez ces snippets pour obtenir un squelette d&apos;API complet, puis adaptez-les à votre domaine métier.
                   </p>
                   <div className="mt-6 space-y-5">
                     {content.projectFiles.map((file, index) => (
                       <article
                         key={`${file.path}-${index}`}
-                        className={`rounded-2xl p-5 shadow-sm ${themeTokens.subCard}`}
+                        className={`rounded-2xl p-3 sm:p-4 sm:p-5 shadow-sm ${themeTokens.subCard}`}
                       >
                         <div className="flex flex-wrap items-center gap-3">
                           <p className={`body-sm font-semibold break-all ${themeTokens.strong}`}>{file.path}</p>
@@ -429,7 +488,7 @@ const TutorialPage = () => {
                       <span className="text-slate-400">/</span>
                       <span>{section.title}</span>
                     </div>
-                    <div className={`rounded-3xl p-6 shadow-sm sm:p-8 ${themeTokens.card}`}>
+                    <div className={`rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm ${themeTokens.card}`}>
                       <h2 className={`heading-lg ${themeTokens.strong}`}>{section.title}</h2>
                       <p className={`mt-3 body-base ${themeTokens.muted}`}>{section.description}</p>
                       {section.bullets && (
@@ -474,7 +533,7 @@ const TutorialPage = () => {
                 );
               })}
             </div>
-            <section className={`rounded-3xl px-6 py-6 sm:px-8 ${themeTokens.soft}`}>
+            <section className={`rounded-3xl px-4 sm:px-6 sm:px-8 py-4 sm:py-6 ${themeTokens.soft}`}>
               <h3 className={`heading-lg ${themeTokens.strong}`}>Ressources utiles</h3>
               <p className={`body-base ${themeTokens.muted}`}>Guides complémentaires pour aller plus loin.</p>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -492,7 +551,7 @@ const TutorialPage = () => {
                 ))}
               </div>
             </section>
-            <section className={`rounded-3xl px-6 py-6 sm:px-8 ${themeTokens.card}`}>
+            <section className={`rounded-3xl px-4 sm:px-6 sm:px-8 py-4 sm:py-6 ${themeTokens.card}`}>
               <h3 className={`heading-lg ${themeTokens.strong}`}>Soutenir mes recherches</h3>
               <p className={`body-base ${themeTokens.muted}`}>
                 Ces tutoriels restent gratuits et évolutifs grâce au temps passé en veille et en expérimentation. Si vous souhaitez encourager ce travail,
@@ -515,33 +574,27 @@ const TutorialPage = () => {
         <aside className="hidden lg:block">
           <div className={`${themeTokens.outlineCard} sticky top-8 max-h-[calc(100vh-64px)] overflow-auto`}>
             <p className={themeTokens.outlineHeading}>Sur cette page</p>
-            <ol className="mt-4 space-y-3">
-              {steps.map((step) => {
-                const isActive = activeSection === step.id;
-                return (
-                  <li
-                    key={step.id}
-                    className={`${themeTokens.outlineBullet} ${isActive ? outlineActiveBorderClass : ""}`}
-                  >
-                    <a
-                      href={`#${step.id}`}
-                      className={`${themeTokens.outlineLink} ${isActive ? themeTokens.outlineLinkActive : ""}`}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        const target = document.getElementById(step.id);
-                        if (target) {
-                          window.history.replaceState(null, "", `#${step.id}`);
-                          setActiveSection(step.id);
-                          target.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }
-                      }}
-                    >
-                      {step.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
+                <ol className="mt-4 space-y-3">
+                  {steps.map((step) => (
+                    <li key={step.id} className={themeTokens.outlineBullet}>
+                      <a
+                        href={`#${step.id}`}
+                        className={themeTokens.outlineLink}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          const target = document.getElementById(step.id);
+                          if (target) {
+                            window.history.replaceState(null, "", `#${step.id}`);
+                            setActiveSection(step.id);
+                            target.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        }}
+                      >
+                        {step.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
           </div>
         </aside>
       </div>

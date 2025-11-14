@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  /* Muted light background to reduce glare */
+  --background: #eceff4;
   --foreground: #171717;
 }
 
@@ -228,39 +229,48 @@ html {
   }
 
   .heading-display {
-    @apply text-[2.75rem] font-semibold leading-snug tracking-tight sm:text-[3.25rem];
+    @apply text-[2.1rem] font-semibold leading-tight tracking-tight sm:text-[2.5rem] md:text-[2.9rem] lg:text-[3.25rem];
   }
 
   .heading-xl {
-    @apply text-[2.25rem] font-semibold leading-snug sm:text-[2.5rem];
+    @apply text-[1.9rem] font-semibold leading-tight sm:text-[2.1rem] md:text-[2.3rem] lg:text-[2.5rem];
   }
 
   .heading-lg {
-    @apply text-[1.75rem] font-semibold leading-snug sm:text-[2rem];
+    @apply text-[1.35rem] font-semibold leading-tight sm:text-[1.6rem] md:text-[1.75rem] lg:text-[2rem];
   }
 
   .heading-md {
-    @apply text-[1.375rem] font-semibold leading-snug;
+    @apply text-[1.15rem] font-semibold leading-snug sm:text-[1.25rem] md:text-[1.35rem];
   }
 
   .heading-sm {
-    @apply text-[1.125rem] font-semibold leading-snug;
+    @apply text-[0.95rem] font-semibold leading-snug sm:text-[1rem];
   }
 
   .body-lg {
-    @apply text-[1.0625rem] leading-relaxed;
+    @apply text-[0.98rem] leading-relaxed sm:text-[1.02rem] md:text-[1.04rem] break-words;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 
   .body-base {
-    @apply text-[0.95rem] leading-relaxed;
+    @apply text-[0.78rem] leading-relaxed sm:text-[0.85rem] md:text-[0.9rem] lg:text-[0.95rem] break-words;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 
   .body-sm {
-    @apply text-[0.8125rem] leading-relaxed;
+    @apply text-[0.72rem] leading-relaxed sm:text-[0.78rem] md:text-[0.8rem] break-words;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 
   .mono-label {
-    @apply font-sans text-xs font-semibold uppercase tracking-[0.35em];
+    @apply font-sans text-[0.65rem] font-semibold uppercase tracking-[0.35em] sm:text-[0.75rem];
   }
 
   .code-block {
@@ -557,26 +567,27 @@ section {
 }
 
 .theme-aurora .hero-section {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 45%, #e0f2fe 85%);
+  background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.25), transparent 55%),
+    linear-gradient(135deg, #d5e4ff 0%, #c2d7ff 48%, #b7e4ff 100%);
   color: inherit;
 }
 
 .theme-aurora .skills-section {
-  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 45%, #eff6ff 100%);
+  background: linear-gradient(180deg, #cfe0ff 0%, #bdd4ff 45%, #dfe9ff 100%);
 }
 
 .theme-aurora .experience-section {
-  background: linear-gradient(180deg, #e2e8f0 0%, #dbeafe 55%, #eff6ff 100%);
+  background: linear-gradient(180deg, #d3dbf5 0%, #c8d8ff 55%, #e3ecff 100%);
 }
 
 .theme-aurora .contact-section {
-  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 60%, #f1f5ff 100%);
+  background: linear-gradient(180deg, #cadaff 0%, #b7d1ff 60%, #e2edff 100%);
 }
 
 .theme-aurora .footer-section {
-  background: linear-gradient(180deg, rgba(56, 189, 248, 0.16), rgba(37, 99, 235, 0.14));
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.22), rgba(37, 99, 235, 0.2));
   color: var(--aurora-text-secondary);
-  border-color: rgba(99, 102, 241, 0.25);
+  border-color: rgba(37, 99, 235, 0.35);
 }
 
 .theme-aurora .footer-section .text-gray-500 {
