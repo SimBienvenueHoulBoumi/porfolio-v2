@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "Kubernetes"
   ],
   authors: [{ name: "Sim Bienvenue HOULBOUMI" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "Sim Bienvenue HOULBOUMI | DevOps Engineer & Full Stack Developer",
     description:
@@ -64,6 +63,11 @@ export const metadata: Metadata = {
       "CI/CD, microservices et cloud résilient : découvrez le portfolio de Sim Bienvenue Houlboumi.",
     images: ["/profile.png"]
   }
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1
 };
 
 export default function RootLayout({

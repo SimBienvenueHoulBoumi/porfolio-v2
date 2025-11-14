@@ -389,7 +389,7 @@ const TutorialPage = () => {
                 <h1 className={`heading-display ${themeTokens.strong}`}>{content.heroTitle}</h1>
                 <p className={`body-base ${themeTokens.muted}`}>{content.heroDescription}</p>
               </div>
-              <div className={`rounded-2xl px-4 sm:px-6 sm:px-8 py-4 sm:py-6 ${themeTokens.subCard}`}>
+              <div className={`rounded-2xl px-4 sm:px-8 py-4 sm:py-6 ${themeTokens.subCard}`}>
                 <p className={`heading-sm ${themeTokens.strong}`}>Vous allez apprendre</p>
                 <ul className={`mt-4 space-y-3 body-base ${themeTokens.muted}`}>
                   {content.learnList.map((item) => (
@@ -458,7 +458,7 @@ const TutorialPage = () => {
                     {content.projectFiles.map((file, index) => (
                       <article
                         key={`${file.path}-${index}`}
-                        className={`rounded-2xl p-3 sm:p-4 sm:p-5 shadow-sm ${themeTokens.subCard}`}
+                        className={`rounded-2xl p-3 sm:p-5 shadow-sm ${themeTokens.subCard}`}
                       >
                         <div className="flex flex-wrap items-center gap-3">
                           <p className={`body-sm font-semibold break-all ${themeTokens.strong}`}>{file.path}</p>
@@ -488,9 +488,9 @@ const TutorialPage = () => {
                       <span className="text-slate-400">/</span>
                       <span>{section.title}</span>
                     </div>
-                    <div className={`rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm ${themeTokens.card}`}>
-                      <h2 className={`heading-lg ${themeTokens.strong}`}>{section.title}</h2>
-                      <p className={`mt-3 body-base ${themeTokens.muted}`}>{section.description}</p>
+                  <div className={`rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm ${themeTokens.card}`}>
+                    <h2 className={`heading-lg ${themeTokens.strong}`}>{section.title}</h2>
+                    <p className={`mt-3 body-base ${themeTokens.muted}`}>{section.description}</p>
                       {section.bullets && (
                         <ul className={`mt-4 space-y-3 body-base ${themeTokens.muted}`}>
                           {section.bullets.map((item) => (
@@ -533,7 +533,7 @@ const TutorialPage = () => {
                 );
               })}
             </div>
-            <section className={`rounded-3xl px-4 sm:px-6 sm:px-8 py-4 sm:py-6 ${themeTokens.soft}`}>
+            <section className={`rounded-3xl px-4 sm:px-8 py-4 sm:py-6 ${themeTokens.soft}`}>
               <h3 className={`heading-lg ${themeTokens.strong}`}>Ressources utiles</h3>
               <p className={`body-base ${themeTokens.muted}`}>Guides complémentaires pour aller plus loin.</p>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -551,7 +551,7 @@ const TutorialPage = () => {
                 ))}
               </div>
             </section>
-            <section className={`rounded-3xl px-4 sm:px-6 sm:px-8 py-4 sm:py-6 ${themeTokens.card}`}>
+            <section className={`rounded-3xl px-4 sm:px-8 py-4 sm:py-6 ${themeTokens.card}`}>
               <h3 className={`heading-lg ${themeTokens.strong}`}>Soutenir mes recherches</h3>
               <p className={`body-base ${themeTokens.muted}`}>
                 Ces tutoriels restent gratuits et évolutifs grâce au temps passé en veille et en expérimentation. Si vous souhaitez encourager ce travail,

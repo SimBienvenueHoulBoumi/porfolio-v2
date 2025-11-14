@@ -8,6 +8,7 @@ const springSidebar: SidebarEntry[] = [
   { id: "repository", label: "Repository & Mapper" },
   { id: "services", label: "Services" },
   { id: "controller", label: "Contrôleur" },
+  { id: "security", label: "Sécurité & JWT" },
   { id: "observability", label: "Observabilité" },
   { id: "testing", label: "Tests" },
   { id: "delivery", label: "CI/CD" }
@@ -93,6 +94,12 @@ const springProjectTree = `src/main/java/simdev/demo/
     TaskNotFoundException.java
     TaskAlreadyExistsException.java
     GlobalExceptionHandler.java
+  security/
+    AuthController.java
+    AuthenticationService.java
+    SecurityConfig.java
+    JwtAuthenticationFilter.java
+    JwtTokenProvider.java
   Enum/status.java
 src/main/resources/application.yml
 src/main/resources/db/migration/V1__create_tasks.sql
@@ -126,6 +133,89 @@ public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
 }
 }
 `,
+    language: "java"
+  },
+  {
+    path: "src/main/java/simdev/demo/security/SecurityConfig.java",
+    description: "Configuration Spring Security : expose /api/auth/** sans authentification, force l'utilisation d'un JWT pour les autres routes et ajoute un filtre personnalisé.",
+    snippet: `@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+      .csrf(AbstractHttpConfigurer::disable)
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+      .authorizeHttpRequests(auth -> auth
+        .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+        .requestMatchers("/api/auth/**").authenticated()
+        .requestMatchers("/api/tasks/**").authenticated()
+        .anyRequest().denyAll()
+      )
+      .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+  }
+}`,
+    language: "java"
+  },
+  {
+    path: "src/main/java/simdev/demo/security/AuthenticationService.java",
+    description: "Service d&apos;authentification : vérifie les identifiants, encode les mots de passe, et génère des JWT pour les routes protégées.",
+    snippet: `@Service
+@RequiredArgsConstructor
+public class AuthenticationService {
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
+  private final JwtTokenProvider jwtTokenProvider;
+
+  public AuthResponse login(LoginRequest loginRequest) {
+    var user = userRepository.findByEmail(loginRequest.getEmail())
+      .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
+    if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+      throw new BadCredentialsException("Mot de passe invalide");
+    }
+    return AuthResponse.builder()
+      .token(jwtTokenProvider.generateToken(user))
+      .build();
+  }
+
+  public AuthResponse register(RegisterRequest registerRequest) {
+    var userEntity = User.builder()
+      .email(registerRequest.getEmail())
+      .password(passwordEncoder.encode(registerRequest.getPassword()))
+      .role("ROLE_USER")
+      .build();
+    var saved = userRepository.save(userEntity);
+    return AuthResponse.builder()
+      .token(jwtTokenProvider.generateToken(saved))
+      .build();
+  }
+}`,
+    language: "java"
+  },
+  {
+    path: "src/main/java/simdev/demo/security/AuthController.java",
+    description: "Controller d&apos;authentification : login et register restent publics et renvoient les JWT générés par AuthenticationService.",
+    snippet: `@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class AuthController {
+  private final AuthenticationService authenticationService;
+
+  @PostMapping("/login")
+  public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+    return ResponseEntity.ok(authenticationService.login(request));
+  }
+
+  @PostMapping("/register")
+  public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+    return ResponseEntity.ok(authenticationService.register(request));
+  }
+}`,
     language: "java"
   },
   {
@@ -421,6 +511,65 @@ public final class TasksController {
     bullets: [
       "Utilisez ResponseEntity pour contrôler précisément les codes de statut HTTP.",
       "Gardez les contrôleurs fins en déléguant la logique aux services."
+    ],
+    codeLanguage: "java"
+  },
+  {
+    id: "security",
+    title: "Sécurité & JWT",
+    description:
+      "Ajoutez un contrôle Spring Security complet : l’authentification gère un UserDetailsService, les tokens JWT sont signés via JwtTokenProvider et les autres routes sont protégées par JwtAuthenticationFilter.",
+    code: `@Service
+@RequiredArgsConstructor
+public class AuthenticationService {
+  private final UserRepository userRepository;
+  private final JwtTokenProvider jwtTokenProvider;
+  private final PasswordEncoder passwordEncoder;
+
+  public AuthResponse login(LoginRequest login) {
+    var user = userRepository.findByEmail(login.getEmail())
+      .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
+    if (!passwordEncoder.matches(login.getPassword(), user.getPassword())) {
+      throw new BadCredentialsException("Mot de passe invalide");
+    }
+    return AuthResponse.builder()
+      .token(jwtTokenProvider.generateToken(user))
+      .build();
+  }
+
+  public AuthResponse register(RegisterRequest registerRequest) {
+    var userEntity = User.builder()
+      .email(registerRequest.getEmail())
+      .password(passwordEncoder.encode(registerRequest.getPassword()))
+      .role("ROLE_USER")
+      .build();
+    var saved = userRepository.save(userEntity);
+    return AuthResponse.builder()
+      .token(jwtTokenProvider.generateToken(saved))
+      .build();
+  }
+}
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class AuthController {
+  private final AuthenticationService authenticationService;
+
+  @PostMapping("/login")
+  public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+    return ResponseEntity.ok(authenticationService.login(request));
+  }
+
+  @PostMapping("/register")
+  public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+    return ResponseEntity.ok(authenticationService.register(request));
+  }
+}`,
+    bullets: [
+      "Créez des routes /api/auth/login et /api/auth/register publiques pour émettre les tokens et enregistrer les utilisateurs.",
+      "Implémentez JwtAuthenticationFilter pour valider chaque requête en extraire un claim, puis injectez un UserDetails authentifié dans le SecurityContext.",
+      "Désactivez les sessions (STATLESS) et protégez explicitement /api/tasks/** pendant que seules les routes d’authentification restent sans JWT."
     ],
     codeLanguage: "java"
   },
