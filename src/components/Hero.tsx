@@ -114,7 +114,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
     <header
       ref={ref}
       id="hero"
-      className={`hero-section relative overflow-hidden bg-gradient-to-br ${heroBackground} py-20 sm:py-28`}
+      className={`hero-section relative overflow-hidden bg-gradient-to-br ${heroBackground} pt-12 pb-16 sm:py-28`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-40">

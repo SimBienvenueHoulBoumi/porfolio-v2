@@ -39,11 +39,11 @@ export default function NotFound() {
           <div className="space-y-3">
             <p className={`text-xs font-semibold uppercase tracking-[0.4em] ${muted}`}>Page introuvable</p>
             <h1 className={`text-3xl font-semibold leading-tight sm:text-4xl ${isAurora ? "text-slate-900" : "text-white"}`}>
-              Nous n&apos;avons pas trouvé cette adresse
+              Nous n'avons pas trouvé cette adresse
             </h1>
             <p className={`text-base ${muted}`}>
-              Contrairement à une maintenance planifiée, cette route n&apos;existe pas (ou plus).
-              Vérifiez l&apos;URL ou revenez au sommaire pour poursuivre votre navigation.
+              Contrairement à une maintenance planifiée, cette route n'existe pas (ou plus).
+              Vérifiez l'URL ou revenez au sommaire pour poursuivre votre navigation.
             </p>
           </div>
 
@@ -52,7 +52,7 @@ export default function NotFound() {
           >
             <p className={`flex flex-wrap items-center justify-center gap-2 font-semibold ${accent}`}>
               <FiAlertCircle />
-              Si vous pensez qu&apos;il s&apos;agit d&apos;un lien valide, écrivez-moi via la page contact.
+              Si vous pensez qu'il s'agit d'un lien valide, écrivez-moi via la page contact.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ export default function NotFound() {
               variant="primary"
               iconLeft={<FiArrowLeft />}
             >
-              Retour à l&apos;accueil
+              Retour à l'accueil
             </Button>
             <Button
               as={Link}

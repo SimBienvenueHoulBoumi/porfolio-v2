@@ -164,7 +164,7 @@ public class SecurityConfig {
   },
   {
     path: "src/main/java/simdev/demo/security/AuthenticationService.java",
-    description: "Service d&apos;authentification : vérifie les identifiants, encode les mots de passe, et génère des JWT pour les routes protégées.",
+    description: "Service d'authentification : vérifie les identifiants, encode les mots de passe, et génère des JWT pour les routes protégées.",
     snippet: `@Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -199,7 +199,7 @@ public class AuthenticationService {
   },
   {
     path: "src/main/java/simdev/demo/security/AuthController.java",
-    description: "Controller d&apos;authentification : login et register restent publics et renvoient les JWT générés par AuthenticationService.",
+    description: "Controller d'authentification : login et register restent publics et renvoient les JWT générés par AuthenticationService.",
     snippet: `@RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor

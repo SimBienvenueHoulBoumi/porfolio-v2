@@ -102,7 +102,7 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
         </button>
         {mobileOpen && (
           <div className={`mx-3 mb-3 rounded-2xl border ${mobileShell} px-4 py-3 ${mobileText}`}>
-            <pre className="whitespace-pre-wrap break-words text-[12px] leading-[1.5] sm:text-sm sm:leading-[1.75] max-h-60 overflow-auto">
+            <pre className="whitespace-pre-wrap break-words text-sm leading-[1.2] sm:text-sm sm:leading-[1.2] max-h-60 overflow-auto">
               {textContent}
             </pre>
           </div>
@@ -133,19 +133,23 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
         <Highlight prism={Prism as never} code={textContent} language={language} theme={highlightTheme}>
           {({ className: highlightClassName, style, tokens, getLineProps, getTokenProps }) => (
             <pre
-              className={`${highlightClassName} overflow-x-auto whitespace-pre-wrap break-words text-[12px] leading-[1.5] sm:text-[13px] sm:leading-[1.75] md:text-sm md:leading-[1.9] lg:text-[15px] lg:leading-[2.1]`}
-              style={{ ...style, backgroundColor: "transparent", wordBreak: "break-word" }}
+              className={`${highlightClassName} overflow-x-auto whitespace-pre-wrap break-words text-sm leading-[1.3] sm:text-sm sm:leading-[1.3] md:text-sm md:leading-[1.3] lg:text-sm lg:leading-[1.3]`}
+              style={{ ...style, backgroundColor: "transparent", wordBreak: "break-word", lineHeight: "1" }}
             >
               {tokens.map((line, i) => {
                 const lineProps = getLineProps({ line, key: i });
                 const { key: lineKey, className: lineClassName, ...lineRest } = lineProps;
                 const safeLineKey = typeof lineKey === "string" || typeof lineKey === "number" ? lineKey : i;
                 return (
-                  <div key={safeLineKey} {...lineRest} className={`table-row ${lineClassName ?? ""}`}>
+                  <div
+                    key={safeLineKey}
+                    {...lineRest}
+                    className={`table-row leading-[1] ${lineClassName ?? ""}`}
+                  >
                     <span className="table-cell select-none pr-4 text-right text-[9px] sm:text-[10px] md:text-[11px] opacity-60">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="table-cell">
+                    <span className="table-cell leading-[1]">
                       {line.map((token, tokenIndex) => {
                         const tokenProps = getTokenProps({ token, key: tokenIndex });
                         const { key: tokenKey, ...rest } = tokenProps;

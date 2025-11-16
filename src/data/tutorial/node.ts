@@ -12,74 +12,106 @@ const nodeSidebar: SidebarEntry[] = [
 ];
 
 const nodeQuickStartCards: QuickStartCard[] = [
-  {
-    id: "init",
-    title: "Initialisation du projet",
-    minutes: "~3 min",
-    command: `mkdir my-node-api && cd my-node-api
+  {    id: "concepts",
+    title: "Concepts fondamentaux",
+    minutes: "~5 min",
+    command: `# Créer le dossier du projet
+mkdir my-node-api && cd my-node-api
+
+# Initialiser le projet Node.js avec un package.json
 npm init -y
+
+# Installer les dépendances de production
 npm install express zod pino pino-http helmet cors express-rate-limit dotenv
+
+# Installer les dépendances de développement
 npm install -D typescript tsx @types/node @types/express @types/cors @types/helmet @types/express-rate-limit vitest supertest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+
+# Générer la configuration TypeScript
 npx tsc --init
+
+# Configurer les modules ES6 modernes
 npm pkg set type="module"
+
+# Définir les scripts npm pour développement et tests
 npm pkg set scripts.dev="tsx src/server.ts"
+
 npm pkg set scripts.test="vitest"
+
 npm pkg set scripts.lint="eslint src --ext .ts"`,
     bullets: [
       "mkdir && cd : Crée et entre dans le répertoire projet – organisez votre code dans un dossier dédié pour isolation.",
       "npm init -y : Initialise package.json avec valeurs par défaut ; c'est le manifeste de votre projet (dépendances, scripts).",
-      "npm install ... : Installe runtime deps (express pour routes, zod pour validation, pino pour logs, helmet/cors/rate-limit pour sécurité). Pourquoi ? Sécurité (helmet protège headers), CORS (accès cross-origin), rate-limit (anti-DDoS).",
-      "npm install -D ... : Dev deps pour build/test (typescript pour types, tsx pour exécution TS, vitest pour tests, eslint pour lint). -D = seulement en dev, pas en prod.",
+      "npm install ... : Installe runtime deps (express pour routes, zod pour validation, pino pour logs, helmet/cors/rate-limit pour sécurité).",
+      "npm install -D ... : Dev deps pour build/test (typescript pour types, tsx pour exécution TS, vitest pour tests, eslint pour lint).",
       "npx tsc --init : Génère tsconfig.json pour config TypeScript (strict mode recommandé pour catch erreurs tôt).",
       "npm pkg set ... : Configure ESM (type='module' pour import/export moderne), scripts pour dev/test/lint – exécutez npm run dev pour lancer."
     ],
     language: "bash"
   },
   {
-    id: "env",
-    title: "Configuration .env",
-    minutes: "~1 min",
-    command: `cat <<'EOF' > .env.example
+    id: "patterns",
+    title: "Design Patterns appliqués",
+    minutes: "~3 min",
+    command: `# Créer la structure de dossiers
+mkdir -p src/{routes,services,schemas,middlewares,config}
+
+# Créer les fichiers de base
+touch src/server.ts src/config/{env.ts,logger.ts} src/routes/userRoutes.ts src/services/userService.ts src/schemas/userSchema.ts src/middlewares/validate.ts
+
+# Créer le fichier de variables d'environnement
+cat > .env.example << 'EOF'
 PORT=3333
 ALLOWED_ORIGINS=http://localhost:3000
 LOG_LEVEL=debug
 EOF
+
+# Créer le fichier de tests
+mkdir tests && touch tests/user.test.ts
+
+# Copier le fichier d'environnement
 cp .env.example .env`,
     bullets: [
-      "cat <<'EOF' > .env.example : Crée un template .env avec vars critiques – PORT pour serveur, ALLOWED_ORIGINS pour CORS whitelist, LOG_LEVEL pour Pino (debug/info/error).",
-      "Pourquoi .env ? Sépare config sensible (secrets) du code ; gitignore .env pour sécurité. .env.example guide les contributeurs.",
-      "cp .env.example .env : Copie pour usage local ; éditez avec vos valeurs (ex: PORT=8080 si conflit).",
-      "Astuce : Dans code, utilisez process.env.VAR ?? default ; validez avec zod pour types sûrs (Number(process.env.PORT))."
+      "mkdir -p : Crée toute l'arborescence de dossiers en une commande (routes, services, schemas, etc.).",
+      "touch : Crée les fichiers vides de base (server.ts, userRoutes.ts, etc.) pour commencer le développement.",
+      "cat > .env.example : Crée le fichier d'exemple des variables d'environnement avec les valeurs par défaut.",
+      "mkdir tests && touch : Crée le dossier de tests et le fichier de test principal.",
+      "cp .env.example .env : Copie le fichier d'exemple pour créer le fichier d'environnement réel."
     ],
     language: "bash"
   },
   {
-    id: "tsconfig",
-    title: "Configurer TypeScript",
-    minutes: "~2 min",
-    command: `cat <<'EOF' > tsconfig.json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "verbatimModuleSyntax": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "dist"
-  },
-  "include": ["src", "tests"]
-}
-EOF`,
+    id: "evolution",
+    title: "Évolution du projet",
+    minutes: "~4 min",
+    command: `# Démarrer l'API en mode développement
+npm run dev
+
+# Lancer les tests
+npm test
+
+# Vérifier le linting du code
+npm run lint
+
+# Tester l'API avec curl
+curl -X POST http://localhost:3333/users \\
+  -H "Content-Type: application/json" \\
+  -d '{"email":"test@example.com","role":"admin"}'
+
+# Lister les utilisateurs
+curl http://localhost:3333/users
+
+# Tester un endpoint de santé
+curl http://localhost:3333/health`,
     bullets: [
-      '"target": "ES2022" : Compile vers JS moderne (async/await natif) ; compatible Node 18+.',
-      '"module": "NodeNext" : Support ESM (import/export) pour Node récent ; évite CommonJS legacy.',
-      '"strict": true : Active checks TS stricts (null checks, etc.) – catch bugs compile-time, pas runtime.',
-      '"include": ["src", "tests"] : TS scanne seulement ces dossiers ; ignore node_modules pour vitesse.',
-      "Pourquoi ? tsconfig assure cohérence équipe ; testez avec npx tsc --noEmit pour valider sans build."
+      "npm run dev : Lance l'API en mode développement avec rechargement automatique à chaque modification.",
+      "npm test : Exécute tous les tests pour vérifier que l'API fonctionne correctement.",
+      "npm run lint : Vérifie la qualité du code et applique les règles de style définies.",
+      "curl -X POST : Teste la création d'un utilisateur avec des données JSON valides.",
+      "curl GET : Récupère la liste de tous les utilisateurs existants.",
+      "curl /health : Vérifie que l'API est opérationnelle et retourne son statut de santé."
     ],
-    language: "json"
+    language: "bash"
   }
 ];
 
@@ -106,7 +138,7 @@ tests/
 const nodeProjectFiles: ProjectFile[] = [
   {
     path: "src/server.ts",
-    description: `Contexte : c'est le tableau de bord Express. Objectif : suivre la checklist du guide Express et empiler config + middlewares avant de brancher /users et d'écouter le port. Réf : https://expressjs.com/fr/starter/hello-world.html.`,
+    description: `Le fichier principal qui configure Express avec tous les middlewares de sécurité et les routes. Il suit la checklist du guide Express officiel.`,
     snippet: `import express from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -140,7 +172,7 @@ if (import.meta.url === \`file://\${process.argv[1]}\`) {
   },
   {
     path: "src/config/env.ts",
-    description: `Contexte : on charge la config via dotenv pour que tout le code lise les mêmes valeurs sûres. Objectif : appliquer la doc officielle (https://github.com/motdotla/dotenv#readme) et exposer un helper unique loadEnv.`,
+    description: `Charge la configuration depuis les variables d'environnement avec dotenv. Fournit un helper centralisé pour accéder aux valeurs de config.`,
     snippet: `import "dotenv/config";
 
 export const loadEnv = () => {
@@ -156,7 +188,7 @@ export const loadEnv = () => {
   },
   {
     path: "src/config/logger.ts",
-    description: `Contexte : des logs illisibles ne servent à rien. Objectif : reproduire la config recommandée par Pino (https://getpino.io/#/) avec JSON en prod et pretty en dev pour garder une lecture humaine.`,
+    description: `Configuration du logger Pino avec format JSON en production et pretty-print en développement pour une meilleure lisibilité.`,
     snippet: `import pino from "pino";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -178,7 +210,7 @@ export const logger = pino({
   },
   {
     path: "src/routes/userRoutes.ts",
-    description: `Contexte : toutes les routes /users passent par la même porte. Objectif : suivre la structure Router d'Express (https://expressjs.com/fr/guide/routing.html) et montrer comment validation + service + HTTP dialoguent.`,
+    description: `Définit les routes pour les utilisateurs avec validation Zod et connexion aux services métier. Utilise Express Router pour une organisation modulaire.`,
     snippet: `import { Router } from "express";
 import { userService } from "../services/userService.js";
 import { validate } from "../middlewares/validate.js";
@@ -201,7 +233,7 @@ export default router;`,
   },
   {
     path: "src/services/userService.ts",
-    description: `Contexte : on veut un endroit unique pour la logique métier. Objectif : isoler Create/List dans un service testable, en reprenant crypto.randomUUID documenté par Node (https://nodejs.org/api/crypto.html#cryptorandomuuidoptions).`,
+    description: `Service métier qui gère la logique des utilisateurs. Fournit les méthodes create et list avec génération d'ID unique via crypto.randomUUID.`,
     snippet: `import { CreateUserDTO } from "../schemas/userSchema.js";
 
 const store: Array<CreateUserDTO & { id: string }> = [];
@@ -221,7 +253,7 @@ export const userService = {
   },
   {
     path: "src/schemas/userSchema.ts",
-    description: `Contexte : sans contrat partagé, l'API accumule les surprises. Objectif : écrire le schéma Zod (https://zod.dev/?id=basic-usage), en déduire le type TypeScript et le réutiliser partout.`,
+    description: `Schéma de validation Zod pour les utilisateurs. Définit la structure des données et génère automatiquement les types TypeScript correspondants.`,
     snippet: `import { z } from "zod";
 
 export const createUserSchema = z.object({
@@ -235,7 +267,7 @@ export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
   },
   {
     path: "src/middlewares/validate.ts",
-    description: `Contexte : chaque POST doit passer par un garde-fou. Objectif : empaqueter Zod dans un middleware Express (https://expressjs.com/fr/guide/using-middleware.html) qui renvoie un 400 propre et ne transmet que des données validées.`,
+    description: `Middleware Express qui valide les données d'entrée avec Zod. Renvoie une erreur 400 si la validation échoue, sinon passe les données validées.`,
     snippet: `import { AnyZodObject } from "zod";
 import { Request, Response, NextFunction } from "express";
 
@@ -255,7 +287,7 @@ export const validate = (schema: AnyZodObject) =>
   },
   {
     path: ".env.example",
-    description: `Contexte : partager les variables sans exposer les secrets. Objectif : fournir un .env.example conforme à la doc dotenv (https://github.com/motdotla/dotenv#usage) pour aligner tout le monde.`,
+    description: `Fichier d'exemple des variables d'environnement. Définit les valeurs par défaut pour PORT, ALLOWED_ORIGINS et LOG_LEVEL.`,
     snippet: `PORT=3333
 ALLOWED_ORIGINS=http://localhost:3000
 LOG_LEVEL=debug`,
@@ -264,7 +296,7 @@ LOG_LEVEL=debug`,
   },
   {
     path: "tests/user.test.ts",
-    description: `Contexte : on valide l'API comme dans un tuto Grafikart : un test par use-case, un feedback immédiat. Objectif : s'appuyer sur Vitest + Supertest (https://vitest.dev/guide/) pour simuler POST/GET et verrouiller les régressions.`,
+    description: `Tests unitaires et d'intégration avec Vitest et Supertest. Vérifie les endpoints POST/GET et les cas d'erreur pour éviter les régressions.`,
     snippet: `import request from "supertest";
 import { app } from "../src/server";
 
@@ -303,7 +335,7 @@ describe("users API", () => {
   },
   {
     path: ".github/workflows/ci.yml",
-    description: `Contexte : aucune feature ne part sans pipeline. Objectif : suivre la doc GitHub Actions (https://docs.github.com/actions) pour rejouer install/lint/test à chaque push et garder la même recette sur Jenkins.`,
+    description: `Pipeline CI/CD GitHub Actions qui exécute automatiquement npm ci, lint et test à chaque push. Compatible avec Jenkins pour l'intégration continue.`,
     snippet: `name: API CI
 
 on:
@@ -332,54 +364,25 @@ jobs:
 const nodeSections: TutorialSection[] = [
   {
     id: "intro",
-    title: "Panorama",
-    description: "Ce tutoriel démontre la construction d'une API REST avec Node.js et TypeScript, utilisant Express pour le routage, Zod pour la validation des schémas, et Vitest pour les tests, basé sur la documentation officielle et les meilleures pratiques.",
+    title: "Pourquoi Node.js pour une API ?",
+    description: "Avant de plonger dans le code, comprenons pourquoi Node.js est un excellent choix pour développer des APIs web. Nous allons explorer les avantages de JavaScript côté serveur et comment il facilite le développement full-stack.",
     bullets: [
-      "Architecture hexagonale : Sépare la logique métier des préoccupations externes pour la maintenabilité.",
-      "Validation Zod : Assure l'intégrité des données en analysant et validant les schémas d'entrée.",
-      "Tests Vitest : Fournit des tests unitaires et d'intégration rapides pour détecter les problèmes tôt."
+      "JavaScript partout : Même langage du frontend au backend, facilitant le partage de code et de connaissances. Plus besoin de jongler entre PHP, Python ou Java - un seul langage pour tout faire.",
+      "Écosystème riche : npm propose des millions de packages pour tous les besoins (bases de données, authentification, etc.). Besoin d'un ORM ? Il y en a 50. D'un logger ? 30 choix différents. Tout est là.",
+      "Performance pour l'I/O : Modèle asynchrone non-bloquant idéal pour les APIs qui font beaucoup d'entrées/sorties. Pendant qu'une requête attend la base de données, Node.js traite 100 autres requêtes en parallèle.",
+      "Déploiement simplifié : Une seule application à gérer, pas besoin de serveurs séparés pour frontend et backend. Moins de complexité opérationnelle, moins de points de défaillance."
     ]
   },
   {
     id: "setup",
-    title: "Installation",
-    description: "Initialiser un projet Node.js avec TypeScript, installer les dépendances comme Express, Zod et Vitest, et configurer tsconfig.json pour la vérification stricte des types, suivant les meilleures pratiques Node.js et TypeScript.",
-    code: `mkdir my-node-api && cd my-node-api
-npm init -y
-npm install express zod pino pino-http helmet cors express-rate-limit dotenv
-npm install -D typescript tsx @types/node @types/express @types/cors @types/helmet @types/express-rate-limit vitest supertest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
-npx tsc --init
-npm pkg set type="module"
-npm pkg set scripts.dev="tsx src/server.ts"
-npm pkg set scripts.test="vitest"
-npm pkg set scripts.lint="eslint src --ext .ts"
-cat <<'EOF' > .env.example
-PORT=3333
-ALLOWED_ORIGINS=http://localhost:3000
-LOG_LEVEL=debug
-EOF
-cp .env.example .env
-
-cat <<'EOF' > tsconfig.json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "verbatimModuleSyntax": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "dist"
-  },
-  "include": ["src", "tests"]
-}
-EOF`,
+    title: "Organiser son projet Node.js",
+    description: "Découvrez comment structurer efficacement un projet Node.js pour qu'il reste maintenable au fur et à mesure qu'il grandit. Nous allons voir les bonnes pratiques de séparation des responsabilités.",
     bullets: [
-      "Défi : Lance 'npm run dev' après ça. Si ça plante, vérifie ton .env – c'est souvent là que ça coince !",
-      "Astuce : Copie-colle ces commandes dans ton terminal, ligne par ligne, pour voir ce qui se passe. Pas de magie, juste de la rigueur."
-    ],
-    codeLanguage: "bash"
+      "Dossiers par responsabilité : Un dossier src/routes/ pour les routes HTTP (ce qui arrive de l'extérieur), src/services/ pour la logique métier (les règles de votre domaine), src/schemas/ pour les contrats de données.",
+      "Configuration centralisée : Un seul fichier src/config/env.ts qui charge toutes les variables d'environnement. Plus de process.env éparpillés partout dans le code.",
+      "Imports organisés : Des fichiers index.ts dans chaque dossier pour centraliser les exports. Au lieu d'importer depuis 5 fichiers différents, tout passe par un point d'entrée unique.",
+      "Scripts npm clairs : npm run dev pour développer, npm run build pour compiler, npm test pour tester. Des commandes évidentes qui disent ce qu'elles font."
+    ]
   },
   {
     id: "structure",
@@ -394,97 +397,139 @@ EOF`,
   },
   {
     id: "validation",
-    title: "Définir les DTO & la validation",
-    description: "Définir les schémas Zod pour la validation des données, inférer les types TypeScript, et tester les schémas dans le playground pour assurer l'intégrité des données, suivant la documentation Zod.",
-    code: `import { z } from 'zod';
-
-export const createUserSchema = z.object({
-  email: z.string().email(),
-  role: z.enum(['admin', 'viewer']),
-});
-
-export type CreateUserDTO = z.infer<typeof createUserSchema>;`,
-    codeLanguage: "typescript",
+    title: "Contrats de données et validation",
+    description: "Comprendre l'importance des contrats explicites entre les composants. Apprendre à définir des DTO (Data Transfer Objects) avec Zod pour garantir l'intégrité des données et faciliter la maintenance.",
+    bullets: [
+      "DTO comme contrats : Au lieu de recevoir n'importe quoi dans vos fonctions, vous définissez exactement ce qui est attendu. Plus de 'req.body.email' qui pourrait être undefined ou mal formaté.",
+      "Validation en entrée : Plutôt que de découvrir les erreurs au milieu de votre logique métier, Zod vérifie tout dès l'arrivée. Si l'email n'est pas valide, on le dit immédiatement avec un message clair.",
+      "Types déduits : TypeScript regarde votre schéma Zod et génère automatiquement les types. Plus besoin d'écrire les interfaces à la main - elles sont toujours synchronisées.",
+      "Évolution sécurisée : Quand vous ajoutez un champ obligatoire, Zod vous dit exactement où ça casse. Les tests automatisés vous protègent des régressions."
+    ],
     interactive: {
       type: "playground",
       code: `import { z } from 'zod';
 
+// Définition du contrat
 const createUserSchema = z.object({
-  email: z.string().email(),
-  role: z.enum(['admin', 'viewer']),
+  email: z.string().email('Format email invalide'),
+  role: z.enum(['admin', 'viewer'], {
+    errorMap: () => ({ message: 'Rôle doit être admin ou viewer' })
+  }),
 });
 
+// Type déduit automatiquement
 type CreateUserDTO = z.infer<typeof createUserSchema>;
 
-const validUser: CreateUserDTO = {
-  email: "user@example.com",
-  role: "admin"
-};
+// Utilisation sécurisée
+function createUser(dto: CreateUserDTO) {
+  // Ici, dto.email est garanti d'être un email valide
+  // dto.role est garanti d'être 'admin' | 'viewer'
+  return { id: crypto.randomUUID(), ...dto };
+}
 
-console.log("Utilisateur valide:", validUser);
-
+// Test de validation
 try {
-  createUserSchema.parse({
-    email: "invalid-email",
-    role: "invalid-role"
+  const user = createUser({
+    email: "user@example.com",
+    role: "admin"
   });
+  console.log("✅ Utilisateur créé:", user);
 } catch (error) {
-  console.log("Erreur de validation:", error.message);
+  console.log("❌ Erreur:", error.message);
 }`,
       language: "typescript"
     }
   },
   {
     id: "services",
-    title: "DTO & Service métier",
-    description: "Centraliser la logique métier dans les services pour la testabilité et la maintenabilité, gardant les contrôleurs fins et concentrés sur les préoccupations HTTP, selon les meilleures pratiques Express.",
-    code: `import { z } from 'zod';
-
-export const createUserSchema = z.object({
-  email: z.string().email(),
-  role: z.enum(['admin', 'viewer']),
-});
-
-export type CreateUserDTO = z.infer<typeof createUserSchema>;
-
-const store: Array<CreateUserDTO & { id: string }> = [];
-
-export const userService = {
-  create(payload: CreateUserDTO) {
-    const user = { id: crypto.randomUUID(), ...payload };
-    store.push(user);
-    return user;
-  },
-  list() {
-    return store;
-  }
-};`,
-    codeLanguage: "typescript",
+    title: "Logique métier et services",
+    description: "Comprendre comment isoler la logique métier des détails d'implémentation. Apprendre à créer des services testables qui encapsulent les règles métier et orchestrent les opérations complexes.",
+    bullets: [
+      "Services comme frontière : Votre logique métier ne doit pas savoir qu'elle tourne derrière une API HTTP ou qu'elle utilise PostgreSQL. Ça facilite les tests unitaires et les changements technologiques.",
+      "Responsabilités claires : Un service UserService gère tout ce qui concerne les utilisateurs. Pas de code éparpillé dans 10 fichiers différents.",
+      "Injection de dépendances : Au lieu de créer ses dépendances en dur, le service les reçoit en paramètre. Pour les tests, vous passez des mocks ; en prod, les vraies implémentations.",
+      "Gestion d'erreurs métier : Une erreur 'Email déjà utilisé' n'est pas la même qu'une erreur 'Base de données indisponible'. Traitez-les différemment."
+    ],
     interactive: {
       type: "playground",
       code: `import { z } from 'zod';
 
+// Définition métier
 const createUserSchema = z.object({
   email: z.string().email(),
-  role: z.enum(['admin', 'viewer']),
+  role: z.enum(['admin', 'viewer'])
 });
 
 type CreateUserDTO = z.infer<typeof createUserSchema>;
+type User = CreateUserDTO & { id: string };
 
-const validUser: CreateUserDTO = {
-  email: "user@example.com",
-  role: "admin"
-};
+// Interface pour l'abstraction de persistance
+interface UserRepository {
+  save(user: User): Promise<User>;
+  findByEmail(email: string): Promise<User | null>;
+  findAll(): Promise<User[]>;
+}
 
-console.log("Utilisateur valide:", validUser);
+// Implémentation en mémoire pour les tests/démo
+class InMemoryUserRepository implements UserRepository {
+  private store = new Map<string, User>();
+
+  async save(user: User): Promise<User> {
+    this.store.set(user.id, user);
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    for (const user of this.store.values()) {
+      if (user.email === email) return user;
+    }
+    return null;
+  }
+
+  async findAll(): Promise<User[]> {
+    return Array.from(this.store.values());
+  }
+}
+
+// Service métier pur (testable sans dépendances externes)
+class UserService {
+  constructor(private repository: UserRepository) {}
+
+  async createUser(dto: CreateUserDTO): Promise<User> {
+    // Règle métier : email unique
+    const existing = await this.repository.findByEmail(dto.email);
+    if (existing) {
+      throw new Error('Un utilisateur avec cet email existe déjà');
+    }
+
+    const user: User = {
+      id: crypto.randomUUID(),
+      ...dto
+    };
+
+    return this.repository.save(user);
+  }
+
+  async listUsers(): Promise<User[]> {
+    return this.repository.findAll();
+  }
+}
+
+// Utilisation
+const repository = new InMemoryUserRepository();
+const userService = new UserService(repository);
 
 try {
-  createUserSchema.parse({
-    email: "invalid-email",
-    role: "invalid-role"
+  const user = await userService.createUser({
+    email: "john@example.com",
+    role: "admin"
   });
+  console.log("✅ Utilisateur créé:", user);
+
+  const users = await userService.listUsers();
+  console.log("📋 Utilisateurs:", users);
 } catch (error) {
-  console.log("Erreur de validation:", error.message);
+  console.log("❌ Erreur métier:", error.message);
 }`,
       language: "typescript"
     }
@@ -666,16 +711,16 @@ const nodeResources = [
 ];
 
 const nodeContent: TutorialContent = {
-  heroTitle: "Démarrage rapide Node.js + TypeScript",
+  heroTitle: "Architecture d'une API Node.js professionnelle",
   heroDescription:
-    "Exposez une API REST fiable en moins d'une heure grâce à Express, TypeScript, Zod et Vitest. Cet article rassemble les commandes clés, la structure type et les garde-fous indispensables pour la mettre en place sereinement.",
+    "Découvrez comment construire une API REST maintenable et évolutive avec Node.js et TypeScript. De l'architecture hexagonale aux design patterns, apprenez les concepts et méthodes pour développer des applications robustes.",
   learnList: [
-    "Initialiser un projet TypeScript prêt pour la prod.",
-    "Structurer services/routes, valider avec Zod et exposer des DTO propres.",
-    "Brancher observabilité (health/logs) et CI GitHub Actions."
+    "Maîtriser l'architecture hexagonale et les design patterns pour des APIs maintenables.",
+    "Comprendre l'évolution d'un projet : de l'API minimale viable au déploiement en production.",
+    "Appliquer les bonnes pratiques de validation, testabilité et observabilité."
   ],
-  quickStartHeading: "Démarrage rapide Node.js",
-  quickStartIntro: "Les trois blocs critiques pour livrer une API robuste.",
+  quickStartHeading: "Concepts et méthodes clés",
+  quickStartIntro: "Les trois piliers pour construire des APIs professionnelles et évolutives.",
   sidebar: nodeSidebar,
   quickStartCards: nodeQuickStartCards,
   projectTree: nodeProjectTree,
