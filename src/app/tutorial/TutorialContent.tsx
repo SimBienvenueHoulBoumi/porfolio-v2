@@ -11,6 +11,7 @@ import PageLoader from "@/components/PageLoader";
 import { tutorialContent, type TutorialStack } from "@/data/tutorial";
 import { useTheme } from "@/context/ThemeContext";
 import { getTutorialThemeTokens } from "./theme-tokens";
+import { useTutorialLoading } from "./loading-context";
 
 const sectionPaths: Partial<Record<TutorialStack, Record<string, string>>> = {
   node: {
@@ -78,10 +79,12 @@ export default function TutorialContent({ stack }: TutorialContentProps) {
   const [activeSection, setActiveSection] = useState<string | null>(content.tutorialSections[0]?.id ?? null);
   const [useInnerScroll, setUseInnerScroll] = useState(false);
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null);
+  const { markReady } = useTutorialLoading();
 
   const handleComplete = useCallback(() => {
     setIsReady(true);
-  }, []);
+    markReady();
+  }, [markReady]);
 
   const steps = useMemo(
     () =>
