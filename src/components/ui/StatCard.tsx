@@ -14,7 +14,7 @@ export default function StatCard({ icon, value, label, isAurora, className = "" 
   const base =
     "flex flex-col items-start gap-2 rounded-2xl border px-4 py-4 backdrop-blur-md transition-all duration-300";
   const variant = isAurora
-    ? "border-sky-200/70 bg-white text-slate-700 shadow-sky-200/40"
+    ? "border-cyan-200/70 bg-white text-slate-700 shadow-cyan-200/40"
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 shadow-cyan-500/20";
 
   return (

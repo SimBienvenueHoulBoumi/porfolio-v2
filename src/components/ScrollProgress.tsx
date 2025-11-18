@@ -24,7 +24,7 @@ export default function ScrollProgress() {
   }, []);
 
   const gradient = isAurora
-    ? "bg-gradient-to-r from-sky-500 via-indigo-500 to-sky-500 animate-gradient-move"
+    ? "bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 animate-gradient-move"
     : "bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 animate-gradient-move";
 
   return (

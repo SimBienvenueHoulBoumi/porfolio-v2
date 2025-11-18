@@ -9,15 +9,15 @@ type ThemeVariant = "aurora" | "neon";
 const variantStyles: Record<ThemeVariant, Record<BadgeVariant, Record<BadgeTone, string>>> = {
   aurora: {
     solid: {
-      brand: "bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-500 text-white border-sky-300/70",
+      brand: "bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 text-white border-cyan-300/70",
       neutral: "bg-white text-slate-700 border-slate-200",
     },
     soft: {
-      brand: "bg-sky-100 text-slate-700 border-sky-200/80",
+      brand: "bg-cyan-100 text-slate-700 border-cyan-200/80",
       neutral: "bg-slate-100 text-slate-700 border-slate-200",
     },
     outline: {
-      brand: "border-sky-300 text-slate-600",
+      brand: "border-cyan-300 text-slate-600",
       neutral: "border-slate-300 text-slate-600",
     },
   },

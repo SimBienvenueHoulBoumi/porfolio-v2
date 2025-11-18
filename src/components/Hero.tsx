@@ -51,7 +51,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const isAurora = theme === "aurora";
   const subtitle = useTypewriter(content.typewriter);
   const heroBackground = isAurora
-    ? "from-[#d8e7ff] via-[#c7d9ff] to-[#bfe9ff]"
+    ? "from-[#e0f7ff] via-[#d4f3ff] to-[#c8efff]"
     : "from-slate-950 via-slate-900 to-black";
   const nameGradient = "from-cyan-200 via-blue-300 to-purple-400";
   const heroNameClass = isAurora
@@ -67,16 +67,16 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const typewriterAccent = isAurora ? "text-slate-900" : "text-cyan-500";
   const typewriterCursor = isAurora ? "text-slate-700" : "text-cyan-400";
   const highlightCardClasses = isAurora
-    ? "rounded-2xl border border-sky-200/70 bg-sky-100/80 px-4 py-3 text-left shadow-[0_18px_40px_rgba(59,130,246,0.15)] backdrop-blur-sm"
+    ? "rounded-2xl border border-cyan-200/70 bg-cyan-100/80 px-4 py-3 text-left shadow-[0_18px_40px_rgba(97,218,251,0.15)] backdrop-blur-sm"
     : "rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur";
   const highlightLabelClass = isAurora ? "text-slate-600" : "text-cyan-300";
   const highlightValueClass = isAurora ? "text-slate-900" : "text-cyan-200";
   const stackPanelClasses = isAurora
-    ? "rounded-3xl border border-sky-200/70 bg-white/90 p-6 text-left shadow-[0_28px_60px_rgba(59,130,246,0.15)]"
+    ? "rounded-3xl border border-cyan-200/70 bg-white/90 p-6 text-left shadow-[0_28px_60px_rgba(97,218,251,0.15)]"
     : "rounded-3xl border border-cyan-400/30 bg-slate-950/80 p-6 text-left shadow-2xl shadow-cyan-500/20";
   const stackPanelTitle = isAurora ? "text-slate-700" : "text-cyan-300";
   const stackCellClasses = isAurora
-    ? "rounded-2xl border border-sky-200/60 bg-white px-2 py-4 shadow-sky-200/30"
+    ? "rounded-2xl border border-cyan-200/60 bg-white px-2 py-4 shadow-cyan-200/30"
     : "rounded-2xl border border-white/10 bg-white/5 px-2 py-4 backdrop-blur-sm";
   const stackIconClass = isAurora ? "text-slate-600" : "text-cyan-300";
   const stackLabelClass = isAurora
@@ -84,22 +84,22 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
     : "mt-2 text-[8px] uppercase tracking-[0.08em] text-cyan-200 leading-tight";
   const stackTextClass = isAurora ? "text-slate-600" : "text-slate-300";
   const introCardClasses = isAurora
-    ? "relative overflow-hidden rounded-3xl border border-sky-200/60 bg-white px-6 py-8 shadow-[0_32px_70px_rgba(59,130,246,0.18)] backdrop-blur-md sm:px-8 sm:py-10"
+    ? "relative overflow-hidden rounded-3xl border border-cyan-200/60 bg-white px-6 py-8 shadow-[0_32px_70px_rgba(97,218,251,0.18)] backdrop-blur-md sm:px-8 sm:py-10"
     : "relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-white/5 px-6 py-8 backdrop-blur-xl sm:px-8 sm:py-10";
   const glowGradient = isAurora
-    ? "linear-gradient(120deg, rgba(59,130,246,0.16), rgba(236,233,254,0.55), rgba(14,165,233,0.12))"
-    : "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))";
+    ? "linear-gradient(120deg, rgba(97,218,251,0.16), rgba(224,247,255,0.55), rgba(97,218,251,0.12))"
+    : "linear-gradient(120deg, rgba(97,218,251,0.18), rgba(97,218,251,0.08), rgba(97,218,251,0.15))";
   const availabilityCardClasses = isAurora
-    ? "flex flex-col gap-3 rounded-3xl border border-sky-200/70 bg-white p-6 text-slate-700 shadow-[0_18px_45px_rgba(59,130,246,0.12)]"
+    ? "flex flex-col gap-3 rounded-3xl border border-cyan-200/70 bg-white p-6 text-slate-700 shadow-[0_18px_45px_rgba(97,218,251,0.12)]"
     : "flex flex-col gap-3 rounded-3xl border border-cyan-400/25 bg-slate-950/70 p-6 text-slate-200 shadow-cyan-500/20";
   const availabilityTitleClass = isAurora ? "text-slate-700" : "text-cyan-200";
   const availabilitySubtitleClass = isAurora ? "text-slate-600" : "text-slate-400";
-  const pulseColor = isAurora ? "bg-sky-300/40" : "bg-cyan-500/40";
+  const pulseColor = isAurora ? "bg-cyan-300/40" : "bg-cyan-500/40";
   const objectiveCardClasses = isAurora
-    ? "rounded-3xl border border-sky-200/70 bg-gradient-to-br from-white via-sky-50 to-white p-6 shadow-[0_24px_65px_rgba(59,130,246,0.16)]"
+    ? "rounded-3xl border border-cyan-200/70 bg-gradient-to-br from-white via-cyan-50 to-white p-6 shadow-[0_24px_65px_rgba(97,218,251,0.16)]"
     : "rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-2xl shadow-cyan-500/15";
   const objectiveTextClass = isAurora ? "text-sm text-slate-600" : "text-sm text-slate-300";
-  const headlineStyle = isAurora ? undefined : { textShadow: "0 18px 45px rgba(59,130,246,0.28)" };
+  const headlineStyle = isAurora ? undefined : { textShadow: "0 18px 45px rgba(97,218,251,0.28)" };
 
   const techCapsules = [
     { Icon: FaDocker, label: "Docker" },
@@ -122,7 +122,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 20% 20%, rgba(56,189,248,0.18), transparent 55%), radial-gradient(circle at 80% 15%, rgba(129,140,248,0.15), transparent 60%)"
+                "radial-gradient(circle at 20% 20%, rgba(97,218,251,0.18), transparent 55%), radial-gradient(circle at 80% 15%, rgba(97,218,251,0.15), transparent 60%)"
             }}
           />
         </div>
@@ -131,7 +131,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(12,74,110,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(12,74,110,0.25) 1px, transparent 1px)",
+                "linear-gradient(rgba(0,168,204,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(0,168,204,0.25) 1px, transparent 1px)",
               backgroundSize: "46px 46px"
             }}
           />
@@ -203,7 +203,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                     <div
                       className={`relative flex h-10 w-10 items-center justify-center rounded-full ${
                         isAurora
-                          ? "bg-gradient-to-br from-sky-400 to-indigo-400 text-white shadow-sky-200/40"
+                          ? "bg-gradient-to-br from-cyan-400 to-cyan-500 text-white shadow-cyan-200/40"
                           : "bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950"
                       }`}
                     >
@@ -222,7 +222,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                 <div className="space-y-3">
                   {content.objective.map((paragraph) => (
                     <div key={paragraph} className={`flex items-start gap-3 ${objectiveTextClass}`}>
-                      <FiCheckCircle className={isAurora ? "mt-0.5 text-sky-500" : "mt-0.5 text-cyan-400"} />
+                      <FiCheckCircle className={isAurora ? "mt-0.5 text-cyan-500" : "mt-0.5 text-cyan-400"} />
                       <p>{paragraph}</p>
                     </div>
                   ))}

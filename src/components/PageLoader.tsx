@@ -90,21 +90,21 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
       <div
         className={`absolute inset-0 transition-colors duration-300 ${
           isAurora
-            ? "bg-gradient-to-br from-white via-slate-50 to-sky-50"
+            ? "bg-gradient-to-br from-white via-slate-50 to-cyan-50"
             : "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
         }`}
       />
       <div
         className={`pointer-events-none absolute inset-0 hidden mix-blend-screen opacity-70 sm:block ${
           isAurora
-            ? "bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.25)_0%,_rgba(14,165,233,0.05)_50%,_transparent_80%)]"
+            ? "bg-[radial-gradient(circle_at_center,_rgba(97,218,251,0.25)_0%,_rgba(97,218,251,0.05)_50%,_transparent_80%)]"
             : "bg-[radial-gradient(circle_at_center,_rgba(34,197,94,0.25)_0%,_rgba(15,118,110,0.15)_55%,_transparent_85%)]"
         }`}
       />
       <div className="absolute inset-0">
         <div
           className={`absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl sm:h-72 sm:w-72 sm:blur-3xl ${
-            isAurora ? "bg-sky-200/30" : "bg-emerald-500/20"
+            isAurora ? "bg-cyan-200/30" : "bg-emerald-500/20"
           }`}
         />
       </div>
@@ -115,15 +115,15 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
           aria-live="polite"
           className={`flex w-full max-w-sm flex-col items-center gap-4 rounded-3xl border px-6 py-8 text-center shadow-2xl transition-colors sm:px-8 sm:py-10 ${
             isAurora
-              ? "border-sky-200/70 bg-white/85 text-slate-700 shadow-sky-200/40"
-              : "border-green-500/20 bg-sky-900/80 text-green-400 shadow-green-500/15"
+              ? "border-cyan-200/70 bg-white/85 text-slate-700 shadow-cyan-200/40"
+              : "border-green-500/20 bg-slate-900/80 text-green-400 shadow-green-500/15"
           }`}
         >
           <div className="flex items-center justify-center">
             <div className="relative h-16 w-16">
               <div
                 className={`absolute inset-0 animate-spin-slow rounded-full border-[6px] border-transparent ${
-                  isAurora ? "border-t-sky-500 border-r-sky-400" : "border-t-emerald-400 border-r-emerald-300"
+                  isAurora ? "border-t-cyan-500 border-r-cyan-400" : "border-t-emerald-400 border-r-emerald-300"
                 }`}
               />
               <div
@@ -153,7 +153,7 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
                 <span
                   key={dot}
                   className={`block h-1.5 w-1.5 rounded-full ${
-                    isAurora ? "bg-sky-500/80" : "bg-green-400/80"
+                    isAurora ? "bg-cyan-500/80" : "bg-green-400/80"
                   }`}
                 />
               ))}
@@ -175,7 +175,7 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
             onClick={() => window.location.reload()}
             className={`mt-4 inline-flex items-center justify-center rounded-full px-4 py-2 text-xs font-semibold transition-all ${
               isAurora
-                ? "bg-sky-500/90 text-white hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60"
+                ? "bg-cyan-500/90 text-white hover:bg-cyan-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
                 : "bg-green-500/80 text-green-900 hover:bg-green-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400/60"
             }`}
           >

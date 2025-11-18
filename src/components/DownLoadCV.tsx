@@ -19,11 +19,11 @@ const DownLoadCV = () => {
   const isAurora = theme === "aurora";
 
   const containerClasses = isAurora
-    ? "flex flex-col items-center gap-4 rounded-3xl border border-sky-200/70 bg-white px-6 py-6 text-center shadow-[0_24px_60px_rgba(59,130,246,0.12)] sm:flex-row sm:items-center sm:justify-between sm:text-left"
+    ? "flex flex-col items-center gap-4 rounded-3xl border border-cyan-200/70 bg-white px-6 py-6 text-center shadow-[0_24px_60px_rgba(97,218,251,0.12)] sm:flex-row sm:items-center sm:justify-between sm:text-left"
     : "flex flex-col items-center gap-4 rounded-3xl border border-cyan-500/25 bg-slate-950/75 px-6 py-6 text-center shadow-2xl shadow-cyan-500/20 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:text-left";
 
   const badgeClasses = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-sky-200/80 bg-sky-100/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-700"
+    ? "inline-flex items-center gap-2 rounded-full border border-cyan-200/80 bg-cyan-100/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-700"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-cyan-200";
 
   const descriptionClass = isAurora ? "text-slate-600" : "text-slate-300";

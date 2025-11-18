@@ -15,7 +15,7 @@ export default function InfoItem({ icon, label, value, isAurora, className = "" 
     <div className={`flex items-center gap-2 text-sm ${isAurora ? "text-slate-600" : "text-gray-200"} ${className}`}>
       <span
         className={`flex h-8 w-8 items-center justify-center rounded-2xl border ${
-          isAurora ? "border-sky-200/70 bg-white text-slate-700" : "border-cyan-500/40 bg-slate-950/70 text-cyan-200"
+          isAurora ? "border-cyan-200/70 bg-white text-slate-700" : "border-cyan-500/40 bg-slate-950/70 text-cyan-200"
         }`}
       >
         {icon}

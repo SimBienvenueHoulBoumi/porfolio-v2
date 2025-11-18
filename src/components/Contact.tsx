@@ -19,19 +19,19 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
-    ? "from-slate-100 via-sky-50 to-white"
+    ? "from-slate-100 via-cyan-50 to-white"
     : "from-gray-950 via-gray-900 to-black";
 
   const primaryPanel = isAurora
-    ? "border-sky-200/70 !bg-white text-slate-700 shadow-sky-200/30"
+    ? "border-cyan-200/70 !bg-white text-slate-700 shadow-cyan-200/30"
     : "border-cyan-500/30 bg-gray-950/80 text-gray-200 shadow-cyan-500/20";
 
   const stepCard = isAurora
-    ? "border-sky-200/60 !bg-white"
+    ? "border-cyan-200/60 !bg-white"
     : "border-cyan-500/30 bg-gray-900/70";
 
   const channelCard = isAurora
-    ? "border-sky-200/70 !bg-white text-slate-700 shadow-sky-200/30 focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
+    ? "border-cyan-200/70 !bg-white text-slate-700 shadow-cyan-200/30 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-white"
     : "border-cyan-500/25 bg-gray-900/80 text-gray-200 shadow-cyan-500/20 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-gray-950";
 
   const primaryChannel = content.channels[0];
@@ -49,7 +49,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 20% 20%, rgba(34,211,238,0.12), transparent 55%), radial-gradient(circle at 80% 30%, rgba(59,130,246,0.15), transparent 60%), radial-gradient(circle at 50% 75%, rgba(147,51,234,0.12), transparent 65%)"
+                "radial-gradient(circle at 20% 20%, rgba(97,218,251,0.12), transparent 55%), radial-gradient(circle at 80% 30%, rgba(97,218,251,0.15), transparent 60%), radial-gradient(circle at 50% 75%, rgba(97,218,251,0.12), transparent 65%)"
             }}
           />
         </div>
@@ -58,7 +58,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px)",
+                "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)",
               backgroundSize: "46px 46px"
             }}
           />
@@ -168,7 +168,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                 <div
                   key={callout.label}
                   className={`rounded-2xl border px-5 py-4 text-left backdrop-blur-md transition-colors ${
-                    isAurora ? "border-sky-200/70 bg-white text-slate-700" : "border-cyan-500/25 bg-gray-900/70 text-gray-200"
+                    isAurora ? "border-cyan-200/70 bg-white text-slate-700" : "border-cyan-500/25 bg-gray-900/70 text-gray-200"
                   }`}
                 >
                   <p className="text-xs uppercase tracking-[0.35em] opacity-80">{callout.label}</p>
@@ -199,7 +199,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                         <span
                           className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
                             isAurora
-                              ? "bg-gradient-to-br from-sky-400 to-indigo-400 text-white shadow-sky-200/40"
+                              ? "bg-gradient-to-br from-cyan-400 to-cyan-500 text-white shadow-cyan-200/40"
                               : "bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950"
                           }`}
                         >

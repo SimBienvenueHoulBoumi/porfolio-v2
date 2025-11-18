@@ -14,31 +14,31 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
   const isAurora = theme === "aurora";
 
   const footerBackground = isAurora
-    ? "from-slate-100 via-white to-sky-100"
+    ? "from-slate-100 via-white to-cyan-100"
     : "from-transparent via-slate-950 to-black";
   const gridOverlay = isAurora
     ? "linear-gradient(rgba(148,163,184,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.18) 1px, transparent 1px)"
-    : "linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px)";
-  const topGlow = isAurora ? "bg-sky-200/50" : "bg-cyan-500/20";
-  const bottomGlow = isAurora ? "bg-indigo-200/45" : "bg-blue-500/20";
+    : "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)";
+  const topGlow = isAurora ? "bg-cyan-200/50" : "bg-cyan-500/20";
+  const bottomGlow = isAurora ? "bg-cyan-200/45" : "bg-blue-500/20";
   const badgeClasses = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-sm shadow-sky-200/40"
+    ? "inline-flex items-center gap-2 rounded-full border border-cyan-200/70 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-sm shadow-cyan-200/40"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-slate-900/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-cyan-200";
   const rolePill = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-sky-300/80 bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-500 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white shadow-sm shadow-sky-300/40"
+    ? "inline-flex items-center gap-2 rounded-full border border-cyan-300/80 bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white shadow-sm shadow-cyan-300/40"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-cyan-200";
   const textPrimary = isAurora ? "text-slate-600" : "text-slate-400";
   const textSecondary = isAurora ? "text-slate-500" : "text-slate-300";
   const sectionTitle = isAurora ? "text-slate-700" : "text-cyan-200";
   const dividerGradient = isAurora
-    ? "from-transparent via-sky-300/40 to-transparent"
+    ? "from-transparent via-cyan-300/40 to-transparent"
     : "from-transparent via-cyan-500/40 to-transparent";
-  const backgroundOverlay = isAurora ? "shadow-[0_-30px_80px_rgba(59,130,246,0.18)]" : "";
+  const backgroundOverlay = isAurora ? "shadow-[0_-30px_80px_rgba(97,218,251,0.18)]" : "";
 
   return (
     <footer
       ref={ref}
-      className={`footer-section relative overflow-hidden border-t transition-all duration-500 ${isAurora ? "border-sky-200/60" : "border-cyan-500/20"} bg-gradient-to-b ${footerBackground} ${backgroundOverlay}`}
+      className={`footer-section relative overflow-hidden border-t transition-all duration-500 ${isAurora ? "border-cyan-200/60" : "border-cyan-500/20"} bg-gradient-to-b ${footerBackground} ${backgroundOverlay}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">

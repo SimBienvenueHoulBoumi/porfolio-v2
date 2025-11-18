@@ -86,7 +86,7 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
           className="flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left"
         >
           <div className="flex items-center gap-3">
-            <span className="rounded-full bg-sky-100 p-2 text-sky-500">
+            <span className="rounded-full bg-cyan-100 p-2 text-cyan-500">
               <FiTerminal />
             </span>
             <div className="flex flex-col min-w-0">

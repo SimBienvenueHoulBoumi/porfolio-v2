@@ -40,7 +40,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
-    ? "from-slate-50 via-white to-sky-100"
+    ? "from-slate-50 via-white to-cyan-100"
     : "from-slate-950 via-slate-900 to-black";
 
   const sectionLabel = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-cyan-300";
@@ -62,7 +62,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px)",
+                "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)",
               backgroundSize: "44px 44px"
             }}
           />
@@ -85,7 +85,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
         </SectionHeader>
 
         <div className="relative">
-          <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${isAurora ? "bg-gradient-to-b from-sky-400/60 via-sky-300/10 to-transparent" : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent"}`} />
+          <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${isAurora ? "bg-gradient-to-b from-cyan-400/60 via-cyan-300/10 to-transparent" : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent"}`} />
           <div className="space-y-10 sm:pl-4">
             {content.experiences.map((experience, index) => (
               <Card
@@ -96,7 +96,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                 className={`relative px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:pl-16 ${hasIntersected ? "animate-scale-in" : ""}`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${isAurora ? "border border-sky-300 bg-sky-400/60 group-hover:bg-sky-500" : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"}`} />
+                <div className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${isAurora ? "border border-cyan-300 bg-cyan-400/60 group-hover:bg-cyan-500" : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"}`} />
 
                 <div className="space-y-6">
                   <div className="flex flex-wrap items-center gap-6">

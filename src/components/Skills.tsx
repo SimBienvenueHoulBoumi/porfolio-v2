@@ -22,15 +22,15 @@ const Skills: FC<SkillsProps> = ({ content }) => {
   const isAurora = theme === "aurora";
 
   const sectionBg = isAurora
-    ? "from-slate-50 via-white to-sky-100"
+    ? "from-slate-50 via-white to-cyan-100"
     : "from-slate-950 via-slate-900 to-black";
 
   const coreCard = isAurora
-    ? "border-sky-200/70 bg-white text-slate-700 focus-visible:ring-sky-400/50 focus-visible:ring-offset-white"
+    ? "border-cyan-200/70 bg-white text-slate-700 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-white"
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
 
   const loopCard = isAurora
-    ? "border-sky-200/70 bg-white/80 text-slate-700"
+    ? "border-cyan-200/70 bg-white/80 text-slate-700"
     : "border-cyan-500/25 bg-slate-950/70 text-gray-200";
 
   return (
@@ -45,7 +45,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px)",
+                "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)",
               backgroundSize: "42px 42px"
             }}
           />

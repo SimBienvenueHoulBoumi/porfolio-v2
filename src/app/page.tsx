@@ -5,13 +5,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useFadeIn from "@/hooks/useFadeIn";
 import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
-import Tutorial from "@/components/Tutorial";
+import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
 import PageLoader from "@/components/PageLoader";
-import Experience from "@/components/Experience";
+import SectionDivider from "@/components/SectionDivider";
 import { SiteContent } from "@/lib/content";
 
 const PageContent = () => {
@@ -57,6 +57,31 @@ const PageContent = () => {
     setLoaderDone(true);
   }, []);
 
+  // Add scroll-triggered animations - Must be called before any conditional returns
+  useEffect(() => {
+    if (!content) return;
+    
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, observerOptions);
+
+    const elements = document.querySelectorAll(".animate-on-scroll");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, [content]);
+
   const shouldShowLoader = !loaderDone || !content;
 
   if (shouldShowLoader && !error) {
@@ -82,9 +107,11 @@ const PageContent = () => {
       <ScrollProgress />
       <Navigation />
       <Hero content={content.hero} />
+      <SectionDivider />
       <Skills content={content.skills} />
-      <Tutorial />
+      <SectionDivider />
       <Experience content={content.experience} />
+      <SectionDivider />
       <Contact content={content.contact} />
       <Footer ref={footerRef} content={content.footer} />
     </div>

@@ -7,8 +7,8 @@ const CHANNELS = [
     id: "linkedin",
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/sim-bienvenue-houl-boumi/",
-    accent: "bg-gradient-to-br from-sky-500 to-blue-500",
-    ring: "focus-visible:ring-sky-400/60"
+    accent: "bg-gradient-to-br from-cyan-500 to-cyan-500",
+    ring: "focus-visible:ring-cyan-400/60"
   },
   {
     id: "github",
@@ -49,7 +49,7 @@ const Banner = () => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(120deg, rgba(56,189,248,0.18), rgba(32,211,238,0.08), rgba(129,140,248,0.15))"
+                "linear-gradient(120deg, rgba(97,218,251,0.18), rgba(97,218,251,0.08), rgba(97,218,251,0.15))"
             }}
           />
         </div>
