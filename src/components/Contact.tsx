@@ -41,7 +41,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="contact"
-      className={`contact-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
+      className={`contact-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 scroll-mt-16 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-30">

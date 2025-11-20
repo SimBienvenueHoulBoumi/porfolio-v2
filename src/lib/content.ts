@@ -1,3 +1,5 @@
+import type { IconKey } from "@/lib/icon-map";
+
 export type HeroHighlight = {
   label: string;
   value: string;
