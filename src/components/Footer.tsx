@@ -25,20 +25,19 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
     ? "inline-flex items-center gap-2 rounded-full border border-cyan-200/70 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-sm shadow-cyan-200/40"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-slate-900/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-cyan-200";
   const rolePill = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-cyan-300/80 bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white shadow-sm shadow-cyan-300/40"
+    ? "inline-flex items-center gap-2 rounded-full border border-cyan-300/80 bg-cyan-500 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white shadow-sm shadow-cyan-300/40"
     : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-cyan-200";
   const textPrimary = isAurora ? "text-slate-600" : "text-slate-400";
   const textSecondary = isAurora ? "text-slate-500" : "text-slate-300";
   const sectionTitle = isAurora ? "text-slate-700" : "text-cyan-200";
-  const dividerGradient = isAurora
-    ? "from-transparent via-cyan-300/40 to-transparent"
-    : "from-transparent via-cyan-500/40 to-transparent";
   const backgroundOverlay = isAurora ? "shadow-[0_-30px_80px_rgba(97,218,251,0.18)]" : "";
 
   return (
     <footer
       ref={ref}
-      className={`footer-section relative overflow-hidden border-t transition-all duration-500 ${isAurora ? "border-cyan-200/60" : "border-cyan-500/20"} bg-gradient-to-b ${footerBackground} ${backgroundOverlay}`}
+      className={`footer-section relative overflow-hidden border-t transition-all duration-500 ${
+        isAurora ? "border-cyan-200/60" : "border-cyan-500/20"
+      } ${backgroundOverlay}`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -77,15 +76,23 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
           <div className={`flex flex-col gap-2 text-sm ${textSecondary}`}>
             <span className={`font-semibold ${sectionTitle}`}>{content.madeWith}</span>
             <span className={`inline-flex items-center gap-2 ${textPrimary} group/heart`}>
-              <FaHeart className="text-red-500 transition-transform duration-300 group-hover/heart:scale-125 group-hover/heart:animate-pulse" />
+              <FaHeart
+                className={`transition-transform duration-300 group-hover/heart:scale-125 group-hover/heart:animate-pulse ${
+                  isAurora ? "text-cyan-500" : "text-red-500"
+                }`}
+              />
               {content.and}
-              <FaCode className={`transition-transform duration-300 group-hover/heart:rotate-12 ${isAurora ? "text-slate-700" : "text-cyan-400"}`} />
+              <FaCode
+                className={`transition-transform duration-300 group-hover/heart:rotate-12 ${
+                  isAurora ? "text-slate-700" : "text-cyan-400"
+                }`}
+              />
               {content.by}
             </span>
           </div>
         </div>
 
-        <div className={`mx-auto h-px w-full max-w-3xl bg-gradient-to-r ${dividerGradient}`} />
+        <div className="mx-auto h-px w-full max-w-3xl bg-cyan-500/40" />
       </div>
     </footer>
   );

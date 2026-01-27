@@ -1,9 +1,9 @@
 import type { ExperienceContent } from "@/lib/content";
 
 export const experienceContent: ExperienceContent = {
-  title: "Expériences",
+  title: "Expériences professionnelles",
   subtitle:
-    "Des équipes livrées en mode continu : alignment produit, pipelines CI/CD, observabilité et culture feedback.",
+    "Développeur Java / Spring Boot orienté DevOps : front React/Next.js, APIs sécurisées, CI/CD Jenkins, conteneurisation Docker et observabilité.",
   experiences: [
     {
       company: {
@@ -12,59 +12,59 @@ export const experienceContent: ExperienceContent = {
       },
       team: {
         label: "Équipe Agile",
-        tooltip: "Mode Scrum, sprints de 2 semaines, rituels calés sur le delivery pipeline."
+        tooltip: "Mode Scrum, sprints de 2 semaines, rituels calés sur le delivery."
       },
       role: "Développeur Front ReactJS",
       tech: {
-        label: "Next.js",
+        label: "React / Next.js",
         tooltip:
-          "Framework React avec SSR et ISR, utilisé pour des interfaces modernes et performantes."
+          "Développement d’IHM modernes avec React et Next.js (SSR/optimisations), centrées sur performance et ergonomie."
       },
-      date: "Octobre 2021 – Septembre 2023",
+      date: "2021 - 2023",
       impact:
-        "Interface data pour piloter les flux voyageurs, livraisons hebdomadaires et visibilité en temps réel sur les indicateurs clés.",
+        "Conception d’une IHM d’administration et de paramétrage de données (Java / React) (2021 - 2023).",
       highlights: [
-        { label: "Flux", value: "Voyageurs nationaux" },
-        { label: "Visibilité", value: "Temps réel" }
+        { label: "Produit", value: "IHM d’administration" },
+        { label: "Stack", value: "React / Next.js" }
       ],
       bullets: [
-        "Conception d'une interface data en **React / Next.js** axée UX et performance.",
-        "Contrôle des règles métiers via requêtes **SQL** ciblées en production.",
-        "Intégration d'API **Spring Boot** sécurisées avec authentification et gestion des erreurs.",
-        "Automatisation des environnements de test avec **Docker Compose** pour reproduire les bugs.",
-        "Participation aux pipelines **CI/CD Jenkins** et à la documentation technique."
+        "Conception d’une interface d'administration des données avec **React / Next.js**, centrée sur l’ergonomie et la performance.",
+        "Vérification des règles métiers directement en base via des requêtes **SQL** ciblées, en environnement de production.",
+        "Consommation d’API sécurisées **Spring Boot (Java 11)** avec authentification et gestion fine des erreurs, assurant une intégration fluide front/back.",
+        "Déploiement automatisé d’environnements de test avec **Docker Compose**, facilitant la reproduction des bugs et les validations techniques.",
+        "Participation à l’automatisation des tests et au déploiement continu (**CI/CD**), contribution aux scripts **Jenkins** et à la documentation technique."
       ]
     },
     {
       company: {
         label: "INFO 2R",
-        tooltip: "Plateforme RH interne modernisée pour piloter les processus employés."
+        tooltip: "Éditeur interne de solutions métiers Java / Spring Boot."
       },
       team: {
-        label: "Équipe DevOps",
-        tooltip: "Responsable de l’automatisation RH, des pipelines et du monitoring opérationnel."
-      },
-      role: "Développeur Backend Java / Spring Boot",
-      tech: {
-        label: "Spring Boot",
+        label: "Backend & Automatisation",
         tooltip:
-          "Framework Java moderne pour développer des API REST sécurisées et modulaires."
+          "Développement d’APIs, automatisation CI/CD et fiabilisation des flux / supervision."
       },
-      date: "Mars 2024 – Septembre 2024",
+      role: "Développeur Backend Java - Spring Boot",
+      tech: {
+        label: "Java / Spring Boot",
+        tooltip:
+          "Développement d’API REST sécurisées et modulaires avec Spring Boot, intégration messaging et industrialisation CI/CD."
+      },
+      date: "2023 - 2025",
       impact:
-        "Plateforme RH modulaire : gestion des onboarding, des congés et reporting légal, avec 30% de délais en moins.",
+        "Développement backend & automatisation (Java / SQL / Docker) pour une plateforme de microservices (2023 - 2025).",
       highlights: [
-        { label: "Processus", value: "Onboarding & congés" },
-        { label: "Automatisation", value: "CI/CD RH" }
+        { label: "Architecture", value: "Modulaire & hexagonale" },
+        { label: "Industrialisation", value: "Jenkins CI/CD" }
       ],
       bullets: [
-        "Développement d'**API REST Spring Boot** sécurisées avec authentification JWT.",
-        "Mise en place de **Kafka** pour synchroniser les événements RH inter-services.",
-        "Création de pipelines **Jenkins CI/CD** pour build, tests et déploiements automatisés.",
-        "Pilotage de l'observabilité RH avec **Datadog** : métriques, alerting et documentation.",
-        "Conteneurisation **Docker** des services pour des environnements reproductibles."
+        "Conception et développement d’**API REST sécurisées** avec **Spring Boot**, selon une architecture **modulaire** et **hexagonale**, robuste et maintenable.",
+        "Intégration de **Kafka** pour la communication asynchrone entre microservices, améliorant réactivité et résilience des traitements distribués.",
+        "Écriture de pipelines **Jenkins CI/CD** pour automatiser build, tests et déploiements, avec **notifications intégrées**.",
+        "Conteneurisation des services avec **Docker** pour des environnements reproductibles (dev, test, prod).",
+        "Contribution à la supervision et à la fiabilisation des flux : gestion des erreurs, suivi des métriques critiques, documentation technique **Datadog**."
       ]
     }
   ]
 };
-

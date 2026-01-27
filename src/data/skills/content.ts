@@ -65,9 +65,15 @@ export const skillsContent: SkillsContent = {
     { label: "Jenkins", href: "https://www.jenkins.io", icon: "jenkins" },
     { label: "Ansible", href: "https://www.ansible.com", icon: "ansible" },
     { label: "Kubernetes", href: "https://kubernetes.io", icon: "kubernetes" },
+    { label: "Docker", href: "https://www.docker.com", icon: "docker" },
+    { label: "Kafka", href: "https://kafka.apache.org", icon: "cloud" },
+    { label: "AWS (bases)", href: "https://aws.amazon.com", icon: "cloud" },
     { label: "Java / Spring", href: "https://spring.io/projects/spring-boot", icon: "java" },
     { label: "Moteurs SQL", icon: "database" },
-    { label: "Outils Linux", icon: "terminal" }
+    { label: "Outils Linux", icon: "terminal" },
+    { label: "Bash", icon: "terminal" },
+    { label: "Python", href: "https://www.python.org", icon: "terminal" },
+    { label: "Sécurité API (JWT)", icon: "cloud" }
   ]
 };
 

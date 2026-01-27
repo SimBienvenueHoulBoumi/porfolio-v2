@@ -21,10 +21,6 @@ const Skills: FC<SkillsProps> = ({ content }) => {
 
   const isAurora = theme === "aurora";
 
-  const sectionBg = isAurora
-    ? "from-slate-50 via-white to-cyan-100"
-    : "from-slate-950 via-slate-900 to-black";
-
   const coreCard = isAurora
     ? "border-cyan-200/70 bg-white text-slate-700 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-white"
     : "border-cyan-500/25 bg-slate-950/75 text-gray-200 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
@@ -37,7 +33,9 @@ const Skills: FC<SkillsProps> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="skills"
-      className={`skills-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 scroll-mt-16 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
+      className={`skills-section relative overflow-hidden py-24 px-4 sm:px-8 scroll-mt-16 ${
+        hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"
+      }`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -71,7 +69,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="relative z-10 space-y-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950 shadow-lg shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                     <Icon className="text-xl transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <div className="space-y-3">
@@ -102,7 +100,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                 style={{ animationDelay: `${(content.coreSkills.length + index) * 100}ms` }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950 shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500 text-slate-950 shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                     <Icon className="text-sm transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <p className="text-sm font-semibold">{loop.title}</p>

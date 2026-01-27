@@ -39,11 +39,9 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
   const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
   const isAurora = theme === "aurora";
 
-  const sectionBg = isAurora
-    ? "from-slate-50 via-white to-cyan-100"
-    : "from-slate-950 via-slate-900 to-black";
-
-  const sectionLabel = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-cyan-300";
+  const sectionLabel = isAurora
+    ? "text-xs uppercase tracking-[0.35em] text-slate-500"
+    : "text-xs uppercase tracking-[0.35em] text-cyan-300";
   const isFrench = content.title.toLowerCase().includes("exp");
   const highlightHeadingText = isFrench ? "Résultats clés" : "Key outcomes";
   const strategyCardClasses = isAurora
@@ -54,7 +52,9 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="experience"
-      className={`experience-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 scroll-mt-16 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
+      className={`experience-section relative overflow-hidden py-24 px-4 sm:px-8 scroll-mt-16 ${
+        hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"
+      }`}
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -85,7 +85,11 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
         </SectionHeader>
 
         <div className="relative">
-          <div className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${isAurora ? "bg-gradient-to-b from-cyan-400/60 via-cyan-300/10 to-transparent" : "bg-gradient-to-b from-cyan-500/60 via-cyan-500/10 to-transparent"}`} />
+          <div
+            className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${
+              isAurora ? "bg-cyan-300/50" : "bg-cyan-500/50"
+            }`}
+          />
           <div className="space-y-10 sm:pl-4">
             {content.experiences.map((experience, index) => (
               <Card

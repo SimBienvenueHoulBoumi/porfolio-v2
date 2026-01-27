@@ -11,9 +11,7 @@ export default function MaintenancePage() {
   const { theme } = useTheme();
   const isAurora = theme === "aurora";
 
-  const surface = isAurora
-    ? "bg-gradient-to-br from-white via-sky-50 to-white"
-    : "bg-gradient-to-br from-slate-950 via-slate-900 to-black";
+  const surface = isAurora ? "bg-slate-50" : "bg-slate-950";
   const cardClass = isAurora
     ? "border-sky-200/70 bg-white/85 text-slate-700"
     : "border-emerald-400/20 bg-slate-950/80 text-slate-100";

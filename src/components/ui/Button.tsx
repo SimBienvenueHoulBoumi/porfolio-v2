@@ -9,7 +9,7 @@ type ThemeVariant = "aurora" | "neon";
 const variantStyles: Record<ThemeVariant, Record<ButtonVariant, string>> = {
   aurora: {
     primary:
-      "bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 text-white border border-cyan-300/60 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium animate-gradient-shift",
+      "bg-cyan-500 text-white border border-cyan-300/70 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium",
     secondary:
       "border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 shadow-glow-premium hover:shadow-glow-premium hover-lift-3d scale-on-hover",
     ghost:
@@ -17,7 +17,7 @@ const variantStyles: Record<ThemeVariant, Record<ButtonVariant, string>> = {
   },
   neon: {
     primary:
-      "bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-slate-950 border border-cyan-400/40 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium animate-gradient-shift",
+      "bg-cyan-500 text-slate-950 border border-cyan-400/50 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium",
     secondary:
       "border border-cyan-500/40 text-cyan-200 hover:bg-white/5 shadow-glow-premium hover:shadow-glow-premium hover-lift-3d scale-on-hover",
     ghost:

@@ -10,9 +10,7 @@ export default function SectionDivider() {
       <div className="absolute inset-0 flex items-center justify-center">
         <div
           className={`h-px w-full transition-all duration-500 ${
-            isAurora
-              ? "bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent shadow-glow-premium"
-              : "bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent shadow-glow-premium"
+            isAurora ? "bg-cyan-300/50 shadow-glow-premium" : "bg-cyan-500/50 shadow-glow-premium"
           }`}
         />
       </div>

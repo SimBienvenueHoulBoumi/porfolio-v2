@@ -19,7 +19,7 @@ export default function StatCard({ icon, value, label, isAurora, className = "" 
 
   return (
     <div className={`${base} ${variant} ${className}`}>
-      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950">
+      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500 text-slate-950">
         {icon}
       </span>
       <p className="text-2xl font-semibold">{value}</p>

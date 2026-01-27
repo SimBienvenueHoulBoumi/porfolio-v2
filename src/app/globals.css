@@ -542,7 +542,7 @@ section {
   animation-delay: 1000ms;
 }
 
-/* Aurora theme palette overrides - React-inspired vibrant colors */
+/* Aurora theme palette overrides - React-inspired couleurs initiales (plus neutres) */
 .theme-aurora {
   --aurora-text-primary: #212529;
   --aurora-text-secondary: #495057;
@@ -551,7 +551,8 @@ section {
   --aurora-border-soft: rgba(97, 218, 251, 0.3);
   --aurora-card: #ffffff;
   --aurora-card-strong: #ffffff;
-  --aurora-accent-one: #61dafb;
+  /* Accent un peu plus soutenu pour un meilleur contraste sur fond clair */
+  --aurora-accent-one: #0284c7;
   --aurora-accent-two: #00d9ff;
   --aurora-accent-three: #00a8cc;
   background:
@@ -563,29 +564,34 @@ section {
 }
 
 .contact-section {
-  background: linear-gradient(180deg, #0f172a 0%, #0b1120 50%, #020617 100%);
+  /* Laisse le fond géré par la surface (theme-aurora / theme-dark) */
+  background-color: transparent;
 }
 
 .theme-aurora .hero-section {
-  background: radial-gradient(circle at 10% 20%, rgba(97, 218, 251, 0.25), transparent 55%),
-    linear-gradient(135deg, #f8f9fa 0%, #ffffff 48%, #f0f7ff 100%);
+  /* Légère teinte bleu très claire pour éviter un blanc pur */
+  background-color: #f7fbff;
   color: inherit;
 }
 
 .theme-aurora .skills-section {
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 45%, #ffffff 100%);
+  /* Section suivante un peu plus neutre (blanc cassé) */
+  background-color: #fdfefe;
 }
 
 .theme-aurora .experience-section {
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 55%, #ffffff 100%);
+  /* Légère alternance avec un gris-bleu très doux */
+  background-color: #f3f7fb;
 }
 
 .theme-aurora .contact-section {
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 60%, #ffffff 100%);
+  /* Même famille de couleur, très léger bleu-gris */
+  background-color: #f6f9ff;
 }
 
 .theme-aurora .footer-section {
-  background: linear-gradient(180deg, rgba(97, 218, 251, 0.15), rgba(97, 218, 251, 0.1));
+  /* Pied de page un peu plus marqué mais toujours clair */
+  background-color: #e9f2ff;
   color: var(--aurora-text-secondary);
   border-color: rgba(97, 218, 251, 0.5);
 }

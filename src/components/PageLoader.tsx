@@ -89,22 +89,20 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
     <div className={`fixed inset-0 z-[9999] overflow-hidden`}>
       <div
         className={`absolute inset-0 transition-colors duration-300 ${
-          isAurora
-            ? "bg-gradient-to-br from-white via-slate-50 to-cyan-50"
-            : "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+          isAurora ? "bg-white" : "bg-slate-950"
         }`}
       />
       <div
         className={`pointer-events-none absolute inset-0 hidden mix-blend-screen opacity-70 sm:block ${
           isAurora
-            ? "bg-[radial-gradient(circle_at_center,_rgba(97,218,251,0.25)_0%,_rgba(97,218,251,0.05)_50%,_transparent_80%)]"
+            ? "bg-[radial-gradient(circle_at_center,_rgba(97,218,251,0.16)_0%,_rgba(97,218,251,0.04)_55%,_transparent_85%)]"
             : "bg-[radial-gradient(circle_at_center,_rgba(34,197,94,0.25)_0%,_rgba(15,118,110,0.15)_55%,_transparent_85%)]"
         }`}
       />
       <div className="absolute inset-0">
         <div
           className={`absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl sm:h-72 sm:w-72 sm:blur-3xl ${
-            isAurora ? "bg-cyan-200/30" : "bg-emerald-500/20"
+            isAurora ? "bg-cyan-100/40" : "bg-emerald-500/20"
           }`}
         />
       </div>
@@ -131,7 +129,11 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
                   isAurora ? "border-slate-200" : "border-slate-800"
                 } opacity-40`}
               />
-              <div className="absolute inset-[10px] rounded-full bg-slate-950/60" />
+              <div
+                className={`absolute inset-[10px] rounded-full ${
+                  isAurora ? "bg-white/80" : "bg-slate-950/60"
+                }`}
+              />
             </div>
           </div>
 

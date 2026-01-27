@@ -72,8 +72,8 @@ export default function Navigation() {
             aria-label="Retour à l'accueil"
           >
             <span
-              className={`flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br ${
-                isAurora ? "from-cyan-400 via-cyan-500 to-cyan-500" : "from-cyan-400 via-blue-500 to-purple-600"
+              className={`flex h-9 w-9 items-center justify-center rounded-2xl ${
+                isAurora ? "bg-cyan-500" : "bg-cyan-500"
               } text-sm font-extrabold text-white shadow-lg shadow-cyan-500/40 group-hover:scale-105 transition-transform`}
             >
               SF
@@ -108,7 +108,7 @@ export default function Navigation() {
               >
                 <span className="relative z-10">{item.label}</span>
                 {activeSection === item.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-pulse shadow-glow-premium" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400 shadow-glow-premium" />
                 )}
               </button>
             ))}
@@ -190,8 +190,8 @@ function MobileMenu({
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-3xl bg-gradient-to-br ${
-                      isAurora ? "from-cyan-400 via-cyan-500 to-cyan-500" : "from-cyan-400 via-blue-500 to-purple-600"
+                    className={`flex h-10 w-10 items-center justify-center rounded-3xl ${
+                      isAurora ? "bg-cyan-500" : "bg-cyan-500"
                     } text-sm font-extrabold text-white shadow-lg shadow-cyan-500/40`}
                   >
                     SF

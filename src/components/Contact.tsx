@@ -41,31 +41,35 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="contact"
-      className={`contact-section relative overflow-hidden bg-gradient-to-br ${sectionBg} py-24 px-4 sm:px-8 scroll-mt-16 ${hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"}`}
+      className={`contact-section relative overflow-hidden py-24 px-4 sm:px-8 scroll-mt-16 ${
+        hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"
+      }`}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-30">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 20% 20%, rgba(97,218,251,0.12), transparent 55%), radial-gradient(circle at 80% 30%, rgba(97,218,251,0.15), transparent 60%), radial-gradient(circle at 50% 75%, rgba(97,218,251,0.12), transparent 65%)"
-            }}
-          />
+      {!isAurora && (
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 opacity-30">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 20% 20%, rgba(97,218,251,0.12), transparent 55%), radial-gradient(circle at 80% 30%, rgba(97,218,251,0.15), transparent 60%), radial-gradient(circle at 50% 75%, rgba(97,218,251,0.12), transparent 65%)"
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 opacity-[0.08]">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)",
+                backgroundSize: "46px 46px"
+              }}
+            />
+          </div>
+          <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/15 blur-3xl" />
+          <div className="absolute -bottom-20 right-1/3 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl" />
         </div>
-        <div className="absolute inset-0 opacity-[0.08]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)",
-              backgroundSize: "46px 46px"
-            }}
-          />
-        </div>
-        <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/15 blur-3xl" />
-        <div className="absolute -bottom-20 right-1/3 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl" />
-      </div>
+      )}
 
       <div className="layout-shell relative z-10 flex flex-col gap-12">
         <SectionHeader
@@ -199,8 +203,8 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                         <span
                           className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
                             isAurora
-                              ? "bg-gradient-to-br from-cyan-400 to-cyan-500 text-white shadow-cyan-200/40"
-                              : "bg-gradient-to-br from-cyan-500 to-blue-500 text-slate-950"
+                              ? "bg-cyan-500 text-white shadow-cyan-200/40"
+                              : "bg-cyan-500 text-slate-950"
                           }`}
                         >
                           <Icon className="text-lg transition-transform duration-300 group-hover:scale-125" />

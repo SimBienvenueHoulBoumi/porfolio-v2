@@ -23,9 +23,7 @@ export default function ScrollProgress() {
     return () => window.removeEventListener("scroll", updateScrollProgress);
   }, []);
 
-  const gradient = isAurora
-    ? "bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 animate-gradient-move"
-    : "bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 animate-gradient-move";
+  const barColor = isAurora ? "bg-cyan-500" : "bg-cyan-500";
 
   return (
     <div
@@ -38,10 +36,7 @@ export default function ScrollProgress() {
       aria-valuemax={100}
       aria-label="Progression du défilement"
     >
-      <div
-        className={`h-full ${gradient} transition-all duration-150 ease-out`}
-        style={{ width: `${scrollProgress}%` }}
-      />
+      <div className={`h-full ${barColor} transition-all duration-150 ease-out`} style={{ width: `${scrollProgress}%` }} />
     </div>
   );
 }

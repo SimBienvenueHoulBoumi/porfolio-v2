@@ -32,7 +32,7 @@ export default function SectionHeader({
 }: SectionHeaderProps) {
   const headingBase = isAurora
     ? "heading-xl text-slate-900"
-    : "heading-xl text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text";
+    : "heading-xl text-cyan-200";
 
   const descriptionBase = isAurora ? "body-base text-slate-600" : "body-base text-gray-300";
   const eyebrowClass = isAurora ? "eyebrow-label" : "eyebrow-label text-cyan-300";
