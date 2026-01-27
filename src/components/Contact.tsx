@@ -18,10 +18,6 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
   const { ref: sectionRef, hasIntersected } = useIntersectionObserver();
   const isAurora = theme === "aurora";
 
-  const sectionBg = isAurora
-    ? "from-slate-100 via-cyan-50 to-white"
-    : "from-gray-950 via-gray-900 to-black";
-
   const primaryPanel = isAurora
     ? "border-cyan-200/70 !bg-white text-slate-700 shadow-cyan-200/30"
     : "border-cyan-500/30 bg-gray-950/80 text-gray-200 shadow-cyan-500/20";

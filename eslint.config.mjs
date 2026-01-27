@@ -10,6 +10,11 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Ignore build artefacts and dependencies
+  {
+    ignores: ["**/.next/**", "**/node_modules/**"],
+  },
+  // Base Next.js + TypeScript rules
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 

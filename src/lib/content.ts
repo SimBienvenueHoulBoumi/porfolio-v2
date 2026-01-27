@@ -1,4 +1,3 @@
-import type { IconKey } from "@/lib/icon-map";
 import { heroContent } from "@/data/hero/content";
 import { skillsContent } from "@/data/skills/content";
 import { experienceContent } from "@/data/experience/content";

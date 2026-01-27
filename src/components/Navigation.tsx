@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useTheme } from "@/context/ThemeContext";
 
 const navItems: { id: string; label: string }[] = [
@@ -119,8 +118,6 @@ export default function Navigation() {
               navItems={navItems}
               scrollToSection={scrollToSection}
               isAurora={isAurora}
-              inactiveButton={inactiveButton}
-              activeButton={activeButton}
               activeSection={activeSection}
             />
           </div>
@@ -134,15 +131,11 @@ function MobileMenu({
   navItems,
   scrollToSection,
   isAurora,
-  inactiveButton,
-  activeButton,
   activeSection
 }: {
   navItems: ReadonlyArray<{ id: string; label: string }>;
   scrollToSection: (id: string) => void;
   isAurora: boolean;
-  inactiveButton: string;
-  activeButton: string;
   activeSection: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);

@@ -43,7 +43,7 @@ export default function MaintenancePage() {
               Cette page est momentanément indisponible
             </h1>
             <p className={`text-base ${muted}`}>
-              Nous appliquons une mise à jour rapide afin d'aligner le contenu avec la dernière charte produit.
+              Nous appliquons une mise à jour rapide afin d&apos;aligner le contenu avec la dernière charte produit.
               Revenez un peu plus tard, la page sera de nouveau accessible très bientôt.
             </p>
           </div>
@@ -65,7 +65,7 @@ export default function MaintenancePage() {
               variant="secondary"
               iconLeft={<FiArrowLeft />}
             >
-              Retour à l'accueil
+              Retour à l&apos;accueil
             </Button>
           </div>
         </div>

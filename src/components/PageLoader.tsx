@@ -83,8 +83,6 @@ const PageLoader = ({ onComplete, stageDurationMs = 1400, completionDelayMs = 80
     };
   }, []);
 
-  const progressValue = Math.round(((stageIndex + 1) / copy.stages.length) * 100);
-
   return (
     <div className={`fixed inset-0 z-[9999] overflow-hidden`}>
       <div

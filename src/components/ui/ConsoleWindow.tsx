@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-require-imports */
-
 import React, { ReactNode, useState, useMemo, isValidElement, useEffect } from "react";
 import { Highlight, themes, type Language } from "prism-react-renderer";
 import Prism from "prismjs";
@@ -51,24 +49,21 @@ const ConsoleWindow = ({ children, title, className = "", language = "typescript
       return;
     }
     const mql = window.matchMedia("(max-width: 640px)");
-    const update = (event: MediaQueryList | MediaQueryListEvent) => {
+    const handleChange = (event: MediaQueryListEvent) => {
       setIsMobile(event.matches);
       if (!event.matches) {
         setMobileOpen(false);
       }
     };
-    update(mql);
-    if (typeof mql.addEventListener === "function") {
-      mql.addEventListener("change", update);
-    } else {
-      mql.addListener(update);
-    }
+
+    // Initial state
+    setIsMobile(mql.matches);
+
+    // Modern API (recommended, non-dépréciée)
+    mql.addEventListener("change", handleChange);
+
     return () => {
-      if (typeof mql.removeEventListener === "function") {
-        mql.removeEventListener("change", update);
-      } else {
-        mql.removeListener(update);
-      }
+      mql.removeEventListener("change", handleChange);
     };
   }, []);
 

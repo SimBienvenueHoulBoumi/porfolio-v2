@@ -12,10 +12,6 @@ type FooterProps = {
 const Footer = forwardRef<HTMLDivElement, FooterProps>(({ content }, ref) => {
   const { theme } = useTheme();
   const isAurora = theme === "aurora";
-
-  const footerBackground = isAurora
-    ? "from-slate-100 via-white to-cyan-100"
-    : "from-transparent via-slate-950 to-black";
   const gridOverlay = isAurora
     ? "linear-gradient(rgba(148,163,184,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.18) 1px, transparent 1px)"
     : "linear-gradient(rgba(97,218,251,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(97,218,251,0.08) 1px, transparent 1px)";
