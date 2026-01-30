@@ -52,7 +52,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const subtitle = useTypewriter(content.typewriter);
   const heroNameClass = isAurora
     ? "heading-display block text-slate-900"
-    : "heading-display block text-cyan-200";
+    : "heading-display block text-gradient-animated";
   const headlineClass = isAurora ? "heading-lg block text-slate-700" : "heading-lg block text-cyan-200";
   const heroRoleClass = headlineClass;
   const introTextClass = isAurora ? "body-base text-slate-700" : "body-base text-slate-300";

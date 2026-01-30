@@ -6,18 +6,18 @@ export default function SectionDivider() {
   const isAurora = theme === "aurora";
 
   return (
-    <div className="relative h-24 overflow-hidden">
+    <div className="relative h-16 overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center">
         <div
-          className={`h-px w-full transition-all duration-500 ${
-            isAurora ? "bg-cyan-300/50 shadow-glow-premium" : "bg-cyan-500/50 shadow-glow-premium"
+          className={`w-full border-t transition-all duration-500 ${
+            isAurora ? "border-slate-200" : "border-slate-800"
           }`}
         />
       </div>
       <div
-        className={`absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-glow-premium transition-all duration-300 ${
-          isAurora ? "bg-cyan-400" : "bg-cyan-500"
-        } animate-depth-pulse`}
+        className={`absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-300 ${
+          isAurora ? "border-cyan-400/70" : "border-cyan-500/70"
+        }`}
       />
       <div
         className={`absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full ${

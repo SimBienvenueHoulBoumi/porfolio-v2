@@ -97,7 +97,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                 key={`${experience.company.label}-${experience.role}`}
                 isAurora={isAurora}
                 tone="soft"
-                className={`relative px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:pl-16 ${hasIntersected ? "animate-scale-in" : ""}`}
+                className={`relative px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:px-10 ${hasIntersected ? "animate-scale-in" : ""}`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${isAurora ? "border border-cyan-300 bg-cyan-400/60 group-hover:bg-cyan-500" : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"}`} />

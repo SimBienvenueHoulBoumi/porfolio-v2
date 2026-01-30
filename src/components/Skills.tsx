@@ -59,7 +59,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
           description={content.subtitle}
         />
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {content.coreSkills.map((skill, index) => {
             const Icon = getIconComponent(skill.icon) ?? ICON_MAP.docker;
             return (
@@ -90,7 +90,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
           })}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {content.loops.map((loop, index) => {
             const Icon = getIconComponent(loop.icon) ?? ICON_MAP.activity;
             return (
