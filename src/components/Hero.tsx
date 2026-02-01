@@ -104,7 +104,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   ];
 
   return (
-    <header ref={ref} id="hero" className="hero-section relative overflow-hidden pt-20 pb-16 sm:py-28 scroll-mt-16">
+    <header ref={ref} id="hero" className="hero-section relative overflow-hidden pt-16 pb-10 sm:py-20 scroll-mt-16">
       <div className="pointer-events-none absolute inset-0">
         {!isAurora && (
           <>
@@ -184,12 +184,12 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
               <DownLoadCV />
             </div>
           </div>
-          <div className="mt-12 flex flex-col items-center gap-6 lg:mt-0 lg:items-end lg:gap-8">
+          <div className="mt-12 flex flex-col items-center gap-6 lg:mt-0 lg:items-end lg:gap-3">
             <div className="lg:self-end lg:pb-2">
               <SocialBanger />
             </div>
-            <div className="mt-4 flex w-full flex-col gap-6 lg:mt-0 lg:self-end lg:pt-6">
-              <div className={availabilityCardClasses}>
+            <div className="-mt-10 flex w-full flex-col lg:-mt-20 lg:self-end lg:pt-0">
+              <div className={`${availabilityCardClasses} relative z-10 mb-4 lg:mb-6`}>
                 <div className="flex items-center gap-3 text-left">
                   <div className="relative">
                     <div className={`absolute inset-0 rounded-full ${pulseColor}`} />
@@ -209,7 +209,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                   </div>
                 </div>
               </div>
-              <div className={objectiveCardClasses}>
+              <div className={`${objectiveCardClasses} -mt-3 lg:-mt-5`}>
                 <div className="space-y-3">
                   {content.objective.map((paragraph) => (
                     <div key={paragraph} className={`flex items-start gap-3 ${objectiveTextClass}`}>

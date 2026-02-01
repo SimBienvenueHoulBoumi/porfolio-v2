@@ -61,7 +61,7 @@ const Banner = () => {
             <p className={captionClass}>{copy.caption}</p>
             <p className={descriptionClass}>{copy.description}</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 sm:justify-end">
+          <div className="flex flex-wrap justify-center gap-2 sm:justify-end">
             {CHANNELS.map(({ id, label, href, accent, ring }) => {
               const Icon = ICON_MAP[id as keyof typeof ICON_MAP];
               const accentClass = isAurora ? "bg-cyan-500" : accent;
@@ -71,20 +71,20 @@ const Banner = () => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-500 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ripple-effect ${
+                  className={`group inline-flex items-center justify-between w-[200px] sm:w-[220px] rounded-full border px-3 py-1.5 text-xs font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ripple-effect ${
                     isAurora
                       ? "border-cyan-200/80 hover:border-cyan-300/80 hover:bg-cyan-50 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-white"
                       : `border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-500/10 hover:shadow-cyan-500/30 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-slate-950 ${ring}`
                   }`}
                 >
                   <span
-                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${accentClass}`}
+                    className={`flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${accentClass}`}
                   >
-                    <Icon className="text-base transition-transform duration-300 group-hover:scale-125" />
+                    <Icon className="text-sm transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <span className={`transition-colors duration-300 ${linkTextClass}`}>{label}</span>
                   <FiArrowUpRight
-                    className={`text-base transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:scale-110 ${arrowColorClass}`}
+                    className={`text-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:scale-110 ${arrowColorClass}`}
                   />
                 </a>
               );

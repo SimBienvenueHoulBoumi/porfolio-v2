@@ -6,7 +6,7 @@ export default function SectionDivider() {
   const isAurora = theme === "aurora";
 
   return (
-    <div className="relative h-16 overflow-hidden">
+    <div className="relative my-1 h-4 overflow-visible">
       <div className="absolute inset-0 flex items-center justify-center">
         <div
           className={`w-full border-t transition-all duration-500 ${

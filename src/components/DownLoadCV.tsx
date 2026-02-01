@@ -29,9 +29,9 @@ const DownLoadCV = () => {
   const descriptionClass = isAurora ? "text-slate-600" : "text-slate-300";
 
   return (
-    <div className={`${containerClasses} transition-all duration-500 hover-lift group/cv`}>
+    <div className={containerClasses}>
       <div className="space-y-2 text-center sm:text-left">
-        <span className={`${badgeClasses} transition-all duration-300 group-hover/cv:scale-105`}>{copy.badge}</span>
+        <span className={badgeClasses}>{copy.badge}</span>
         <p className={`text-sm sm:text-base transition-colors duration-300 ${descriptionClass}`}>{copy.description}</p>
       </div>
       <div className="mt-2 flex w-full max-w-xs flex-col gap-2 sm:mt-0 sm:w-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-end sm:gap-3">

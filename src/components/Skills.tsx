@@ -33,7 +33,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="skills"
-      className={`skills-section relative overflow-hidden py-24 px-4 sm:px-8 scroll-mt-16 ${
+      className={`skills-section relative overflow-hidden py-12 px-4 sm:px-8 scroll-mt-16 ${
         hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"
       }`}
     >

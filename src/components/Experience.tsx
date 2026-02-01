@@ -52,7 +52,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="experience"
-      className={`experience-section relative overflow-hidden py-24 px-4 sm:px-8 scroll-mt-16 ${
+      className={`experience-section relative overflow-hidden py-12 px-4 sm:px-8 scroll-mt-16 ${
         hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"
       }`}
     >
@@ -97,33 +97,80 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                 key={`${experience.company.label}-${experience.role}`}
                 isAurora={isAurora}
                 tone="soft"
-                className={`relative px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:px-10 ${hasIntersected ? "animate-scale-in" : ""}`}
+                className={`relative px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:px-10 ${
+                  hasIntersected ? "animate-scale-in" : ""
+                }`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${isAurora ? "border border-cyan-300 bg-cyan-400/60 group-hover:bg-cyan-500" : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"}`} />
+                <div
+                  className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${
+                    isAurora
+                      ? "border border-cyan-300 bg-cyan-400/60 group-hover:bg-cyan-500"
+                      : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"
+                  }`}
+                />
 
                 <div className="space-y-6">
                   <div className="flex flex-wrap items-center gap-6">
                     <div className="flex items-center gap-3">
                       <FaBuilding className="text-cyan-500" />
                       <div className="flex flex-col">
-                        <span className={`text-sm font-semibold ${isAurora ? "text-slate-800" : "text-white"}`}>{experience.company.label}</span>
-                        <span className={`text-xs ${isAurora ? "text-slate-500" : "text-gray-300"}`}>{experience.company.tooltip}</span>
+                        <span
+                          className={`text-sm font-semibold ${
+                            isAurora ? "text-slate-800" : "text-white"
+                          }`}
+                        >
+                          {experience.company.label}
+                        </span>
+                        <span
+                          className={`text-xs ${
+                            isAurora ? "text-slate-500" : "text-gray-300"
+                          }`}
+                        >
+                          {experience.company.tooltip}
+                        </span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <FaUsers className="text-cyan-500" />
                       <div className="flex flex-col">
-                        <span className={`text-sm font-semibold ${isAurora ? "text-slate-800" : "text-white"}`}>{experience.team.label}</span>
-                        <span className={`text-xs ${isAurora ? "text-slate-500" : "text-gray-300"}`}>{experience.team.tooltip}</span>
+                        <span
+                          className={`text-sm font-semibold ${
+                            isAurora ? "text-slate-800" : "text-white"
+                          }`}
+                        >
+                          {experience.team.label}
+                        </span>
+                        <span
+                          className={`text-xs ${
+                            isAurora ? "text-slate-500" : "text-gray-300"
+                          }`}
+                        >
+                          {experience.team.tooltip}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-3">
-                    <InfoItem icon={<FaMicrochip />} label="Stack" value={experience.tech.label} isAurora={isAurora} />
-                    <InfoItem icon={<FaCalendar />} label="Période" value={experience.date} isAurora={isAurora} />
-                    <InfoItem icon={<FaUsers />} label="Rôle" value={experience.role} isAurora={isAurora} />
+                    <InfoItem
+                      icon={<FaMicrochip />}
+                      label="Stack"
+                      value={experience.tech.label}
+                      isAurora={isAurora}
+                    />
+                    <InfoItem
+                      icon={<FaCalendar />}
+                      label="Période"
+                      value={experience.date}
+                      isAurora={isAurora}
+                    />
+                    <InfoItem
+                      icon={<FaUsers />}
+                      label="Rôle"
+                      value={experience.role}
+                      isAurora={isAurora}
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -145,7 +192,11 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                   </div>
 
                   <div className="space-y-4">
-                    <p className={`text-sm font-medium leading-relaxed ${isAurora ? "text-slate-700" : "text-gray-100"}`}>
+                    <p
+                      className={`text-sm font-medium leading-relaxed ${
+                        isAurora ? "text-slate-700" : "text-gray-100"
+                      }`}
+                    >
                       {experience.impact}
                     </p>
                     <div className={strategyCardClasses}>
@@ -153,10 +204,17 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                         <p className={sectionLabel}>{isFrench ? "Défis" : "Challenges"}</p>
                         <div className="mt-2 space-y-3">
                           {experience.bullets.slice(0, 2).map((bullet, index) => (
-                            <div key={`challenge-${index}`} className="flex items-start gap-2 text-sm">
-                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                              <span className={isAurora ? "text-slate-600" : "text-slate-300"}>{emphasize(bullet, isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold")}</span>
-                            </div>
+                            <p
+                              key={`challenge-${index}`}
+                              className={`text-sm leading-relaxed ${
+                                isAurora ? "text-slate-600" : "text-slate-300"
+                              }`}
+                            >
+                              {emphasize(
+                                bullet,
+                                isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold"
+                              )}
+                            </p>
                           ))}
                         </div>
                       </div>
@@ -164,10 +222,17 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                         <p className={sectionLabel}>{isFrench ? "Actions" : "Actions"}</p>
                         <div className="mt-2 space-y-3">
                           {experience.bullets.slice(2).map((bullet, index) => (
-                            <div key={`action-${index}`} className="flex items-start gap-2 text-sm">
-                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                              <span className={isAurora ? "text-slate-600" : "text-slate-300"}>{emphasize(bullet, isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold")}</span>
-                            </div>
+                            <p
+                              key={`action-${index}`}
+                              className={`text-sm leading-relaxed ${
+                                isAurora ? "text-slate-600" : "text-slate-300"
+                              }`}
+                            >
+                              {emphasize(
+                                bullet,
+                                isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold"
+                              )}
+                            </p>
                           ))}
                         </div>
                       </div>

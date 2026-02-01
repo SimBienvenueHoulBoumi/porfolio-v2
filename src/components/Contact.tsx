@@ -37,7 +37,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="contact"
-      className={`contact-section relative overflow-hidden py-24 px-4 sm:px-8 scroll-mt-16 ${
+      className={`contact-section relative overflow-hidden py-12 px-4 sm:px-8 scroll-mt-16 ${
         hasIntersected ? "scroll-reveal revealed" : "scroll-reveal"
       }`}
     >
@@ -85,7 +85,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
           }
         >
           {(primaryChannel || secondaryChannel) && (
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-2">
               {primaryChannel && (
                 <Button
                   as="a"
@@ -95,6 +95,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                   isAurora={isAurora}
                   variant="primary"
                   size="md"
+                  className="text-xs px-3 py-2"
                 >
                   {primaryChannel.action}
                 </Button>
@@ -108,6 +109,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                   isAurora={isAurora}
                   variant="secondary"
                   size="md"
+                  className="text-xs px-3 py-2"
                 >
                   {secondaryChannel.action}
                 </Button>
@@ -189,29 +191,31 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                   href={channel.href}
                   target={channel.external ? "_blank" : undefined}
                   rel={channel.external ? "noopener noreferrer" : undefined}
-                  className={`relative flex overflow-hidden rounded-2xl border px-6 py-6 transition-all duration-500 hover-lift hover-glow group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${channelCard} ${hasIntersected ? "animate-scale-in" : ""}`}
+                  className={`relative flex overflow-hidden rounded-2xl border px-5 py-4 transition-all duration-500 hover-lift hover-glow group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${channelCard} ${
+                    hasIntersected ? "animate-scale-in" : ""
+                  }`}
                   style={{ animationDelay: `${content.channels.indexOf(channel) * 100}ms` }}
                   aria-label={channel.action}
                 >
-                  <div className="relative z-10 flex w-full flex-col gap-4">
+                  <div className="relative z-10 flex w-full flex-col gap-3">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <span
-                          className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
+                          className={`flex h-9 w-9 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
                             isAurora
                               ? "bg-cyan-500 text-white shadow-cyan-200/40"
                               : "bg-cyan-500 text-slate-950"
                           }`}
                         >
-                          <Icon className="text-lg transition-transform duration-300 group-hover:scale-125" />
+                          <Icon className="text-base transition-transform duration-300 group-hover:scale-125" />
                         </span>
                         <div>
-                          <p className={`text-sm font-semibold ${isAurora ? "text-slate-800" : "text-white"}`}>
+                          <p className={`text-xs font-semibold ${isAurora ? "text-slate-800" : "text-white"}`}>
                             {channel.label}
                           </p>
                           {channel.badge && (
                             <span
-                              className={`mt-1 inline-flex items-center rounded-full px-2 py-1 text-[11px] font-medium ${
+                              className={`mt-1 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${
                                 isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/20 text-cyan-200"
                               }`}
                             >
@@ -221,11 +225,11 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                         </div>
                       </div>
                     </div>
-                    <p className={`text-sm leading-relaxed ${isAurora ? "text-slate-600" : "text-gray-400"}`}>
+                    <p className={`text-xs leading-relaxed ${isAurora ? "text-slate-600" : "text-gray-400"}`}>
                       {channel.description}
                     </p>
                     <span
-                      className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] ${
+                      className={`inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] ${
                         isAurora ? "text-slate-600" : "text-cyan-300"
                       }`}
                     >
