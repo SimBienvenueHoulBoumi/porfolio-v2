@@ -8,9 +8,9 @@ const ThemeToggle = () => {
   const isAurora = theme === "aurora";
 
 const baseClasses = isAurora
-    ? "border-slate-200/80 bg-white text-slate-800 shadow-lg shadow-cyan-200/25 hover:border-cyan-300 hover:bg-cyan-50 focus-visible:ring-offset-white"
-    : "border-blue-500/40 bg-slate-950/70 text-blue-200 shadow-lg shadow-blue-500/20 hover:border-blue-300 hover:bg-slate-900 focus-visible:ring-offset-slate-950";
-  const ringClass = isAurora ? "focus-visible:ring-cyan-400/60" : "focus-visible:ring-blue-400/60";
+    ? "border-slate-200/80 bg-white text-slate-800 shadow-lg shadow-emerald-200/25 hover:border-emerald-300 hover:bg-emerald-50 focus-visible:ring-offset-white"
+    : "border-emerald-500/40 bg-slate-950/70 text-emerald-200 shadow-lg shadow-emerald-500/25 hover:border-emerald-300 hover:bg-slate-900 focus-visible:ring-offset-slate-950";
+  const ringClass = isAurora ? "focus-visible:ring-emerald-400/60" : "focus-visible:ring-emerald-400/60";
 
   const label = "Basculer le thème";
   const tooltip = "Changer le thème visuel";
@@ -34,12 +34,12 @@ const baseClasses = isAurora
       )}
       <span
         className={`absolute inset-0 -z-10 rounded-full opacity-0 transition-opacity group-hover:opacity-100 ${
-          isAurora ? "bg-cyan-200/40 blur" : "bg-blue-500/20 blur"
+          isAurora ? "bg-emerald-200/40 blur" : "bg-emerald-500/20 blur"
         }`}
       />
       <span
         className={`pointer-events-none absolute bottom-0 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full transition-all duration-200 ${
-          isAurora ? "bg-cyan-400 group-hover:w-8" : "bg-blue-400 group-hover:w-8"
+          isAurora ? "bg-emerald-400 group-hover:w-8" : "bg-emerald-400 group-hover:w-8"
         }`}
       />
     </button>

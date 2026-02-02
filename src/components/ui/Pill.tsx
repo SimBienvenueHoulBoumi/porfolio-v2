@@ -11,8 +11,8 @@ const pillStyles: Record<ThemeVariant, Record<PillVariant, string>> = {
     outline: "border border-slate-300 text-slate-600",
   },
   neon: {
-    solid: "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30",
-    outline: "border border-cyan-400 text-cyan-200",
+    solid: "bg-emerald-500/10 text-emerald-200 border border-emerald-500/30",
+    outline: "border border-emerald-400 text-emerald-200",
   },
 };
 

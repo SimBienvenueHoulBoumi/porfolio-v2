@@ -41,7 +41,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
 
   const sectionLabel = isAurora
     ? "text-xs uppercase tracking-[0.35em] text-slate-500"
-    : "text-xs uppercase tracking-[0.35em] text-cyan-300";
+    : "text-xs uppercase tracking-[0.35em] text-emerald-300";
   const isFrench = content.title.toLowerCase().includes("exp");
   const highlightHeadingText = isFrench ? "Résultats clés" : "Key outcomes";
   const strategyCardClasses = "grid gap-4 sm:grid-cols-2";
@@ -65,8 +65,8 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
             }}
           />
         </div>
-        <div className="absolute -top-20 left-1/3 h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl" />
-        <div className="absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="absolute -top-20 left-1/3 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl" />
+        <div className="absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-emerald-400/15 blur-3xl" />
       </div>
 
       <div className="layout-shell relative z-10 flex flex-col gap-12">
@@ -75,9 +75,9 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
           title={content.title}
           description={content.subtitle}
         >
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono uppercase tracking-[0.35em] text-cyan-400">
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono uppercase tracking-[0.35em] text-emerald-300">
             <span>{content.experiences[0]?.date.split("–")[0]?.trim() ?? ""}</span>
-            <FaArrowRight className="text-cyan-500" />
+            <FaArrowRight className="text-emerald-400" />
             <span>{content.experiences.at(-1)?.date.split("–").pop()?.trim() ?? ""}</span>
           </div>
         </SectionHeader>
@@ -85,7 +85,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
         <div className="relative">
           <div
             className={`absolute left-6 top-0 hidden h-full w-[3px] -translate-x-1/2 rounded-full blur-sm sm:block ${
-              isAurora ? "bg-cyan-300/50" : "bg-cyan-500/50"
+              isAurora ? "bg-emerald-300/50" : "bg-emerald-500/50"
             }`}
           />
           <div className="space-y-10 sm:pl-4">
@@ -103,15 +103,15 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                 <div
                   className={`absolute -left-6 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg sm:block ${
                     isAurora
-                      ? "border border-cyan-300 bg-cyan-400/60 group-hover:bg-cyan-500"
-                      : "border border-cyan-400 bg-cyan-500/50 group-hover:bg-cyan-400"
+                      ? "border border-emerald-300 bg-emerald-400/60 group-hover:bg-emerald-500"
+                      : "border border-emerald-500 bg-emerald-500/50 group-hover:bg-emerald-400"
                   }`}
                 />
 
                 <div className="space-y-6">
                   <div className="flex flex-wrap items-center gap-6">
                     <div className="flex items-center gap-3">
-                      <FaBuilding className="text-cyan-500" />
+                      <FaBuilding className="text-emerald-400" />
                       <div className="flex flex-col">
                         <span
                           className={`text-sm font-semibold ${
@@ -130,7 +130,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <FaUsers className="text-cyan-500" />
+                      <FaUsers className="text-emerald-400" />
                       <div className="flex flex-col">
                         <span
                           className={`text-sm font-semibold ${
@@ -210,7 +210,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                             >
                               {emphasize(
                                 bullet,
-                                isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold"
+                                isAurora ? "text-emerald-600 font-semibold" : "text-emerald-300 font-semibold"
                               )}
                             </p>
                           ))}
@@ -228,7 +228,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                             >
                               {emphasize(
                                 bullet,
-                                isAurora ? "text-cyan-600 font-semibold" : "text-cyan-300 font-semibold"
+                                isAurora ? "text-emerald-600 font-semibold" : "text-emerald-300 font-semibold"
                               )}
                             </p>
                           ))}

@@ -19,16 +19,16 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
   const isAurora = theme === "aurora";
 
   const primaryPanel = isAurora
-    ? "border-cyan-200/70 !bg-white text-slate-700 shadow-cyan-200/30"
-    : "border-cyan-500/30 bg-gray-950/80 text-gray-200 shadow-cyan-500/20";
+    ? "border-emerald-200/70 !bg-white text-slate-700 shadow-emerald-200/30"
+    : "border-emerald-500/30 bg-gray-950/80 text-gray-200 shadow-emerald-500/25";
 
   const stepCard = isAurora
-    ? "border-cyan-200/60 !bg-white"
-    : "border-cyan-500/30 bg-gray-900/70";
+    ? "border-emerald-200/60 !bg-white"
+    : "border-emerald-500/30 bg-gray-900/70";
 
   const channelCard = isAurora
-    ? "border-cyan-200/70 !bg-white text-slate-700 shadow-cyan-200/30 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-white"
-    : "border-cyan-500/25 bg-gray-900/80 text-gray-200 shadow-cyan-500/20 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-gray-950";
+    ? "border-emerald-200/70 !bg-white text-slate-700 shadow-emerald-200/30 focus-visible:ring-emerald-400/50 focus-visible:ring-offset-white"
+    : "border-emerald-500/25 bg-gray-900/80 text-gray-200 shadow-emerald-500/25 focus-visible:ring-emerald-400/50 focus-visible:ring-offset-gray-950";
 
   const primaryChannel = content.channels[0];
   const secondaryChannel = content.channels[1];
@@ -62,8 +62,8 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
               }}
             />
           </div>
-          <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/15 blur-3xl" />
-          <div className="absolute -bottom-20 right-1/3 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl" />
+        <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-500/15 blur-3xl" />
+        <div className="absolute -bottom-20 right-1/3 h-64 w-64 rounded-full bg-emerald-400/15 blur-3xl" />
         </div>
       )}
 
@@ -126,7 +126,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
               <div className="relative z-10 space-y-6">
                 <span
                   className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] ${
-                    isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/15 text-cyan-200"
+                    isAurora ? "bg-slate-100 text-slate-700" : "bg-emerald-500/15 text-emerald-200"
                   }`}
                 >
                   <FiZap className="text-sm" />
@@ -149,7 +149,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                         >
                           {step.accent}
                         </span>
-                        <span className={`text-[11px] uppercase tracking-[0.35em] ${isAurora ? "text-slate-500" : "text-cyan-200/80"}`}>
+                        <span className={`text-[11px] uppercase tracking-[0.35em] ${isAurora ? "text-slate-500" : "text-emerald-200/80"}`}>
                           Étape
                         </span>
                       </div>
@@ -165,12 +165,12 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {content.callouts.map((callout) => (
                 <div
                   key={callout.label}
                   className={`rounded-2xl border px-5 py-4 text-left backdrop-blur-md transition-colors ${
-                    isAurora ? "border-cyan-200/70 bg-white text-slate-700" : "border-cyan-500/25 bg-gray-900/70 text-gray-200"
+                    isAurora ? "border-emerald-200/70 bg-white text-slate-700" : "border-emerald-500/25 bg-gray-900/70 text-gray-200"
                   }`}
                 >
                   <p className="text-xs uppercase tracking-[0.35em] opacity-80">{callout.label}</p>
@@ -203,8 +203,8 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                         <span
                           className={`flex h-9 w-9 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
                             isAurora
-                              ? "bg-cyan-500 text-white shadow-cyan-200/40"
-                              : "bg-cyan-500 text-slate-950"
+                              ? "bg-emerald-500 text-white shadow-emerald-200/40"
+                              : "bg-emerald-500 text-slate-950"
                           }`}
                         >
                           <Icon className="text-base transition-transform duration-300 group-hover:scale-125" />
@@ -216,7 +216,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                           {channel.badge && (
                             <span
                               className={`mt-1 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                                isAurora ? "bg-slate-100 text-slate-700" : "bg-cyan-500/20 text-cyan-200"
+                                isAurora ? "bg-slate-100 text-slate-700" : "bg-emerald-500/20 text-emerald-200"
                               }`}
                             >
                               {channel.badge}
@@ -230,7 +230,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
                     </p>
                     <span
                       className={`inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] ${
-                        isAurora ? "text-slate-600" : "text-cyan-300"
+                        isAurora ? "text-slate-600" : "text-emerald-300"
                       }`}
                     >
                       {channel.action}

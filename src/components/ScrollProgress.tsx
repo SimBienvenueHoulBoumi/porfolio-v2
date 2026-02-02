@@ -23,7 +23,7 @@ export default function ScrollProgress() {
     return () => window.removeEventListener("scroll", updateScrollProgress);
   }, []);
 
-  const barColor = isAurora ? "bg-cyan-500" : "bg-cyan-500";
+  const barColor = isAurora ? "bg-emerald-500" : "bg-emerald-500";
 
   return (
     <div

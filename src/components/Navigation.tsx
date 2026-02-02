@@ -44,19 +44,19 @@ export default function Navigation() {
 
   const navBg = isAurora
     ? isElevated
-      ? "bg-white/95 backdrop-blur-xl border-b border-cyan-200/60 shadow-xl shadow-cyan-200/30 backdrop-premium"
+      ? "bg-white/95 backdrop-blur-xl border-b border-emerald-200/60 shadow-xl shadow-emerald-200/30 backdrop-premium"
       : "bg-white/75 backdrop-blur-md border-b border-transparent shadow-none backdrop-premium"
     : isElevated
-      ? "bg-gray-950/95 backdrop-blur-xl border-b border-cyan-500/40 shadow-xl shadow-cyan-900/50 backdrop-premium"
+      ? "bg-gray-950/95 backdrop-blur-xl border-b border-emerald-500/40 shadow-xl shadow-emerald-900/50 backdrop-premium"
       : "bg-gray-950/50 backdrop-blur-md border-b border-transparent shadow-none backdrop-premium";
 
   const activeButton = isAurora
-    ? "bg-cyan-500/20 text-cyan-600"
-    : "bg-cyan-500/20 text-cyan-400";
+    ? "bg-emerald-500/15 text-emerald-700"
+    : "bg-emerald-500/20 text-emerald-300";
 
   const inactiveButton = isAurora
-    ? "text-slate-600 hover:text-cyan-600 hover:bg-slate-100/50"
-    : "text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50";
+    ? "text-slate-600 hover:text-emerald-700 hover:bg-slate-100/50"
+    : "text-gray-300 hover:text-emerald-300 hover:bg-gray-800/50";
 
   return (
     <nav
@@ -73,15 +73,15 @@ export default function Navigation() {
           >
             <span
               className={`flex h-9 w-9 items-center justify-center rounded-2xl ${
-                isAurora ? "bg-cyan-500" : "bg-cyan-500"
-              } text-sm font-extrabold text-white shadow-lg shadow-cyan-500/40 group-hover:scale-105 transition-transform`}
+                isAurora ? "bg-emerald-500" : "bg-emerald-500"
+              } text-sm font-extrabold text-white shadow-lg shadow-emerald-500/40 group-hover:scale-105 transition-transform`}
             >
               SF
             </span>
             <span className="flex flex-col leading-tight text-left">
               <span
                 className={`text-[10px] font-semibold uppercase tracking-[0.6em] ${
-                  isAurora ? "text-slate-500/80" : "text-cyan-100/70"
+                  isAurora ? "text-slate-500/80" : "text-emerald-100/70"
                 }`}
               >
                 Sim
@@ -108,7 +108,7 @@ export default function Navigation() {
               >
                 <span className="relative z-10">{item.label}</span>
                 {activeSection === item.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400 shadow-glow-premium" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-400 shadow-glow-premium" />
                 )}
               </button>
             ))}
@@ -143,16 +143,16 @@ function MobileMenu({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const panelBg = isAurora
-    ? "bg-white/95 text-slate-800 border border-cyan-100 shadow-cyan-200/40"
-    : "bg-gray-900/95 text-gray-50 border border-cyan-500/20 shadow-cyan-900/30";
-  const brandColor = isAurora ? "text-cyan-600" : "text-cyan-300";
+    ? "bg-white/95 text-slate-800 border border-emerald-100 shadow-emerald-200/40"
+    : "bg-gray-900/95 text-gray-50 border border-emerald-500/25 shadow-emerald-900/30";
+  const brandColor = isAurora ? "text-emerald-600" : "text-emerald-300";
 
   return (
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`p-2 transition-colors ${
-          isAurora ? "text-slate-600 hover:text-cyan-600" : "text-gray-300 hover:text-cyan-400"
+          isAurora ? "text-slate-600 hover:text-emerald-700" : "text-gray-300 hover:text-emerald-300"
         }`}
         aria-label="Menu"
         aria-expanded={isOpen}
@@ -187,8 +187,8 @@ function MobileMenu({
                 <div className="flex items-center gap-3">
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-3xl ${
-                      isAurora ? "bg-cyan-500" : "bg-cyan-500"
-                    } text-sm font-extrabold text-white shadow-lg shadow-cyan-500/40`}
+                      isAurora ? "bg-emerald-500" : "bg-emerald-500"
+                    } text-sm font-extrabold text-white shadow-lg shadow-emerald-500/40`}
                   >
                     SF
                   </span>
@@ -228,8 +228,8 @@ function MobileMenu({
                     className={`block w-full rounded-2xl px-4 py-3 text-left font-medium transition-all ${
                       isActive
                         ? isAurora
-                          ? "bg-cyan-50 text-cyan-600 shadow-inner shadow-cyan-100"
-                          : "bg-gray-800 text-cyan-300 shadow-inner shadow-cyan-900/30"
+                          ? "bg-emerald-50 text-emerald-700 shadow-inner shadow-emerald-100"
+                          : "bg-gray-800 text-emerald-300 shadow-inner shadow-emerald-900/30"
                         : "text-inherit hover:bg-white/5"
                     }`}
                 >

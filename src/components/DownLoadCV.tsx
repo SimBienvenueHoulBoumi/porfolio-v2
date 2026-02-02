@@ -18,12 +18,12 @@ const DownLoadCV = () => {
   const isAurora = theme === "aurora";
 
   const containerClasses = isAurora
-    ? "flex flex-col items-center gap-4 rounded-3xl border border-cyan-200/70 bg-white px-4 py-4 text-center shadow-[0_24px_60px_rgba(97,218,251,0.12)] sm:px-6 sm:py-6 sm:flex-row sm:items-center sm:justify-between sm:text-left"
-    : "flex flex-col items-center gap-4 rounded-3xl border border-cyan-500/25 bg-slate-950/75 px-4 py-4 text-center shadow-2xl shadow-cyan-500/20 backdrop-blur-xl sm:px-6 sm:py-6 sm:flex-row sm:items-center sm:justify-between sm:text-left";
+    ? "flex flex-col items-center gap-4 rounded-3xl border border-emerald-200/70 bg-white px-4 py-4 text-center shadow-[0_24px_60px_rgba(15,23,42,0.12)] sm:px-6 sm:py-6 sm:flex-row sm:items-center sm:justify-between sm:text-left"
+    : "flex flex-col items-center gap-4 rounded-3xl border border-emerald-500/25 bg-slate-950/75 px-4 py-4 text-center shadow-2xl shadow-emerald-500/25 backdrop-blur-xl sm:px-6 sm:py-6 sm:flex-row sm:items-center sm:justify-between sm:text-left";
 
   const badgeClasses = isAurora
-    ? "inline-flex items-center gap-2 rounded-full border border-cyan-200/80 bg-cyan-100/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-700"
-    : "inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-cyan-200";
+    ? "inline-flex items-center gap-2 rounded-full border border-emerald-200/80 bg-emerald-50/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-700"
+    : "inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-emerald-200";
 
   const descriptionClass = isAurora ? "text-slate-600" : "text-slate-300";
 
@@ -39,10 +39,10 @@ const DownLoadCV = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={copy.view}
-          className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 ${
+          className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 ${
             isAurora
-              ? "bg-cyan-500 text-white shadow-glow-premium"
-              : "bg-cyan-500 text-slate-950 shadow-glow-premium"
+              ? "bg-emerald-500 text-white shadow-glow-premium"
+              : "bg-emerald-500 text-slate-950 shadow-glow-premium"
           }`}
         >
           <FiEye className="text-sm" />
@@ -51,10 +51,10 @@ const DownLoadCV = () => {
           href={PDF_PATH}
           download
           aria-label={copy.download}
-          className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 ${
+          className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 ${
             isAurora
-              ? "bg-cyan-500 text-white shadow-glow-premium"
-              : "bg-cyan-500 text-slate-950 shadow-glow-premium"
+              ? "bg-emerald-500 text-white shadow-glow-premium"
+              : "bg-emerald-500 text-slate-950 shadow-glow-premium"
           }`}
         >
           <FiDownload className="text-sm" />

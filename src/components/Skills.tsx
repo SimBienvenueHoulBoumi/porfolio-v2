@@ -22,12 +22,12 @@ const Skills: FC<SkillsProps> = ({ content }) => {
   const isAurora = theme === "aurora";
 
   const coreCard = isAurora
-    ? "border-cyan-200/70 bg-white text-slate-700 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-white"
-    : "border-cyan-500/25 bg-slate-950/75 text-gray-200 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-slate-950";
+    ? "border-emerald-200/70 bg-white text-slate-700 focus-visible:ring-emerald-400/50 focus-visible:ring-offset-white"
+    : "border-emerald-500/25 bg-slate-950/75 text-gray-200 focus-visible:ring-emerald-400/50 focus-visible:ring-offset-slate-950";
 
   const loopCard = isAurora
-    ? "border-cyan-200/70 bg-white/80 text-slate-700"
-    : "border-cyan-500/25 bg-slate-950/70 text-gray-200";
+    ? "border-emerald-200/70 bg-white/80 text-slate-700"
+    : "border-emerald-500/25 bg-slate-950/70 text-gray-200";
 
   return (
     <section
@@ -48,8 +48,8 @@ const Skills: FC<SkillsProps> = ({ content }) => {
             }}
           />
         </div>
-        <div className="absolute -top-16 left-1/4 h-60 w-60 rounded-full bg-cyan-500/15 blur-3xl" />
-        <div className="absolute -bottom-12 right-1/3 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="absolute -top-16 left-1/4 h-60 w-60 rounded-full bg-emerald-500/15 blur-3xl" />
+        <div className="absolute -bottom-12 right-1/3 h-72 w-72 rounded-full bg-emerald-400/15 blur-3xl" />
       </div>
 
       <div className="layout-shell relative z-10 flex flex-col gap-12">
@@ -69,7 +69,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="relative z-10 space-y-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                     <Icon className="text-xl transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <div className="space-y-3">
@@ -100,7 +100,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                 style={{ animationDelay: `${(content.coreSkills.length + index) * 100}ms` }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500 text-slate-950 shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500 text-slate-950 shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                     <Icon className="text-sm transition-transform duration-300 group-hover:scale-125" />
                   </span>
                   <p className="text-sm font-semibold">{loop.title}</p>
@@ -114,7 +114,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
         </div>
 
         <div className="space-y-3">
-          <p className={`text-xs uppercase tracking-[0.35em] ${isAurora ? "text-slate-600" : "text-cyan-300"}`}>
+          <p className={`text-xs uppercase tracking-[0.35em] ${isAurora ? "text-slate-600" : "text-emerald-300"}`}>
             {content.secondaryTitle}
           </p>
           <div className="flex flex-wrap gap-2">
@@ -137,7 +137,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
                   href={tool.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400"
+                  className="focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-400"
                 >
                   {pill}
                 </a>

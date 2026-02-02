@@ -35,7 +35,7 @@ export default function SectionHeader({
     : "heading-xl gradient-text";
 
   const descriptionBase = isAurora ? "body-base text-slate-600" : "body-base text-gray-300";
-  const eyebrowClass = isAurora ? "eyebrow-label" : "eyebrow-label text-cyan-300";
+  const eyebrowClass = isAurora ? "eyebrow-label" : "eyebrow-label text-emerald-300";
 
   return (
     <div className={`flex flex-col gap-3 ${alignmentClass[align]} ${className}`}>

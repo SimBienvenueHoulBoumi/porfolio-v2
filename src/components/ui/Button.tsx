@@ -9,7 +9,7 @@ type ThemeVariant = "aurora" | "neon";
 const variantStyles: Record<ThemeVariant, Record<ButtonVariant, string>> = {
   aurora: {
     primary:
-      "bg-cyan-500 text-white border border-cyan-300/70 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium",
+      "bg-emerald-500 text-white border border-emerald-300/70 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium",
     secondary:
       "border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 shadow-glow-premium hover:shadow-glow-premium hover-lift-3d scale-on-hover",
     ghost:
@@ -17,9 +17,9 @@ const variantStyles: Record<ThemeVariant, Record<ButtonVariant, string>> = {
   },
   neon: {
     primary:
-      "bg-cyan-500 text-slate-950 border border-cyan-400/50 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium",
+      "bg-emerald-500 text-slate-950 border border-emerald-400/50 shadow-glow-premium hover:shadow-glow-premium hover:brightness-110 hover-lift-3d btn-premium",
     secondary:
-      "border border-cyan-500/40 text-cyan-200 hover:bg-white/5 shadow-glow-premium hover:shadow-glow-premium hover-lift-3d scale-on-hover",
+      "border border-emerald-500/40 text-emerald-200 hover:bg-white/5 shadow-glow-premium hover:shadow-glow-premium hover-lift-3d scale-on-hover",
     ghost:
       "border border-transparent text-gray-300 hover:bg-white/5 scale-on-hover",
   },
@@ -58,7 +58,7 @@ export default function Button<T extends ElementType = "button">({
     "inline-flex items-center gap-2 rounded-full font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
   const toneClass = variantStyles[theme][variant];
   const sizeClass = sizeStyles[size];
-  const ringColor = isAurora ? "focus-visible:ring-cyan-400/60 focus-visible:ring-offset-white" : "focus-visible:ring-cyan-500/60 focus-visible:ring-offset-slate-950";
+  const ringColor = isAurora ? "focus-visible:ring-emerald-400/60 focus-visible:ring-offset-white" : "focus-visible:ring-emerald-500/60 focus-visible:ring-offset-slate-950";
 
   return (
     <Component className={`${base} ${sizeClass} ${toneClass} ${ringColor} ${className}`} {...rest}>

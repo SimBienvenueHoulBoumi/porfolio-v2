@@ -8,15 +8,15 @@ const CHANNELS = [
     id: "linkedin",
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/sim-bienvenue-houl-boumi/",
-    accent: "bg-cyan-500",
-    ring: "focus-visible:ring-cyan-400/60"
+    accent: "bg-emerald-500",
+    ring: "focus-visible:ring-emerald-400/60"
   },
   {
     id: "github",
     label: "GitHub",
     href: "https://github.com/SimBienvenueHoulBoumi",
     accent: "bg-slate-900",
-    ring: "focus-visible:ring-cyan-400/60"
+    ring: "focus-visible:ring-emerald-400/60"
   },
   {
     id: "email",
@@ -45,13 +45,13 @@ const Banner = () => {
   const isAurora = theme === "aurora";
 
   const containerClasses = isAurora
-    ? "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-200/70 bg-white px-4 py-4 shadow-[0_18px_45px_rgba(97,218,251,0.16)] transition-all duration-500 hover:border-cyan-300/80 sm:px-6 sm:py-6"
-    : "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-950/70 px-4 py-4 shadow-2xl shadow-cyan-500/20 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-cyan-500/30 sm:px-6 sm:py-6";
+    ? "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-emerald-200/70 bg-white px-4 py-4 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-500 hover:border-emerald-300/80 sm:px-6 sm:py-6"
+    : "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-emerald-500/25 bg-slate-950/70 px-4 py-4 shadow-2xl shadow-emerald-500/25 backdrop-blur-xl transition-all duration-500 hover:border-emerald-400/40 hover:shadow-emerald-500/30 sm:px-6 sm:py-6";
 
-  const captionClass = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-cyan-300";
+  const captionClass = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-emerald-300";
   const descriptionClass = isAurora ? "text-sm text-slate-600" : "text-sm text-slate-300";
-  const linkTextClass = isAurora ? "text-slate-700 group-hover:text-cyan-700" : "text-cyan-200 group-hover:text-cyan-100";
-  const arrowColorClass = isAurora ? "text-cyan-500" : "text-cyan-300";
+  const linkTextClass = isAurora ? "text-slate-700 group-hover:text-emerald-700" : "text-emerald-200 group-hover:text-emerald-100";
+  const arrowColorClass = isAurora ? "text-emerald-500" : "text-emerald-300";
 
   return (
     <div className="banner-section relative z-10 mt-4 mb-16 flex justify-center">
@@ -64,7 +64,7 @@ const Banner = () => {
           <div className="flex flex-wrap justify-center gap-3 sm:justify-end">
             {CHANNELS.map(({ id, label, href, accent, ring }) => {
               const Icon = ICON_MAP[id as keyof typeof ICON_MAP];
-              const accentClass = isAurora ? "bg-cyan-500" : accent;
+              const accentClass = isAurora ? "bg-emerald-500" : accent;
               return (
                 <a
                   key={id}
@@ -75,8 +75,8 @@ const Banner = () => {
                   title={label}
                   className={`group flex h-9 w-9 items-center justify-center rounded-full border text-xs font-semibold transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ripple-effect ${
                     isAurora
-                      ? "border-cyan-200/80 hover:border-cyan-300/80 hover:bg-cyan-50 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-white"
-                      : `border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-500/10 hover:shadow-cyan-500/30 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-slate-950 ${ring}`
+                      ? "border-emerald-200/80 hover:border-emerald-300/80 hover:bg-emerald-50 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-white"
+                      : `border-emerald-400/25 hover:border-emerald-400/40 hover:bg-emerald-500/10 hover:shadow-emerald-500/30 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-slate-950 ${ring}`
                   }`}
                 >
                   <span

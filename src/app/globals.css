@@ -392,10 +392,10 @@ html {
 .text-gradient-animated {
   background: linear-gradient(
     90deg,
-    #61dafb,
-    #00d9ff,
-    #4ec9e6,
-    #61dafb
+    #16a34a,
+    #38bdf8,
+    #facc15,
+    #16a34a
   );
   background-size: 200% auto;
   background-clip: text;
@@ -563,10 +563,10 @@ section {
   --aurora-border-soft: rgba(34, 197, 94, 0.3);
   --aurora-card: #ffffff;
   --aurora-card-strong: #ffffff;
-  /* Accent un peu plus soutenu pour un meilleur contraste sur fond clair */
-  --aurora-accent-one: #16a34a; /* light green */
-  --aurora-accent-two: #22c55e;
-  --aurora-accent-three: #4ade80;
+  /* Accents: vert (primaire), bleu (secondaire), jaune (accent) */
+  --aurora-accent-one: #16a34a; /* green */
+  --aurora-accent-two: #38bdf8; /* blue */
+  --aurora-accent-three: #facc15; /* yellow */
   background:
     radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.2), transparent 55%),
     radial-gradient(circle at 80% 30%, rgba(34, 197, 94, 0.15), transparent 52%),
@@ -867,17 +867,17 @@ section {
 }
 
 .availability-badge {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
+  background: linear-gradient(135deg, #16a34a, #38bdf8, #facc15);
   color: #f8fafc;
   border: 1px solid rgba(34, 197, 94, 0.45);
-  box-shadow: 0 16px 32px -20px rgba(34, 197, 94, 0.8);
+  box-shadow: 0 16px 32px -20px rgba(34, 197, 94, 0.6);
 }
 
 .theme-aurora .availability-badge {
-  background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+  background: linear-gradient(135deg, #16a34a, #38bdf8, #facc15) !important;
   color: #ffffff !important;
   border-color: rgba(34, 197, 94, 0.6) !important;
-  box-shadow: 0 16px 28px -18px rgba(34, 197, 94, 0.5) !important;
+  box-shadow: 0 16px 28px -18px rgba(34, 197, 94, 0.6) !important;
 }
 
 /* Enhanced Visual Effects */

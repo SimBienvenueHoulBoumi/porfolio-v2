@@ -13,8 +13,8 @@ const SocialBanger = () => {
       <div
         className={`h-44 w-44 sm:h-48 sm:w-48 lg:h-52 lg:w-52 rounded-full p-[2px] ${
           isAurora
-            ? "border border-cyan-200/70 bg-[#f7fbff]/90 shadow-[0_22px_55px_rgba(15,23,42,0.12)]"
-            : "border border-cyan-500/35 bg-slate-950/80 shadow-[0_22px_55px_rgba(0,0,0,0.75)] backdrop-blur-md"
+            ? "border border-emerald-200/70 bg-[#f4fff7]/90 shadow-[0_22px_55px_rgba(15,23,42,0.12)]"
+            : "border border-emerald-500/35 bg-slate-950/80 shadow-[0_22px_55px_rgba(0,0,0,0.75)] backdrop-blur-md"
         }`}
       >
         <div className="h-full w-full overflow-hidden rounded-full">
