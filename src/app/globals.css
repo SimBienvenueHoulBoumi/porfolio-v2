@@ -559,18 +559,18 @@ section {
   --aurora-text-primary: #212529;
   --aurora-text-secondary: #495057;
   --aurora-muted: #6c757d;
-  --aurora-border: rgba(97, 218, 251, 0.5);
-  --aurora-border-soft: rgba(97, 218, 251, 0.3);
+  --aurora-border: rgba(34, 197, 94, 0.5);
+  --aurora-border-soft: rgba(34, 197, 94, 0.3);
   --aurora-card: #ffffff;
   --aurora-card-strong: #ffffff;
   /* Accent un peu plus soutenu pour un meilleur contraste sur fond clair */
-  --aurora-accent-one: #0284c7;
-  --aurora-accent-two: #00d9ff;
-  --aurora-accent-three: #00a8cc;
+  --aurora-accent-one: #16a34a; /* light green */
+  --aurora-accent-two: #22c55e;
+  --aurora-accent-three: #4ade80;
   background:
-    radial-gradient(circle at 20% 20%, rgba(97, 218, 251, 0.2), transparent 55%),
-    radial-gradient(circle at 80% 30%, rgba(97, 218, 251, 0.15), transparent 52%),
-    radial-gradient(circle at 10% 80%, rgba(97, 218, 251, 0.18), transparent 55%),
+    radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.2), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(34, 197, 94, 0.15), transparent 52%),
+    radial-gradient(circle at 10% 80%, rgba(34, 197, 94, 0.18), transparent 55%),
     #ffffff;
   color: var(--aurora-text-primary);
 }
@@ -581,8 +581,8 @@ section {
 }
 
 .theme-aurora .hero-section {
-  /* Légère teinte bleu très claire pour éviter un blanc pur */
-  background-color: #f7fbff;
+  /* Légère teinte vert très claire pour éviter un blanc pur */
+  background-color: #f4fff7;
   color: inherit;
 }
 
@@ -592,18 +592,18 @@ section {
 }
 
 .theme-aurora .experience-section {
-  /* Légère alternance avec un gris-bleu très doux */
-  background-color: #f3f7fb;
+  /* Légère alternance avec un gris-vert très doux */
+  background-color: #f1fbf3;
 }
 
 .theme-aurora .contact-section {
-  /* Même famille de couleur, très léger bleu-gris */
-  background-color: #f6f9ff;
+  /* Même famille de couleur, très léger vert-gris */
+  background-color: #f4fdf6;
 }
 
 .theme-aurora .footer-section {
   /* Pied de page un peu plus marqué mais toujours clair */
-  background-color: #e9f2ff;
+  background-color: #e4fbee;
   color: var(--aurora-text-secondary);
   border-color: rgba(97, 218, 251, 0.5);
 }
@@ -730,7 +730,7 @@ section {
 .theme-aurora .bg-cyan-500\/20,
 .theme-aurora .bg-blue-500\/20,
 .theme-aurora [class*="bg-sky-"] {
-  background-color: rgba(97, 218, 251, 0.25) !important;
+  background-color: rgba(34, 197, 94, 0.25) !important;
 }
 
 .theme-aurora .shadow-cyan-500\/40,
@@ -738,7 +738,7 @@ section {
 .theme-aurora .shadow-blue-500\/10,
 .theme-aurora .shadow-green-500\/10,
 .theme-aurora [class*="shadow-sky-"] {
-  --tw-shadow-color: rgba(97, 218, 251, 0.3) !important;
+  --tw-shadow-color: rgba(34, 197, 94, 0.3) !important;
   box-shadow: 0 25px 45px -20px var(--tw-shadow-color);
 }
 
@@ -867,17 +867,17 @@ section {
 }
 
 .availability-badge {
-  background: linear-gradient(135deg, #61dafb, #00d9ff);
+  background: linear-gradient(135deg, #16a34a, #22c55e);
   color: #f8fafc;
-  border: 1px solid rgba(97, 218, 251, 0.45);
-  box-shadow: 0 16px 32px -20px rgba(97, 218, 251, 0.8);
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  box-shadow: 0 16px 32px -20px rgba(34, 197, 94, 0.8);
 }
 
 .theme-aurora .availability-badge {
-  background: linear-gradient(135deg, #61dafb, #00d9ff) !important;
+  background: linear-gradient(135deg, #16a34a, #22c55e) !important;
   color: #ffffff !important;
-  border-color: rgba(97, 218, 251, 0.6) !important;
-  box-shadow: 0 16px 28px -18px rgba(97, 218, 251, 0.5) !important;
+  border-color: rgba(34, 197, 94, 0.6) !important;
+  box-shadow: 0 16px 28px -18px rgba(34, 197, 94, 0.5) !important;
 }
 
 /* Enhanced Visual Effects */
@@ -943,13 +943,13 @@ section {
   position: relative;
 }
 
-.border-glow::before {
+ .border-glow::before {
   content: "";
   position: absolute;
   inset: -2px;
   border-radius: inherit;
   padding: 2px;
-  background: linear-gradient(135deg, #61dafb, #00d9ff, #4ec9e6, #61dafb);
+  background: linear-gradient(135deg, #16a34a, #22c55e, #4ade80, #16a34a);
   background-size: 200% 200%;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

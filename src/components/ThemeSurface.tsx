@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react";
 import { useTheme } from "@/context/ThemeContext";
-import FloatingThemeToggle from "./FloatingThemeToggle";
 
 export const ThemeSurface = ({ children }: { children: ReactNode }) => {
   const { theme } = useTheme();
@@ -14,7 +13,6 @@ export const ThemeSurface = ({ children }: { children: ReactNode }) => {
   return (
     <div className={`${surfaceClass} min-h-screen font-sans transition-colors duration-500`}>
       {children}
-      <FloatingThemeToggle />
     </div>
   );
 };

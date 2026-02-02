@@ -12,9 +12,9 @@ export const heroContent: HeroContent = {
   ],
   headline: ["Ingénieur DevOps", "&", "Spécialiste backend"],
   highlights: [
-    { label: "Pipelines Jenkins", value: "Build → Test → Sécu" },
+    { label: "Pipelines CI/CD", value: "Jenkins · Build → Test → Sécu" },
     { label: "Quality gate", value: "Trivy + SonarQube" },
-    { label: "Stack locale", value: "Docker Compose complet" }
+    { label: "Plateforme locale", value: "Docker Compose complet" }
   ],
   ctaPrimary: "Planifier un call",
   ctaSecondary: "Voir le portfolio",

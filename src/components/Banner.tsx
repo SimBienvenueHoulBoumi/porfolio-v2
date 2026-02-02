@@ -45,8 +45,8 @@ const Banner = () => {
   const isAurora = theme === "aurora";
 
   const containerClasses = isAurora
-    ? "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-200/70 bg-white px-6 py-6 shadow-[0_18px_45px_rgba(97,218,251,0.16)] transition-all duration-500 hover:border-cyan-300/80"
-    : "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-950/70 px-6 py-6 shadow-2xl shadow-cyan-500/20 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-cyan-500/30";
+    ? "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-200/70 bg-white px-4 py-4 shadow-[0_18px_45px_rgba(97,218,251,0.16)] transition-all duration-500 hover:border-cyan-300/80 sm:px-6 sm:py-6"
+    : "relative w-full max-w-3xl overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-950/70 px-4 py-4 shadow-2xl shadow-cyan-500/20 backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/40 hover:shadow-cyan-500/30 sm:px-6 sm:py-6";
 
   const captionClass = isAurora ? "text-xs uppercase tracking-[0.35em] text-slate-500" : "text-xs uppercase tracking-[0.35em] text-cyan-300";
   const descriptionClass = isAurora ? "text-sm text-slate-600" : "text-sm text-slate-300";
@@ -61,7 +61,7 @@ const Banner = () => {
             <p className={captionClass}>{copy.caption}</p>
             <p className={descriptionClass}>{copy.description}</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-2 sm:justify-end">
+          <div className="flex flex-wrap justify-center gap-3 sm:justify-end">
             {CHANNELS.map(({ id, label, href, accent, ring }) => {
               const Icon = ICON_MAP[id as keyof typeof ICON_MAP];
               const accentClass = isAurora ? "bg-cyan-500" : accent;
@@ -71,21 +71,20 @@ const Banner = () => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group inline-flex items-center justify-between w-[200px] sm:w-[220px] rounded-full border px-3 py-1.5 text-xs font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ripple-effect ${
+                  aria-label={label}
+                  title={label}
+                  className={`group flex h-9 w-9 items-center justify-center rounded-full border text-xs font-semibold transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ripple-effect ${
                     isAurora
                       ? "border-cyan-200/80 hover:border-cyan-300/80 hover:bg-cyan-50 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-white"
                       : `border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-500/10 hover:shadow-cyan-500/30 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-slate-950 ${ring}`
                   }`}
                 >
                   <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${accentClass}`}
+                    className={`flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${accentClass}`}
                   >
                     <Icon className="text-sm transition-transform duration-300 group-hover:scale-125" />
                   </span>
-                  <span className={`transition-colors duration-300 ${linkTextClass}`}>{label}</span>
-                  <FiArrowUpRight
-                    className={`text-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:scale-110 ${arrowColorClass}`}
-                  />
+                  <span className="sr-only">{label}</span>
                 </a>
               );
             })}

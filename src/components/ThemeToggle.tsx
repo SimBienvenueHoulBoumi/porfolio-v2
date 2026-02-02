@@ -12,28 +12,24 @@ const baseClasses = isAurora
     : "border-blue-500/40 bg-slate-950/70 text-blue-200 shadow-lg shadow-blue-500/20 hover:border-blue-300 hover:bg-slate-900 focus-visible:ring-offset-slate-950";
   const ringClass = isAurora ? "focus-visible:ring-cyan-400/60" : "focus-visible:ring-blue-400/60";
 
-  const label = isAurora ? "Activer le thème sombre" : "Activer le thème clair";
-
-  const tooltip = isAurora ? "Mode sombre" : "Mode clair";
-  const buttonText = isAurora ? "Sombre" : "Clair";
+  const label = "Basculer le thème";
+  const tooltip = "Changer le thème visuel";
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className={`group relative inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-300 hover:cursor-pointer hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 ripple-effect magnetic shadow-glow-premium hover:shadow-glow-premium ${ringClass} ${baseClasses}`}
+      className={`group relative inline-flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 hover:cursor-pointer hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 ripple-effect magnetic shadow-glow-premium hover:shadow-glow-premium ${ringClass} ${baseClasses}`}
       aria-label={label}
       title={tooltip}
     >
       {isAurora ? (
         <>
           <FiMoon className="text-slate-700 text-sm transition-transform duration-300 group-hover:rotate-12" />
-          <span className="transition-all duration-300">{buttonText}</span>
         </>
       ) : (
         <>
           <FiSun className="text-amber-300 text-sm transition-transform duration-300 group-hover:rotate-90" />
-          <span className="transition-all duration-300">{buttonText}</span>
         </>
       )}
       <span

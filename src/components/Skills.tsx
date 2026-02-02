@@ -65,7 +65,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
             return (
               <div
                 key={skill.id}
-                className={`relative flex h-full flex-col overflow-hidden rounded-3xl border px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group ${coreCard} ${hasIntersected ? "animate-scale-in" : ""}`}
+                className={`relative flex h-full flex-col overflow-hidden rounded-3xl border px-4 py-5 sm:px-6 sm:py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group ${coreCard} ${hasIntersected ? "animate-scale-in" : ""}`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="relative z-10 space-y-4">
@@ -96,7 +96,7 @@ const Skills: FC<SkillsProps> = ({ content }) => {
             return (
               <div
                 key={loop.title}
-                className={`rounded-3xl border px-6 py-7 text-left transition-all duration-300 hover-lift group ${loopCard} ${hasIntersected ? "animate-scale-in" : ""}`}
+                className={`rounded-3xl border px-4 py-5 sm:px-6 sm:py-7 text-left transition-all duration-300 hover-lift group ${loopCard} ${hasIntersected ? "animate-scale-in" : ""}`}
                 style={{ animationDelay: `${(content.coreSkills.length + index) * 100}ms` }}
               >
                 <div className="flex items-center gap-3">

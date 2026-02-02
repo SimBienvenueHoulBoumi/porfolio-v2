@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTheme } from "@/context/ThemeContext";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems: { id: string; label: string }[] = [
   { id: "hero", label: "Accueil" },
@@ -95,7 +96,7 @@ export default function Navigation() {
             </span>
           </button>
           
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-3">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -111,9 +112,11 @@ export default function Navigation() {
                 )}
               </button>
             ))}
+            <ThemeToggle />
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <MobileMenu
               navItems={navItems}
               scrollToSection={scrollToSection}

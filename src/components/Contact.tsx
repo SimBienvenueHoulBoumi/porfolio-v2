@@ -121,7 +121,7 @@ const Contact: FC<{ content: ContactContent }> = ({ content }) => {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,400px)]">
           <div className="space-y-8">
             <div
-              className={`relative overflow-hidden rounded-3xl border backdrop-blur-xl px-8 py-10 sm:px-10 sm:py-12 ${primaryPanel}`}
+              className={`relative overflow-hidden rounded-3xl border backdrop-blur-xl px-5 py-6 sm:px-10 sm:py-12 ${primaryPanel}`}
             >
               <div className="relative z-10 space-y-6">
                 <span

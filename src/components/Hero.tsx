@@ -5,9 +5,10 @@ import {
   FaDocker,
   FaGitAlt,
   FaServer,
-  FaCodeBranch
+  FaCodeBranch,
+  FaReact
 } from "react-icons/fa";
-import { SiKubernetes, SiJenkins, SiAnsible } from "react-icons/si";
+import { SiKubernetes, SiSpringboot } from "react-icons/si";
 import { FiZap, FiTerminal, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 
 import SocialBanger from "./SocialBanger";
@@ -60,10 +61,14 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const typewriterAccent = isAurora ? "text-slate-900" : "text-cyan-500";
   const typewriterCursor = isAurora ? "text-slate-700" : "text-cyan-400";
   const highlightCardClasses = isAurora
-    ? "rounded-2xl border border-cyan-200/70 bg-cyan-100/80 px-4 py-3 text-left shadow-[0_18px_40px_rgba(97,218,251,0.15)] backdrop-blur-sm"
-    : "rounded-2xl border border-cyan-400/30 bg-slate-900 px-4 py-3 text-left shadow-cyan-500/10 backdrop-blur";
-  const highlightLabelClass = isAurora ? "text-slate-600" : "text-cyan-300";
-  const highlightValueClass = isAurora ? "text-slate-900" : "text-cyan-200";
+    ? "relative overflow-hidden rounded-3xl border border-cyan-200/70 bg-gradient-to-br from-cyan-50 via-cyan-100 to-cyan-50 px-6 py-5 text-left shadow-[0_20px_45px_rgba(15,23,42,0.08)] flex flex-col gap-3"
+    : "relative overflow-hidden rounded-3xl border border-cyan-500/35 bg-gradient-to-br from-slate-950 via-slate-950 to-slate-900 px-6 py-5 text-left shadow-[0_22px_50px_rgba(0,0,0,0.65)] flex flex-col gap-3";
+  const highlightLabelClass = isAurora
+    ? "text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-600/90"
+    : "text-[11px] font-semibold uppercase tracking-[0.3em] text-cyan-300/90";
+  const highlightValueClass = isAurora
+    ? "text-[1.6rem] leading-snug font-semibold text-slate-900"
+    : "text-[1.6rem] leading-snug font-semibold text-cyan-100";
   const stackPanelClasses = isAurora
     ? "rounded-3xl border border-cyan-200/70 bg-white/90 p-6 text-left shadow-[0_28px_60px_rgba(97,218,251,0.15)]"
     : "rounded-3xl border border-cyan-400/30 bg-slate-950 p-6 text-left shadow-2xl shadow-cyan-500/20";
@@ -77,8 +82,8 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
     : "mt-2 text-[8px] uppercase tracking-[0.08em] text-cyan-200 leading-tight";
   const stackTextClass = isAurora ? "text-slate-600" : "text-slate-300";
   const introCardClasses = isAurora
-    ? "relative overflow-hidden rounded-3xl border border-cyan-200/60 bg-white px-6 py-8 shadow-[0_32px_70px_rgba(97,218,251,0.18)] backdrop-blur-md sm:px-8 sm:py-10"
-    : "relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-slate-950 px-6 py-8 backdrop-blur-xl sm:px-8 sm:py-10";
+    ? "relative"
+    : "relative";
   const glowGradient = isAurora
     ? "linear-gradient(120deg, rgba(97,218,251,0.16), rgba(224,247,255,0.55), rgba(97,218,251,0.12))"
     : "linear-gradient(120deg, rgba(15,23,42,0.9), rgba(15,23,42,0.9), rgba(15,23,42,0.9))";
@@ -97,10 +102,10 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
   const techCapsules = [
     { Icon: FaDocker, label: "Docker" },
     { Icon: SiKubernetes, label: "Kubernetes" },
+    { Icon: SiSpringboot, label: "Spring Boot" },
+    { Icon: FaReact, label: "React / Next.js" },
     { Icon: FaGitAlt, label: "Git" },
-    { Icon: SiJenkins, label: "Jenkins" },
-    { Icon: SiAnsible, label: "Ansible" },
-    { Icon: FaServer, label: "SRE" }
+    { Icon: FaServer, label: "DevOps" }
   ];
 
   return (
@@ -240,8 +245,8 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ content }, ref) => {
                     key={highlight.label}
                     className={highlightCardClasses}
                   >
-                    <p className={`text-xs font-medium tracking-wide ${highlightLabelClass}`}>{highlight.label}</p>
-                    <p className={`text-2xl font-semibold ${highlightValueClass}`}>{highlight.value}</p>
+                    <span className={highlightLabelClass}>{highlight.label}</span>
+                    <p className={highlightValueClass}>{highlight.value}</p>
                   </div>
                 ))}
               </div>

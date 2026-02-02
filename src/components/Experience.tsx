@@ -44,9 +44,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
     : "text-xs uppercase tracking-[0.35em] text-cyan-300";
   const isFrench = content.title.toLowerCase().includes("exp");
   const highlightHeadingText = isFrench ? "Résultats clés" : "Key outcomes";
-  const strategyCardClasses = isAurora
-    ? "grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_40px_rgba(148,163,184,0.25)] sm:grid-cols-2"
-    : "grid gap-4 rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-4 backdrop-blur sm:grid-cols-2";
+  const strategyCardClasses = "grid gap-4 sm:grid-cols-2";
 
   return (
     <section
@@ -97,7 +95,7 @@ const Experience: FC<ExperienceProps> = ({ content }) => {
                 key={`${experience.company.label}-${experience.role}`}
                 isAurora={isAurora}
                 tone="soft"
-                className={`relative px-6 py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group sm:px-10 ${
+                className={`relative px-4 py-5 sm:px-10 sm:py-7 backdrop-blur-xl transition-all duration-500 hover-lift hover-glow group ${
                   hasIntersected ? "animate-scale-in" : ""
                 }`}
                 style={{ animationDelay: `${index * 150}ms` }}
